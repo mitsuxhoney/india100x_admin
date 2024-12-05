@@ -19,6 +19,7 @@ import SecuritySettings from './pages/SecuritySettings/SecuritySettings'
 import ApiSettings from './pages/ApiSettings/ApiSettings'
 import DefaultConfigs from './pages/DefaultConfigs/DefaultConfigs'
 import CreateProgram from './pages/CreateProgram/CreateProgram'
+import CreateInventory from './pages/CreateInventory/CreateInventory'
 function App() {
   return (
     <ThemeProvider>
@@ -34,6 +35,10 @@ function App() {
           <Route path="/programs/create-program" element={<CreateProgram />} />
           <Route path="/program-managers" element={<ProgramManagers />} />
           <Route path="/inventory" element={<Inventory />} />
+          <Route
+            path="/inventory/create-inventory"
+            element={<CreateInventory />}
+          />
           <Route path="/issued-cards" element={<IssuedCards />} />
           <Route path="/all-customers" element={<AllCustomers />} />
           <Route path="/flagged-customers" element={<FlaggedCustomers />} />

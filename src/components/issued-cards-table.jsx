@@ -59,188 +59,108 @@ import {
 
 const data = [
   {
-    product_id: 1,
-    product: 'Smartphone',
-    stock: 50,
-    price: 599.99,
-    orders: 120,
-    rating: 4.5,
-    published: true,
-    publishedAt: '2024-01-15',
+    id: 1,
+    card_ref_id: '32XY32',
+    status: 'active',
+    last_four_digit: '4444',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 2,
-    product: 'Laptop',
-    stock: 30,
-    price: 1099.99,
-    orders: 75,
-    rating: 4.7,
-    published: true,
-    publishedAt: '2024-02-20',
+    id: 2,
+    card_ref_id: '32XY33',
+    status: 'inactive',
+    last_four_digit: '4445',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 3,
-    product: 'Headphones',
-    stock: 100,
-    price: 199.99,
-    orders: 200,
-    rating: 4.3,
-    published: true,
-    publishedAt: '2024-03-10',
+    id: 3,
+    card_ref_id: '32XY34',
+    status: 'active',
+    last_four_digit: '4446',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 4,
-    product: 'Smartwatch',
-    stock: 40,
-    price: 299.99,
-    orders: 85,
-    rating: 4.4,
-    published: true,
-    publishedAt: '2024-04-05',
+    id: 4,
+    card_ref_id: '32XY35',
+    status: 'inactive',
+    last_four_digit: '4447',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 5,
-    product: 'Tablet',
-    stock: 25,
-    price: 399.99,
-    orders: 50,
-    rating: 4.6,
-    published: true,
-    publishedAt: '2024-05-01',
+    id: 5,
+    card_ref_id: '32XY36',
+    status: 'active',
+    last_four_digit: '4448',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 6,
-    product: 'Wireless Earbuds',
-    stock: 80,
-    price: 149.99,
-    orders: 180,
-    rating: 4.2,
-    published: true,
-    publishedAt: '2024-06-15',
+    id: 6,
+    card_ref_id: '32XY37',
+    status: 'inactive',
+    last_four_digit: '4449',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 7,
-    product: 'Gaming Console',
-    stock: 20,
-    price: 499.99,
-    orders: 95,
-    rating: 4.8,
-    published: true,
-    publishedAt: '2024-07-12',
+    id: 7,
+    card_ref_id: '32XY38',
+    status: 'active',
+    last_four_digit: '4450',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 8,
-    product: 'Action Camera',
-    stock: 15,
-    price: 299.99,
-    orders: 60,
-    rating: 4.5,
-    published: true,
-    publishedAt: '2024-08-18',
+    id: 8,
+    card_ref_id: '32XY39',
+    status: 'inactive',
+    last_four_digit: '4451',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 9,
-    product: 'Bluetooth Speaker',
-    stock: 70,
-    price: 99.99,
-    orders: 150,
-    rating: 4.1,
-    published: true,
-    publishedAt: '2024-09-05',
+    id: 9,
+    card_ref_id: '32XY40',
+    status: 'active',
+    last_four_digit: '4452',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
   {
-    product_id: 10,
-    product: 'Keyboard',
-    stock: 60,
-    price: 79.99,
-    orders: 130,
-    rating: 4.4,
-    published: true,
-    publishedAt: '2024-10-01',
-  },
-  {
-    product_id: 11,
-    product: 'Monitor',
-    stock: 35,
-    price: 249.99,
-    orders: 80,
-    rating: 4.6,
-    published: true,
-    publishedAt: '2024-10-20',
-  },
-  {
-    product_id: 12,
-    product: 'Mouse',
-    stock: 90,
-    price: 49.99,
-    orders: 220,
-    rating: 4.3,
-    published: true,
-    publishedAt: '2024-11-10',
-  },
-  {
-    product_id: 13,
-    product: 'External Hard Drive',
-    stock: 45,
-    price: 129.99,
-    orders: 100,
-    rating: 4.5,
-    published: true,
-    publishedAt: '2024-12-02',
-  },
-  {
-    product_id: 14,
-    product: 'Fitness Tracker',
-    stock: 55,
-    price: 199.99,
-    orders: 90,
-    rating: 4.2,
-    published: true,
-    publishedAt: '2025-01-18',
-  },
-  {
-    product_id: 15,
-    product: 'Graphics Card',
-    stock: 10,
-    price: 699.99,
-    orders: 40,
-    rating: 4.9,
-    published: true,
-    publishedAt: '2025-02-14',
-  },
-  {
-    product_id: 16,
-    product: 'Router',
-    stock: 85,
-    price: 99.99,
-    orders: 140,
-    rating: 4.0,
-    published: true,
-    publishedAt: '2025-03-06',
-  },
-  {
-    product_id: 17,
-    product: 'Smart Home Hub',
-    stock: 30,
-    price: 249.99,
-    orders: 70,
-    rating: 4.4,
-    published: true,
-    publishedAt: '2025-04-12',
-  },
-  {
-    product_id: 18,
-    product: 'Drone',
-    stock: 12,
-    price: 999.99,
-    orders: 35,
-    rating: 4.7,
-    published: true,
-    publishedAt: '2025-05-20',
+    id: 10,
+    card_ref_id: '32XY41',
+    status: 'inactive',
+    last_four_digit: '4453',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
   },
 ]
 
-export function ActivityLogsTable() {
+export function IssuedCardsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -271,82 +191,87 @@ export function ActivityLogsTable() {
     //   enableHiding: false,
     // },
     {
-      accessorKey: 'product_id',
+      accessorKey: 'id',
       header: 'ID',
+      cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
+    },
+    {
+      accessorKey: 'card_ref_id',
+      header: 'Card Ref ID',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product_id')}</div>
+        <div className="capitalize">{row.getValue('card_ref_id')}</div>
       ),
     },
     {
-      accessorKey: 'product',
+      accessorKey: 'status',
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Product
+            Status
             <ArrowUpDown />
           </Button>
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('product')}</div>
+        <div className="lowercase pl-4">{row.getValue('status')}</div>
       ),
     },
     {
-      accessorKey: 'stock',
+      accessorKey: 'last_four_digit',
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Stock
+            Last Four Digits
             <ArrowUpDown />
           </Button>
         )
       },
       cell: ({ row }) => (
-        <div className="capitalize pl-4">{row.getValue('stock')}</div>
+        <div className="capitalize pl-4">{row.getValue('last_four_digit')}</div>
       ),
     },
     {
-      accessorKey: 'price',
-      header: 'Price',
+      accessorKey: 'product_category',
+      header: 'Product Category',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('price')}</div>
+        <div className="capitalize">{row.getValue('product_category')}</div>
       ),
     },
     {
-      accessorKey: 'orders',
-      header: 'Orders',
+      accessorKey: 'add_on_card',
+      header: 'Add on Card',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('orders')}</div>
+        <div className="capitalize">{row.getValue('add_on_card')}</div>
       ),
     },
     {
-      accessorKey: 'rating',
-      header: 'Rating',
+      accessorKey: 'is_physical',
+      header: 'Is Physical',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('rating')}</div>
+        <div className="capitalize">{row.getValue('is_physical')}</div>
       ),
     },
     {
-      accessorKey: 'publishedAt',
+      accessorKey: 'issued_date',
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Published At
+            Issued Date
             <ArrowUpDown />
           </Button>
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('publishedAt')}</div>
+        <div className="lowercase pl-4">{row.getValue('issued_date')}</div>
       ),
     },
     {
@@ -461,7 +386,7 @@ export function ActivityLogsTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Activity Logs</CardTitle>
+        <CardTitle>Issued Cards</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
@@ -501,6 +426,12 @@ export function ActivityLogsTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
+              {/* <Link to="/program/create-program">
+                <Button variant="" className="ml-auto">
+                  {' '}
+                  <CirclePlus /> Add new
+                </Button>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">
