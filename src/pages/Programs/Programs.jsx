@@ -1,5 +1,5 @@
 import { ProgramChart } from "../../components/program-chart"
-import { DataTableDemo } from "../../components/program-table"
+import { ProgramTableDemo } from "../../components/program-table"
 
 const Programs = () => {
   return (
@@ -9,7 +9,7 @@ const Programs = () => {
          <ProgramChart className="aspect-video rounded-xl bg-muted/50"/>
          <ProgramChart className="aspect-video rounded-xl bg-muted/50"/>
       </div>
-      <DataTableDemo className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      <ProgramTableDemo className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
     </div>
   )
 }
