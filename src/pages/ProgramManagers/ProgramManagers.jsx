@@ -1,3 +1,5 @@
+import { ProgramTable } from "../../components/program-manager-table";
+
 const ProgramManagers = () => {
   return (
     <div className="flex flex-col gap-4">
@@ -6,7 +8,7 @@ const ProgramManagers = () => {
         <div className="aspect-video rounded-xl bg-muted/50" />
         <div className="aspect-video rounded-xl bg-muted/50" />
       </div>
-      <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      <ProgramTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
     </div>
   );
 };
