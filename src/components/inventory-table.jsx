@@ -58,125 +58,99 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-      category: 'technology',
-      name: 'John Doe',
-      programmanager: 'Alice Smith',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-01',
-    },
-    {
-      category: 'finance',
-      name: 'Jane Smith',
-      programmanager: 'Michael Brown',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2022-05-10',
-    },
-    {
-      category: 'education',
-      name: 'Alice Johnson',
-      programmanager: 'Chris Evans',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2020-11-15',
-    },
-    {
-      category: 'healthcare',
-      name: 'Bob Lee',
-      programmanager: 'Sophia Martinez',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2021-07-20',
-    },
-    {
-      category: 'retail',
-      name: 'Carmella White',
-      programmanager: 'David Wilson',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '500 - 1000',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-03-22',
-    },
-    {
-      category: 'travel',
-      name: 'Michael Adams',
-      programmanager: 'Emma Clark',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 15000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-02-15',
-    },
-    {
-      category: 'automotive',
-      name: 'Olivia Turner',
-      programmanager: 'Liam Scott',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      minlimit: 700,
-      maxlimit: 8000,
-      rewardapplicable: 'No',
-      launchdate: '2022-08-03',
-    },
-    {
-      category: 'technology',
-      name: 'Sophia Martinez',
-      programmanager: 'Ethan Hall',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 12000,
-      rewardapplicable: 'Yes',
-      launchdate: '2020-05-18',
-    },
-    {
-      category: 'education',
-      name: 'James Wilson',
-      programmanager: 'Olivia Green',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      minlimit: 300,
-      maxlimit: 2500,
-      rewardapplicable: 'No',
-      launchdate: '2021-06-08',
-    },
-    {
-      category: 'retail',
-      name: 'Liam Scott',
-      programmanager: 'Sophia White',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 600,
-      maxlimit: 9000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-11',
-    },
-  
+  {
+    product_id: 1,
+    product_name: 'Smartphone',
+    product_category: 'Example',
+    card_nature: 'virtual',
+    ordered_cards: 10,
+    status: 'approved',
+    created_date: '2024-12-01',
+  },
+  {
+    product_id: 2,
+    product_name: 'Tablet',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 5,
+    status: 'in-process',
+    created_date: '2024-11-15',
+  },
+  {
+    product_id: 3,
+    product_name: 'Headphones',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 2,
+    status: 'rejected',
+    created_date: '2024-10-20',
+  },
+  {
+    product_id: 4,
+    product_name: 'Smartwatch',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 3,
+    status: 'in-process',
+    created_date: '2024-09-25',
+  },
+  {
+    product_id: 5,
+    product_name: 'Keyboard',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 1,
+    status: 'approved',
+    created_date: '2024-08-20',
+  },
+  {
+    product_id: 6,
+    product_name: 'Mouse',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 4,
+    status: 'approved',
+    created_date: '2024-07-15',
+  },
+  {
+    product_id: 7,
+    product_name: 'Monitor',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 2,
+    status: 'rejected',
+    created_date: '2024-06-20',
+  },
+  {
+    product_id: 8,
+    product_name: 'Mousepad',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 1,
+    status: 'in-process',
+    created_date: '2024-05-15',
+  },
+  {
+    product_id: 9,
+    product_name: 'Mousepad',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 1,
+    status: 'in-process',
+    created_date: '2024-04-20',
+  },
+  {
+    product_id: 10,
+    product_name: 'Mousepad',
+    product_category: 'Example',
+    card_nature: 'physical',
+    ordered_cards: 1,
+    status: 'in-process',
+    created_date: '2024-03-15',
+  },
 ]
 
-export function ProgramTableDemo() {
+export function InventoryTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -207,51 +181,89 @@ export function ProgramTableDemo() {
     //   enableHiding: false,
     // },
     {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('product_id')}</div>
+      ),
+    },
+    {
+      accessorKey: 'product_name',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Product Name
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('category')}</div>,
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('product_name')}</div>
+      ),
+    },
+    {
+      accessorKey: 'product_category',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Product Category
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'programmanager',
-        header: 'Manager',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programmanager')}</div>
-        ),
+      cell: ({ row }) => (
+        <div className="capitalize pl-4">
+          {row.getValue('product_category')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'card_nature',
+      header: 'Card Nature',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('card_nature')}</div>
+      ),
+    },
+    {
+      accessorKey: 'ordered_cards',
+      header: 'Ordered Cards',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('ordered_cards')}</div>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('status')}</div>
+      ),
+    },
+    {
+      accessorKey: 'created_date',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Created Date
+            <ArrowUpDown />
+          </Button>
+        )
       },
-
-
-      {
-        accessorKey: 'limit',
-        header: 'Limit',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('limit')}</div>
-        ),
-      },
-
-      {
-        accessorKey: 'launchdate',
-        header: 'Launch Date',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('launchdate')}</div>
-          
-        ),
-      },
-
-      {
-        accessorKey: 'applicable',
-        header: '',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('applicable')}</div>
-        ),
-      },
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('created_date')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
-      header: '',
+      header: 'Actions',
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
@@ -361,7 +373,7 @@ export function ProgramTableDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Programs List</CardTitle>
+        <CardTitle>Inventory</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
@@ -401,7 +413,7 @@ export function ProgramTableDemo() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/programs/create-program">
+              <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
@@ -416,7 +428,7 @@ export function ProgramTableDemo() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className="text-center" key={header.id}>
+                        <TableHead key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(

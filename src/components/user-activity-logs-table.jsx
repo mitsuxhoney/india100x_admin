@@ -58,125 +58,189 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-      category: 'technology',
-      name: 'John Doe',
-      programmanager: 'Alice Smith',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-01',
-    },
-    {
-      category: 'finance',
-      name: 'Jane Smith',
-      programmanager: 'Michael Brown',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2022-05-10',
-    },
-    {
-      category: 'education',
-      name: 'Alice Johnson',
-      programmanager: 'Chris Evans',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2020-11-15',
-    },
-    {
-      category: 'healthcare',
-      name: 'Bob Lee',
-      programmanager: 'Sophia Martinez',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2021-07-20',
-    },
-    {
-      category: 'retail',
-      name: 'Carmella White',
-      programmanager: 'David Wilson',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '500 - 1000',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-03-22',
-    },
-    {
-      category: 'travel',
-      name: 'Michael Adams',
-      programmanager: 'Emma Clark',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 15000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-02-15',
-    },
-    {
-      category: 'automotive',
-      name: 'Olivia Turner',
-      programmanager: 'Liam Scott',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      minlimit: 700,
-      maxlimit: 8000,
-      rewardapplicable: 'No',
-      launchdate: '2022-08-03',
-    },
-    {
-      category: 'technology',
-      name: 'Sophia Martinez',
-      programmanager: 'Ethan Hall',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 12000,
-      rewardapplicable: 'Yes',
-      launchdate: '2020-05-18',
-    },
-    {
-      category: 'education',
-      name: 'James Wilson',
-      programmanager: 'Olivia Green',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      minlimit: 300,
-      maxlimit: 2500,
-      rewardapplicable: 'No',
-      launchdate: '2021-06-08',
-    },
-    {
-      category: 'retail',
-      name: 'Liam Scott',
-      programmanager: 'Sophia White',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 600,
-      maxlimit: 9000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-11',
-    },
-  
+  {
+    product_id: 1,
+    product: 'Smartphone',
+    stock: 50,
+    price: 599.99,
+    orders: 120,
+    rating: 4.5,
+    published: true,
+    publishedAt: '2024-01-15',
+  },
+  {
+    product_id: 2,
+    product: 'Laptop',
+    stock: 30,
+    price: 1099.99,
+    orders: 75,
+    rating: 4.7,
+    published: true,
+    publishedAt: '2024-02-20',
+  },
+  {
+    product_id: 3,
+    product: 'Headphones',
+    stock: 100,
+    price: 199.99,
+    orders: 200,
+    rating: 4.3,
+    published: true,
+    publishedAt: '2024-03-10',
+  },
+  {
+    product_id: 4,
+    product: 'Smartwatch',
+    stock: 40,
+    price: 299.99,
+    orders: 85,
+    rating: 4.4,
+    published: true,
+    publishedAt: '2024-04-05',
+  },
+  {
+    product_id: 5,
+    product: 'Tablet',
+    stock: 25,
+    price: 399.99,
+    orders: 50,
+    rating: 4.6,
+    published: true,
+    publishedAt: '2024-05-01',
+  },
+  {
+    product_id: 6,
+    product: 'Wireless Earbuds',
+    stock: 80,
+    price: 149.99,
+    orders: 180,
+    rating: 4.2,
+    published: true,
+    publishedAt: '2024-06-15',
+  },
+  {
+    product_id: 7,
+    product: 'Gaming Console',
+    stock: 20,
+    price: 499.99,
+    orders: 95,
+    rating: 4.8,
+    published: true,
+    publishedAt: '2024-07-12',
+  },
+  {
+    product_id: 8,
+    product: 'Action Camera',
+    stock: 15,
+    price: 299.99,
+    orders: 60,
+    rating: 4.5,
+    published: true,
+    publishedAt: '2024-08-18',
+  },
+  {
+    product_id: 9,
+    product: 'Bluetooth Speaker',
+    stock: 70,
+    price: 99.99,
+    orders: 150,
+    rating: 4.1,
+    published: true,
+    publishedAt: '2024-09-05',
+  },
+  {
+    product_id: 10,
+    product: 'Keyboard',
+    stock: 60,
+    price: 79.99,
+    orders: 130,
+    rating: 4.4,
+    published: true,
+    publishedAt: '2024-10-01',
+  },
+  {
+    product_id: 11,
+    product: 'Monitor',
+    stock: 35,
+    price: 249.99,
+    orders: 80,
+    rating: 4.6,
+    published: true,
+    publishedAt: '2024-10-20',
+  },
+  {
+    product_id: 12,
+    product: 'Mouse',
+    stock: 90,
+    price: 49.99,
+    orders: 220,
+    rating: 4.3,
+    published: true,
+    publishedAt: '2024-11-10',
+  },
+  {
+    product_id: 13,
+    product: 'External Hard Drive',
+    stock: 45,
+    price: 129.99,
+    orders: 100,
+    rating: 4.5,
+    published: true,
+    publishedAt: '2024-12-02',
+  },
+  {
+    product_id: 14,
+    product: 'Fitness Tracker',
+    stock: 55,
+    price: 199.99,
+    orders: 90,
+    rating: 4.2,
+    published: true,
+    publishedAt: '2025-01-18',
+  },
+  {
+    product_id: 15,
+    product: 'Graphics Card',
+    stock: 10,
+    price: 699.99,
+    orders: 40,
+    rating: 4.9,
+    published: true,
+    publishedAt: '2025-02-14',
+  },
+  {
+    product_id: 16,
+    product: 'Router',
+    stock: 85,
+    price: 99.99,
+    orders: 140,
+    rating: 4.0,
+    published: true,
+    publishedAt: '2025-03-06',
+  },
+  {
+    product_id: 17,
+    product: 'Smart Home Hub',
+    stock: 30,
+    price: 249.99,
+    orders: 70,
+    rating: 4.4,
+    published: true,
+    publishedAt: '2025-04-12',
+  },
+  {
+    product_id: 18,
+    product: 'Drone',
+    stock: 12,
+    price: 999.99,
+    orders: 35,
+    rating: 4.7,
+    published: true,
+    publishedAt: '2025-05-20',
+  },
 ]
 
-export function ProgramTableDemo() {
+export function ActivityLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -207,51 +271,87 @@ export function ProgramTableDemo() {
     //   enableHiding: false,
     // },
     {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('product_id')}</div>
+      ),
+    },
+    {
+      accessorKey: 'product',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Product
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('category')}</div>,
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('product')}</div>
+      ),
+    },
+    {
+      accessorKey: 'stock',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Stock
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'programmanager',
-        header: 'Manager',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programmanager')}</div>
-        ),
+      cell: ({ row }) => (
+        <div className="capitalize pl-4">{row.getValue('stock')}</div>
+      ),
+    },
+    {
+      accessorKey: 'price',
+      header: 'Price',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('price')}</div>
+      ),
+    },
+    {
+      accessorKey: 'orders',
+      header: 'Orders',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('orders')}</div>
+      ),
+    },
+    {
+      accessorKey: 'rating',
+      header: 'Rating',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('rating')}</div>
+      ),
+    },
+    {
+      accessorKey: 'publishedAt',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Published At
+            <ArrowUpDown />
+          </Button>
+        )
       },
-
-
-      {
-        accessorKey: 'limit',
-        header: 'Limit',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('limit')}</div>
-        ),
-      },
-
-      {
-        accessorKey: 'launchdate',
-        header: 'Launch Date',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('launchdate')}</div>
-          
-        ),
-      },
-
-      {
-        accessorKey: 'applicable',
-        header: '',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('applicable')}</div>
-        ),
-      },
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('publishedAt')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
-      header: '',
+      header: 'Actions',
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
@@ -361,7 +461,7 @@ export function ProgramTableDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Programs List</CardTitle>
+        <CardTitle>Activity Logs</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
@@ -401,12 +501,6 @@ export function ProgramTableDemo() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/programs/create-program">
-                <Button variant="" className="ml-auto">
-                  {' '}
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -416,7 +510,7 @@ export function ProgramTableDemo() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className="text-center" key={header.id}>
+                        <TableHead key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(

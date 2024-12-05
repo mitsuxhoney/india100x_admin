@@ -58,125 +58,109 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-      category: 'technology',
-      name: 'John Doe',
-      programmanager: 'Alice Smith',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-01',
-    },
-    {
-      category: 'finance',
-      name: 'Jane Smith',
-      programmanager: 'Michael Brown',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2022-05-10',
-    },
-    {
-      category: 'education',
-      name: 'Alice Johnson',
-      programmanager: 'Chris Evans',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2020-11-15',
-    },
-    {
-      category: 'healthcare',
-      name: 'Bob Lee',
-      programmanager: 'Sophia Martinez',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2021-07-20',
-    },
-    {
-      category: 'retail',
-      name: 'Carmella White',
-      programmanager: 'David Wilson',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '500 - 1000',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-03-22',
-    },
-    {
-      category: 'travel',
-      name: 'Michael Adams',
-      programmanager: 'Emma Clark',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 15000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-02-15',
-    },
-    {
-      category: 'automotive',
-      name: 'Olivia Turner',
-      programmanager: 'Liam Scott',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      minlimit: 700,
-      maxlimit: 8000,
-      rewardapplicable: 'No',
-      launchdate: '2022-08-03',
-    },
-    {
-      category: 'technology',
-      name: 'Sophia Martinez',
-      programmanager: 'Ethan Hall',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 12000,
-      rewardapplicable: 'Yes',
-      launchdate: '2020-05-18',
-    },
-    {
-      category: 'education',
-      name: 'James Wilson',
-      programmanager: 'Olivia Green',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      minlimit: 300,
-      maxlimit: 2500,
-      rewardapplicable: 'No',
-      launchdate: '2021-06-08',
-    },
-    {
-      category: 'retail',
-      name: 'Liam Scott',
-      programmanager: 'Sophia White',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 600,
-      maxlimit: 9000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-11',
-    },
-  
+  {
+    id: 1,
+    card_ref_id: '32XY32',
+    status: 'active',
+    last_four_digit: '4444',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 2,
+    card_ref_id: '32XY33',
+    status: 'inactive',
+    last_four_digit: '4445',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 3,
+    card_ref_id: '32XY34',
+    status: 'active',
+    last_four_digit: '4446',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 4,
+    card_ref_id: '32XY35',
+    status: 'inactive',
+    last_four_digit: '4447',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 5,
+    card_ref_id: '32XY36',
+    status: 'active',
+    last_four_digit: '4448',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 6,
+    card_ref_id: '32XY37',
+    status: 'inactive',
+    last_four_digit: '4449',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 7,
+    card_ref_id: '32XY38',
+    status: 'active',
+    last_four_digit: '4450',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 8,
+    card_ref_id: '32XY39',
+    status: 'inactive',
+    last_four_digit: '4451',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 9,
+    card_ref_id: '32XY40',
+    status: 'active',
+    last_four_digit: '4452',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
+  {
+    id: 10,
+    card_ref_id: '32XY41',
+    status: 'inactive',
+    last_four_digit: '4453',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '2024-12-02T22:44:00Z',
+  },
 ]
 
-export function ProgramTableDemo() {
+export function IssuedCardsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -207,51 +191,92 @@ export function ProgramTableDemo() {
     //   enableHiding: false,
     // },
     {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
+      accessorKey: 'id',
+      header: 'ID',
+      cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
+    },
+    {
+      accessorKey: 'card_ref_id',
+      header: 'Card Ref ID',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('card_ref_id')}</div>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Status
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('category')}</div>,
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('status')}</div>
+      ),
+    },
+    {
+      accessorKey: 'last_four_digit',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Last Four Digits
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'programmanager',
-        header: 'Manager',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programmanager')}</div>
-        ),
+      cell: ({ row }) => (
+        <div className="capitalize pl-4">{row.getValue('last_four_digit')}</div>
+      ),
+    },
+    {
+      accessorKey: 'product_category',
+      header: 'Product Category',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('product_category')}</div>
+      ),
+    },
+    {
+      accessorKey: 'add_on_card',
+      header: 'Add on Card',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('add_on_card')}</div>
+      ),
+    },
+    {
+      accessorKey: 'is_physical',
+      header: 'Is Physical',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('is_physical')}</div>
+      ),
+    },
+    {
+      accessorKey: 'issued_date',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Issued Date
+            <ArrowUpDown />
+          </Button>
+        )
       },
-
-
-      {
-        accessorKey: 'limit',
-        header: 'Limit',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('limit')}</div>
-        ),
-      },
-
-      {
-        accessorKey: 'launchdate',
-        header: 'Launch Date',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('launchdate')}</div>
-          
-        ),
-      },
-
-      {
-        accessorKey: 'applicable',
-        header: '',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('applicable')}</div>
-        ),
-      },
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('issued_date')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
-      header: '',
+      header: 'Actions',
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
@@ -361,7 +386,7 @@ export function ProgramTableDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Programs List</CardTitle>
+        <CardTitle>Issued Cards</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
@@ -401,12 +426,12 @@ export function ProgramTableDemo() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/programs/create-program">
+              {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">
@@ -416,7 +441,7 @@ export function ProgramTableDemo() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className="text-center" key={header.id}>
+                        <TableHead key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
