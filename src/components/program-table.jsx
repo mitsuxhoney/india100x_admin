@@ -58,128 +58,128 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-        id: 'm5gr84i9',
-        name: 'John Doe',
-        programs: 5,
-        activePrograms: 3,
-        createdAt: '2021-01-01',
-        updatedAt: '2023-12-01',
-      },
-      {
-        id: '3u1reuv4',
-        name: 'Jane Smith',
-        programs: 2,
-        activePrograms: 1,
-        createdAt: '2022-05-10',
-        updatedAt: '2023-11-25',
-      },
-      {
-        id: 'derv1ws0',
-        name: 'Alice Johnson',
-        programs: 8,
-        activePrograms: 5,
-        createdAt: '2020-11-15',
-        updatedAt: '2023-12-05',
-      },
-      {
-        id: '5kma53ae',
-        name: 'Bob Lee',
-        programs: 3,
-        activePrograms: 2,
-        createdAt: '2021-07-20',
-        updatedAt: '2023-10-30',
-      },
-      {
-        id: 'bhqecj4p',
-        name: 'Carmella White',
-        programs: 6,
-        activePrograms: 4,
-        createdAt: '2021-03-22',
-        updatedAt: '2023-12-01',
-      },
+  {
+    id: 'm5gr84i9',
+    name: 'John Doe',
+    programs: 5,
+    activePrograms: 3,
+    createdAt: '2021-01-01',
+    updatedAt: '2023-12-01',
+  },
+  {
+    id: '3u1reuv4',
+    name: 'Jane Smith',
+    programs: 2,
+    activePrograms: 1,
+    createdAt: '2022-05-10',
+    updatedAt: '2023-11-25',
+  },
+  {
+    id: 'derv1ws0',
+    name: 'Alice Johnson',
+    programs: 8,
+    activePrograms: 5,
+    createdAt: '2020-11-15',
+    updatedAt: '2023-12-05',
+  },
+  {
+    id: '5kma53ae',
+    name: 'Bob Lee',
+    programs: 3,
+    activePrograms: 2,
+    createdAt: '2021-07-20',
+    updatedAt: '2023-10-30',
+  },
+  {
+    id: 'bhqecj4p',
+    name: 'Carmella White',
+    programs: 6,
+    activePrograms: 4,
+    createdAt: '2021-03-22',
+    updatedAt: '2023-12-01',
+  },
 
-      {
-        id: 'wz5v9k3r',
-        name: 'Michael Adams',
-        programs: 7,
-        activePrograms: 4,
-        createdAt: '2021-02-15',
-        updatedAt: '2023-11-29',
-      },
-      {
-        id: 'hx4n2ds8',
-        name: 'Olivia Turner',
-        programs: 3,
-        activePrograms: 2,
-        createdAt: '2022-08-03',
-        updatedAt: '2023-11-28',
-      },
-      {
-        id: 'vke1m0l7',
-        name: 'Sophia Martinez',
-        programs: 10,
-        activePrograms: 6,
-        createdAt: '2020-05-18',
-        updatedAt: '2023-12-04',
-      },
-      {
-        id: 'g5vzw42h',
-        name: 'James Wilson',
-        programs: 4,
-        activePrograms: 3,
-        createdAt: '2021-06-08',
-        updatedAt: '2023-10-15',
-      },
-      {
-        id: 'q0a9wejf',
-        name: 'Liam Scott',
-        programs: 9,
-        activePrograms: 7,
-        createdAt: '2021-01-11',
-        updatedAt: '2023-12-02',
-      },
+  {
+    id: 'wz5v9k3r',
+    name: 'Michael Adams',
+    programs: 7,
+    activePrograms: 4,
+    createdAt: '2021-02-15',
+    updatedAt: '2023-11-29',
+  },
+  {
+    id: 'hx4n2ds8',
+    name: 'Olivia Turner',
+    programs: 3,
+    activePrograms: 2,
+    createdAt: '2022-08-03',
+    updatedAt: '2023-11-28',
+  },
+  {
+    id: 'vke1m0l7',
+    name: 'Sophia Martinez',
+    programs: 10,
+    activePrograms: 6,
+    createdAt: '2020-05-18',
+    updatedAt: '2023-12-04',
+  },
+  {
+    id: 'g5vzw42h',
+    name: 'James Wilson',
+    programs: 4,
+    activePrograms: 3,
+    createdAt: '2021-06-08',
+    updatedAt: '2023-10-15',
+  },
+  {
+    id: 'q0a9wejf',
+    name: 'Liam Scott',
+    programs: 9,
+    activePrograms: 7,
+    createdAt: '2021-01-11',
+    updatedAt: '2023-12-02',
+  },
 
-      {
-        id: 'm5gr84i9',
-        name: 'John Doe',
-        programs: 5,
-        activePrograms: 3,
-        createdAt: '2021-01-01',
-        updatedAt: '2023-12-01',
-      },
-      {
-        id: '3u1reuv4',
-        name: 'Jane Smith',
-        programs: 2,
-        activePrograms: 1,
-        createdAt: '2022-05-10',
-        updatedAt: '2023-11-25',
-      },
-      {
-        id: 'derv1ws0',
-        name: 'Alice Johnson',
-        programs: 8,
-        activePrograms: 5,
-        createdAt: '2020-11-15',
-        updatedAt: '2023-12-05',
-      },
-      {
-        id: '5kma53ae',
-        name: 'Bob Lee',
-        programs: 3,
-        activePrograms: 2,
-        createdAt: '2021-07-20',
-        updatedAt: '2023-10-30',
-      },
-      {
-        id: 'bhqecj4p',
-        name: 'Carmella White',
-        programs: 6,
-        activePrograms: 4,
-        createdAt: '2021-03-22',
-        updatedAt: '2023-12-01',
-      },
+  {
+    id: 'm5gr84i9',
+    name: 'John Doe',
+    programs: 5,
+    activePrograms: 3,
+    createdAt: '2021-01-01',
+    updatedAt: '2023-12-01',
+  },
+  {
+    id: '3u1reuv4',
+    name: 'Jane Smith',
+    programs: 2,
+    activePrograms: 1,
+    createdAt: '2022-05-10',
+    updatedAt: '2023-11-25',
+  },
+  {
+    id: 'derv1ws0',
+    name: 'Alice Johnson',
+    programs: 8,
+    activePrograms: 5,
+    createdAt: '2020-11-15',
+    updatedAt: '2023-12-05',
+  },
+  {
+    id: '5kma53ae',
+    name: 'Bob Lee',
+    programs: 3,
+    activePrograms: 2,
+    createdAt: '2021-07-20',
+    updatedAt: '2023-10-30',
+  },
+  {
+    id: 'bhqecj4p',
+    name: 'Carmella White',
+    programs: 6,
+    activePrograms: 4,
+    createdAt: '2021-03-22',
+    updatedAt: '2023-12-01',
+  },
 ]
 
 export function ProgramTableDemo() {
@@ -213,43 +213,47 @@ export function ProgramTableDemo() {
     //   enableHiding: false,
     // },
     {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
-      },
-      {
-        accessorKey: 'id',
-        header: 'ID',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('id')}</div>,
-      },
-      {
-        accessorKey: 'programs',
-        header: 'No. of Programs',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programs')}</div>
-        ),
-      },
-      {
-        accessorKey: 'activePrograms',
-        header: 'Active Programs',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('activePrograms')}</div>
-        ),
-      },
-      {
-        accessorKey: 'createdAt',
-        header: 'Created At',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('createdAt')}</div>
-        ),
-      },
-      {
-        accessorKey: 'updatedAt',
-        header: 'Updated At',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('updatedAt')}</div>
-        ),
-      },
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('name')}</div>
+      ),
+    },
+    {
+      accessorKey: 'id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('id')}</div>
+      ),
+    },
+    {
+      accessorKey: 'programs',
+      header: 'No. of Programs',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('programs')}</div>
+      ),
+    },
+    {
+      accessorKey: 'activePrograms',
+      header: 'Active Programs',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('activePrograms')}</div>
+      ),
+    },
+    {
+      accessorKey: 'createdAt',
+      header: 'Created At',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('createdAt')}</div>
+      ),
+    },
+    {
+      accessorKey: 'updatedAt',
+      header: 'Updated At',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('updatedAt')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
       header: 'Actions',
@@ -402,7 +406,7 @@ export function ProgramTableDemo() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
+              <Link to="/programs/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
