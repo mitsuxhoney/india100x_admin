@@ -401,7 +401,7 @@ export function ProgramTableDemo() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/programs/create-program">
+              <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
