@@ -18,27 +18,27 @@ import {
 } from "@/components/ui/chart";
 
 const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
+  { month: "PM1", program: 186 },
+  { month: "PM2", program: 305 },
+  { month: "PM3", program: 237 },
+  { month: "PM4", program: 73 },
+  { month: "PM5", program: 209 },
+  { month: "PM6", program: 214 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  program: {
+    label: "program",
     color: "hsl(var(--chart-1))",
   },
 };
 
-export function ProgramChart() {
+export function ProgramChart2() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Total Program Distribution</CardTitle>
+        <CardDescription>Showing total programs under program managers</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -61,7 +61,7 @@ export function ProgramChart() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8}>
+            <Bar dataKey="program" fill="var(--color-program)" radius={8}>
               <LabelList
                 position="top"
                 offset={12}
@@ -77,7 +77,7 @@ export function ProgramChart() {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Jan - June 2024
         </div>
       </CardFooter>
     </Card>
