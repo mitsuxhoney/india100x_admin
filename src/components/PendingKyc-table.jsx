@@ -59,124 +59,129 @@ import {
 
 const data = [
     {
-      category: 'technology',
-      name: 'John Doe',
-      programmanager: 'Alice Smith',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-01',
+      FirstName: 'John',
+      LastName: 'Doe',
+      MobileNumber: 8668303214,
+      Email: 'johndoe@gmail.com',
+      ProgramManager: 'Privacy Card',
+      LastActive: '2023-12-01',
     },
     {
-      category: 'finance',
-      name: 'Jane Smith',
-      programmanager: 'Michael Brown',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2022-05-10',
+      FirstName: 'Jane',
+      LastName: 'Smith',
+      MobileNumber: 9876543210,
+      Email: 'janesmith@gmail.com',
+      ProgramManager: 'Tech Card',
+      LastActive: '2023-11-15',
     },
     {
-      category: 'education',
-      name: 'Alice Johnson',
-      programmanager: 'Chris Evans',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2020-11-15',
+      FirstName: 'Bob',
+      LastName: 'Johnson',
+      MobileNumber: 8654321098,
+      Email: 'bobjohnson@gmail.com',
+      ProgramManager: 'Finance Card',
+      LastActive: '2023-10-29',
     },
     {
-      category: 'healthcare',
-      name: 'Bob Lee',
-      programmanager: 'Sophia Martinez',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2021-07-20',
+      FirstName: 'Alice',
+      LastName: 'Williams',
+      MobileNumber: 8765432109,
+      Email: 'alicewilliams@gmail.com',
+      ProgramManager: 'Health Card',
+      LastActive: '2023-09-19',
     },
     {
-      category: 'retail',
-      name: 'Carmella White',
-      programmanager: 'David Wilson',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '500 - 1000',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-03-22',
+      FirstName: 'Charlie',
+      LastName: 'Brown',
+      MobileNumber: 9123456789,
+      Email: 'charliebrown@gmail.com',
+      ProgramManager: 'Marketing Card',
+      LastActive: '2023-08-25',
     },
     {
-      category: 'travel',
-      name: 'Michael Adams',
-      programmanager: 'Emma Clark',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 15000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-02-15',
+      FirstName: 'David',
+      LastName: 'Miller',
+      MobileNumber: 9234567890,
+      Email: 'davidmiller@gmail.com',
+      ProgramManager: 'Education Card',
+      LastActive: '2023-07-30',
     },
     {
-      category: 'automotive',
-      name: 'Olivia Turner',
-      programmanager: 'Liam Scott',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      minlimit: 700,
-      maxlimit: 8000,
-      rewardapplicable: 'No',
-      launchdate: '2022-08-03',
+      FirstName: 'Eve',
+      LastName: 'Davis',
+      MobileNumber: 9345678901,
+      Email: 'evedavis@gmail.com',
+      ProgramManager: 'Innovation Card',
+      LastActive: '2023-06-22',
     },
     {
-      category: 'technology',
-      name: 'Sophia Martinez',
-      programmanager: 'Ethan Hall',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 12000,
-      rewardapplicable: 'Yes',
-      launchdate: '2020-05-18',
+      FirstName: 'Frank',
+      LastName: 'Martinez',
+      MobileNumber: 9456789012,
+      Email: 'frankmartinez@gmail.com',
+      ProgramManager: 'Growth Card',
+      LastActive: '2023-05-18',
     },
     {
-      category: 'education',
-      name: 'James Wilson',
-      programmanager: 'Olivia Green',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      minlimit: 300,
-      maxlimit: 2500,
-      rewardapplicable: 'No',
-      launchdate: '2021-06-08',
+      FirstName: 'Grace',
+      LastName: 'Hernandez',
+      MobileNumber: 9567890123,
+      Email: 'gracehernandez@gmail.com',
+      ProgramManager: 'Strategy Card',
+      LastActive: '2023-04-12',
     },
     {
-      category: 'retail',
-      name: 'Liam Scott',
-      programmanager: 'Sophia White',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 600,
-      maxlimit: 9000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-11',
+      FirstName: 'Hank',
+      LastName: 'Lopez',
+      MobileNumber: 9678901234,
+      Email: 'hanklopez@gmail.com',
+      ProgramManager: 'Operations Card',
+      LastActive: '2023-03-09',
     },
+    {
+      FirstName: 'Ivy',
+      LastName: 'Gonzalez',
+      MobileNumber: 9789012345,
+      Email: 'ivygonzalez@gmail.com',
+      ProgramManager: 'Design Card',
+      LastActive: '2023-02-14',
+    },
+    {
+      FirstName: 'Jack',
+      LastName: 'Perez',
+      MobileNumber: 9890123456,
+      Email: 'jackperez@gmail.com',
+      ProgramManager: 'Technology Card',
+      LastActive: '2023-01-20',
+    },
+    {
+      FirstName: 'Kathy',
+      LastName: 'Wilson',
+      MobileNumber: 9901234567,
+      Email: 'kathywilson@gmail.com',
+      ProgramManager: 'Analytics Card',
+      LastActive: '2022-12-15',
+    },
+    {
+      FirstName: 'Leo',
+      LastName: 'Anderson',
+      MobileNumber: 9012345678,
+      Email: 'leoanderson@gmail.com',
+      ProgramManager: 'Support Card',
+      LastActive: '2022-11-10',
+    },
+    {
+      FirstName: 'Mona',
+      LastName: 'Thomas',
+      MobileNumber: 9123456789,
+      Email: 'monathomas@gmail.com',
+      ProgramManager: 'Sales Card',
+      LastActive: '2022-10-05',
+    },
+  ]
   
-]
 
-export function ProgramTableDemo() {
+export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -184,78 +189,51 @@ export function ProgramTableDemo() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
     {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
-      },
-      {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('category')}</div>,
-      },
-      {
-        accessorKey: 'programmanager',
-        header: 'Manager',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programmanager')}</div>
-        ),
-      },
-
-
-      {
-        accessorKey: 'limit',
-        header: 'Limit',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('limit')}</div>
-        ),
-      },
-
-      {
-        accessorKey: 'launchdate',
-        header: 'Launch Date',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('launchdate')}</div>
-          
-        ),
-      },
-
-      {
-        accessorKey: 'applicable',
-        header: '',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('applicable')}</div>
-        ),
-      },
+      accessorKey: 'FirstName',
+      header: 'First Name',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('FirstName')}</div>,
+    },
+    {
+      accessorKey: 'LastName',
+      header: 'Last Name',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('LastName')}</div>,
+    },
+    {
+      accessorKey: 'MobileNumber',
+      header: 'Mobile Number',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('MobileNumber')}</div>
+      ),
+    },
+    {
+      accessorKey: 'Email',
+      header: 'Email',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('Email')}</div>
+      ),
+    },
+    {
+      accessorKey: 'ProgramManager',
+      header: 'Program Manager',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('ProgramManager')}</div>
+      ),
+    },
+    {
+      accessorKey: 'LastActive',
+      header: 'Last Active',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('LastActive')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
-      header: '',
+      header: 'Actions',
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 justify-center">
             <Button
               variant="outline"
               size="sm"
@@ -273,8 +251,7 @@ export function ProgramTableDemo() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to delete ? This action cannot be
-                    undone.
+                    Are you sure you want to delete? This action cannot be undone.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -294,35 +271,6 @@ export function ProgramTableDemo() {
         )
       },
     },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -361,16 +309,16 @@ export function ProgramTableDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Programs List</CardTitle>
+        <CardTitle>Pending KYC List</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search Name..."
+              value={table.getColumn('FirstName')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('FirstName')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -403,7 +351,6 @@ export function ProgramTableDemo() {
               </DropdownMenu>
               <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
-                  {' '}
                   <CirclePlus /> Add new
                 </Button>
               </Link>
@@ -460,10 +407,6 @@ export function ProgramTableDemo() {
             </Table>
           </div>
           <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
             <div className="space-x-2">
               <Button
                 variant="outline"
