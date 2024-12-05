@@ -182,7 +182,7 @@ const data = [
       },
 ]
 
-export function ProgramTableDemo() {
+export function ProgramTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -362,7 +362,7 @@ export function ProgramTableDemo() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Programs List</CardTitle>
+        <CardTitle>Program Manager List</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
