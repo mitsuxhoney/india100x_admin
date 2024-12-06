@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   ArrowRight,
   CirclePlus,
+  MoreHorizontal,
   Pencil,
   Trash2,
   CircleX,
@@ -252,46 +253,32 @@ export function ProgramTable() {
       },
     {
       accessorKey: 'actions',
-      header: 'Actions',
+      header: '',
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              // onClick={() => handleEdit(rowData)}
-            >
-              <Pencil />
-            </Button>
-            <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <AlertDialogTrigger asChild>
-                <Button size="sm" variant="destructive">
-                  <Trash2 />
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Are you sure you want to delete ? This action cannot be
-                    undone.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <Button variant="outline" onClick={closeDialog}>
-                    <CircleX />
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    // onClick={() => confirmDelete(rowData)}
-                  >
-                    <Trash2 />
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )
       },
     },
@@ -438,7 +425,7 @@ export function ProgramTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell className='text-center' key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -493,3 +480,4 @@ export function ProgramTable() {
     </Card>
   )
 }
+
