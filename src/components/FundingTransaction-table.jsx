@@ -50,62 +50,105 @@ import {
   CardDescription,
 } from '@/components/ui/card'
 
+import { Badge } from '@/components/ui/badge'
+
+const fieldIconMap = {
+  Success: {
+    icon: (
+      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
+        Success
+      </Badge>
+    ),
+    label: 'Successful transaction',
+  },
+  Pending: {
+    icon: (
+      <Badge  className="bg-[#fff7d3] text-[#ab6e05]">
+        Pending
+      </Badge>
+    ),
+    label: 'Pending transaction',
+  },
+  Failed: {
+    icon: (
+      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
+        Failed
+      </Badge>
+    ),
+    label: 'Failed transaction',
+  },
+}
+const transactionColorMap = {
+  credit: {
+    color: 'text-green-500',
+  },
+  debit: {
+    color: 'text-red-500',
+  },
+}
 const data = [
   {
     cardRefId: 'CR123456',
-    lastFourDigits: '6789',
+    FromAccount: '6789',
+    ToAccount: '6789',
     Amount: 1200.5,
     Type: 'Credit',
-    Status: 'Success',
-    Date: '2023-12-01',
+    Success: true,
+    Date: '01-12-2024 22:44PM',
   },
   {
     cardRefId: 'CR987654',
-    lastFourDigits: '4321',
+    FromAccount: '6789',
+    ToAccount: '6789',
     Amount: 550.0,
     Type: 'Debit',
-    Status: 'Failed',
-    Date: '2023-11-25',
+    Pending: true,
+    Date: '2023-11-25 12:44PM',
   },
   {
     cardRefId: 'CR567890',
-    lastFourDigits: '9876',
+    FromAccount: '6789',
+    ToAccount: '6789',
     Amount: 10000.0,
     Type: 'Credit',
-    Status: 'Pending',
-    Date: '2023-12-03',
+    Failed: true,
+    Date: '2023-12-03 2:44PM',
   },
   {
     cardRefId: 'CR234567',
-    lastFourDigits: '5432',
+    FromAccount: '6789',
+    ToAccount: '6789',
     Amount: 250.75,
     Type: 'Debit',
-    Status: 'Success',
-    Date: '2023-12-05',
+    Failed: true,
+    Date: '2023-12-05 3:15AM',
   },
   {
     cardRefId: 'CR678901',
-    lastFourDigits: '1234',
+    FromAccount: '6789',
+    ToAccount: '6789',
     Amount: 890.2,
-    Type: 'Debit',
-    Status: 'Success',
-    Date: '2023-12-04',
+    Type: 'Credit',
+    Success: true,
+    Date: '2023-12-04 4:50AM',
   },
   {
     cardRefId: 'CR345678',
-    lastFourDigits: '7654',
+    FromAccount: '6789',
+    ToAccount: '6789',
     Amount: 4300.0,
     Type: 'Credit',
-    Status: 'Failed',
-    Date: '2023-12-02',
+    Success: true,
+    Date: '2023-12-02 6:15AM',
   },
   {
     cardRefId: 'CR456789',
-    lastFourDigits: '3210',
-    Amount: 999.99,
+    FromAccount: '6789',
+    ToAccount: '6789',
+    Amount: 9199.99,
     Type: 'Debit',
-    Status: 'Pending',
-    Date: '2023-11-29',
+    Pending: true,
+    Date: '2023-11-29 8:25AM',
   },
 ]
 
@@ -118,48 +161,79 @@ export function FundingTransactionTable() {
 
   const columns = [
     {
+      accessorKey: 'Date',
+      header: 'Date',
+      cell: ({ row }) => {
+        const date = row.getValue('Date').split(' ')[0]
+        const time = row.getValue('Date').split(' ')[1]
+
+        return (
+          <div className="flex flex-col items-center text-center">
+            <span>{date}</span>
+            <span className="text-slate-400">{time}</span>
+          </div>
+        )
+      },
+    },
+    {
       accessorKey: 'cardRefId',
       header: 'Reference ID',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('cardRefId')}</div>
+        <Link>
+          <div className="text-center">{row.getValue('cardRefId')}</div>
+        </Link>
       ),
     },
     {
-      accessorKey: 'lastFourDigits',
-      header: 'Last Four Digits',
+      accessorKey: 'FromAccount',
+      header: 'From Account',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('lastFourDigits')}</div>
+        <div className="text-center">{row.getValue('FromAccount')}</div>
       ),
     },
     {
-      accessorKey: 'Amount',
+      accessorKey: 'ToAccount',
+      header: 'To Account',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('ToAccount')}</div>
+      ),
+    },
+    {
       header: 'Amount',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Amount')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Type',
-      header: 'Transaction Type',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Type')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Status',
-      header: 'Status',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Status')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Date',
-      header: 'Date',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Date')}</div>
-      ),
+      cell: ({ row }) => {
+        const amount = row.original.Amount // Access the raw data directly
+        // const type = row.original.Type // Access the Type from raw data
+        // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
+
+        return (
+          <div className={`text-center flex items-center justify-center`}>
+            ₹{amount.toFixed(2)}
+          </div>
+        )
+      },
     },
 
+    {
+      header: `Status`,
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center gap-2">
+          {Object.keys(fieldIconMap).map((field) => {
+            if (row.original[field]) {
+              return (
+                <span
+                  key={field}
+                  className={`flex items-center gap-1`}
+                  title={fieldIconMap[field].label}
+                >
+                  {fieldIconMap[field].icon}
+                </span>
+              )
+            }
+            return null
+          })}
+        </div>
+      ),
+    },
     {
       accessorKey: 'actions',
       header: '',
@@ -306,7 +380,7 @@ export function FundingTransactionTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
