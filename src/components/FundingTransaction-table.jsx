@@ -1,5 +1,6 @@
-import * as React from 'react'
+'use client'
 import { Link } from 'react-router-dom'
+import * as React from 'react'
 import {
   flexRender,
   getCoreRowModel,
@@ -13,32 +14,15 @@ import {
   ChevronDown,
   ArrowLeft,
   ArrowRight,
-  MoreHorizontal,
   CirclePlus,
+  MoreHorizontal,
   Pencil,
   Trash2,
   CircleX,
 } from 'lucide-react'
 
-import {
-  AlertDialog,
-  AlertDialogTitle,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogDescription,
-} from '@/components/ui/alert-dialog'
-
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -58,51 +42,74 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card'
+
 const data = [
   {
-    team_member: 'Alice Johnson',
-    date: '2024-12-01',
-    event: 'Product Launch',
-    team: 'Marketing',
-    product: 'EduPal App',
-    ip_address: '192.168.1.1',
+    cardRefId: 'CR123456',
+    lastFourDigits: '6789',
+    Amount: 1200.5,
+    Type: 'Credit',
+    Status: 'Success',
+    Date: '2023-12-01',
   },
   {
-    team_member: 'Bob Smith',
-    date: '2024-12-02',
-    event: 'Client Meeting',
-    team: 'Sales',
-    product: 'Golzo Platform',
-    ip_address: '192.168.1.2',
+    cardRefId: 'CR987654',
+    lastFourDigits: '4321',
+    Amount: 550.0,
+    Type: 'Debit',
+    Status: 'Failed',
+    Date: '2023-11-25',
   },
   {
-    team_member: 'Charlie Brown',
-    date: '2024-12-03',
-    event: 'Bug Fix',
-    team: 'Development',
-    product: 'Call Recorder App',
-    ip_address: '192.168.1.3',
+    cardRefId: 'CR567890',
+    lastFourDigits: '9876',
+    Amount: 10000.0,
+    Type: 'Credit',
+    Status: 'Pending',
+    Date: '2023-12-03',
   },
   {
-    team_member: 'Diana Prince',
-    date: '2024-12-04',
-    event: 'Team Workshop',
-    team: 'Human Resources',
-    product: 'Employee Handbook',
-    ip_address: '192.168.1.4',
+    cardRefId: 'CR234567',
+    lastFourDigits: '5432',
+    Amount: 250.75,
+    Type: 'Debit',
+    Status: 'Success',
+    Date: '2023-12-05',
   },
   {
-    team_member: 'Evan Williams',
-    date: '2024-12-05',
-    event: 'Server Maintenance',
-    team: 'IT Support',
-    product: 'Internal Systems',
-    ip_address: '192.168.1.5',
+    cardRefId: 'CR678901',
+    lastFourDigits: '1234',
+    Amount: 890.2,
+    Type: 'Debit',
+    Status: 'Success',
+    Date: '2023-12-04',
   },
-];
+  {
+    cardRefId: 'CR345678',
+    lastFourDigits: '7654',
+    Amount: 4300.0,
+    Type: 'Credit',
+    Status: 'Failed',
+    Date: '2023-12-02',
+  },
+  {
+    cardRefId: 'CR456789',
+    lastFourDigits: '3210',
+    Amount: 999.99,
+    Type: 'Debit',
+    Status: 'Pending',
+    Date: '2023-11-29',
+  },
+]
 
-
-export function ActivityLogsTable() {
+export function FundingTransactionTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -110,91 +117,49 @@ export function ActivityLogsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
     {
-      accessorKey: 'team_member',
-      header: 'Team Member',
+      accessorKey: 'cardRefId',
+      header: 'Reference ID',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team_member')}</div>
+        <div className="text-center">{row.getValue('cardRefId')}</div>
       ),
     },
     {
-      accessorKey: 'date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Date
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      accessorKey: 'lastFourDigits',
+      header: 'Last Four Digits',
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
+        <div className="text-center">{row.getValue('lastFourDigits')}</div>
       ),
     },
     {
-      accessorKey: 'event',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Event
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      accessorKey: 'Amount',
+      header: 'Amount',
       cell: ({ row }) => (
-        <div className="capitalize pl-4">{row.getValue('event')}</div>
+        <div className="text-center">{row.getValue('Amount')}</div>
       ),
     },
     {
-      accessorKey: 'team',
-      header: 'Team',
+      accessorKey: 'Type',
+      header: 'Transaction Type',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
+        <div className="text-center">{row.getValue('Type')}</div>
       ),
     },
     {
-      accessorKey: 'product',
-      header: 'Product',
+      accessorKey: 'Status',
+      header: 'Status',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product')}</div>
+        <div className="text-center">{row.getValue('Status')}</div>
       ),
     },
     {
-      accessorKey: 'ip_address',
-      header: 'IP Address',
+      accessorKey: 'Date',
+      header: 'Date',
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('ip_address')}</div>
+        <div className="text-center">{row.getValue('Date')}</div>
       ),
     },
-    
+
     {
       accessorKey: 'actions',
       header: '',
@@ -226,35 +191,6 @@ export function ActivityLogsTable() {
         )
       },
     },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -293,16 +229,18 @@ export function ActivityLogsTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Activity Logs</CardTitle>
+        <CardTitle>Funding Transaction List</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Last Four Digits..."
+              value={table.getColumn('lastFourDigits')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('lastFourDigits')
+                  ?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -310,7 +248,7 @@ export function ActivityLogsTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -333,6 +271,11 @@ export function ActivityLogsTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto">
+                  <CirclePlus /> Add new
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -342,7 +285,7 @@ export function ActivityLogsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -386,10 +329,6 @@ export function ActivityLogsTable() {
             </Table>
           </div>
           <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
             <div className="space-x-2">
               <Button
                 variant="outline"

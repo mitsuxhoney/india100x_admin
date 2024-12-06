@@ -13,6 +13,7 @@ import {
   ChevronDown,
   ArrowLeft,
   ArrowRight,
+  MoreHorizontal,
   CirclePlus,
   Pencil,
   Trash2,
@@ -66,7 +67,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 2,
@@ -76,7 +77,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 3,
@@ -86,7 +87,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 4,
@@ -96,7 +97,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 5,
@@ -106,7 +107,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 6,
@@ -116,7 +117,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 7,
@@ -126,7 +127,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 8,
@@ -136,7 +137,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 9,
@@ -146,7 +147,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
   {
     id: 10,
@@ -156,7 +157,7 @@ const data = [
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
-    issued_date: '2024-12-02T22:44:00Z',
+    issued_date: '2024-12-02',
   },
 ]
 
@@ -276,46 +277,32 @@ export function IssuedCardsTable() {
     },
     {
       accessorKey: 'actions',
-      header: 'Actions',
+      header: '',
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              // onClick={() => handleEdit(rowData)}
-            >
-              <Pencil />
-            </Button>
-            <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <AlertDialogTrigger asChild>
-                <Button size="sm" variant="destructive">
-                  <Trash2 />
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Are you sure you want to delete ? This action cannot be
-                    undone.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <Button variant="outline" onClick={closeDialog}>
-                    <CircleX />
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    // onClick={() => confirmDelete(rowData)}
-                  >
-                    <Trash2 />
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )
       },
     },
@@ -462,7 +449,7 @@ export function IssuedCardsTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell className='text-center' key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

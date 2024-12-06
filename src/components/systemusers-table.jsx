@@ -59,50 +59,51 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-  {
-    team_member: 'Alice Johnson',
-    date: '2024-12-01',
-    event: 'Product Launch',
-    team: 'Marketing',
-    product: 'EduPal App',
-    ip_address: '192.168.1.1',
-  },
-  {
-    team_member: 'Bob Smith',
-    date: '2024-12-02',
-    event: 'Client Meeting',
-    team: 'Sales',
-    product: 'Golzo Platform',
-    ip_address: '192.168.1.2',
-  },
-  {
-    team_member: 'Charlie Brown',
-    date: '2024-12-03',
-    event: 'Bug Fix',
-    team: 'Development',
-    product: 'Call Recorder App',
-    ip_address: '192.168.1.3',
-  },
-  {
-    team_member: 'Diana Prince',
-    date: '2024-12-04',
-    event: 'Team Workshop',
-    team: 'Human Resources',
-    product: 'Employee Handbook',
-    ip_address: '192.168.1.4',
-  },
-  {
-    team_member: 'Evan Williams',
-    date: '2024-12-05',
-    event: 'Server Maintenance',
-    team: 'IT Support',
-    product: 'Internal Systems',
-    ip_address: '192.168.1.5',
-  },
-];
+    {
+      user_id: 'U001',
+      name: 'Alice Johnson',
+      role: 'Administrator',
+      created_at: '2024-01-01T10:00:00Z',
+      updated_at: '2024-06-01T15:00:00Z',
+      is_active: true,
+    },
+    {
+      user_id: 'U002',
+      name: 'Bob Smith',
+      role: 'Moderator',
+      created_at: '2024-02-15T12:30:00Z',
+      updated_at: '2024-07-20T18:45:00Z',
+      is_active: false,
+    },
+    {
+      user_id: 'U003',
+      name: 'Charlie Brown',
+      role: 'User',
+      created_at: '2024-03-10T08:15:00Z',
+      updated_at: '2024-08-05T09:20:00Z',
+      is_active: true,
+    },
+    {
+      user_id: 'U004',
+      name: 'Diana Prince',
+      role: 'Editor',
+      created_at: '2024-04-25T11:45:00Z',
+      updated_at: '2024-09-10T16:30:00Z',
+      is_active: true,
+    },
+    {
+      user_id: 'U005',
+      name: 'Evan Williams',
+      role: 'Viewer',
+      created_at: '2024-05-05T09:00:00Z',
+      updated_at: '2024-10-01T14:10:00Z',
+      is_active: false,
+    },
+  ];
+  
 
 
-export function ActivityLogsTable() {
+export function SystemUsersTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -133,67 +134,69 @@ export function ActivityLogsTable() {
     //   enableHiding: false,
     // },
     {
-      accessorKey: 'team_member',
-      header: 'Team Member',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team_member')}</div>
-      ),
-    },
-    {
-      accessorKey: 'date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Date
-            <ArrowUpDown />
-          </Button>
-        )
+        accessorKey: 'user_id',
+        header: 'User ID',
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue('user_id')}</div>
+        ),
       },
-      cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
-      ),
-    },
-    {
-      accessorKey: 'event',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Event
-            <ArrowUpDown />
-          </Button>
-        )
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue('name')}</div>
+        ),
       },
-      cell: ({ row }) => (
-        <div className="capitalize pl-4">{row.getValue('event')}</div>
-      ),
-    },
-    {
-      accessorKey: 'team',
-      header: 'Team',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
-      ),
-    },
-    {
-      accessorKey: 'product',
-      header: 'Product',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product')}</div>
-      ),
-    },
-    {
-      accessorKey: 'ip_address',
-      header: 'IP Address',
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('ip_address')}</div>
-      ),
-    },
+      {
+        accessorKey: 'role',
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            >
+              Role
+              <ArrowUpDown />
+            </Button>
+          )
+        },
+        cell: ({ row }) => (
+          <div className="capitalize pl-4">{row.getValue('role')}</div>
+        ),
+      },
+      {
+        accessorKey: 'created_at',
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            >
+              Created At
+              <ArrowUpDown />
+            </Button>
+          )
+        },
+        cell: ({ row }) => (
+          <div className="lowercase pl-4">{row.getValue('created_at')}</div>
+        ),
+      },
+      {
+        accessorKey: 'updated_at',
+        header: 'Updated At',
+        cell: ({ row }) => (
+          <div className="lowercase">{row.getValue('updated_at')}</div>
+        ),
+      },
+      {
+        accessorKey: 'is_active',
+        header: 'Active Status',
+        cell: ({ row }) => (
+          <div className="capitalize">
+            {row.getValue('is_active') ? 'Active' : 'Inactive'}
+          </div>
+        ),
+      },
     
     {
       accessorKey: 'actions',
@@ -293,7 +296,7 @@ export function ActivityLogsTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Activity Logs</CardTitle>
+        <CardTitle>System Users</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
