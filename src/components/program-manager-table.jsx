@@ -59,129 +59,99 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-        id: 'm5gr84i9',
-        name: 'John Doe',
-        programs: 5,
-        activePrograms: 3,
-        createdAt: '2021-01-01',
-        updatedAt: '2023-12-01',
-      },
-      {
-        id: '3u1reuv4',
-        name: 'Jane Smith',
-        programs: 2,
-        activePrograms: 1,
-        createdAt: '2022-05-10',
-        updatedAt: '2023-11-25',
-      },
-      {
-        id: 'derv1ws0',
-        name: 'Alice Johnson',
-        programs: 8,
-        activePrograms: 5,
-        createdAt: '2020-11-15',
-        updatedAt: '2023-12-05',
-      },
-      {
-        id: '5kma53ae',
-        name: 'Bob Lee',
-        programs: 3,
-        activePrograms: 2,
-        createdAt: '2021-07-20',
-        updatedAt: '2023-10-30',
-      },
-      {
-        id: 'bhqecj4p',
-        name: 'Carmella White',
-        programs: 6,
-        activePrograms: 4,
-        createdAt: '2021-03-22',
-        updatedAt: '2023-12-01',
-      },
-
-      {
-        id: 'wz5v9k3r',
-        name: 'Michael Adams',
-        programs: 7,
-        activePrograms: 4,
-        createdAt: '2021-02-15',
-        updatedAt: '2023-11-29',
-      },
-      {
-        id: 'hx4n2ds8',
-        name: 'Olivia Turner',
-        programs: 3,
-        activePrograms: 2,
-        createdAt: '2022-08-03',
-        updatedAt: '2023-11-28',
-      },
-      {
-        id: 'vke1m0l7',
-        name: 'Sophia Martinez',
-        programs: 10,
-        activePrograms: 6,
-        createdAt: '2020-05-18',
-        updatedAt: '2023-12-04',
-      },
-      {
-        id: 'g5vzw42h',
-        name: 'James Wilson',
-        programs: 4,
-        activePrograms: 3,
-        createdAt: '2021-06-08',
-        updatedAt: '2023-10-15',
-      },
-      {
-        id: 'q0a9wejf',
-        name: 'Liam Scott',
-        programs: 9,
-        activePrograms: 7,
-        createdAt: '2021-01-11',
-        updatedAt: '2023-12-02',
-      },
-
-      {
-        id: 'm5gr84i9',
-        name: 'John Doe',
-        programs: 5,
-        activePrograms: 3,
-        createdAt: '2021-01-01',
-        updatedAt: '2023-12-01',
-      },
-      {
-        id: '3u1reuv4',
-        name: 'Jane Smith',
-        programs: 2,
-        activePrograms: 1,
-        createdAt: '2022-05-10',
-        updatedAt: '2023-11-25',
-      },
-      {
-        id: 'derv1ws0',
-        name: 'Alice Johnson',
-        programs: 8,
-        activePrograms: 5,
-        createdAt: '2020-11-15',
-        updatedAt: '2023-12-05',
-      },
-      {
-        id: '5kma53ae',
-        name: 'Bob Lee',
-        programs: 3,
-        activePrograms: 2,
-        createdAt: '2021-07-20',
-        updatedAt: '2023-10-30',
-      },
-      {
-        id: 'bhqecj4p',
-        name: 'Carmella White',
-        programs: 6,
-        activePrograms: 4,
-        createdAt: '2021-03-22',
-        updatedAt: '2023-12-01',
-      },
+  {
+    "id": "3u1reuv4",
+    "name": "Jane Smith",
+    "totalAmount": "2342.23",
+    "programs": 2,
+    "activePrograms": 1,
+    "totalCustomers": 50,
+    "createdAt": "2022-05-10"
+  },
+  {
+    "id": "9k2jhgf5",
+    "name": "John Doe",
+    "totalAmount": "5678.45",
+    "programs": 3,
+    "activePrograms": 2,
+    "totalCustomers": 120,
+    "createdAt": "2023-01-15"
+  },
+  {
+    "id": "7y4uhki8",
+    "name": "Emily Davis",
+    "totalAmount": "789.00",
+    "programs": 1,
+    "activePrograms": 0,
+    "totalCustomers": 20,
+    "createdAt": "2022-12-20"
+  },
+  {
+    "id": "2w3e5rft",
+    "name": "Michael Brown",
+    "totalAmount": "4500.00",
+    "programs": 4,
+    "activePrograms": 3,
+    "totalCustomers": 75,
+    "createdAt": "2023-03-12"
+  },
+  {
+    "id": "8p6qzlw1",
+    "name": "Sophia Johnson",
+    "totalAmount": "1500.75",
+    "programs": 2,
+    "activePrograms": 2,
+    "totalCustomers": 65,
+    "createdAt": "2023-07-22"
+  },
+  {
+    "id": "4m9oltr2",
+    "name": "Liam Taylor",
+    "totalAmount": "9832.10",
+    "programs": 5,
+    "activePrograms": 4,
+    "totalCustomers": 100,
+    "createdAt": "2023-05-18"
+  },
+  {
+    "id": "5n7vukm3",
+    "name": "Olivia Martinez",
+    "totalAmount": "345.67",
+    "programs": 1,
+    "activePrograms": 0,
+    "totalCustomers": 10,
+    "createdAt": "2023-04-01"
+  },
+  {
+    "id": "6y8pojkl",
+    "name": "Noah Garcia",
+    "totalAmount": "6587.89",
+    "programs": 3,
+    "activePrograms": 2,
+    "totalCustomers": 85,
+    "createdAt": "2022-11-30"
+  },
+  {
+    "id": "3v5bkqw9",
+    "name": "Isabella Hernandez",
+    "totalAmount": "4200.25",
+    "programs": 4,
+    "activePrograms": 3,
+    "totalCustomers": 90,
+    "createdAt": "2023-02-28"
+  },
+  {
+    "id": "7u3rlhno",
+    "name": "William Wilson",
+    "totalAmount": "1324.78",
+    "programs": 2,
+    "activePrograms": 1,
+    "totalCustomers": 45,
+    "createdAt": "2022-09-14"
+  }
 ]
+
+
 
 export function ProgramTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -214,41 +184,43 @@ export function ProgramTable() {
     //   enableHiding: false,
     // },
     {
+      accessorKey: 'id',
+      header: 'Manager ID',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('id')}</div>,
+    },
+    {
         accessorKey: 'name',
-        header: 'Name',
+        header: 'Manager Name',
         cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
       },
       {
-        accessorKey: 'id',
-        header: 'ID',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('id')}</div>,
+        header: 'Total Programs',
+        cell: ({ row }) => {
+          const active=row.original.activePrograms;
+          const totalProgram=row.original.programs;
+          return (
+            <div className="capitalize text-center">
+            <span>{`${active}/${totalProgram}`}</span>
+          </div>
+          )
+          }
+        ,
       },
       {
-        accessorKey: 'programs',
-        header: 'No. of Programs',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programs')}</div>
-        ),
+        accessorKey: 'totalAmount',
+        header: 'Total Amount',
+        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('totalAmount')}</div>,
       },
       {
-        accessorKey: 'activePrograms',
-        header: 'Active Programs',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('activePrograms')}</div>
-        ),
+        accessorKey: 'totalCustomers',
+        header: 'Total Customers',
+        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('totalCustomers')}</div>,
       },
       {
         accessorKey: 'createdAt',
-        header: 'Created At',
+        header: 'Registered Date',
         cell: ({ row }) => (
           <div className="text-center">{row.getValue('createdAt')}</div>
-        ),
-      },
-      {
-        accessorKey: 'updatedAt',
-        header: 'Updated At',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('updatedAt')}</div>
         ),
       },
     {
@@ -424,14 +396,26 @@ export function ProgramTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) =>{
+                        const clickableColumns = ['id', 'name']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
                   ))
                 ) : (
