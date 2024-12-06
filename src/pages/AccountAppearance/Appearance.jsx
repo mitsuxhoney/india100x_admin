@@ -1,8 +1,5 @@
-
 const Appearance = () => {
-  return (
-    <div>Appearance</div>
-  )
+  return <div></div>
 }
 
 export default Appearance

@@ -1,5 +1,5 @@
 const Security = () => {
-  return <div>Security</div>
+  return <div></div>
 }
 
 export default Security
