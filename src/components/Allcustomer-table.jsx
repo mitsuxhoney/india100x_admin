@@ -58,85 +58,97 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-const data = [
-    {
-      Name: 'John Doe',
-      ProgramManager: 'Privacy Card',
-      'Total Cards':'4',
-      LastActive: '2023-12-01',
-    },
-    {
-      Name: 'Jane Smith',
-      ProgramManager: 'Tech Card',
-      LastActive: '2023-11-15',
-    },
-    {
-      Name: 'Bob Johnson',
-      ProgramManager: 'Finance Card',
-      LastActive: '2023-10-29',
-    },
-    {
-      Name: 'Alice Williams',
-      ProgramManager: 'Health Card',
-      LastActive: '2023-09-19',
-    },
-    {
-      Name: 'Charlie Brown',
-      ProgramManager: 'Marketing Card',
-      LastActive: '2023-08-25',
-    },
-    {
-      Name: 'David Miller',
-      ProgramManager: 'Education Card',
-      LastActive: '2023-07-30',
-    },
-    {
-      Name: 'Eve Davis',
-      ProgramManager: 'Innovation Card',
-      LastActive: '2023-06-22',
-    },
-    {
-      Name: 'Frank Martinez',
-      ProgramManager: 'Growth Card',
-      LastActive: '2023-05-18',
-    },
-    {
-      Name: 'Grace Hernandez',
-      ProgramManager: 'Strategy Card',
-      LastActive: '2023-04-12',
-    },
-    {
-      Name: 'Hank Lopez',
-      ProgramManager: 'Operations Card',
-      LastActive: '2023-03-09',
-    },
-    {
-      Name: 'Ivy Gonzalez',
-      ProgramManager: 'Design Card',
-      LastActive: '2023-02-14',
-    },
-    {
-      Name: 'Jack Perez',
-      ProgramManager: 'Technology Card',
-      LastActive: '2023-01-20',
-    },
-    {
-      Name: 'Kathy Wilson',
-      ProgramManager: 'Analytics Card',
-      LastActive: '2022-12-15',
-    },
-    {
-      Name: 'Leo Anderson',
-      ProgramManager: 'Support Card',
-      LastActive: '2022-11-10',
-    },
-    {
-      Name: 'Mona Thomas',
-      ProgramManager: 'Sales Card',
-      LastActive: '2022-10-05',
-    },
-  ]
-  
+const data =[
+  {
+    "Name": "John Doe",
+    "ProgramManager": "Privacy Card",
+    "totalCards": "4",
+    "totalTransactions": "120",
+    "createdBy": "Admin",
+    "lastActive": "2023-12-01"
+  },
+  {
+    "Name": "Jane Smith",
+    "ProgramManager": "Business Card",
+    "totalCards": "2",
+    "totalTransactions": "85",
+    "createdBy": "Manager1",
+    "lastActive": "2023-11-28"
+  },
+  {
+    "Name": "Robert Brown",
+    "ProgramManager": "Travel Card",
+    "totalCards": "3",
+    "totalTransactions": "140",
+    "createdBy": "SupervisorX",
+    "lastActive": "2023-11-30"
+  },
+  {
+    "Name": "Emily Davis",
+    "ProgramManager": "Gift Card",
+    "totalCards": "1",
+    "totalTransactions": "15",
+    "createdBy": "Admin",
+    "lastActive": "2023-12-03"
+  },
+  {
+    "Name": "Michael Wilson",
+    "ProgramManager": "Virtual Card",
+    "totalCards": "5",
+    "totalTransactions": "200",
+    "createdBy": "AdminAssistant",
+    "lastActive": "2023-11-25"
+  },
+  {
+    "Name": "Olivia Johnson",
+    "ProgramManager": "Platinum Card",
+    "totalCards": "2",
+    "totalTransactions": "95",
+    "createdBy": "Manager3",
+    "lastActive": "2023-12-02"
+  },
+  {
+    "Name": "James White",
+    "ProgramManager": "Student Card",
+    "totalCards": "1",
+    "totalTransactions": "45",
+    "createdBy": "SupervisorY",
+    "lastActive": "2023-11-27"
+  },
+  {
+    "Name": "Sophia Martinez",
+    "ProgramManager": "Savings Card",
+    "totalCards": "3",
+    "totalTransactions": "130",
+    "createdBy": "Admin",
+    "lastActive": "2023-11-29"
+  },
+  {
+    "Name": "Ethan Taylor",
+    "ProgramManager": "Cashback Card",
+    "totalCards": "2",
+    "totalTransactions": "70",
+    "createdBy": "Manager2",
+    "lastActive": "2023-11-30"
+  },
+  {
+    "Name": "Isabella Hernandez",
+    "ProgramManager": "Corporate Card",
+    "totalCards": "6",
+    "totalTransactions": "300",
+    "createdBy": "SupervisorZ",
+    "lastActive": "2023-12-04"
+  },
+  {
+    "Name": "Liam Garcia",
+    "ProgramManager": "Premium Card",
+    "totalCards": "4",
+    "totalTransactions": "190",
+    "createdBy": "Admin",
+    "lastActive": "2023-12-01"
+  }
+]
+ 
 
 export function AllCustomerTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -159,24 +171,31 @@ export function AllCustomerTable() {
       ),
     },
     {
-      accessorKey: 'Total Cards',
+      accessorKey: 'totalCards',
       header: 'Total Cards',
       cell: ({ row }) => (
-        <div className="text-center">{(row.getValue('Total Cards')? row.getValue('Total Cards') : "0")}</div>
+        <div className="text-center">{(row.getValue('totalCards')? row.getValue('totalCards') : "0")}</div>
       ),
     },
     {
-      accessorKey: 'Total Transactions',
+      accessorKey: 'totalTransactions',
       header: 'Total Transactions',
       cell: ({ row }) => (
-        <div className="text-center">{(row.getValue('Total Transactions')? row.getValue('Total Transactions') : "0")}</div>
+        <div className="text-center">{(row.getValue('totalTransactions')? row.getValue('totalTransactions') : "0")}</div>
       ),
     },
     {
-      accessorKey: 'LastActive',
+      accessorKey: 'createdBy',
+      header: 'Created By',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('createdBy')}</div>
+      ),
+    },
+    {
+      accessorKey: 'lastActive',
       header: 'Last Active',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('LastActive')}</div>
+        <div className="text-center">{row.getValue('lastActive')}</div>
       ),
     },
     {
