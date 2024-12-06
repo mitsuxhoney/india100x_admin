@@ -60,6 +60,7 @@ import {
 
 const data =[
   {
+    "customerId":"123456789",
     "Name": "John Doe",
     "ProgramManager": "Privacy Card",
     "totalCards": "4",
@@ -68,6 +69,7 @@ const data =[
     "lastActive": "2023-12-01"
   },
   {
+    "customerId":"123456789",
     "Name": "Jane Smith",
     "ProgramManager": "Business Card",
     "totalCards": "2",
@@ -76,6 +78,7 @@ const data =[
     "lastActive": "2023-11-28"
   },
   {
+    "customerId":"123456789",
     "Name": "Robert Brown",
     "ProgramManager": "Travel Card",
     "totalCards": "3",
@@ -84,6 +87,7 @@ const data =[
     "lastActive": "2023-11-30"
   },
   {
+    "customerId":"123456789",
     "Name": "Emily Davis",
     "ProgramManager": "Gift Card",
     "totalCards": "1",
@@ -92,6 +96,7 @@ const data =[
     "lastActive": "2023-12-03"
   },
   {
+    "customerId":"123456789",
     "Name": "Michael Wilson",
     "ProgramManager": "Virtual Card",
     "totalCards": "5",
@@ -100,6 +105,7 @@ const data =[
     "lastActive": "2023-11-25"
   },
   {
+    "customerId":"123456789",
     "Name": "Olivia Johnson",
     "ProgramManager": "Platinum Card",
     "totalCards": "2",
@@ -108,6 +114,7 @@ const data =[
     "lastActive": "2023-12-02"
   },
   {
+    "customerId":"123456789",
     "Name": "James White",
     "ProgramManager": "Student Card",
     "totalCards": "1",
@@ -116,6 +123,7 @@ const data =[
     "lastActive": "2023-11-27"
   },
   {
+    "customerId":"123456789",
     "Name": "Sophia Martinez",
     "ProgramManager": "Savings Card",
     "totalCards": "3",
@@ -124,6 +132,7 @@ const data =[
     "lastActive": "2023-11-29"
   },
   {
+    "customerId":"123456789",
     "Name": "Ethan Taylor",
     "ProgramManager": "Cashback Card",
     "totalCards": "2",
@@ -132,6 +141,7 @@ const data =[
     "lastActive": "2023-11-30"
   },
   {
+    "customerId":"123456789",
     "Name": "Isabella Hernandez",
     "ProgramManager": "Corporate Card",
     "totalCards": "6",
@@ -140,6 +150,7 @@ const data =[
     "lastActive": "2023-12-04"
   },
   {
+    "customerId":"123456789",
     "Name": "Liam Garcia",
     "ProgramManager": "Premium Card",
     "totalCards": "4",
@@ -158,6 +169,11 @@ export function AllCustomerTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
+    {
+      accessorKey: 'customerId',
+      header: 'Customer Id',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
+    },
     {
       accessorKey: 'Name',
       header: 'Name',
@@ -217,12 +233,12 @@ export function AllCustomerTable() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Flagged
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -307,11 +323,6 @@ export function AllCustomerTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -341,14 +352,27 @@ export function AllCustomerTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) => {
+                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      } 
+                      )}
                     </TableRow>
                   ))
                 ) : (
