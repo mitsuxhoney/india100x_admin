@@ -56,124 +56,109 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { Badge } from '@/components/ui/badge'
+
+const fieldIconMap = {
+  kycrequired: {
+    icon: <Badge className="bg-green-600 hover:bg-green-600">KYC</Badge>,
+    color: 'text-blue-500',
+    label: 'KYC Required',
+  },
+  contactlessallowed: {
+    icon: <Badge className="bg-gray-600 hover:bg-gray-600">Contactless</Badge>,
+    color: 'text-green-500',
+    label: 'Contactless Allowed',
+  },
+  physicalallowed: {
+    icon: <Badge className="bg-blue-600 hover:bg-blue-600">Physical</Badge>,
+    color: 'text-red-500',
+    label: 'Physical Not Allowed',
+  },
+  rewardapplicable: {
+    icon: <Badge className="bg-orange-600 hover:bg-orange-600">Reward</Badge>,
+    color: 'text-yellow-500',
+    label: 'Rewards Applicable',
+  },
+}
 
 const data = [
-    {
-      category: 'technology',
-      name: 'John Doe',
-      programmanager: 'Alice Smith',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-01',
-    },
-    {
-      category: 'finance',
-      name: 'Jane Smith',
-      programmanager: 'Michael Brown',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2022-05-10',
-    },
-    {
-      category: 'education',
-      name: 'Alice Johnson',
-      programmanager: 'Chris Evans',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'Yes',
-      launchdate: '2020-11-15',
-    },
-    {
-      category: 'healthcare',
-      name: 'Bob Lee',
-      programmanager: 'Sophia Martinez',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      limit: '3000-1Lakh',
-      rewardapplicable: 'No',
-      launchdate: '2021-07-20',
-    },
-    {
-      category: 'retail',
-      name: 'Carmella White',
-      programmanager: 'David Wilson',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      limit: '500 - 1000',
-      rewardapplicable: 'Yes',
-      launchdate: '2021-03-22',
-    },
-    {
-      category: 'travel',
-      name: 'Michael Adams',
-      programmanager: 'Emma Clark',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 15000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-02-15',
-    },
-    {
-      category: 'automotive',
-      name: 'Olivia Turner',
-      programmanager: 'Liam Scott',
-      kycrequired: 'Yes',
-      contactlessallowed: 'No',
-      physicalallowed: 'Yes',
-      minlimit: 700,
-      maxlimit: 8000,
-      rewardapplicable: 'No',
-      launchdate: '2022-08-03',
-    },
-    {
-      category: 'technology',
-      name: 'Sophia Martinez',
-      programmanager: 'Ethan Hall',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 1000,
-      maxlimit: 12000,
-      rewardapplicable: 'Yes',
-      launchdate: '2020-05-18',
-    },
-    {
-      category: 'education',
-      name: 'James Wilson',
-      programmanager: 'Olivia Green',
-      kycrequired: 'No',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'No',
-      minlimit: 300,
-      maxlimit: 2500,
-      rewardapplicable: 'No',
-      launchdate: '2021-06-08',
-    },
-    {
-      category: 'retail',
-      name: 'Liam Scott',
-      programmanager: 'Sophia White',
-      kycrequired: 'Yes',
-      contactlessallowed: 'Yes',
-      physicalallowed: 'Yes',
-      minlimit: 600,
-      maxlimit: 9000,
-      rewardapplicable: 'Yes',
-      launchdate: '2021-01-11',
-    },
-  
+  {
+    category: 'technology',
+    name: 'John Doe',
+    programmanager: 'Alice Smith',
+    kycrequired: true,
+    contactlessallowed: true,
+    physicalallowed: false,
+    limit: '3000-1Lakh',
+    rewardapplicable: false,
+    launchdate: '2021-01-01',
+  },
+  {
+    category: 'finance',
+    name: 'Jane Doe',
+    programmanager: 'Bob Johnson',
+    kycrequired: false,
+    contactlessallowed: true,
+    physicalallowed: true,
+    limit: '500-5Lakh',
+    rewardapplicable: true,
+    launchdate: '2021-02-01',
+  },
+  {
+    category: 'healthcare',
+    name: 'Mike Doe',
+    programmanager: 'Charlie Brown',
+    kycrequired: true,
+    contactlessallowed: false,
+    physicalallowed: true,
+    limit: '250-5Lakh',
+    rewardapplicable: false,
+    launchdate: '2021-03-01',
+  },
+  {
+    category: 'education',
+    name: 'Sarah Doe',
+    programmanager: 'David Wilson',
+    kycrequired: false,
+    contactlessallowed: false,
+    physicalallowed: false,
+    limit: '100-10Lakh',
+    rewardapplicable: true,
+    launchdate: '2021-04-01',
+  },
+  {
+    category: 'government',
+    name: 'David Johnson',
+    programmanager: 'Emily Davis',
+    kycrequired: true,
+    contactlessallowed: true,
+    physicalallowed: false,
+    limit: '75-10Lakh',
+    rewardapplicable: true,
+    launchdate: '2021-05-01',
+  },
+  {
+    category: 'politics',
+    name: 'Emily Davis',
+    programmanager: 'Michael Johnson',
+    kycrequired: false,
+    contactlessallowed: true,
+    physicalallowed: false,
+    limit: '50-10Lakh',
+    rewardapplicable: true,
+    launchdate: '2021-06-01',
+  },
+  {
+    category: 'entertainment',
+    name: 'Michael Johnson',
+    programmanager: 'Sarah Doe',
+    kycrequired: true,
+    contactlessallowed: false,
+    physicalallowed: true,
+    limit: '150-25Lakh',
+    rewardapplicable: false,
+    launchdate: '2021-07-01',
+  },
 ]
 
 export function ProgramTableDemo() {
@@ -207,48 +192,65 @@ export function ProgramTableDemo() {
     //   enableHiding: false,
     // },
     {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
-      },
-      {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('category')}</div>,
-      },
-      {
-        accessorKey: 'programmanager',
-        header: 'Manager',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('programmanager')}</div>
-        ),
-      },
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('name')}</div>
+      ),
+    },
+    {
+      accessorKey: 'category',
+      header: 'Category',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('category')}</div>
+      ),
+    },
+    {
+      accessorKey: 'programmanager',
+      header: 'Manager',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('programmanager')}</div>
+      ),
+    },
 
+    {
+      accessorKey: 'limit',
+      header: 'Limit',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('limit')}</div>
+      ),
+    },
 
-      {
-        accessorKey: 'limit',
-        header: 'Limit',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('limit')}</div>
-        ),
-      },
+    {
+      accessorKey: 'launchdate',
+      header: 'Launch Date',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('launchdate')}</div>
+      ),
+    },
 
-      {
-        accessorKey: 'launchdate',
-        header: 'Launch Date',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('launchdate')}</div>
-          
-        ),
-      },
+    {
+      header: 'Features',
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center space-x-2">
+          {Object.keys(fieldIconMap).map((field) => {
+            if (row.original[field]) {
+              return (
+                <span
+                  key={field}
+                  className={`flex items-center space-x-1 ${fieldIconMap[field].color}`}
+                  title={fieldIconMap[field].label}
+                >
+                  {fieldIconMap[field].icon}
+                </span>
+              )
+            }
+            return null
+          })}
+        </div>
+      ),
+    },
 
-      {
-        accessorKey: 'applicable',
-        header: '',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('applicable')}</div>
-        ),
-      },
     {
       accessorKey: 'actions',
       header: '',
