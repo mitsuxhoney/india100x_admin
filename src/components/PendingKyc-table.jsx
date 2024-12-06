@@ -60,7 +60,7 @@ import {
 
 const data = [
   {
-    "customerID": "23JH4I",
+    "customerId": "123654789",
     "Name": "Mona",
     "ProgramManager": "Sales Card",
     "kycStatus": "Pending",
@@ -68,7 +68,7 @@ const data = [
     "submissionDate": "2022-10-05"
   },
   {
-    "customerID": "98KL2P",
+    "customerId": "123664789",
     "Name": "John Doe",
     "ProgramManager": "Platinum Card",
     "kycStatus": "Incomplete",
@@ -76,7 +76,7 @@ const data = [
     "submissionDate": "2023-09-15"
   },
   {
-    "customerID": "56FR9T",
+    "customerId": "123654782",
     "Name": "Sophia Smith",
     "ProgramManager": "Business Loan",
     "kycStatus": "Under Review",
@@ -84,7 +84,7 @@ const data = [
     "submissionDate": "2023-11-01"
   },
   {
-    "customerID": "78GH6Y",
+    "customerId": "123684789",
     "Name": "Ethan Brown",
     "ProgramManager": "Travel Card",
     "kycStatus": "Rejected",
@@ -92,7 +92,7 @@ const data = [
     "submissionDate": "2023-08-20"
   },
   {
-    "customerID": "45NM3D",
+    "customerId": "123656554",
     "Name": "Liam Wilson",
     "ProgramManager": "Premium Savings",
     "kycStatus": "Pending",
@@ -100,7 +100,7 @@ const data = [
     "submissionDate": "2023-10-10"
   },
   {
-    "customerID": "12HJ8K",
+    "customerId": "123654779",
     "Name": "Emma Davis",
     "ProgramManager": "Retail Finance",
     "kycStatus": "Under Review",
@@ -108,7 +108,7 @@ const data = [
     "submissionDate": "2023-09-25"
   },
   {
-    "customerID": "34LK7P",
+    "customerId": "123654798",
     "Name": "Oliver Martinez",
     "ProgramManager": "Gold Card",
     "kycStatus": "Incomplete",
@@ -116,7 +116,7 @@ const data = [
     "submissionDate": "2023-10-02"
   },
   {
-    "customerID": "67TR5W",
+    "customerId": "189654789",
     "Name": "Ava Taylor",
     "ProgramManager": "Student Plan",
     "kycStatus": "Pending",
@@ -124,7 +124,7 @@ const data = [
     "submissionDate": "2023-11-15"
   },
   {
-    "customerID": "89JL3F",
+    "customerId": "123654756",
     "Name": "Michael Johnson",
     "ProgramManager": "Cashback Offers",
     "kycStatus": "Rejected",
@@ -132,7 +132,7 @@ const data = [
     "submissionDate": "2023-07-30"
   },
   {
-    "customerID": "23OP9K",
+    "customerId": "123654723",
     "Name": "Emily Clark",
     "ProgramManager": "Merchant Services",
     "kycStatus": "Under Review",
@@ -152,9 +152,9 @@ export function PendingKycTable() {
 
   const columns = [
     {
-      accessorKey: 'customerID',
-      header: 'Customer ID',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerID')}</div>,
+      accessorKey: 'customerId',
+      header: 'Customer Id',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
     },
     {
       accessorKey: 'Name',
@@ -208,12 +208,12 @@ export function PendingKycTable() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Approve
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Reject
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -298,11 +298,6 @@ export function PendingKycTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -332,14 +327,27 @@ export function PendingKycTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) => {
+                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      }
+                      )}
                     </TableRow>
                   ))
                 ) : (
