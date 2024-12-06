@@ -60,122 +60,78 @@ import {
 
 const data = [
     {
-      FirstName: 'John',
-      LastName: 'Doe',
-      MobileNumber: 8668303214,
-      Email: 'johndoe@gmail.com',
+      Name: 'John Doe',
       ProgramManager: 'Privacy Card',
+      'Total Cards':'4',
       LastActive: '2023-12-01',
     },
     {
-      FirstName: 'Jane',
-      LastName: 'Smith',
-      MobileNumber: 9876543210,
-      Email: 'janesmith@gmail.com',
+      Name: 'Jane Smith',
       ProgramManager: 'Tech Card',
       LastActive: '2023-11-15',
     },
     {
-      FirstName: 'Bob',
-      LastName: 'Johnson',
-      MobileNumber: 8654321098,
-      Email: 'bobjohnson@gmail.com',
+      Name: 'Bob Johnson',
       ProgramManager: 'Finance Card',
       LastActive: '2023-10-29',
     },
     {
-      FirstName: 'Alice',
-      LastName: 'Williams',
-      MobileNumber: 8765432109,
-      Email: 'alicewilliams@gmail.com',
+      Name: 'Alice Williams',
       ProgramManager: 'Health Card',
       LastActive: '2023-09-19',
     },
     {
-      FirstName: 'Charlie',
-      LastName: 'Brown',
-      MobileNumber: 9123456789,
-      Email: 'charliebrown@gmail.com',
+      Name: 'Charlie Brown',
       ProgramManager: 'Marketing Card',
       LastActive: '2023-08-25',
     },
     {
-      FirstName: 'David',
-      LastName: 'Miller',
-      MobileNumber: 9234567890,
-      Email: 'davidmiller@gmail.com',
+      Name: 'David Miller',
       ProgramManager: 'Education Card',
       LastActive: '2023-07-30',
     },
     {
-      FirstName: 'Eve',
-      LastName: 'Davis',
-      MobileNumber: 9345678901,
-      Email: 'evedavis@gmail.com',
+      Name: 'Eve Davis',
       ProgramManager: 'Innovation Card',
       LastActive: '2023-06-22',
     },
     {
-      FirstName: 'Frank',
-      LastName: 'Martinez',
-      MobileNumber: 9456789012,
-      Email: 'frankmartinez@gmail.com',
+      Name: 'Frank Martinez',
       ProgramManager: 'Growth Card',
       LastActive: '2023-05-18',
     },
     {
-      FirstName: 'Grace',
-      LastName: 'Hernandez',
-      MobileNumber: 9567890123,
-      Email: 'gracehernandez@gmail.com',
+      Name: 'Grace Hernandez',
       ProgramManager: 'Strategy Card',
       LastActive: '2023-04-12',
     },
     {
-      FirstName: 'Hank',
-      LastName: 'Lopez',
-      MobileNumber: 9678901234,
-      Email: 'hanklopez@gmail.com',
+      Name: 'Hank Lopez',
       ProgramManager: 'Operations Card',
       LastActive: '2023-03-09',
     },
     {
-      FirstName: 'Ivy',
-      LastName: 'Gonzalez',
-      MobileNumber: 9789012345,
-      Email: 'ivygonzalez@gmail.com',
+      Name: 'Ivy Gonzalez',
       ProgramManager: 'Design Card',
       LastActive: '2023-02-14',
     },
     {
-      FirstName: 'Jack',
-      LastName: 'Perez',
-      MobileNumber: 9890123456,
-      Email: 'jackperez@gmail.com',
+      Name: 'Jack Perez',
       ProgramManager: 'Technology Card',
       LastActive: '2023-01-20',
     },
     {
-      FirstName: 'Kathy',
-      LastName: 'Wilson',
-      MobileNumber: 9901234567,
-      Email: 'kathywilson@gmail.com',
+      Name: 'Kathy Wilson',
       ProgramManager: 'Analytics Card',
       LastActive: '2022-12-15',
     },
     {
-      FirstName: 'Leo',
-      LastName: 'Anderson',
-      MobileNumber: 9012345678,
-      Email: 'leoanderson@gmail.com',
+      Name: 'Leo Anderson',
       ProgramManager: 'Support Card',
       LastActive: '2022-11-10',
     },
     {
-      FirstName: 'Mona',
-      LastName: 'Thomas',
-      MobileNumber: 9123456789,
-      Email: 'monathomas@gmail.com',
+      Name: 'Mona Thomas',
       ProgramManager: 'Sales Card',
       LastActive: '2022-10-05',
     },
@@ -191,34 +147,29 @@ export function AllCustomerTable() {
 
   const columns = [
     {
-      accessorKey: 'FirstName',
-      header: 'First Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('FirstName')}</div>,
-    },
-    {
-      accessorKey: 'LastName',
-      header: 'Last Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('LastName')}</div>,
-    },
-    {
-      accessorKey: 'MobileNumber',
-      header: 'Mobile Number',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('MobileNumber')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Email',
-      header: 'Email',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Email')}</div>
-      ),
+      accessorKey: 'Name',
+      header: 'Name',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('Name')}</div>,
     },
     {
       accessorKey: 'ProgramManager',
       header: 'Program Manager',
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('ProgramManager')}</div>
+      ),
+    },
+    {
+      accessorKey: 'Total Cards',
+      header: 'Total Cards',
+      cell: ({ row }) => (
+        <div className="text-center">{(row.getValue('Total Cards')? row.getValue('Total Cards') : "0")}</div>
+      ),
+    },
+    {
+      accessorKey: 'Total Transactions',
+      header: 'Total Transactions',
+      cell: ({ row }) => (
+        <div className="text-center">{(row.getValue('Total Transactions')? row.getValue('Total Transactions') : "0")}</div>
       ),
     },
     {
@@ -304,9 +255,9 @@ export function AllCustomerTable() {
           <div className="flex items-center py-4 justify-between ">
             <Input
               placeholder="Search Name..."
-              value={table.getColumn('FirstName')?.getFilterValue() ?? ''}
+              value={table.getColumn('Name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('FirstName')?.setFilterValue(event.target.value)
+                table.getColumn('Name')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
