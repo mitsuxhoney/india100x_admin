@@ -60,23 +60,35 @@ import { Badge } from '@/components/ui/badge'
 
 const fieldIconMap = {
   kycrequired: {
-    icon: <Badge className="bg-green-600 hover:bg-green-600">KYC</Badge>,
-    color: 'text-blue-500',
+    icon: (
+      <Badge className="bg-green-600 hover:bg-green-600 cursor-pointer">
+        KYC
+      </Badge>
+    ),
     label: 'KYC Required',
   },
   contactlessallowed: {
-    icon: <Badge className="bg-gray-600 hover:bg-gray-600">Contactless</Badge>,
-    color: 'text-green-500',
+    icon: (
+      <Badge className="bg-purple-600 hover:bg-purple-600 cursor-pointer">
+        Contactless
+      </Badge>
+    ),
     label: 'Contactless Allowed',
   },
   physicalallowed: {
-    icon: <Badge className="bg-blue-600 hover:bg-blue-600">Physical</Badge>,
-    color: 'text-red-500',
+    icon: (
+      <Badge className="bg-blue-600 hover:bg-blue-600 cursor-pointer">
+        Physical
+      </Badge>
+    ),
     label: 'Physical Not Allowed',
   },
   rewardapplicable: {
-    icon: <Badge className="bg-orange-600 hover:bg-orange-600">Reward</Badge>,
-    color: 'text-yellow-500',
+    icon: (
+      <Badge className="bg-orange-600 hover:bg-orange-600 cursor-pointer">
+        Reward
+      </Badge>
+    ),
     label: 'Rewards Applicable',
   },
 }
@@ -230,15 +242,15 @@ export function ProgramTableDemo() {
     },
 
     {
-      header: 'Features',
+      header: `${' '}`,
       cell: ({ row }) => (
-        <div className="flex items-center justify-center space-x-2">
+        <div className="flex items-center justify-start gap-2">
           {Object.keys(fieldIconMap).map((field) => {
             if (row.original[field]) {
               return (
                 <span
                   key={field}
-                  className={`flex items-center space-x-1 ${fieldIconMap[field].color}`}
+                  className={`flex items-center gap-1`}
                   title={fieldIconMap[field].label}
                 >
                   {fieldIconMap[field].icon}
@@ -403,7 +415,7 @@ export function ProgramTableDemo() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
+              <Link to="/programs/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
