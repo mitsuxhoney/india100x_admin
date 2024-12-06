@@ -61,6 +61,7 @@ import {
 const data =
   [
     {
+      "customerId": "123456781",
       "Name": "John Doe",
       "ProgramManager": "Privacy Card",
       "FlagType": "Suspicious Transactions",
@@ -70,6 +71,7 @@ const data =
       "LastActive": "2023-12-01"
     },
     {
+      "customerId": "123452789",
       "Name": "Jane Smith",
       "ProgramManager": "Rewards Program",
       "FlagType": "Chargeback",
@@ -79,6 +81,7 @@ const data =
       "LastActive": "2023-11-25"
     },
     {
+      "customerId": "123426789",
       "Name": "Alan Turing",
       "ProgramManager": "Merchant Payments",
       "FlagType": "Violation of Terms",
@@ -88,6 +91,7 @@ const data =
       "LastActive": "2023-11-30"
     },
     {
+      "customerId": "123456789",
       "Name": "Grace Hopper",
       "ProgramManager": "Account Management",
       "FlagType": "High-Risk Account",
@@ -97,6 +101,7 @@ const data =
       "LastActive": "2023-12-03"
     },
     {
+      "customerId": "123456789",
       "Name": "Elena Johnson",
       "ProgramManager": "Premium Savings",
       "FlagType": "Suspicious Transactions",
@@ -106,6 +111,7 @@ const data =
       "LastActive": "2023-12-02"
     },
     {
+      "customerId": "123456789",
       "Name": "Michael Brown",
       "ProgramManager": "Corporate Cards",
       "FlagType": "Fraudulent Activity",
@@ -115,6 +121,7 @@ const data =
       "LastActive": "2023-11-28"
     },
     {
+      "customerId": "123456789",
       "Name": "Sophia Davis",
       "ProgramManager": "Online Wallet",
       "FlagType": "Account Takeover",
@@ -124,6 +131,7 @@ const data =
       "LastActive": "2023-12-04"
     },
     {
+      "customerId": "123456789",
       "Name": "Ethan Harris",
       "ProgramManager": "Investment Plans",
       "FlagType": "Data Breach Risk",
@@ -133,6 +141,7 @@ const data =
       "LastActive": "2023-11-27"
     },
     {
+      "customerId": "123456789",
       "Name": "Emma Wilson",
       "ProgramManager": "Cashback Offers",
       "FlagType": "Fraudulent Activity",
@@ -142,6 +151,7 @@ const data =
       "LastActive": "2023-11-29"
     },
     {
+      "customerId": "123456789",
       "Name": "Oliver Martinez",
       "ProgramManager": "Loan Services",
       "FlagType": "Suspicious Login",
@@ -160,6 +170,11 @@ export function FlaggedCustomerTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
+    {
+      accessorKey: 'customerId',
+      header: 'Customer Id',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
+    },
     {
       accessorKey: 'Name',
       header: 'Name',
@@ -180,22 +195,15 @@ export function FlaggedCustomerTable() {
       ),
     },
     {
-      accessorKey:'FlaggedActivityDescription',
-      header:'Flagged Activity Description',
+      accessorKey: 'FlaggedActivityDescription',
+      header: 'Flagged Activity Description',
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('FlaggedActivityDescription')}</div>
       ),
     },
     {
-      accessorKey:'IpAddress',
-      header:'IP Address',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('IpAddress')}</div>
-      ),
-    },
-    {
-      accessorKey:'CreatedBy',
-      header:'Created By',
+      accessorKey: 'CreatedBy',
+      header: 'Created By',
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('CreatedBy')}</div>
       ),
@@ -226,12 +234,12 @@ export function FlaggedCustomerTable() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Activate
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -316,11 +324,7 @@ export function FlaggedCustomerTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
+
             </div>
           </div>
           <div className="rounded-md border">
@@ -334,9 +338,9 @@ export function FlaggedCustomerTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
@@ -350,14 +354,27 @@ export function FlaggedCustomerTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) => {
+                        // Define which columns should be clickable
+                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
                   ))
                 ) : (
