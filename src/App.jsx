@@ -15,11 +15,23 @@ import PoolAccounts from './pages/PoolAccounts/PoolAccounts'
 import FundingTransactions from './pages/FundingTransactions/FundingTransactions'
 import SystemUsers from './pages/SystemUsers/SystemUsers'
 import UserActivityLogs from './pages/UserActivityLogs/UserActivityLogs'
-import SecuritySettings from './pages/SecuritySettings/SecuritySettings'
-import ApiSettings from './pages/ApiSettings/ApiSettings'
-import DefaultConfigs from './pages/DefaultConfigs/DefaultConfigs'
 import CreateProgram from './pages/CreateProgram/CreateProgram'
 import CreateInventory from './pages/CreateInventory/CreateInventory'
+import Profile from '@/pages/AccountProfile/Profile'
+import Security from '@/pages/AccountSecurity/Security'
+import Appearance from '@/pages/AccountAppearance/Appearance'
+import Notifications from '@/pages/AccountNotifications/Notifications'
+
+import ApiKeys from '@/pages/DeveloperApiKeys/ApiKeys'
+import Webhooks from '@/pages/DeveloperWebhooks/Webhooks'
+import IpWhitelisting from '@/pages/DeveloperIpWhitelisting/IpWhitelisting'
+
+import Users from '@/pages/TeamUsers/Users'
+import Invite from '@/pages/TeamInvite/Invite'
+import Logs from '@/pages/TeamLogs/Logs'
+
+import UserProfileLayout from './components/UserProfileLayout'
+
 function App() {
   return (
     <ThemeProvider>
@@ -50,9 +62,21 @@ function App() {
           />
           <Route path="/system-users" element={<SystemUsers />} />
           <Route path="/user-activity-logs" element={<UserActivityLogs />} />
-          <Route path="/security-settings" element={<SecuritySettings />} />
-          <Route path="/api-settings" element={<ApiSettings />} />
-          <Route path="/default-configs" element={<DefaultConfigs />} />
+          <Route element={<UserProfileLayout />}>
+            <Route path="/account" element={<Profile />} />
+            <Route path="/account/security" element={<Security />} />
+            <Route path="/account/appearance" element={<Appearance />} />
+            <Route path="/account/notifications" element={<Notifications />} />
+            <Route path="/developer/api-keys" element={<ApiKeys />} />
+            <Route path="/developer/webhooks" element={<Webhooks />} />
+            <Route
+              path="/developer/ip-whitelisting"
+              element={<IpWhitelisting />}
+            />
+            <Route path="/team/users" element={<Users />} />
+            <Route path="/team/invite" element={<Invite />} />
+            <Route path="/team/logs" element={<Logs />} />
+          </Route>
         </Route>
         <Route path="/*" element={<Error404 />} />
       </Routes>
