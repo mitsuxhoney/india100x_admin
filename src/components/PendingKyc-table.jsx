@@ -59,127 +59,88 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-      FirstName: 'John',
-      LastName: 'Doe',
-      MobileNumber: 8668303214,
-      Email: 'johndoe@gmail.com',
-      ProgramManager: 'Privacy Card',
-      LastActive: '2023-12-01',
-    },
-    {
-      FirstName: 'Jane',
-      LastName: 'Smith',
-      MobileNumber: 9876543210,
-      Email: 'janesmith@gmail.com',
-      ProgramManager: 'Tech Card',
-      LastActive: '2023-11-15',
-    },
-    {
-      FirstName: 'Bob',
-      LastName: 'Johnson',
-      MobileNumber: 8654321098,
-      Email: 'bobjohnson@gmail.com',
-      ProgramManager: 'Finance Card',
-      LastActive: '2023-10-29',
-    },
-    {
-      FirstName: 'Alice',
-      LastName: 'Williams',
-      MobileNumber: 8765432109,
-      Email: 'alicewilliams@gmail.com',
-      ProgramManager: 'Health Card',
-      LastActive: '2023-09-19',
-    },
-    {
-      FirstName: 'Charlie',
-      LastName: 'Brown',
-      MobileNumber: 9123456789,
-      Email: 'charliebrown@gmail.com',
-      ProgramManager: 'Marketing Card',
-      LastActive: '2023-08-25',
-    },
-    {
-      FirstName: 'David',
-      LastName: 'Miller',
-      MobileNumber: 9234567890,
-      Email: 'davidmiller@gmail.com',
-      ProgramManager: 'Education Card',
-      LastActive: '2023-07-30',
-    },
-    {
-      FirstName: 'Eve',
-      LastName: 'Davis',
-      MobileNumber: 9345678901,
-      Email: 'evedavis@gmail.com',
-      ProgramManager: 'Innovation Card',
-      LastActive: '2023-06-22',
-    },
-    {
-      FirstName: 'Frank',
-      LastName: 'Martinez',
-      MobileNumber: 9456789012,
-      Email: 'frankmartinez@gmail.com',
-      ProgramManager: 'Growth Card',
-      LastActive: '2023-05-18',
-    },
-    {
-      FirstName: 'Grace',
-      LastName: 'Hernandez',
-      MobileNumber: 9567890123,
-      Email: 'gracehernandez@gmail.com',
-      ProgramManager: 'Strategy Card',
-      LastActive: '2023-04-12',
-    },
-    {
-      FirstName: 'Hank',
-      LastName: 'Lopez',
-      MobileNumber: 9678901234,
-      Email: 'hanklopez@gmail.com',
-      ProgramManager: 'Operations Card',
-      LastActive: '2023-03-09',
-    },
-    {
-      FirstName: 'Ivy',
-      LastName: 'Gonzalez',
-      MobileNumber: 9789012345,
-      Email: 'ivygonzalez@gmail.com',
-      ProgramManager: 'Design Card',
-      LastActive: '2023-02-14',
-    },
-    {
-      FirstName: 'Jack',
-      LastName: 'Perez',
-      MobileNumber: 9890123456,
-      Email: 'jackperez@gmail.com',
-      ProgramManager: 'Technology Card',
-      LastActive: '2023-01-20',
-    },
-    {
-      FirstName: 'Kathy',
-      LastName: 'Wilson',
-      MobileNumber: 9901234567,
-      Email: 'kathywilson@gmail.com',
-      ProgramManager: 'Analytics Card',
-      LastActive: '2022-12-15',
-    },
-    {
-      FirstName: 'Leo',
-      LastName: 'Anderson',
-      MobileNumber: 9012345678,
-      Email: 'leoanderson@gmail.com',
-      ProgramManager: 'Support Card',
-      LastActive: '2022-11-10',
-    },
-    {
-      FirstName: 'Mona',
-      LastName: 'Thomas',
-      MobileNumber: 9123456789,
-      Email: 'monathomas@gmail.com',
-      ProgramManager: 'Sales Card',
-      LastActive: '2022-10-05',
-    },
-  ]
+  {
+    "customerId": "123654789",
+    "Name": "Mona",
+    "ProgramManager": "Sales Card",
+    "kycStatus": "Pending",
+    "verificationRemarks": "Resubmission Required",
+    "submissionDate": "2022-10-05"
+  },
+  {
+    "customerId": "123664789",
+    "Name": "John Doe",
+    "ProgramManager": "Platinum Card",
+    "kycStatus": "Incomplete",
+    "verificationRemarks": "Address proof missing",
+    "submissionDate": "2023-09-15"
+  },
+  {
+    "customerId": "123654782",
+    "Name": "Sophia Smith",
+    "ProgramManager": "Business Loan",
+    "kycStatus": "Under Review",
+    "verificationRemarks": "Verification in progress",
+    "submissionDate": "2023-11-01"
+  },
+  {
+    "customerId": "123684789",
+    "Name": "Ethan Brown",
+    "ProgramManager": "Travel Card",
+    "kycStatus": "Rejected",
+    "verificationRemarks": "ID proof mismatch",
+    "submissionDate": "2023-08-20"
+  },
+  {
+    "customerId": "123656554",
+    "Name": "Liam Wilson",
+    "ProgramManager": "Premium Savings",
+    "kycStatus": "Pending",
+    "verificationRemarks": "Photo unclear, resubmit",
+    "submissionDate": "2023-10-10"
+  },
+  {
+    "customerId": "123654779",
+    "Name": "Emma Davis",
+    "ProgramManager": "Retail Finance",
+    "kycStatus": "Under Review",
+    "verificationRemarks": "Cross-verifying documents",
+    "submissionDate": "2023-09-25"
+  },
+  {
+    "customerId": "123654798",
+    "Name": "Oliver Martinez",
+    "ProgramManager": "Gold Card",
+    "kycStatus": "Incomplete",
+    "verificationRemarks": "Bank statement not submitted",
+    "submissionDate": "2023-10-02"
+  },
+  {
+    "customerId": "189654789",
+    "Name": "Ava Taylor",
+    "ProgramManager": "Student Plan",
+    "kycStatus": "Pending",
+    "verificationRemarks": "Document not signed",
+    "submissionDate": "2023-11-15"
+  },
+  {
+    "customerId": "123654756",
+    "Name": "Michael Johnson",
+    "ProgramManager": "Cashback Offers",
+    "kycStatus": "Rejected",
+    "verificationRemarks": "Document not legible",
+    "submissionDate": "2023-07-30"
+  },
+  {
+    "customerId": "123654723",
+    "Name": "Emily Clark",
+    "ProgramManager": "Merchant Services",
+    "kycStatus": "Under Review",
+    "verificationRemarks": "Final verification stage",
+    "submissionDate": "2023-11-10"
+  }
+]
+
   
 
 export function PendingKycTable() {
@@ -191,28 +152,14 @@ export function PendingKycTable() {
 
   const columns = [
     {
-      accessorKey: 'FirstName',
-      header: 'First Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('FirstName')}</div>,
+      accessorKey: 'customerId',
+      header: 'Customer Id',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
     },
     {
-      accessorKey: 'LastName',
-      header: 'Last Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('LastName')}</div>,
-    },
-    {
-      accessorKey: 'MobileNumber',
-      header: 'Mobile Number',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('MobileNumber')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Email',
-      header: 'Email',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Email')}</div>
-      ),
+      accessorKey: 'Name',
+      header: 'Name',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('Name')}</div>,
     },
     {
       accessorKey: 'ProgramManager',
@@ -222,10 +169,24 @@ export function PendingKycTable() {
       ),
     },
     {
-      accessorKey: 'LastActive',
-      header: 'Last Active',
+      accessorKey: 'kycStatus',
+      header: 'KYC Status',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('LastActive')}</div>
+        <div className="text-center">{row.getValue('kycStatus')}</div>
+      ),
+    },
+    {
+      accessorKey: 'verificationRemarks',
+      header: 'Verification Remarks',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('verificationRemarks')}</div>
+      ),
+    },
+    {
+      accessorKey: 'submissionDate',
+      header: 'Submission Date',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('submissionDate')}</div>
       ),
     },
     {
@@ -247,12 +208,12 @@ export function PendingKycTable() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Approve
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Reject
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -304,9 +265,9 @@ export function PendingKycTable() {
           <div className="flex items-center py-4 justify-between ">
             <Input
               placeholder="Search Name..."
-              value={table.getColumn('FirstName')?.getFilterValue() ?? ''}
+              value={table.getColumn('Name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('FirstName')?.setFilterValue(event.target.value)
+                table.getColumn('Name')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -337,11 +298,6 @@ export function PendingKycTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -371,14 +327,27 @@ export function PendingKycTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) => {
+                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      }
+                      )}
                     </TableRow>
                   ))
                 ) : (

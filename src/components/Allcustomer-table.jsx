@@ -58,129 +58,108 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-const data = [
-    {
-      FirstName: 'John',
-      LastName: 'Doe',
-      MobileNumber: 8668303214,
-      Email: 'johndoe@gmail.com',
-      ProgramManager: 'Privacy Card',
-      LastActive: '2023-12-01',
-    },
-    {
-      FirstName: 'Jane',
-      LastName: 'Smith',
-      MobileNumber: 9876543210,
-      Email: 'janesmith@gmail.com',
-      ProgramManager: 'Tech Card',
-      LastActive: '2023-11-15',
-    },
-    {
-      FirstName: 'Bob',
-      LastName: 'Johnson',
-      MobileNumber: 8654321098,
-      Email: 'bobjohnson@gmail.com',
-      ProgramManager: 'Finance Card',
-      LastActive: '2023-10-29',
-    },
-    {
-      FirstName: 'Alice',
-      LastName: 'Williams',
-      MobileNumber: 8765432109,
-      Email: 'alicewilliams@gmail.com',
-      ProgramManager: 'Health Card',
-      LastActive: '2023-09-19',
-    },
-    {
-      FirstName: 'Charlie',
-      LastName: 'Brown',
-      MobileNumber: 9123456789,
-      Email: 'charliebrown@gmail.com',
-      ProgramManager: 'Marketing Card',
-      LastActive: '2023-08-25',
-    },
-    {
-      FirstName: 'David',
-      LastName: 'Miller',
-      MobileNumber: 9234567890,
-      Email: 'davidmiller@gmail.com',
-      ProgramManager: 'Education Card',
-      LastActive: '2023-07-30',
-    },
-    {
-      FirstName: 'Eve',
-      LastName: 'Davis',
-      MobileNumber: 9345678901,
-      Email: 'evedavis@gmail.com',
-      ProgramManager: 'Innovation Card',
-      LastActive: '2023-06-22',
-    },
-    {
-      FirstName: 'Frank',
-      LastName: 'Martinez',
-      MobileNumber: 9456789012,
-      Email: 'frankmartinez@gmail.com',
-      ProgramManager: 'Growth Card',
-      LastActive: '2023-05-18',
-    },
-    {
-      FirstName: 'Grace',
-      LastName: 'Hernandez',
-      MobileNumber: 9567890123,
-      Email: 'gracehernandez@gmail.com',
-      ProgramManager: 'Strategy Card',
-      LastActive: '2023-04-12',
-    },
-    {
-      FirstName: 'Hank',
-      LastName: 'Lopez',
-      MobileNumber: 9678901234,
-      Email: 'hanklopez@gmail.com',
-      ProgramManager: 'Operations Card',
-      LastActive: '2023-03-09',
-    },
-    {
-      FirstName: 'Ivy',
-      LastName: 'Gonzalez',
-      MobileNumber: 9789012345,
-      Email: 'ivygonzalez@gmail.com',
-      ProgramManager: 'Design Card',
-      LastActive: '2023-02-14',
-    },
-    {
-      FirstName: 'Jack',
-      LastName: 'Perez',
-      MobileNumber: 9890123456,
-      Email: 'jackperez@gmail.com',
-      ProgramManager: 'Technology Card',
-      LastActive: '2023-01-20',
-    },
-    {
-      FirstName: 'Kathy',
-      LastName: 'Wilson',
-      MobileNumber: 9901234567,
-      Email: 'kathywilson@gmail.com',
-      ProgramManager: 'Analytics Card',
-      LastActive: '2022-12-15',
-    },
-    {
-      FirstName: 'Leo',
-      LastName: 'Anderson',
-      MobileNumber: 9012345678,
-      Email: 'leoanderson@gmail.com',
-      ProgramManager: 'Support Card',
-      LastActive: '2022-11-10',
-    },
-    {
-      FirstName: 'Mona',
-      LastName: 'Thomas',
-      MobileNumber: 9123456789,
-      Email: 'monathomas@gmail.com',
-      ProgramManager: 'Sales Card',
-      LastActive: '2022-10-05',
-    },
-  ]
-  
+const data =[
+  {
+    "customerId":"123456789",
+    "Name": "John Doe",
+    "ProgramManager": "Privacy Card",
+    "totalCards": "4",
+    "totalTransactions": "120",
+    "createdBy": "Admin",
+    "lastActive": "2023-12-01"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Jane Smith",
+    "ProgramManager": "Business Card",
+    "totalCards": "2",
+    "totalTransactions": "85",
+    "createdBy": "Manager1",
+    "lastActive": "2023-11-28"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Robert Brown",
+    "ProgramManager": "Travel Card",
+    "totalCards": "3",
+    "totalTransactions": "140",
+    "createdBy": "SupervisorX",
+    "lastActive": "2023-11-30"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Emily Davis",
+    "ProgramManager": "Gift Card",
+    "totalCards": "1",
+    "totalTransactions": "15",
+    "createdBy": "Admin",
+    "lastActive": "2023-12-03"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Michael Wilson",
+    "ProgramManager": "Virtual Card",
+    "totalCards": "5",
+    "totalTransactions": "200",
+    "createdBy": "AdminAssistant",
+    "lastActive": "2023-11-25"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Olivia Johnson",
+    "ProgramManager": "Platinum Card",
+    "totalCards": "2",
+    "totalTransactions": "95",
+    "createdBy": "Manager3",
+    "lastActive": "2023-12-02"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "James White",
+    "ProgramManager": "Student Card",
+    "totalCards": "1",
+    "totalTransactions": "45",
+    "createdBy": "SupervisorY",
+    "lastActive": "2023-11-27"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Sophia Martinez",
+    "ProgramManager": "Savings Card",
+    "totalCards": "3",
+    "totalTransactions": "130",
+    "createdBy": "Admin",
+    "lastActive": "2023-11-29"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Ethan Taylor",
+    "ProgramManager": "Cashback Card",
+    "totalCards": "2",
+    "totalTransactions": "70",
+    "createdBy": "Manager2",
+    "lastActive": "2023-11-30"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Isabella Hernandez",
+    "ProgramManager": "Corporate Card",
+    "totalCards": "6",
+    "totalTransactions": "300",
+    "createdBy": "SupervisorZ",
+    "lastActive": "2023-12-04"
+  },
+  {
+    "customerId":"123456789",
+    "Name": "Liam Garcia",
+    "ProgramManager": "Premium Card",
+    "totalCards": "4",
+    "totalTransactions": "190",
+    "createdBy": "Admin",
+    "lastActive": "2023-12-01"
+  }
+]
+ 
 
 export function AllCustomerTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -191,28 +170,14 @@ export function AllCustomerTable() {
 
   const columns = [
     {
-      accessorKey: 'FirstName',
-      header: 'First Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('FirstName')}</div>,
+      accessorKey: 'customerId',
+      header: 'Customer Id',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
     },
     {
-      accessorKey: 'LastName',
-      header: 'Last Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('LastName')}</div>,
-    },
-    {
-      accessorKey: 'MobileNumber',
-      header: 'Mobile Number',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('MobileNumber')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Email',
-      header: 'Email',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Email')}</div>
-      ),
+      accessorKey: 'Name',
+      header: 'Name',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('Name')}</div>,
     },
     {
       accessorKey: 'ProgramManager',
@@ -222,10 +187,31 @@ export function AllCustomerTable() {
       ),
     },
     {
-      accessorKey: 'LastActive',
+      accessorKey: 'totalCards',
+      header: 'Total Cards',
+      cell: ({ row }) => (
+        <div className="text-center">{(row.getValue('totalCards')? row.getValue('totalCards') : "0")}</div>
+      ),
+    },
+    {
+      accessorKey: 'totalTransactions',
+      header: 'Total Transactions',
+      cell: ({ row }) => (
+        <div className="text-center">{(row.getValue('totalTransactions')? row.getValue('totalTransactions') : "0")}</div>
+      ),
+    },
+    {
+      accessorKey: 'createdBy',
+      header: 'Created By',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('createdBy')}</div>
+      ),
+    },
+    {
+      accessorKey: 'lastActive',
       header: 'Last Active',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('LastActive')}</div>
+        <div className="text-center">{row.getValue('lastActive')}</div>
       ),
     },
     {
@@ -247,12 +233,12 @@ export function AllCustomerTable() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Flagged
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -304,9 +290,9 @@ export function AllCustomerTable() {
           <div className="flex items-center py-4 justify-between ">
             <Input
               placeholder="Search Name..."
-              value={table.getColumn('FirstName')?.getFilterValue() ?? ''}
+              value={table.getColumn('Name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('FirstName')?.setFilterValue(event.target.value)
+                table.getColumn('Name')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -337,11 +323,6 @@ export function AllCustomerTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -371,14 +352,27 @@ export function AllCustomerTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) => {
+                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      } 
+                      )}
                     </TableRow>
                   ))
                 ) : (

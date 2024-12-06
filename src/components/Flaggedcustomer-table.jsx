@@ -58,129 +58,109 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-const data = [
+const data =
+  [
     {
-      FirstName: 'John',
-      LastName: 'Doe',
-      MobileNumber: 8668303214,
-      Email: 'johndoe@gmail.com',
-      ProgramManager: 'Privacy Card',
-      LastActive: '2023-12-01',
+      "customerId": "123456781",
+      "Name": "John Doe",
+      "ProgramManager": "Privacy Card",
+      "FlagType": "Suspicious Transactions",
+      "FlaggedActivityDescription": "Multiple failed login attempts",
+      "IpAddress": "127.0.32.1",
+      "CreatedBy": "Admin32",
+      "LastActive": "2023-12-01"
     },
     {
-      FirstName: 'Jane',
-      LastName: 'Smith',
-      MobileNumber: 9876543210,
-      Email: 'janesmith@gmail.com',
-      ProgramManager: 'Tech Card',
-      LastActive: '2023-11-15',
+      "customerId": "123452789",
+      "Name": "Jane Smith",
+      "ProgramManager": "Rewards Program",
+      "FlagType": "Chargeback",
+      "FlaggedActivityDescription": "Unauthorized chargeback claim",
+      "IpAddress": "192.168.0.12",
+      "CreatedBy": "System",
+      "LastActive": "2023-11-25"
     },
     {
-      FirstName: 'Bob',
-      LastName: 'Johnson',
-      MobileNumber: 8654321098,
-      Email: 'bobjohnson@gmail.com',
-      ProgramManager: 'Finance Card',
-      LastActive: '2023-10-29',
+      "customerId": "123426789",
+      "Name": "Alan Turing",
+      "ProgramManager": "Merchant Payments",
+      "FlagType": "Violation of Terms",
+      "FlaggedActivityDescription": "Abuse of promotional credits",
+      "IpAddress": "10.10.15.6",
+      "CreatedBy": "Admin42",
+      "LastActive": "2023-11-30"
     },
     {
-      FirstName: 'Alice',
-      LastName: 'Williams',
-      MobileNumber: 8765432109,
-      Email: 'alicewilliams@gmail.com',
-      ProgramManager: 'Health Card',
-      LastActive: '2023-09-19',
+      "customerId": "123456789",
+      "Name": "Grace Hopper",
+      "ProgramManager": "Account Management",
+      "FlagType": "High-Risk Account",
+      "FlaggedActivityDescription": "Unusual account behavior detected",
+      "IpAddress": "172.20.10.5",
+      "CreatedBy": "RiskBot",
+      "LastActive": "2023-12-03"
     },
     {
-      FirstName: 'Charlie',
-      LastName: 'Brown',
-      MobileNumber: 9123456789,
-      Email: 'charliebrown@gmail.com',
-      ProgramManager: 'Marketing Card',
-      LastActive: '2023-08-25',
+      "customerId": "123456789",
+      "Name": "Elena Johnson",
+      "ProgramManager": "Premium Savings",
+      "FlagType": "Suspicious Transactions",
+      "FlaggedActivityDescription": "Large withdrawal flagged for review",
+      "IpAddress": "203.0.113.45",
+      "CreatedBy": "Admin53",
+      "LastActive": "2023-12-02"
     },
     {
-      FirstName: 'David',
-      LastName: 'Miller',
-      MobileNumber: 9234567890,
-      Email: 'davidmiller@gmail.com',
-      ProgramManager: 'Education Card',
-      LastActive: '2023-07-30',
+      "customerId": "123456789",
+      "Name": "Michael Brown",
+      "ProgramManager": "Corporate Cards",
+      "FlagType": "Fraudulent Activity",
+      "FlaggedActivityDescription": "Multiple transactions flagged in a short time",
+      "IpAddress": "198.51.100.77",
+      "CreatedBy": "FraudBot",
+      "LastActive": "2023-11-28"
     },
     {
-      FirstName: 'Eve',
-      LastName: 'Davis',
-      MobileNumber: 9345678901,
-      Email: 'evedavis@gmail.com',
-      ProgramManager: 'Innovation Card',
-      LastActive: '2023-06-22',
+      "customerId": "123456789",
+      "Name": "Sophia Davis",
+      "ProgramManager": "Online Wallet",
+      "FlagType": "Account Takeover",
+      "FlaggedActivityDescription": "Password reset attempted from unknown device",
+      "IpAddress": "192.0.2.33",
+      "CreatedBy": "System",
+      "LastActive": "2023-12-04"
     },
     {
-      FirstName: 'Frank',
-      LastName: 'Martinez',
-      MobileNumber: 9456789012,
-      Email: 'frankmartinez@gmail.com',
-      ProgramManager: 'Growth Card',
-      LastActive: '2023-05-18',
+      "customerId": "123456789",
+      "Name": "Ethan Harris",
+      "ProgramManager": "Investment Plans",
+      "FlagType": "Data Breach Risk",
+      "FlaggedActivityDescription": "Account flagged after potential data exposure",
+      "IpAddress": "203.123.45.67",
+      "CreatedBy": "Admin76",
+      "LastActive": "2023-11-27"
     },
     {
-      FirstName: 'Grace',
-      LastName: 'Hernandez',
-      MobileNumber: 9567890123,
-      Email: 'gracehernandez@gmail.com',
-      ProgramManager: 'Strategy Card',
-      LastActive: '2023-04-12',
+      "customerId": "123456789",
+      "Name": "Emma Wilson",
+      "ProgramManager": "Cashback Offers",
+      "FlagType": "Fraudulent Activity",
+      "FlaggedActivityDescription": "Discrepancy in cashback claims",
+      "IpAddress": "192.168.1.25",
+      "CreatedBy": "System",
+      "LastActive": "2023-11-29"
     },
     {
-      FirstName: 'Hank',
-      LastName: 'Lopez',
-      MobileNumber: 9678901234,
-      Email: 'hanklopez@gmail.com',
-      ProgramManager: 'Operations Card',
-      LastActive: '2023-03-09',
-    },
-    {
-      FirstName: 'Ivy',
-      LastName: 'Gonzalez',
-      MobileNumber: 9789012345,
-      Email: 'ivygonzalez@gmail.com',
-      ProgramManager: 'Design Card',
-      LastActive: '2023-02-14',
-    },
-    {
-      FirstName: 'Jack',
-      LastName: 'Perez',
-      MobileNumber: 9890123456,
-      Email: 'jackperez@gmail.com',
-      ProgramManager: 'Technology Card',
-      LastActive: '2023-01-20',
-    },
-    {
-      FirstName: 'Kathy',
-      LastName: 'Wilson',
-      MobileNumber: 9901234567,
-      Email: 'kathywilson@gmail.com',
-      ProgramManager: 'Analytics Card',
-      LastActive: '2022-12-15',
-    },
-    {
-      FirstName: 'Leo',
-      LastName: 'Anderson',
-      MobileNumber: 9012345678,
-      Email: 'leoanderson@gmail.com',
-      ProgramManager: 'Support Card',
-      LastActive: '2022-11-10',
-    },
-    {
-      FirstName: 'Mona',
-      LastName: 'Thomas',
-      MobileNumber: 9123456789,
-      Email: 'monathomas@gmail.com',
-      ProgramManager: 'Sales Card',
-      LastActive: '2022-10-05',
-    },
+      "customerId": "123456789",
+      "Name": "Oliver Martinez",
+      "ProgramManager": "Loan Services",
+      "FlagType": "Suspicious Login",
+      "FlaggedActivityDescription": "Login from multiple countries in 24 hours",
+      "IpAddress": "10.0.0.8",
+      "CreatedBy": "Admin88",
+      "LastActive": "2023-12-05"
+    }
   ]
-  
 
 export function FlaggedCustomerTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -191,34 +171,41 @@ export function FlaggedCustomerTable() {
 
   const columns = [
     {
-      accessorKey: 'FirstName',
-      header: 'First Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('FirstName')}</div>,
+      accessorKey: 'customerId',
+      header: 'Customer Id',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
     },
     {
-      accessorKey: 'LastName',
-      header: 'Last Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('LastName')}</div>,
-    },
-    {
-      accessorKey: 'MobileNumber',
-      header: 'Mobile Number',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('MobileNumber')}</div>
-      ),
-    },
-    {
-      accessorKey: 'Email',
-      header: 'Email',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('Email')}</div>
-      ),
+      accessorKey: 'Name',
+      header: 'Name',
+      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('Name')}</div>,
     },
     {
       accessorKey: 'ProgramManager',
       header: 'Program Manager',
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('ProgramManager')}</div>
+      ),
+    },
+    {
+      accessorKey: 'FlagType',
+      header: 'Flag Type',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('FlagType')}</div>
+      ),
+    },
+    {
+      accessorKey: 'FlaggedActivityDescription',
+      header: 'Flagged Activity Description',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('FlaggedActivityDescription')}</div>
+      ),
+    },
+    {
+      accessorKey: 'CreatedBy',
+      header: 'Created By',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('CreatedBy')}</div>
       ),
     },
     {
@@ -247,12 +234,12 @@ export function FlaggedCustomerTable() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Activate
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -304,9 +291,9 @@ export function FlaggedCustomerTable() {
           <div className="flex items-center py-4 justify-between ">
             <Input
               placeholder="Search Name..."
-              value={table.getColumn('FirstName')?.getFilterValue() ?? ''}
+              value={table.getColumn('Name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('FirstName')?.setFilterValue(event.target.value)
+                table.getColumn('Name')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -337,11 +324,7 @@ export function FlaggedCustomerTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
-                </Button>
-              </Link>
+
             </div>
           </div>
           <div className="rounded-md border">
@@ -355,9 +338,9 @@ export function FlaggedCustomerTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
@@ -371,14 +354,27 @@ export function FlaggedCustomerTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
+                      {row.getVisibleCells().map((cell) => {
+                        // Define which columns should be clickable
+                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+
+                        return (
+                          <TableCell className='text-center' key={cell.id}>
+                            {clickableColumns.includes(cell.column.id) ? (
+                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
+                              <button
+                                onClick={() => handleClick(cell.row.original)}
+                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                              >
+                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                              </button>
+                            ) : (
+                              // Otherwise, render the regular cell content
+                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                            )}
+                          </TableCell>
+                        );
+                      })}
                     </TableRow>
                   ))
                 ) : (

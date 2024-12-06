@@ -18,6 +18,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  Binary,
 } from 'lucide-react'
 
 import {
@@ -60,36 +61,77 @@ import {
 
 const data = [
   {
-    TotalAmount: '10000',
-    DebitedAmount: '2000',
-    CreditedAmount: '5000',
-    LastTransaction: '2024-11-01',
+    "accountNumber": "53264738991022",
+    "bankName": "Dummy Bank",
+    "bin": "98287",
+    "totalAmount": "569234432.23",
+    "status": "Active"
   },
   {
-    TotalAmount: '15000',
-    DebitedAmount: '3000',
-    CreditedAmount: '4000',
-    LastTransaction: '2024-11-02',
+    "accountNumber": "42367853401234",
+    "bankName": "Global Trust Bank",
+    "bin": "98279",
+    "totalAmount": "123456789.50",
+    "status": "Active"
   },
   {
-    TotalAmount: '20000',
-    DebitedAmount: '5000',
-    CreditedAmount: '6000',
-    LastTransaction: '2024-11-03',
+    "accountNumber": "28763495023871",
+    "bankName": "Techno Bank",
+    "bin": "98290",
+    "totalAmount": "87945632.75",
+    "status": "Inactive"
   },
   {
-    TotalAmount: '12000',
-    DebitedAmount: '1500',
-    CreditedAmount: '4500',
-    LastTransaction: '2024-11-04',
+    "accountNumber": "94857629385016",
+    "bankName": "Sunrise Financial",
+    "bin": "98301",
+    "totalAmount": "23456789.30",
+    "status": "Active"
   },
   {
-    TotalAmount: '18000',
-    DebitedAmount: '4000',
-    CreditedAmount: '5500',
-    LastTransaction: '2024-11-05',
+    "accountNumber": "76834599023840",
+    "bankName": "Prime Capital Bank",
+    "bin": "98288",
+    "totalAmount": "987654321.10",
+    "status": "Active"
   },
+  {
+    "accountNumber": "65873498126754",
+    "bankName": "Standard Bank",
+    "bin": "98299",
+    "totalAmount": "52347645.55",
+    "status": "Inactive"
+  },
+  {
+    "accountNumber": "34267192375631",
+    "bankName": "Citywide Bank",
+    "bin": "98285",
+    "totalAmount": "102345678.90",
+    "status": "Active"
+  },
+  {
+    "accountNumber": "84723659802142",
+    "bankName": "BlueOcean Bank",
+    "bin": "98305",
+    "totalAmount": "39456780.40",
+    "status": "Active"
+  },
+  {
+    "accountNumber": "92737463501728",
+    "bankName": "Innovative Financial Group",
+    "bin": "98291",
+    "totalAmount": "76543210.20",
+    "status": "Active"
+  },
+  {
+    "accountNumber": "65839276293715",
+    "bankName": "MetroBank",
+    "bin": "98302",
+    "totalAmount": "34567890.60",
+    "status": "Inactive"
+  }
 ]
+
 
 export function PoolAccountsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -100,31 +142,39 @@ export function PoolAccountsTable() {
 
   const columns = [
     {
-      accessorKey: 'TotalAmount',
+      accessorKey: 'accountNumber',
+      header: 'Account Number',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('accountNumber')}</div>
+      ),
+    },
+    {
+      accessorKey: 'bankName',
+      header: 'Bank Name',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('bankName')}</div>
+      ),
+    },
+    {
+      accessorKey: 'bin',
+      header: 'BIN',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('bin')}</div>
+      ),
+    },
+    
+    {
+      accessorKey: 'totalAmount',
       header: 'Total Amount',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('TotalAmount')}</div>
+        <div className="text-center">{row.getValue('totalAmount')}</div>
       ),
     },
     {
-      accessorKey: 'DebitedAmount',
-      header: 'Debited Amount',
+      accessorKey: 'status',
+      header: 'Status',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('DebitedAmount')}</div>
-      ),
-    },
-    {
-      accessorKey: 'CreditedAmount',
-      header: 'Credited Amount',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('CreditedAmount')}</div>
-      ),
-    },
-    {
-      accessorKey: 'LastTransaction',
-      header: 'Last Transaction',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('LastTransaction')}</div>
+        <div className="text-center">{row.getValue('status')}</div>
       ),
     },
     {
