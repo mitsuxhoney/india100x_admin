@@ -2,24 +2,54 @@ import { Outlet } from 'react-router-dom'
 import UserProfileSidebar from './UserProfileSidebar'
 
 const UserProfileLayout = () => {
-  const userProfileSidebarItems = [
-    {
-      title: 'Profile',
-      href: '/account/profile',
-    },
-    {
-      title: 'Security',
-      href: '/account/security',
-    },
-    {
-      title: 'Appearance',
-      href: '/account/appearance',
-    },
-    {
-      title: 'Notifications',
-      href: '/account/notifications',
-    },
-  ]
+  const userProfileSidebarItems = {
+    account: [
+      {
+        title: 'Profile',
+        href: '/account/profile',
+      },
+      {
+        title: 'Security',
+        href: '/account/security',
+      },
+      {
+        title: 'Appearance',
+        href: '/account/appearance',
+      },
+      {
+        title: 'Notifications',
+        href: '/account/notifications',
+      },
+    ],
+    developer: [
+      {
+        title: 'API Keys',
+        href: 'developer/api-keys',
+      },
+      {
+        title: 'Webhooks',
+        href: '/developer/webhooks',
+      },
+      {
+        title: `IP's Whitelisting`,
+        href: '/developer/ip-whitelisting',
+      },
+    ],
+    team: [
+      {
+        title: 'Users',
+        href: 'team/users',
+      },
+      {
+        title: 'Invite',
+        href: '/team/invite',
+      },
+      {
+        title: `Logs`,
+        href: '/team/logs',
+      },
+    ],
+  }
   return (
     <>
       {/* <div className="md:hidden">

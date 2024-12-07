@@ -12,6 +12,8 @@ import {
   LockKeyhole,
   CodeXml,
   FileSliders,
+  CircleUser,
+  Users,
 } from 'lucide-react'
 
 import { Link } from 'react-router-dom'
@@ -81,10 +83,24 @@ export function NavUser({ user }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            <Link to="/security-settings">
+            <Link to="/account">
               <DropdownMenuItem>
-                <BadgeCheck />
+                <CircleUser />
                 Account
+              </DropdownMenuItem>
+            </Link>
+
+            <Link to="/developer">
+              <DropdownMenuItem>
+                <CodeXml />
+                Developer
+              </DropdownMenuItem>
+            </Link>
+
+            <Link to="/team">
+              <DropdownMenuItem>
+                <Users />
+                Team
               </DropdownMenuItem>
             </Link>
 
