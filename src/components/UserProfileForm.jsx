@@ -27,27 +27,27 @@ import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 
 const profileFormSchema = z.object({
-  username: z
+  name: z
     .string()
     .min(2, {
-      message: 'Username must be at least 2 characters.',
+      message: 'name must be at least 2 characters.',
     })
     .max(30, {
-      message: 'Username must not be longer than 30 characters.',
+      message: 'name must not be longer than 30 characters.',
     }),
   email: z
     .string({
       required_error: 'Please select an email to display.',
     })
     .email(),
-  bio: z.string().max(160).min(4),
-  urls: z
-    .array(
-      z.object({
-        value: z.string().url({ message: 'Please enter a valid URL.' }),
-      })
-    )
-    .optional(),
+  phoneno: z
+    .string()
+    .min(10, {
+      message: 'Mobile must have at least 10 digits'
+    })
+    .max(10, {
+      message: 'Mobile number can\'t have more than 10 digits'
+    }),
 })
 
 const defaultValues = {
@@ -85,10 +85,10 @@ const UserProfileForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="username"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
@@ -106,78 +106,101 @@ const UserProfileForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                You can manage verified email addresses in your{' '}
-                <Link href="/examples/forms">email settings</Link>.
-              </FormDescription>
+              <FormControl>
+                <Input placeholder="shadcn@example.com" {...field} />
+              </FormControl>
+
               <FormMessage />
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
-          name="bio"
+          name="phoneno"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>Phone Number</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Tell us a little bit about yourself"
-                  className="resize-none"
-                  {...field}
-                />
+                <Input placeholder="+919292929383" {...field} />
               </FormControl>
-              <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
-              </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
         />
-        <div>
-          {fields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`urls.${index}.value`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={cn(index !== 0 && 'sr-only')}>
-                    URLs
-                  </FormLabel>
-                  <FormDescription className={cn(index !== 0 && 'sr-only')}>
-                    Add links to your website, blog, or social media profiles.
-                  </FormDescription>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="mt-2"
-            onClick={() => append({ value: '' })}
-          >
-            Add URL
-          </Button>
+        <div className='flex justify-between'>
+          <FormField
+            control={form.control}
+            name="teamsize"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Team Size</FormLabel>
+                <FormControl>
+                  <Input placeholder="23" {...field} disabled />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="activeprograms"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Active Programs</FormLabel>
+                <FormControl>
+                  <Input placeholder="56" {...field} disabled />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="kycstatus"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>KYC Status</FormLabel>
+                <FormControl>
+                  <Input placeholder="Verified" {...field} disabled />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className='flex justify-between'>
+          <FormField
+            control={form.control}
+            name="dateOfRegistration"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Registration Date</FormLabel>
+                <FormControl>
+                  <Input placeholder="21/04/2023" {...field} disabled />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="accountStatus"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Account Status</FormLabel>
+                <FormControl>
+                  <Input placeholder="Suspended" {...field} disabled />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <Button type="submit">Update profile</Button>
       </form>
