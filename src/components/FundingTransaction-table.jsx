@@ -95,7 +95,7 @@ const data = [
     Amount: 1200.5,
     Type: 'Credit',
     Success: true,
-    Date: '01-12-2024 22:44PM',
+    Date: '01-12-2024 22:44:05',
   },
   {
     product_id: '2',
@@ -105,7 +105,7 @@ const data = [
     Amount: 550.0,
     Type: 'Debit',
     Pending: true,
-    Date: '2023-11-25 12:44PM',
+    Date: '11-09-2024 12:44:08',
   },
   {
     product_id: '3',
@@ -115,7 +115,7 @@ const data = [
     Amount: 10000.0,
     Type: 'Credit',
     Failed: true,
-    Date: '2023-12-03 2:44PM',
+    Date: '07-07-2024 02:44:08',
   },
   {
     product_id: '4',
@@ -125,7 +125,7 @@ const data = [
     Amount: 250.75,
     Type: 'Debit',
     Failed: true,
-    Date: '2023-12-05 3:15AM',
+    Date: '09-07-2022 03:15:05',
   },
   {
     product_id: '5',
@@ -135,7 +135,7 @@ const data = [
     Amount: 890.2,
     Type: 'Credit',
     Success: true,
-    Date: '2023-12-04 4:50AM',
+    Date: '08-11-2024 04:50:05',
   },
   {
     product_id: '6',
@@ -145,7 +145,7 @@ const data = [
     Amount: 4300.0,
     Type: 'Credit',
     Success: true,
-    Date: '2023-12-02 6:15AM',
+    Date: '2023-12-02 06:15:05',
   },
   {
     product_id: '7',
@@ -155,7 +155,7 @@ const data = [
     Amount: 9199.99,
     Type: 'Debit',
     Pending: true,
-    Date: '2023-11-29 8:25AM',
+    Date: '2023-11-29 08:25:05',
   },
 ]
 
@@ -167,26 +167,26 @@ export function FundingTransactionTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    {
-        accessorKey: 'product_id',
-        header: ({ column }) => {
-            return (
-              <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-              >
-                Sr No
-                <ArrowUpDown />
-              </Button>
+    // {
+    //     accessorKey: 'product_id',
+    //     header: ({ column }) => {
+    //         return (
+    //           <Button
+    //             variant="ghost"
+    //             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+    //           >
+    //             Sr No
+    //             <ArrowUpDown />
+    //           </Button>
               
-            )
-          },
-        cell: ({ row }) => (
-          <div className="capitalize text-center">
-            {row.getValue('product_id')}
-          </div>
-        ),
-      },
+    //         )
+    //       },
+    //     cell: ({ row }) => (
+    //       <div className="capitalize text-center">
+    //         {row.getValue('product_id')}
+    //       </div>
+    //     ),
+    //   },
     {
       accessorKey: 'Date',
       header: 'Date',

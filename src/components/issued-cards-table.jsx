@@ -59,10 +59,12 @@ import {
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 
+
+
 const fieldIconMap = {
   AddOnCard: {
     icon: (
-      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
+      <Badge  className="bg-[#f5e7e4] text-[#792c16]">
         Add on card
       </Badge>
     ),
@@ -70,11 +72,28 @@ const fieldIconMap = {
   },
   Physical: {
     icon: (
-      <Badge  className="bg-[#fff7d3] text-[#ab6e05]">
-        is Physical
+      <Badge  className="bg-[#d3e5ff] text-[#051eab]">
+        Physical
       </Badge>
     ),
     label: 'Pending transaction',
+  },
+
+  Active: {
+    icon: (
+      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
+        Active
+      </Badge>
+    ),
+    label: 'Successful transaction',
+  },
+  Inactive: {
+    icon: (
+      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
+        Inactive
+      </Badge>
+    ),
+    label: 'Failed transaction',
   },
 }
 
@@ -223,21 +242,7 @@ export function IssuedCardsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Sr No
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
-    },
+
     {
       accessorKey: 'card_ref_id',
       header: 'Card Ref ID',
@@ -251,10 +256,8 @@ export function IssuedCardsTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Status
-            <ArrowUpDown />
           </Button>
         )
       },
@@ -304,7 +307,7 @@ export function IssuedCardsTable() {
       ),
     },
     {
-      header: `Status`,
+      header: ` `,
       cell: ({ row }) => (
         <div className="flex items-center justify-start gap-2">
           {Object.keys(fieldIconMap).map((field) => {
@@ -338,14 +341,12 @@ export function IssuedCardsTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Delete

@@ -191,32 +191,7 @@ export function ProgramTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'product_id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Sr No
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <div className="text-center capitalize">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
-    {
-      accessorKey: 'id',
-      header: 'Manager ID',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('id')}</div>
-      ),
-    },
+ 
     {
       accessorKey: 'name',
       header: 'Manager Name',
@@ -285,17 +260,17 @@ export function ProgramTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Suspend
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
@@ -389,7 +364,7 @@ export function ProgramTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

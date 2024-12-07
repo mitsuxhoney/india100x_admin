@@ -2,32 +2,32 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
 
-import { Separator } from "@/components/ui/separator";
+import { Separator } from '@/components/ui/separator'
 import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbSeparator,
   BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
+} from '@/components/ui/breadcrumb'
 
-import { Outlet, useLocation } from "react-router-dom";
-import { ModeToggle } from "@/components/mode-toggle";
-import { AppSidebar } from "./app-sidebar";
+import { Outlet, useLocation } from 'react-router-dom'
+import { ModeToggle } from '@/components/mode-toggle'
+import { AppSidebar } from './app-sidebar'
 const Layout = () => {
-  const location = useLocation();
+  const location = useLocation()
   const afterSeparator = location.pathname
     .slice(1)
-    .split("-")
+    .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ')
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 justify-between">
+        <header className="flex sticky top-0 bg-background z-[1] h-16 shrink-0 items-center gap-2 justify-between">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -52,7 +52,7 @@ const Layout = () => {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

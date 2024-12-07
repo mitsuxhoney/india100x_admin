@@ -209,25 +209,7 @@ export function ProgramTableDemo() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'product_id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Sr No
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <div className="text-center capitalize">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
+
     {
       accessorKey: 'name',
       header: 'Name',
@@ -312,12 +294,12 @@ export function ProgramTableDemo() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block

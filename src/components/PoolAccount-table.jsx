@@ -182,25 +182,25 @@ export function PoolAccountsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    {
-      accessorKey: 'product_id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Sr No
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
+    // {
+    //   accessorKey: 'product_id',
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button
+    //         variant="ghost"
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+    //       >
+    //         Sr No
+    //         <ArrowUpDown />
+    //       </Button>
+    //     )
+    //   },
+    //   cell: ({ row }) => (
+    //     <div className="capitalize text-center">
+    //       {row.getValue('product_id')}
+    //     </div>
+    //   ),
+    // },
     {
       accessorKey: 'accountNumber',
       header: 'Account Number',
@@ -269,18 +269,18 @@ export function PoolAccountsTable() {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
+              <Button variant="ghost" className="h-8 w-8 p-0 ">
                 <span className="sr-only">Open menu</span>
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
+            <DropdownMenuContent align="end" className='cursor-pointer'>
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                Activate

@@ -136,33 +136,13 @@ export function SystemUsersTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'product_id',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Sr No
-            <ArrowUpDown />
-          </Button>
-          
-        )
-      },
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
-    {
-      accessorKey: 'user_id',
-      header: 'User ID',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('user_id')}</div>
-      ),
-    },
+    // {
+    //   accessorKey: 'user_id',
+    //   header: 'User ID',
+    //   cell: ({ row }) => (
+    //     <div className="capitalize">{row.getValue('user_id')}</div>
+    //   ),
+    // },
     {
       accessorKey: 'name',
       header: 'Name',
@@ -176,10 +156,9 @@ export function SystemUsersTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+
           >
             Role
-            <ArrowUpDown />
           </Button>
         )
       },
@@ -206,7 +185,7 @@ export function SystemUsersTable() {
     },
     {
       accessorKey: 'updated_at',
-      header: 'Updated At',
+      header: 'Last Login',
       cell: ({ row }) => (
         <div className="lowercase">{row.getValue('updated_at')}</div>
       ),
@@ -235,18 +214,18 @@ export function SystemUsersTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Suspend
               </DropdownMenuItem>
 
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
