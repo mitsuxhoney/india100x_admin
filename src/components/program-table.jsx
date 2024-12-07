@@ -62,15 +62,13 @@ import { Badge } from '@/components/ui/badge'
 const fieldIconMap = {
   kycrequired: {
     icon: (
-      <Badge className="bg-green-600 hover:bg-green-600 cursor-pointer">
-        KYC
-      </Badge>
+      <Badge className="bg-[#e4f5e9] text-[#16794c] cursor-pointer">KYC</Badge>
     ),
     label: 'KYC Required',
   },
   contactlessallowed: {
     icon: (
-      <Badge className="bg-purple-600 hover:bg-purple-600 cursor-pointer">
+      <Badge className="bg-[#f9f0ff] text-[#6e399d]  cursor-pointer">
         Contactless
       </Badge>
     ),
@@ -78,7 +76,7 @@ const fieldIconMap = {
   },
   physicalallowed: {
     icon: (
-      <Badge className="bg-blue-600 hover:bg-blue-600 cursor-pointer">
+      <Badge className="bg-[#F5FBFC] text-[#267A94]  cursor-pointer">
         Physical
       </Badge>
     ),
@@ -86,7 +84,7 @@ const fieldIconMap = {
   },
   rewardapplicable: {
     icon: (
-      <Badge className="bg-orange-600 hover:bg-orange-600 cursor-pointer">
+      <Badge className="bg-[#fff1e7] text-[#bd3e0c] cursor-pointer">
         Reward
       </Badge>
     ),
@@ -96,6 +94,7 @@ const fieldIconMap = {
 
 const data = [
   {
+    product_id: '1',
     category: 'technology',
     name: 'John Doe',
     programmanager: 'Alice Smith',
@@ -107,6 +106,7 @@ const data = [
     launchdate: '2021-01-01',
   },
   {
+    product_id: '2',
     category: 'finance',
     name: 'Jane Doe',
     programmanager: 'Bob Johnson',
@@ -118,6 +118,7 @@ const data = [
     launchdate: '2021-02-01',
   },
   {
+    product_id: '3',
     category: 'healthcare',
     name: 'Mike Doe',
     programmanager: 'Charlie Brown',
@@ -129,6 +130,7 @@ const data = [
     launchdate: '2021-03-01',
   },
   {
+    product_id: '4',
     category: 'education',
     name: 'Sarah Doe',
     programmanager: 'David Wilson',
@@ -140,6 +142,7 @@ const data = [
     launchdate: '2021-04-01',
   },
   {
+    product_id: '5',
     category: 'government',
     name: 'David Johnson',
     programmanager: 'Emily Davis',
@@ -151,6 +154,7 @@ const data = [
     launchdate: '2021-05-01',
   },
   {
+    product_id: '6',
     category: 'politics',
     name: 'Emily Davis',
     programmanager: 'Michael Johnson',
@@ -162,6 +166,7 @@ const data = [
     launchdate: '2021-06-01',
   },
   {
+    product_id: '7',
     category: 'entertainment',
     name: 'Michael Johnson',
     programmanager: 'Sarah Doe',
@@ -204,6 +209,15 @@ export function ProgramTableDemo() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
+    {
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="text-center capitalize">
+          {row.getValue('product_id')}
+        </div>
+      ),
+    },
     {
       accessorKey: 'name',
       header: 'Name',
@@ -278,8 +292,6 @@ export function ProgramTableDemo() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
@@ -288,7 +300,7 @@ export function ProgramTableDemo() {
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -438,7 +450,7 @@ export function ProgramTableDemo() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell  key={cell.id}>
+                        <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

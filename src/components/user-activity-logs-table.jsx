@@ -60,6 +60,7 @@ import {
 
 const data = [
   {
+    product_id: '1',
     team_member: 'Alice Johnson',
     date: '2024-12-01',
     event: 'Product Launch',
@@ -68,6 +69,7 @@ const data = [
     ip_address: '192.168.1.1',
   },
   {
+    product_id: '2',
     team_member: 'Bob Smith',
     date: '2024-12-02',
     event: 'Client Meeting',
@@ -76,6 +78,7 @@ const data = [
     ip_address: '192.168.1.2',
   },
   {
+    product_id: '3',
     team_member: 'Charlie Brown',
     date: '2024-12-03',
     event: 'Bug Fix',
@@ -84,6 +87,7 @@ const data = [
     ip_address: '192.168.1.3',
   },
   {
+    product_id: '4',
     team_member: 'Diana Prince',
     date: '2024-12-04',
     event: 'Team Workshop',
@@ -92,6 +96,7 @@ const data = [
     ip_address: '192.168.1.4',
   },
   {
+    product_id: '5',
     team_member: 'Evan Williams',
     date: '2024-12-05',
     event: 'Server Maintenance',
@@ -132,6 +137,15 @@ export function ActivityLogsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
+    {
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('product_id')}
+        </div>
+      ),
+    },
     {
       accessorKey: 'team_member',
       header: 'Team Member',

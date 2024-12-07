@@ -60,88 +60,96 @@ import {
 
 const data = [
   {
-    "customerId": "123654789",
-    "Name": "Mona",
-    "ProgramManager": "Sales Card",
-    "kycStatus": "Pending",
-    "verificationRemarks": "Resubmission Required",
-    "submissionDate": "2022-10-05"
+    product_id: '1',
+    customerId: '123654789',
+    Name: 'Mona',
+    ProgramManager: 'Sales Card',
+    kycStatus: 'Pending',
+    verificationRemarks: 'Resubmission Required',
+    submissionDate: '2022-10-05',
   },
   {
-    "customerId": "123664789",
-    "Name": "John Doe",
-    "ProgramManager": "Platinum Card",
-    "kycStatus": "Incomplete",
-    "verificationRemarks": "Address proof missing",
-    "submissionDate": "2023-09-15"
+    product_id: '2',
+    customerId: '123664789',
+    Name: 'John Doe',
+    ProgramManager: 'Platinum Card',
+    kycStatus: 'Incomplete',
+    verificationRemarks: 'Address proof missing',
+    submissionDate: '2023-09-15',
   },
   {
-    "customerId": "123654782",
-    "Name": "Sophia Smith",
-    "ProgramManager": "Business Loan",
-    "kycStatus": "Under Review",
-    "verificationRemarks": "Verification in progress",
-    "submissionDate": "2023-11-01"
+    product_id: '3',
+    customerId: '123654782',
+    Name: 'Sophia Smith',
+    ProgramManager: 'Business Loan',
+    kycStatus: 'Under Review',
+    verificationRemarks: 'Verification in progress',
+    submissionDate: '2023-11-01',
   },
   {
-    "customerId": "123684789",
-    "Name": "Ethan Brown",
-    "ProgramManager": "Travel Card",
-    "kycStatus": "Rejected",
-    "verificationRemarks": "ID proof mismatch",
-    "submissionDate": "2023-08-20"
+    product_id: '4',
+    customerId: '123684789',
+    Name: 'Ethan Brown',
+    ProgramManager: 'Travel Card',
+    kycStatus: 'Rejected',
+    verificationRemarks: 'ID proof mismatch',
+    submissionDate: '2023-08-20',
   },
   {
-    "customerId": "123656554",
-    "Name": "Liam Wilson",
-    "ProgramManager": "Premium Savings",
-    "kycStatus": "Pending",
-    "verificationRemarks": "Photo unclear, resubmit",
-    "submissionDate": "2023-10-10"
+    product_id: '5',
+    customerId: '123656554',
+    Name: 'Liam Wilson',
+    ProgramManager: 'Premium Savings',
+    kycStatus: 'Pending',
+    verificationRemarks: 'Photo unclear, resubmit',
+    submissionDate: '2023-10-10',
   },
   {
-    "customerId": "123654779",
-    "Name": "Emma Davis",
-    "ProgramManager": "Retail Finance",
-    "kycStatus": "Under Review",
-    "verificationRemarks": "Cross-verifying documents",
-    "submissionDate": "2023-09-25"
+    product_id: '6',
+    customerId: '123654779',
+    Name: 'Emma Davis',
+    ProgramManager: 'Retail Finance',
+    kycStatus: 'Under Review',
+    verificationRemarks: 'Cross-verifying documents',
+    submissionDate: '2023-09-25',
   },
   {
-    "customerId": "123654798",
-    "Name": "Oliver Martinez",
-    "ProgramManager": "Gold Card",
-    "kycStatus": "Incomplete",
-    "verificationRemarks": "Bank statement not submitted",
-    "submissionDate": "2023-10-02"
+    product_id: '7',
+    customerId: '123654798',
+    Name: 'Oliver Martinez',
+    ProgramManager: 'Gold Card',
+    kycStatus: 'Incomplete',
+    verificationRemarks: 'Bank statement not submitted',
+    submissionDate: '2023-10-02',
   },
   {
-    "customerId": "189654789",
-    "Name": "Ava Taylor",
-    "ProgramManager": "Student Plan",
-    "kycStatus": "Pending",
-    "verificationRemarks": "Document not signed",
-    "submissionDate": "2023-11-15"
+    product_id: '8',
+    customerId: '189654789',
+    Name: 'Ava Taylor',
+    ProgramManager: 'Student Plan',
+    kycStatus: 'Pending',
+    verificationRemarks: 'Document not signed',
+    submissionDate: '2023-11-15',
   },
   {
-    "customerId": "123654756",
-    "Name": "Michael Johnson",
-    "ProgramManager": "Cashback Offers",
-    "kycStatus": "Rejected",
-    "verificationRemarks": "Document not legible",
-    "submissionDate": "2023-07-30"
+    product_id: '9',
+    customerId: '123654756',
+    Name: 'Michael Johnson',
+    ProgramManager: 'Cashback Offers',
+    kycStatus: 'Rejected',
+    verificationRemarks: 'Document not legible',
+    submissionDate: '2023-07-30',
   },
   {
-    "customerId": "123654723",
-    "Name": "Emily Clark",
-    "ProgramManager": "Merchant Services",
-    "kycStatus": "Under Review",
-    "verificationRemarks": "Final verification stage",
-    "submissionDate": "2023-11-10"
-  }
+    product_id: '10',
+    customerId: '123654723',
+    Name: 'Emily Clark',
+    ProgramManager: 'Merchant Services',
+    kycStatus: 'Under Review',
+    verificationRemarks: 'Final verification stage',
+    submissionDate: '2023-11-10',
+  },
 ]
-
-  
 
 export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -152,14 +160,29 @@ export function PendingKycTable() {
 
   const columns = [
     {
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('product_id')}
+        </div>
+      ),
+    },
+    {
       accessorKey: 'customerId',
       header: 'Customer Id',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('customerId')}
+        </div>
+      ),
     },
     {
       accessorKey: 'Name',
       header: 'Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('Name')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('Name')}</div>
+      ),
     },
     {
       accessorKey: 'ProgramManager',
@@ -328,26 +351,38 @@ export function PendingKycTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => {
-                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+                        const clickableColumns = [
+                          'customerId',
+                          'ProgramManager',
+                        ] // List of clickable column keys
 
                         return (
-                          <TableCell className='text-center' key={cell.id}>
+                          <TableCell className="text-center" key={cell.id}>
                             {clickableColumns.includes(cell.column.id) ? (
                               // If the column is in the clickable list, render a clickable element (e.g., link or button)
                               <button
                                 onClick={() => handleClick(cell.row.original)}
-                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                                style={{
+                                  background: 'transparent',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                }}
                               >
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
                               </button>
                             ) : (
                               // Otherwise, render the regular cell content
-                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                              flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )
                             )}
                           </TableCell>
-                        );
-                      }
-                      )}
+                        )
+                      })}
                     </TableRow>
                   ))
                 ) : (

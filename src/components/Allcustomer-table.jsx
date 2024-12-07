@@ -58,108 +58,118 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-const data =[
+const data = [
   {
-    "customerId":"123456789",
-    "Name": "John Doe",
-    "ProgramManager": "Privacy Card",
-    "totalCards": "4",
-    "totalTransactions": "120",
-    "createdBy": "Admin",
-    "lastActive": "2023-12-01"
+    product_id: '1',
+    customerId: '123456789',
+    Name: 'John Doe',
+    ProgramManager: 'Privacy Card',
+    totalCards: '4',
+    totalTransactions: '120',
+    createdBy: 'Admin',
+    lastActive: '2023-12-01',
   },
   {
-    "customerId":"123456789",
-    "Name": "Jane Smith",
-    "ProgramManager": "Business Card",
-    "totalCards": "2",
-    "totalTransactions": "85",
-    "createdBy": "Manager1",
-    "lastActive": "2023-11-28"
+    product_id: '2',
+    customerId: '123456789',
+    Name: 'Jane Smith',
+    ProgramManager: 'Business Card',
+    totalCards: '2',
+    totalTransactions: '85',
+    createdBy: 'Manager1',
+    lastActive: '2023-11-28',
   },
   {
-    "customerId":"123456789",
-    "Name": "Robert Brown",
-    "ProgramManager": "Travel Card",
-    "totalCards": "3",
-    "totalTransactions": "140",
-    "createdBy": "SupervisorX",
-    "lastActive": "2023-11-30"
+    product_id: '3',
+    customerId: '123456789',
+    Name: 'Robert Brown',
+    ProgramManager: 'Travel Card',
+    totalCards: '3',
+    totalTransactions: '140',
+    createdBy: 'SupervisorX',
+    lastActive: '2023-11-30',
   },
   {
-    "customerId":"123456789",
-    "Name": "Emily Davis",
-    "ProgramManager": "Gift Card",
-    "totalCards": "1",
-    "totalTransactions": "15",
-    "createdBy": "Admin",
-    "lastActive": "2023-12-03"
+    product_id: '4',
+    customerId: '123456789',
+    Name: 'Emily Davis',
+    ProgramManager: 'Gift Card',
+    totalCards: '1',
+    totalTransactions: '15',
+    createdBy: 'Admin',
+    lastActive: '2023-12-03',
   },
   {
-    "customerId":"123456789",
-    "Name": "Michael Wilson",
-    "ProgramManager": "Virtual Card",
-    "totalCards": "5",
-    "totalTransactions": "200",
-    "createdBy": "AdminAssistant",
-    "lastActive": "2023-11-25"
+    product_id: '5',
+    customerId: '123456789',
+    Name: 'Michael Wilson',
+    ProgramManager: 'Virtual Card',
+    totalCards: '5',
+    totalTransactions: '200',
+    createdBy: 'AdminAssistant',
+    lastActive: '2023-11-25',
   },
   {
-    "customerId":"123456789",
-    "Name": "Olivia Johnson",
-    "ProgramManager": "Platinum Card",
-    "totalCards": "2",
-    "totalTransactions": "95",
-    "createdBy": "Manager3",
-    "lastActive": "2023-12-02"
+    product_id: '6',
+    customerId: '123456789',
+    Name: 'Olivia Johnson',
+    ProgramManager: 'Platinum Card',
+    totalCards: '2',
+    totalTransactions: '95',
+    createdBy: 'Manager3',
+    lastActive: '2023-12-02',
   },
   {
-    "customerId":"123456789",
-    "Name": "James White",
-    "ProgramManager": "Student Card",
-    "totalCards": "1",
-    "totalTransactions": "45",
-    "createdBy": "SupervisorY",
-    "lastActive": "2023-11-27"
+    product_id: '7',
+    customerId: '123456789',
+    Name: 'James White',
+    ProgramManager: 'Student Card',
+    totalCards: '1',
+    totalTransactions: '45',
+    createdBy: 'SupervisorY',
+    lastActive: '2023-11-27',
   },
   {
-    "customerId":"123456789",
-    "Name": "Sophia Martinez",
-    "ProgramManager": "Savings Card",
-    "totalCards": "3",
-    "totalTransactions": "130",
-    "createdBy": "Admin",
-    "lastActive": "2023-11-29"
+    product_id: '8',
+    customerId: '123456789',
+    Name: 'Sophia Martinez',
+    ProgramManager: 'Savings Card',
+    totalCards: '3',
+    totalTransactions: '130',
+    createdBy: 'Admin',
+    lastActive: '2023-11-29',
   },
   {
-    "customerId":"123456789",
-    "Name": "Ethan Taylor",
-    "ProgramManager": "Cashback Card",
-    "totalCards": "2",
-    "totalTransactions": "70",
-    "createdBy": "Manager2",
-    "lastActive": "2023-11-30"
+    product_id: '9',
+    customerId: '123456789',
+    Name: 'Ethan Taylor',
+    ProgramManager: 'Cashback Card',
+    totalCards: '2',
+    totalTransactions: '70',
+    createdBy: 'Manager2',
+    lastActive: '2023-11-30',
   },
   {
-    "customerId":"123456789",
-    "Name": "Isabella Hernandez",
-    "ProgramManager": "Corporate Card",
-    "totalCards": "6",
-    "totalTransactions": "300",
-    "createdBy": "SupervisorZ",
-    "lastActive": "2023-12-04"
+    product_id: '10',
+    customerId: '123456789',
+    Name: 'Isabella Hernandez',
+    ProgramManager: 'Corporate Card',
+    totalCards: '6',
+    totalTransactions: '300',
+    createdBy: 'SupervisorZ',
+    lastActive: '2023-12-04',
   },
   {
-    "customerId":"123456789",
-    "Name": "Liam Garcia",
-    "ProgramManager": "Premium Card",
-    "totalCards": "4",
-    "totalTransactions": "190",
-    "createdBy": "Admin",
-    "lastActive": "2023-12-01"
-  }
+    product_id: '11',
+    customerId: '123456789',
+    Name: 'Liam Garcia',
+    ProgramManager: 'Premium Card',
+    totalCards: '4',
+    totalTransactions: '190',
+    createdBy: 'Admin',
+    lastActive: '2023-12-01',
+  },
 ]
- 
 
 export function AllCustomerTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -170,14 +180,29 @@ export function AllCustomerTable() {
 
   const columns = [
     {
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('product_id')}
+        </div>
+      ),
+    },
+    {
       accessorKey: 'customerId',
       header: 'Customer Id',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('customerId')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('customerId')}
+        </div>
+      ),
     },
     {
       accessorKey: 'Name',
       header: 'Name',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('Name')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('Name')}</div>
+      ),
     },
     {
       accessorKey: 'ProgramManager',
@@ -190,14 +215,20 @@ export function AllCustomerTable() {
       accessorKey: 'totalCards',
       header: 'Total Cards',
       cell: ({ row }) => (
-        <div className="text-center">{(row.getValue('totalCards')? row.getValue('totalCards') : "0")}</div>
+        <div className="text-center">
+          {row.getValue('totalCards') ? row.getValue('totalCards') : '0'}
+        </div>
       ),
     },
     {
       accessorKey: 'totalTransactions',
       header: 'Total Transactions',
       cell: ({ row }) => (
-        <div className="text-center">{(row.getValue('totalTransactions')? row.getValue('totalTransactions') : "0")}</div>
+        <div className="text-center">
+          {row.getValue('totalTransactions')
+            ? row.getValue('totalTransactions')
+            : '0'}
+        </div>
       ),
     },
     {
@@ -353,26 +384,38 @@ export function AllCustomerTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => {
-                        const clickableColumns = ['customerId', 'ProgramManager']; // List of clickable column keys
+                        const clickableColumns = [
+                          'customerId',
+                          'ProgramManager',
+                        ] // List of clickable column keys
 
                         return (
-                          <TableCell className='text-center' key={cell.id}>
+                          <TableCell className="text-center" key={cell.id}>
                             {clickableColumns.includes(cell.column.id) ? (
                               // If the column is in the clickable list, render a clickable element (e.g., link or button)
                               <button
                                 onClick={() => handleClick(cell.row.original)}
-                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                                style={{
+                                  background: 'transparent',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                }}
                               >
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
                               </button>
                             ) : (
                               // Otherwise, render the regular cell content
-                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                              flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )
                             )}
                           </TableCell>
-                        );
-                      } 
-                      )}
+                        )
+                      })}
                     </TableRow>
                   ))
                 ) : (

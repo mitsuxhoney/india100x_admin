@@ -61,77 +61,86 @@ import {
 
 const data = [
   {
-    "accountNumber": "53264738991022",
-    "bankName": "Dummy Bank",
-    "bin": "98287",
-    "totalAmount": "569234432.23",
-    "status": "Active"
+    product_id: '1',
+    accountNumber: '53264738991022',
+    bankName: 'Dummy Bank',
+    bin: '98287',
+    totalAmount: '569234432.23',
+    status: 'Active',
   },
   {
-    "accountNumber": "42367853401234",
-    "bankName": "Global Trust Bank",
-    "bin": "98279",
-    "totalAmount": "123456789.50",
-    "status": "Active"
+    product_id: '2',
+    accountNumber: '42367853401234',
+    bankName: 'Global Trust Bank',
+    bin: '98279',
+    totalAmount: '123456789.50',
+    status: 'Active',
   },
   {
-    "accountNumber": "28763495023871",
-    "bankName": "Techno Bank",
-    "bin": "98290",
-    "totalAmount": "87945632.75",
-    "status": "Inactive"
+    product_id: '3',
+    accountNumber: '28763495023871',
+    bankName: 'Techno Bank',
+    bin: '98290',
+    totalAmount: '87945632.75',
+    status: 'Inactive',
   },
   {
-    "accountNumber": "94857629385016",
-    "bankName": "Sunrise Financial",
-    "bin": "98301",
-    "totalAmount": "23456789.30",
-    "status": "Active"
+    product_id: '4',
+    accountNumber: '94857629385016',
+    bankName: 'Sunrise Financial',
+    bin: '98301',
+    totalAmount: '23456789.30',
+    status: 'Active',
   },
   {
-    "accountNumber": "76834599023840",
-    "bankName": "Prime Capital Bank",
-    "bin": "98288",
-    "totalAmount": "987654321.10",
-    "status": "Active"
+    product_id: '5',
+    accountNumber: '76834599023840',
+    bankName: 'Prime Capital Bank',
+    bin: '98288',
+    totalAmount: '987654321.10',
+    status: 'Active',
   },
   {
-    "accountNumber": "65873498126754",
-    "bankName": "Standard Bank",
-    "bin": "98299",
-    "totalAmount": "52347645.55",
-    "status": "Inactive"
+    product_id: '6',
+    accountNumber: '65873498126754',
+    bankName: 'Standard Bank',
+    bin: '98299',
+    totalAmount: '52347645.55',
+    status: 'Inactive',
   },
   {
-    "accountNumber": "34267192375631",
-    "bankName": "Citywide Bank",
-    "bin": "98285",
-    "totalAmount": "102345678.90",
-    "status": "Active"
+    product_id: '7',
+    accountNumber: '34267192375631',
+    bankName: 'Citywide Bank',
+    bin: '98285',
+    totalAmount: '102345678.90',
+    status: 'Active',
   },
   {
-    "accountNumber": "84723659802142",
-    "bankName": "BlueOcean Bank",
-    "bin": "98305",
-    "totalAmount": "39456780.40",
-    "status": "Active"
+    product_id: '8',
+    accountNumber: '84723659802142',
+    bankName: 'BlueOcean Bank',
+    bin: '98305',
+    totalAmount: '39456780.40',
+    status: 'Active',
   },
   {
-    "accountNumber": "92737463501728",
-    "bankName": "Innovative Financial Group",
-    "bin": "98291",
-    "totalAmount": "76543210.20",
-    "status": "Active"
+    product_id: '9',
+    accountNumber: '92737463501728',
+    bankName: 'Innovative Financial Group',
+    bin: '98291',
+    totalAmount: '76543210.20',
+    status: 'Active',
   },
   {
-    "accountNumber": "65839276293715",
-    "bankName": "MetroBank",
-    "bin": "98302",
-    "totalAmount": "34567890.60",
-    "status": "Inactive"
-  }
+    product_id: '10',
+    accountNumber: '65839276293715',
+    bankName: 'MetroBank',
+    bin: '98302',
+    totalAmount: '34567890.60',
+    status: 'Inactive',
+  },
 ]
-
 
 export function PoolAccountsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -141,6 +150,15 @@ export function PoolAccountsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
+    {
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('product_id')}
+        </div>
+      ),
+    },
     {
       accessorKey: 'accountNumber',
       header: 'Account Number',
@@ -162,7 +180,7 @@ export function PoolAccountsTable() {
         <div className="text-center">{row.getValue('bin')}</div>
       ),
     },
-    
+
     {
       accessorKey: 'totalAmount',
       header: 'Total Amount',
@@ -321,7 +339,7 @@ export function PoolAccountsTable() {
                 {table.getRowModel().rows.map((row) => (
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell className='text-center' key={cell.id}>
+                      <TableCell className="text-center" key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -339,7 +357,7 @@ export function PoolAccountsTable() {
               {table.getPageCount()}
             </div>
             <div className="flex items-center space-x-2">
-            <Button
+              <Button
                 variant="outline"
                 size="sm"
                 onClick={() => table.previousPage()}

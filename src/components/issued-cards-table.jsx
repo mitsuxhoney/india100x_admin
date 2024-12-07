@@ -217,7 +217,7 @@ export function IssuedCardsTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('status')}</div>
+        <div className="lowercase ">{row.getValue('status')}</div>
       ),
     },
     {
@@ -234,7 +234,7 @@ export function IssuedCardsTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="capitalize pl-4">{row.getValue('last_four_digit')}</div>
+        <div className="capitalize">{row.getValue('last_four_digit')}</div>
       ),
     },
     {
@@ -272,7 +272,7 @@ export function IssuedCardsTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('issued_date')}</div>
+        <div className="lowercase ">{row.getValue('issued_date')}</div>
       ),
     },
     {
@@ -428,7 +428,7 @@ export function IssuedCardsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead key={header.id}>
+                        <TableHead className='text-center' key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(

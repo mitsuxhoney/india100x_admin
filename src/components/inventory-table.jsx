@@ -185,7 +185,7 @@ export function InventoryTable() {
       accessorKey: 'product_id',
       header: 'ID',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product_id')}</div>
+        <div className="capitalize text-center">{row.getValue('product_id')}</div>
       ),
     },
     {
@@ -202,7 +202,7 @@ export function InventoryTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('product_name')}</div>
+        <div className="lowercase text-center">{row.getValue('product_name')}</div>
       ),
     },
     {
@@ -219,7 +219,7 @@ export function InventoryTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="capitalize pl-4">
+        <div className="capitalize text-center">
           {row.getValue('product_category')}
         </div>
       ),
@@ -228,21 +228,21 @@ export function InventoryTable() {
       accessorKey: 'card_nature',
       header: 'Card Nature',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('card_nature')}</div>
+        <div className="capitalize text-center">{row.getValue('card_nature')}</div>
       ),
     },
     {
       accessorKey: 'ordered_cards',
       header: 'Ordered Cards',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('ordered_cards')}</div>
+        <div className="capitalize text-center">{row.getValue('ordered_cards')}</div>
       ),
     },
     {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('status')}</div>
+        <div className="capitalize text-center">{row.getValue('status')}</div>
       ),
     },
     {
@@ -259,7 +259,7 @@ export function InventoryTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('created_date')}</div>
+        <div className="lowercase text-center">{row.getValue('created_date')}</div>
       ),
     },
     {
@@ -276,17 +276,15 @@ export function InventoryTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Approve
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Reject
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
