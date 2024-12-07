@@ -8,6 +8,8 @@ const UserProfileSidebar = ({ items }) => {
   // Extract base path (e.g., 'account', 'developer', 'team')
   const basePath = pathname.split('/')[1] // Gets the first part after the leading '/'
 
+  console.log(basePath)
+
   // Get items for the current path
   const sidebarItems = items[basePath] || []
   return (

@@ -22,7 +22,7 @@ import {
 import { z } from 'zod'
 
 import { cn } from '@/lib/utils'
-import { Toast } from '@/components/ui/toast'
+import { toast } from '@/hooks/use-toast'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 
@@ -71,7 +71,7 @@ const UserProfileForm = () => {
   })
 
   function onSubmit(data) {
-    Toast({
+    toast({
       title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
