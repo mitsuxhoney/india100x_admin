@@ -2,27 +2,27 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
 
-import { Separator } from "@/components/ui/separator";
+import { Separator } from '@/components/ui/separator'
 import {
   Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbSeparator,
   BreadcrumbPage,
-} from "@/components/ui/breadcrumb";
+} from '@/components/ui/breadcrumb'
 
-import { Outlet, useLocation } from "react-router-dom";
-import { ModeToggle } from "@/components/mode-toggle";
-import { AppSidebar } from "./app-sidebar";
+import { Outlet, useLocation } from 'react-router-dom'
+import { ModeToggle } from '@/components/mode-toggle'
+import { AppSidebar } from './app-sidebar'
 const Layout = () => {
-  const location = useLocation();
+  const location = useLocation()
   const afterSeparator = location.pathname
     .slice(1)
-    .split("-")
+    .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    .join(' ')
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -52,7 +52,7 @@ const Layout = () => {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout
