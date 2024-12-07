@@ -181,7 +181,17 @@ export function AllCustomerTable() {
   const columns = [
     {
       accessorKey: 'product_id',
-      header: 'ID',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Sr No
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize text-center">
           {row.getValue('product_id')}
@@ -197,13 +207,13 @@ export function AllCustomerTable() {
         </div>
       ),
     },
-    {
-      accessorKey: 'Name',
-      header: 'Name',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('Name')}</div>
-      ),
-    },
+    // {
+    //   accessorKey: 'Name',
+    //   header: 'Name',
+    //   cell: ({ row }) => (
+    //     <div className="capitalize text-center">{row.getValue('Name')}</div>
+    //   ),
+    // },
     {
       accessorKey: 'ProgramManager',
       header: 'Program Manager',
@@ -240,10 +250,21 @@ export function AllCustomerTable() {
     },
     {
       accessorKey: 'lastActive',
-      header: 'Last Active',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Last Active
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('lastActive')}</div>
       ),
+      
     },
     {
       accessorKey: 'actions',
@@ -331,7 +352,7 @@ export function AllCustomerTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column<ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

@@ -139,7 +139,18 @@ export function ActivityLogsTable() {
     // },
     {
       accessorKey: 'product_id',
-      header: 'ID',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Sr No
+            <ArrowUpDown />
+          </Button>
+          
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize text-center">
           {row.getValue('product_id')}
@@ -313,18 +324,18 @@ export function ActivityLogsTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Team Member..."
+              value={table.getColumn('team_member')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('team_member')?.setFilterValue(event.target.value)
               }
-              className="max-w-sm"
+              className="max-w-xs"
             />
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
