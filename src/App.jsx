@@ -63,7 +63,11 @@ function App() {
           <Route path="/system-users" element={<SystemUsers />} />
           <Route path="/user-activity-logs" element={<UserActivityLogs />} />
           <Route element={<UserProfileLayout />}>
-            <Route path="/account" element={<Profile />} />
+            <Route
+              path="/account"
+              element={<Navigate to="/account/profile" />}
+            />
+            <Route path="/account/profile" element={<Profile />} />
             <Route path="/account/security" element={<Security />} />
             <Route path="/account/appearance" element={<Appearance />} />
             <Route path="/account/notifications" element={<Notifications />} />

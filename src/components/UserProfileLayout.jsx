@@ -5,7 +5,7 @@ const UserProfileLayout = () => {
   const userProfileSidebarItems = [
     {
       title: 'Profile',
-      href: '/account/',
+      href: '/account/profile',
     },
     {
       title: 'Security',
