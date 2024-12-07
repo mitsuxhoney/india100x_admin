@@ -51,11 +51,9 @@ const profileFormSchema = z.object({
 })
 
 const defaultValues = {
-  bio: 'I own a computer.',
-  urls: [
-    { value: 'https://shadcn.com' },
-    { value: 'http://twitter.com/shadcn' },
-  ],
+  name: 'Jane Doe',
+  email: 'jane.doe@example.com',
+  phoneno: '1234567890',
 }
 
 const UserProfileForm = () => {
@@ -65,11 +63,11 @@ const UserProfileForm = () => {
     mode: 'onChange',
   })
 
-  const { fields, append } = useFieldArray({
-    name: 'urls',
-    control: form.control,
-  })
+  const { watch, getValues, handleSubmit, formState } = form
+  const currentValues = watch()
 
+  // Determine if the form has changed
+  const isFormChanged = JSON.stringify(currentValues) !== JSON.stringify(defaultValues)
   function onSubmit(data) {
     Toast({
       title: 'You submitted the following values:',
@@ -82,7 +80,7 @@ const UserProfileForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="name"
@@ -90,11 +88,10 @@ const UserProfileForm = () => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Enter your name" {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name. It can be your real name or a
-                pseudonym. You can only change this once every 30 days.
+                This is your public display name.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -107,9 +104,8 @@ const UserProfileForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn@example.com" {...field} />
+                <Input placeholder="Enter your email" {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
@@ -121,13 +117,13 @@ const UserProfileForm = () => {
             <FormItem>
               <FormLabel>Phone Number</FormLabel>
               <FormControl>
-                <Input placeholder="+919292929383" {...field} />
+                <Input placeholder="Enter your phone number" {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
         />
+
         <div className='flex justify-between'>
           <FormField
             control={form.control}
@@ -202,7 +198,10 @@ const UserProfileForm = () => {
             )}
           />
         </div>
-        <Button type="submit">Update profile</Button>
+
+        <Button type="submit" disabled={!isFormChanged}>
+          Update Profile
+        </Button>
       </form>
     </Form>
   )
