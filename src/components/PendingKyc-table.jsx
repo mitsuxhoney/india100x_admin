@@ -161,7 +161,17 @@ export function PendingKycTable() {
   const columns = [
     {
       accessorKey: 'product_id',
-      header: 'ID',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Sr No
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize text-center">
           {row.getValue('product_id')}
@@ -298,7 +308,7 @@ export function PendingKycTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                   Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

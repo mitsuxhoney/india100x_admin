@@ -57,6 +57,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { number } from 'zod'
 
 const data = [
   {
@@ -183,7 +184,17 @@ export function InventoryTable() {
     // },
     {
       accessorKey: 'product_id',
-      header: 'ID',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Sr No
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize text-center">{row.getValue('product_id')}</div>
       ),
@@ -364,10 +375,10 @@ export function InventoryTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Name..."
+              value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('product_name')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -375,7 +386,7 @@ export function InventoryTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -398,12 +409,12 @@ export function InventoryTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/inventory/create-inventory">
+              {/* <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">

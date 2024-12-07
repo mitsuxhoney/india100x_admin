@@ -181,7 +181,17 @@ export function FlaggedCustomerTable() {
   const columns = [
     {
       accessorKey: 'product_id',
-      header: 'ID',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Sr No
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize text-center">
           {row.getValue('product_id')}

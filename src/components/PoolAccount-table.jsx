@@ -59,6 +59,27 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
+const fieldIconMap = {
+  Active: {
+    icon: (
+      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
+        Active
+      </Badge>
+    ),
+    label: 'Successful transaction',
+  },
+  Inactive: {
+    icon: (
+      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
+        Inactive
+      </Badge>
+    ),
+    label: 'Failed transaction',
+  },
+}
+
 const data = [
   {
     product_id: '1',
@@ -67,6 +88,7 @@ const data = [
     bin: '98287',
     totalAmount: '569234432.23',
     status: 'Active',
+    Active: true,
   },
   {
     product_id: '2',
@@ -75,6 +97,7 @@ const data = [
     bin: '98279',
     totalAmount: '123456789.50',
     status: 'Active',
+    Active: true,
   },
   {
     product_id: '3',
@@ -83,6 +106,7 @@ const data = [
     bin: '98290',
     totalAmount: '87945632.75',
     status: 'Inactive',
+    Inactive: true,
   },
   {
     product_id: '4',
@@ -91,6 +115,7 @@ const data = [
     bin: '98301',
     totalAmount: '23456789.30',
     status: 'Active',
+    Inactive: true,
   },
   {
     product_id: '5',
@@ -99,6 +124,7 @@ const data = [
     bin: '98288',
     totalAmount: '987654321.10',
     status: 'Active',
+    Inactive: true,
   },
   {
     product_id: '6',
@@ -107,6 +133,7 @@ const data = [
     bin: '98299',
     totalAmount: '52347645.55',
     status: 'Inactive',
+    Inactive: true,
   },
   {
     product_id: '7',
@@ -115,6 +142,7 @@ const data = [
     bin: '98285',
     totalAmount: '102345678.90',
     status: 'Active',
+    Inactive: true,
   },
   {
     product_id: '8',
@@ -123,6 +151,8 @@ const data = [
     bin: '98305',
     totalAmount: '39456780.40',
     status: 'Active',
+    Active: true,
+    Inactive: true,
   },
   {
     product_id: '9',
@@ -131,6 +161,7 @@ const data = [
     bin: '98291',
     totalAmount: '76543210.20',
     status: 'Active',
+    Inactive: true,
   },
   {
     product_id: '10',
@@ -139,6 +170,7 @@ const data = [
     bin: '98302',
     totalAmount: '34567890.60',
     status: 'Inactive',
+    Inactive: true,
   },
 ]
 
@@ -152,7 +184,17 @@ export function PoolAccountsTable() {
   const columns = [
     {
       accessorKey: 'product_id',
-      header: 'ID',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Sr No
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize text-center">
           {row.getValue('product_id')}
@@ -163,7 +205,7 @@ export function PoolAccountsTable() {
       accessorKey: 'accountNumber',
       header: 'Account Number',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('accountNumber')}</div>
+        <div className="text-center cursor-pointer">{row.getValue('accountNumber')}</div>
       ),
     },
     {
@@ -183,16 +225,40 @@ export function PoolAccountsTable() {
 
     {
       accessorKey: 'totalAmount',
-      header: 'Total Amount',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Total Amount
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('totalAmount')}</div>
       ),
     },
     {
-      accessorKey: 'status',
-      header: 'Status',
+      header: `Status`,
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('status')}</div>
+        <div className="flex items-center justify-center gap-2">
+          {Object.keys(fieldIconMap).map((field) => {
+            if (row.original[field]) {
+              return (
+                <span
+                  key={field}
+                  className={`flex items-center gap-1`}
+                  title={fieldIconMap[field].label}
+                >
+                  {fieldIconMap[field].icon}
+                </span>
+              )
+            }
+            return null
+          })}
+        </div>
       ),
     },
     {
@@ -209,17 +275,15 @@ export function PoolAccountsTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Block
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+               Activate
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -270,14 +334,14 @@ export function PoolAccountsTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Pool Accounts..."
+              placeholder="Search by Account Number..."
               value={
-                columnFilters.find((filter) => filter.id === 'TotalAmount')
+                columnFilters.find((filter) => filter.id === 'accountNumber')
                   ?.value ?? ''
               }
               onChange={(event) => {
                 const value = event.target.value
-                setColumnFilters([{ id: 'TotalAmount', value }])
+                setColumnFilters([{ id: 'accountNumber', value }])
               }}
               className="max-w-sm"
             />
@@ -285,7 +349,7 @@ export function PoolAccountsTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -308,11 +372,11 @@ export function PoolAccountsTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
+              {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   <CirclePlus /> Add new
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="overflow-hidden rounded-md border border-muted shadow-md">

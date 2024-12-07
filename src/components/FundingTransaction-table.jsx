@@ -169,7 +169,18 @@ export function FundingTransactionTable() {
   const columns = [
     {
         accessorKey: 'product_id',
-        header: 'ID',
+        header: ({ column }) => {
+            return (
+              <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+              >
+                Sr No
+                <ArrowUpDown />
+              </Button>
+              
+            )
+          },
         cell: ({ row }) => (
           <div className="capitalize text-center">
             {row.getValue('product_id')}
@@ -215,19 +226,30 @@ export function FundingTransactionTable() {
       ),
     },
     {
-      header: 'Amount',
-      cell: ({ row }) => {
-        const amount = row.original.Amount // Access the raw data directly
-        // const type = row.original.Type // Access the Type from raw data
-        // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
-
-        return (
-          <div className={`text-center flex items-center justify-center`}>
-            ₹{amount.toFixed(2)}
-          </div>
-        )
+        accessorKey: 'Amount',
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            >
+              Amount
+              <ArrowUpDown />
+            </Button>
+            
+          )
+        },
+        cell: ({ row }) => {
+            const amount = row.original.Amount // Access the raw data directly
+            // const type = row.original.Type // Access the Type from raw data
+            // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
+            return (
+              <div className={`text-center flex items-center justify-center`}>
+                ₹{amount.toFixed(2)}
+              </div>
+            )
+          },
       },
-    },
 
     {
       header: `Status`,
@@ -250,37 +272,37 @@ export function FundingTransactionTable() {
         </div>
       ),
     },
-    {
-      accessorKey: 'actions',
-      header: '',
-      cell: ({ row }) => {
-        const rowData = row.original // Get the entire row's data for actions
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )
-      },
-    },
+    // {
+    //   accessorKey: 'actions',
+    //   header: '',
+    //   cell: ({ row }) => {
+    //     const rowData = row.original // Get the entire row's data for actions
+    //     return (
+    //       <DropdownMenu>
+    //         <DropdownMenuTrigger asChild>
+    //           <Button variant="ghost" className="h-8 w-8 p-0">
+    //             <span className="sr-only">Open menu</span>
+    //             <MoreHorizontal />
+    //           </Button>
+    //         </DropdownMenuTrigger>
+    //         <DropdownMenuContent align="end">
+    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+    //           <DropdownMenuSeparator />
+    //           <DropdownMenuItem
+    //             onClick={() => navigator.clipboard.writeText(payment.id)}
+    //           >
+    //             Edit
+    //           </DropdownMenuItem>
+    //           <DropdownMenuItem
+    //             onClick={() => navigator.clipboard.writeText(payment.id)}
+    //           >
+    //             Delete
+    //           </DropdownMenuItem>
+    //         </DropdownMenuContent>
+    //       </DropdownMenu>
+    //     )
+    //   },
+    // },
   ]
 
   const table = useReactTable({
@@ -325,11 +347,11 @@ export function FundingTransactionTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search by Last Four Digits..."
-              value={table.getColumn('lastFourDigits')?.getFilterValue() ?? ''}
+              placeholder="Search by Reference ID..."
+              value={table.getColumn('cardRefId')?.getFilterValue() ?? ''}
               onChange={(event) =>
                 table
-                  .getColumn('lastFourDigits')
+                  .getColumn('cardRefId')
                   ?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
@@ -361,11 +383,11 @@ export function FundingTransactionTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/program/create-program">
+              {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   <CirclePlus /> Add new
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">
