@@ -59,49 +59,52 @@ import {
 } from '@/components/ui/table'
 
 const data = [
-    {
-      user_id: 'U001',
-      name: 'Alice Johnson',
-      role: 'Administrator',
-      created_at: '2024-01-01T10:00:00Z',
-      updated_at: '2024-06-01T15:00:00Z',
-      is_active: true,
-    },
-    {
-      user_id: 'U002',
-      name: 'Bob Smith',
-      role: 'Moderator',
-      created_at: '2024-02-15T12:30:00Z',
-      updated_at: '2024-07-20T18:45:00Z',
-      is_active: false,
-    },
-    {
-      user_id: 'U003',
-      name: 'Charlie Brown',
-      role: 'User',
-      created_at: '2024-03-10T08:15:00Z',
-      updated_at: '2024-08-05T09:20:00Z',
-      is_active: true,
-    },
-    {
-      user_id: 'U004',
-      name: 'Diana Prince',
-      role: 'Editor',
-      created_at: '2024-04-25T11:45:00Z',
-      updated_at: '2024-09-10T16:30:00Z',
-      is_active: true,
-    },
-    {
-      user_id: 'U005',
-      name: 'Evan Williams',
-      role: 'Viewer',
-      created_at: '2024-05-05T09:00:00Z',
-      updated_at: '2024-10-01T14:10:00Z',
-      is_active: false,
-    },
-  ];
-  
-
+  {
+    product_id: '1',
+    user_id: 'U001',
+    name: 'Alice Johnson',
+    role: 'Administrator',
+    created_at: '2024-01-01T10:00:00Z',
+    updated_at: '2024-06-01T15:00:00Z',
+    is_active: true,
+  },
+  {
+    product_id: '2',
+    user_id: 'U002',
+    name: 'Bob Smith',
+    role: 'Moderator',
+    created_at: '2024-02-15T12:30:00Z',
+    updated_at: '2024-07-20T18:45:00Z',
+    is_active: false,
+  },
+  {
+    product_id: '3',
+    user_id: 'U003',
+    name: 'Charlie Brown',
+    role: 'User',
+    created_at: '2024-03-10T08:15:00Z',
+    updated_at: '2024-08-05T09:20:00Z',
+    is_active: true,
+  },
+  {
+    product_id: '4',
+    user_id: 'U004',
+    name: 'Diana Prince',
+    role: 'Editor',
+    created_at: '2024-04-25T11:45:00Z',
+    updated_at: '2024-09-10T16:30:00Z',
+    is_active: true,
+  },
+  {
+    product_id: '5',
+    user_id: 'U005',
+    name: 'Evan Williams',
+    role: 'Viewer',
+    created_at: '2024-05-05T09:00:00Z',
+    updated_at: '2024-10-01T14:10:00Z',
+    is_active: false,
+  },
+]
 
 export function SystemUsersTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -134,70 +137,79 @@ export function SystemUsersTable() {
     //   enableHiding: false,
     // },
     {
-        accessorKey: 'user_id',
-        header: 'User ID',
-        cell: ({ row }) => (
-          <div className="capitalize">{row.getValue('user_id')}</div>
-        ),
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('product_id')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'user_id',
+      header: 'User ID',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('user_id')}</div>
+      ),
+    },
+    {
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('name')}</div>
+      ),
+    },
+    {
+      accessorKey: 'role',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Role
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'name',
-        header: 'Name',
-        cell: ({ row }) => (
-          <div className="capitalize">{row.getValue('name')}</div>
-        ),
+      cell: ({ row }) => (
+        <div className="capitalize pl-4">{row.getValue('role')}</div>
+      ),
+    },
+    {
+      accessorKey: 'created_at',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Created At
+            <ArrowUpDown />
+          </Button>
+        )
       },
-      {
-        accessorKey: 'role',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            >
-              Role
-              <ArrowUpDown />
-            </Button>
-          )
-        },
-        cell: ({ row }) => (
-          <div className="capitalize pl-4">{row.getValue('role')}</div>
-        ),
-      },
-      {
-        accessorKey: 'created_at',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            >
-              Created At
-              <ArrowUpDown />
-            </Button>
-          )
-        },
-        cell: ({ row }) => (
-          <div className="lowercase pl-4">{row.getValue('created_at')}</div>
-        ),
-      },
-      {
-        accessorKey: 'updated_at',
-        header: 'Updated At',
-        cell: ({ row }) => (
-          <div className="lowercase">{row.getValue('updated_at')}</div>
-        ),
-      },
-      {
-        accessorKey: 'is_active',
-        header: 'Active Status',
-        cell: ({ row }) => (
-          <div className="capitalize">
-            {row.getValue('is_active') ? 'Active' : 'Inactive'}
-          </div>
-        ),
-      },
-    
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('created_at')}</div>
+      ),
+    },
+    {
+      accessorKey: 'updated_at',
+      header: 'Updated At',
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue('updated_at')}</div>
+      ),
+    },
+    {
+      accessorKey: 'is_active',
+      header: 'Active Status',
+      cell: ({ row }) => (
+        <div className="capitalize">
+          {row.getValue('is_active') ? 'Active' : 'Inactive'}
+        </div>
+      ),
+    },
+
     {
       accessorKey: 'actions',
       header: '',
@@ -345,7 +357,7 @@ export function SystemUsersTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -366,7 +378,7 @@ export function SystemUsersTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

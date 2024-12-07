@@ -88,6 +88,7 @@ const transactionColorMap = {
 }
 const data = [
   {
+    product_id: '1',
     cardRefId: 'CR123456',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -97,6 +98,7 @@ const data = [
     Date: '01-12-2024 22:44PM',
   },
   {
+    product_id: '2',
     cardRefId: 'CR987654',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -106,6 +108,7 @@ const data = [
     Date: '2023-11-25 12:44PM',
   },
   {
+    product_id: '3',
     cardRefId: 'CR567890',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -115,6 +118,7 @@ const data = [
     Date: '2023-12-03 2:44PM',
   },
   {
+    product_id: '4',
     cardRefId: 'CR234567',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -124,6 +128,7 @@ const data = [
     Date: '2023-12-05 3:15AM',
   },
   {
+    product_id: '5',
     cardRefId: 'CR678901',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -133,6 +138,7 @@ const data = [
     Date: '2023-12-04 4:50AM',
   },
   {
+    product_id: '6',
     cardRefId: 'CR345678',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -142,6 +148,7 @@ const data = [
     Date: '2023-12-02 6:15AM',
   },
   {
+    product_id: '7',
     cardRefId: 'CR456789',
     FromAccount: '6789',
     ToAccount: '6789',
@@ -160,6 +167,15 @@ export function FundingTransactionTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
+    {
+        accessorKey: 'product_id',
+        header: 'ID',
+        cell: ({ row }) => (
+          <div className="capitalize text-center">
+            {row.getValue('product_id')}
+          </div>
+        ),
+      },
     {
       accessorKey: 'Date',
       header: 'Date',

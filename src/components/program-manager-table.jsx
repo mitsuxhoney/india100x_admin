@@ -60,98 +60,106 @@ import {
 
 const data = [
   {
-    "id": "3u1reuv4",
-    "name": "Jane Smith",
-    "totalAmount": "2342.23",
-    "programs": 2,
-    "activePrograms": 1,
-    "totalCustomers": 50,
-    "createdAt": "2022-05-10"
+    product_id: '1',
+    id: '3u1reuv4',
+    name: 'Jane Smith',
+    totalAmount: '2342.23',
+    programs: 2,
+    activePrograms: 1,
+    totalCustomers: 50,
+    createdAt: '2022-05-10',
   },
   {
-    "id": "9k2jhgf5",
-    "name": "John Doe",
-    "totalAmount": "5678.45",
-    "programs": 3,
-    "activePrograms": 2,
-    "totalCustomers": 120,
-    "createdAt": "2023-01-15"
+    product_id: '2',
+    id: '9k2jhgf5',
+    name: 'John Doe',
+    totalAmount: '5678.45',
+    programs: 3,
+    activePrograms: 2,
+    totalCustomers: 120,
+    createdAt: '2023-01-15',
   },
   {
-    "id": "7y4uhki8",
-    "name": "Emily Davis",
-    "totalAmount": "789.00",
-    "programs": 1,
-    "activePrograms": 0,
-    "totalCustomers": 20,
-    "createdAt": "2022-12-20"
+    product_id: '3',
+    id: '7y4uhki8',
+    name: 'Emily Davis',
+    totalAmount: '789.00',
+    programs: 1,
+    activePrograms: 0,
+    totalCustomers: 20,
+    createdAt: '2022-12-20',
   },
   {
-    "id": "2w3e5rft",
-    "name": "Michael Brown",
-    "totalAmount": "4500.00",
-    "programs": 4,
-    "activePrograms": 3,
-    "totalCustomers": 75,
-    "createdAt": "2023-03-12"
+    product_id: '4',
+    id: '2w3e5rft',
+    name: 'Michael Brown',
+    totalAmount: '4500.00',
+    programs: 4,
+    activePrograms: 3,
+    totalCustomers: 75,
+    createdAt: '2023-03-12',
   },
   {
-    "id": "8p6qzlw1",
-    "name": "Sophia Johnson",
-    "totalAmount": "1500.75",
-    "programs": 2,
-    "activePrograms": 2,
-    "totalCustomers": 65,
-    "createdAt": "2023-07-22"
+    product_id: '5',
+    id: '8p6qzlw1',
+    name: 'Sophia Johnson',
+    totalAmount: '1500.75',
+    programs: 2,
+    activePrograms: 2,
+    totalCustomers: 65,
+    createdAt: '2023-07-22',
   },
   {
-    "id": "4m9oltr2",
-    "name": "Liam Taylor",
-    "totalAmount": "9832.10",
-    "programs": 5,
-    "activePrograms": 4,
-    "totalCustomers": 100,
-    "createdAt": "2023-05-18"
+    product_id: '6',
+    id: '4m9oltr2',
+    name: 'Liam Taylor',
+    totalAmount: '9832.10',
+    programs: 5,
+    activePrograms: 4,
+    totalCustomers: 100,
+    createdAt: '2023-05-18',
   },
   {
-    "id": "5n7vukm3",
-    "name": "Olivia Martinez",
-    "totalAmount": "345.67",
-    "programs": 1,
-    "activePrograms": 0,
-    "totalCustomers": 10,
-    "createdAt": "2023-04-01"
+    product_id: '7',
+    id: '5n7vukm3',
+    name: 'Olivia Martinez',
+    totalAmount: '345.67',
+    programs: 1,
+    activePrograms: 0,
+    totalCustomers: 10,
+    createdAt: '2023-04-01',
   },
   {
-    "id": "6y8pojkl",
-    "name": "Noah Garcia",
-    "totalAmount": "6587.89",
-    "programs": 3,
-    "activePrograms": 2,
-    "totalCustomers": 85,
-    "createdAt": "2022-11-30"
+    product_id: '8',
+    id: '6y8pojkl',
+    name: 'Noah Garcia',
+    totalAmount: '6587.89',
+    programs: 3,
+    activePrograms: 2,
+    totalCustomers: 85,
+    createdAt: '2022-11-30',
   },
   {
-    "id": "3v5bkqw9",
-    "name": "Isabella Hernandez",
-    "totalAmount": "4200.25",
-    "programs": 4,
-    "activePrograms": 3,
-    "totalCustomers": 90,
-    "createdAt": "2023-02-28"
+    product_id: '9',
+    id: '3v5bkqw9',
+    name: 'Isabella Hernandez',
+    totalAmount: '4200.25',
+    programs: 4,
+    activePrograms: 3,
+    totalCustomers: 90,
+    createdAt: '2023-02-28',
   },
   {
-    "id": "7u3rlhno",
-    "name": "William Wilson",
-    "totalAmount": "1324.78",
-    "programs": 2,
-    "activePrograms": 1,
-    "totalCustomers": 45,
-    "createdAt": "2022-09-14"
-  }
+    product_id: '10',
+    id: '7u3rlhno',
+    name: 'William Wilson',
+    totalAmount: '1324.78',
+    programs: 2,
+    activePrograms: 1,
+    totalCustomers: 45,
+    createdAt: '2022-09-14',
+  },
 ]
-
-
 
 export function ProgramTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -184,45 +192,65 @@ export function ProgramTable() {
     //   enableHiding: false,
     // },
     {
-      accessorKey: 'id',
-      header: 'Manager ID',
-      cell: ({ row }) => <div className="capitalize text-center">{row.getValue('id')}</div>,
+      accessorKey: 'product_id',
+      header: 'ID',
+      cell: ({ row }) => (
+        <div className="text-center capitalize">
+          {row.getValue('product_id')}
+        </div>
+      ),
     },
     {
-        accessorKey: 'name',
-        header: 'Manager Name',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('name')}</div>,
-      },
-      {
-        header: 'Total Programs',
-        cell: ({ row }) => {
-          const active=row.original.activePrograms;
-          const totalProgram=row.original.programs;
-          return (
-            <div className="capitalize text-center">
+      accessorKey: 'id',
+      header: 'Manager ID',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('id')}</div>
+      ),
+    },
+    {
+      accessorKey: 'name',
+      header: 'Manager Name',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('name')}</div>
+      ),
+    },
+    {
+      header: 'Total Programs',
+      cell: ({ row }) => {
+        const active = row.original.activePrograms
+        const totalProgram = row.original.programs
+        return (
+          <div className="capitalize text-center">
             <span>{`${active}/${totalProgram}`}</span>
           </div>
-          )
-          }
-        ,
+        )
       },
-      {
-        accessorKey: 'totalAmount',
-        header: 'Total Amount',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('totalAmount')}</div>,
-      },
-      {
-        accessorKey: 'totalCustomers',
-        header: 'Total Customers',
-        cell: ({ row }) => <div className="capitalize text-center">{row.getValue('totalCustomers')}</div>,
-      },
-      {
-        accessorKey: 'createdAt',
-        header: 'Registered Date',
-        cell: ({ row }) => (
-          <div className="text-center">{row.getValue('createdAt')}</div>
-        ),
-      },
+    },
+    {
+      accessorKey: 'totalAmount',
+      header: 'Total Amount',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('totalAmount')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'totalCustomers',
+      header: 'Total Customers',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">
+          {row.getValue('totalCustomers')}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'createdAt',
+      header: 'Registered Date',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('createdAt')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
       header: '',
@@ -237,17 +265,20 @@ export function ProgramTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Activate
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Suspend
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -396,25 +427,35 @@ export function ProgramTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) =>{
-                        const clickableColumns = ['id', 'name']; // List of clickable column keys
+                      {row.getVisibleCells().map((cell) => {
+                        const clickableColumns = ['id', 'name'] // List of clickable column keys
 
                         return (
-                          <TableCell className='text-center' key={cell.id}>
+                          <TableCell className="text-center" key={cell.id}>
                             {clickableColumns.includes(cell.column.id) ? (
                               // If the column is in the clickable list, render a clickable element (e.g., link or button)
                               <button
                                 onClick={() => handleClick(cell.row.original)}
-                                style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer' }}
+                                style={{
+                                  background: 'transparent',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                }}
                               >
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext()
+                                )}
                               </button>
                             ) : (
                               // Otherwise, render the regular cell content
-                              flexRender(cell.column.columnDef.cell, cell.getContext())
+                              flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext()
+                              )
                             )}
                           </TableCell>
-                        );
+                        )
                       })}
                     </TableRow>
                   ))
@@ -464,4 +505,3 @@ export function ProgramTable() {
     </Card>
   )
 }
-
