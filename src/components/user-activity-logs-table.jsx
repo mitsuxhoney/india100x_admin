@@ -137,15 +137,25 @@ export function ActivityLogsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'product_id',
-      header: 'ID',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
+    // {
+    //   accessorKey: 'product_id',
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button
+    //         variant="ghost"
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+    //       >
+    //         Sr No
+    //       </Button>
+          
+    //     )
+    //   },
+    //   cell: ({ row }) => (
+    //     <div className="capitalize text-center">
+    //       {row.getValue('product_id')}
+    //     </div>
+    //   ),
+    // },
     {
       accessorKey: 'team_member',
       header: 'Team Member',
@@ -176,10 +186,9 @@ export function ActivityLogsTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Event
-            <ArrowUpDown />
+
           </Button>
         )
       },
@@ -209,37 +218,35 @@ export function ActivityLogsTable() {
       ),
     },
     
-    {
-      accessorKey: 'actions',
-      header: '',
-      cell: ({ row }) => {
-        const rowData = row.original // Get the entire row's data for actions
-        return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Edit
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )
-      },
-    },
+    // {
+    //   accessorKey: 'actions',
+    //   header: '',
+    //   cell: ({ row }) => {
+    //     const rowData = row.original // Get the entire row's data for actions
+    //     return (
+    //       <DropdownMenu>
+    //         <DropdownMenuTrigger asChild>
+    //           <Button variant="ghost" className="h-8 w-8 p-0">
+    //             <span className="sr-only">Open menu</span>
+    //             <MoreHorizontal />
+    //           </Button>
+    //         </DropdownMenuTrigger>
+    //         <DropdownMenuContent align="end">
+    //           <DropdownMenuItem className='cursor-pointer'
+    //             onClick={() => navigator.clipboard.writeText(payment.id)}
+    //           >
+    //             Edit
+    //           </DropdownMenuItem>
+    //           <DropdownMenuItem className='cursor-pointer'
+    //             onClick={() => navigator.clipboard.writeText(payment.id)}
+    //           >
+    //             Delete
+    //           </DropdownMenuItem>
+    //         </DropdownMenuContent>
+    //       </DropdownMenu>
+    //     )
+    //   },
+    // },
     // {
     //   id: 'actions',
     //   enableHiding: false,
@@ -313,18 +320,18 @@ export function ActivityLogsTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Team Member..."
+              value={table.getColumn('team_member')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('team_member')?.setFilterValue(event.target.value)
               }
-              className="max-w-sm"
+              className="max-w-xs"
             />
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

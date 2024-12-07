@@ -57,6 +57,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { number } from 'zod'
 
 const data = [
   {
@@ -74,7 +75,7 @@ const data = [
     product_category: 'Example',
     card_nature: 'physical',
     ordered_cards: 5,
-    status: 'in-process',
+    status: 'progress',
     created_date: '2024-11-15',
   },
   {
@@ -92,7 +93,7 @@ const data = [
     product_category: 'Example',
     card_nature: 'physical',
     ordered_cards: 3,
-    status: 'in-process',
+    status: 'progress',
     created_date: '2024-09-25',
   },
   {
@@ -128,7 +129,7 @@ const data = [
     product_category: 'Example',
     card_nature: 'physical',
     ordered_cards: 1,
-    status: 'in-process',
+    status: 'progress',
     created_date: '2024-05-15',
   },
   {
@@ -137,7 +138,7 @@ const data = [
     product_category: 'Example',
     card_nature: 'physical',
     ordered_cards: 1,
-    status: 'in-process',
+    status: 'progress',
     created_date: '2024-04-20',
   },
   {
@@ -146,7 +147,7 @@ const data = [
     product_category: 'Example',
     card_nature: 'physical',
     ordered_cards: 1,
-    status: 'in-process',
+    status: 'progress',
     created_date: '2024-03-15',
   },
 ]
@@ -182,41 +183,20 @@ export function InventoryTable() {
     //   enableHiding: false,
     // },
     {
-      accessorKey: 'product_id',
-      header: 'ID',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('product_id')}</div>
-      ),
-    },
-    {
       accessorKey: 'product_name',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Product Name
-            <ArrowUpDown />
-          </Button>
-        )
+        return <div>Product Name</div>
       },
       cell: ({ row }) => (
-        <div className="lowercase text-center">{row.getValue('product_name')}</div>
+        <div className="lowercase text-center">
+          {row.getValue('product_name')}
+        </div>
       ),
     },
     {
       accessorKey: 'product_category',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Product Category
-            <ArrowUpDown />
-          </Button>
-        )
+        return <div>Product Category</div>
       },
       cell: ({ row }) => (
         <div className="capitalize text-center">
@@ -228,15 +208,25 @@ export function InventoryTable() {
       accessorKey: 'card_nature',
       header: 'Card Nature',
       cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('card_nature')}</div>
+        <div className="capitalize text-center">
+          {row.getValue('card_nature')}
+        </div>
       ),
     },
     {
       accessorKey: 'ordered_cards',
-      header: 'Ordered Cards',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('ordered_cards')}</div>
-      ),
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Ordered Cards
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => <div className="capitalize">{row.getValue('ordered_cards')}</div>,
     },
     {
       accessorKey: 'status',
@@ -259,7 +249,9 @@ export function InventoryTable() {
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase text-center">{row.getValue('created_date')}</div>
+        <div className="lowercase text-center">
+          {row.getValue('created_date')}
+        </div>
       ),
     },
     {
@@ -276,12 +268,12 @@ export function InventoryTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Approve
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Reject
@@ -364,10 +356,12 @@ export function InventoryTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Name..."
+              value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('product_name')
+                  ?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -375,7 +369,7 @@ export function InventoryTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -398,12 +392,12 @@ export function InventoryTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/inventory/create-inventory">
+              {/* <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
                   {' '}
                   <CirclePlus /> Add new
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">
@@ -413,7 +407,7 @@ export function InventoryTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -434,7 +428,7 @@ export function InventoryTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

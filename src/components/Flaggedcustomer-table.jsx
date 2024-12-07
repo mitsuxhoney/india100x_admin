@@ -179,15 +179,25 @@ export function FlaggedCustomerTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    {
-      accessorKey: 'product_id',
-      header: 'ID',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
+    // {
+    //   accessorKey: 'product_id',
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button
+    //         variant="ghost"
+    //         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+    //       >
+    //         Sr No
+    //         <ArrowUpDown />
+    //       </Button>
+    //     )
+    //   },
+    //   cell: ({ row }) => (
+    //     <div className="capitalize text-center">
+    //       {row.getValue('product_id')}
+    //     </div>
+    //   ),
+    // },
     {
       accessorKey: 'customerId',
       header: 'Customer Id',
@@ -255,14 +265,12 @@ export function FlaggedCustomerTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block

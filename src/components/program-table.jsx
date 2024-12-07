@@ -96,7 +96,7 @@ const data = [
   {
     product_id: '1',
     category: 'technology',
-    name: 'John Doe',
+    name: 'OTT',
     programmanager: 'Alice Smith',
     kycrequired: true,
     contactlessallowed: true,
@@ -108,62 +108,62 @@ const data = [
   {
     product_id: '2',
     category: 'finance',
-    name: 'Jane Doe',
+    name: 'Shopping',
     programmanager: 'Bob Johnson',
     kycrequired: false,
     contactlessallowed: true,
     physicalallowed: true,
     limit: '50k-5Lakh',
     rewardapplicable: true,
-    launchdate: '2021-02-01',
+    launchdate: '2023-02-06',
   },
   {
     product_id: '3',
     category: 'healthcare',
-    name: 'Mike Doe',
-    programmanager: 'Charlie Brown',
+    name: 'Beauty',
+    programmanager: 'ONO',
     kycrequired: true,
     contactlessallowed: false,
     physicalallowed: true,
     limit: '25k-5Lakh',
     rewardapplicable: false,
-    launchdate: '2021-03-01',
+    launchdate: '2023-03-03',
   },
   {
     product_id: '4',
     category: 'education',
-    name: 'Sarah Doe',
+    name: 'School',
     programmanager: 'David Wilson',
     kycrequired: false,
     contactlessallowed: false,
     physicalallowed: false,
     limit: '10k-10Lakh',
     rewardapplicable: true,
-    launchdate: '2021-04-01',
+    launchdate: '2022-04-02',
   },
   {
     product_id: '5',
     category: 'government',
-    name: 'David Johnson',
+    name: 'TAX',
     programmanager: 'Emily Davis',
     kycrequired: true,
     contactlessallowed: true,
     physicalallowed: false,
     limit: '75k-10Lakh',
     rewardapplicable: true,
-    launchdate: '2021-05-01',
+    launchdate: '2021-05-02',
   },
   {
     product_id: '6',
     category: 'politics',
-    name: 'Emily Davis',
+    name: 'Campaign',
     programmanager: 'Michael Johnson',
     kycrequired: false,
     contactlessallowed: true,
     physicalallowed: false,
     limit: '50k-10Lakh',
     rewardapplicable: true,
-    launchdate: '2021-06-01',
+    launchdate: '2021-06-15',
   },
   {
     product_id: '7',
@@ -175,7 +175,7 @@ const data = [
     physicalallowed: true,
     limit: '15k-25Lakh',
     rewardapplicable: false,
-    launchdate: '2021-07-01',
+    launchdate: '2021-07-05',
   },
 ]
 
@@ -209,20 +209,12 @@ export function ProgramTableDemo() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'product_id',
-      header: 'ID',
-      cell: ({ row }) => (
-        <div className="text-center capitalize">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
+
     {
       accessorKey: 'name',
       header: 'Name',
       cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('name')}</div>
+        <div className="capitalize text-center cursor-pointer">{row.getValue('name')}</div>
       ),
     },
     {
@@ -236,7 +228,7 @@ export function ProgramTableDemo() {
       accessorKey: 'programmanager',
       header: 'Manager',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('programmanager')}</div>
+        <div className="text-center cursor-pointer">{row.getValue('programmanager')}</div>
       ),
     },
 
@@ -250,7 +242,17 @@ export function ProgramTableDemo() {
 
     {
       accessorKey: 'launchdate',
-      header: 'Launch Date',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Launch Date
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('launchdate')}</div>
       ),
@@ -292,12 +294,12 @@ export function ProgramTableDemo() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
@@ -380,18 +382,18 @@ export function ProgramTableDemo() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Name..."
+              value={table.getColumn('name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('name')?.setFilterValue(event.target.value)
               }
-              className="max-w-sm"
+              className="max-w-xs"
             />
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

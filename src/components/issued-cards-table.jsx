@@ -57,12 +57,53 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { Badge } from '@/components/ui/badge'
+
+
+
+const fieldIconMap = {
+  AddOnCard: {
+    icon: (
+      <Badge  className="bg-[#f5e7e4] text-[#792c16]">
+        Add on card
+      </Badge>
+    ),
+    label: '',
+  },
+  Physical: {
+    icon: (
+      <Badge  className="bg-[#d3e5ff] text-[#051eab]">
+        Physical
+      </Badge>
+    ),
+    label: 'Pending transaction',
+  },
+
+  Active: {
+    icon: (
+      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
+        Active
+      </Badge>
+    ),
+    label: 'Successful transaction',
+  },
+  Inactive: {
+    icon: (
+      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
+        Inactive
+      </Badge>
+    ),
+    label: 'Failed transaction',
+  },
+}
 
 const data = [
   {
     id: 1,
     card_ref_id: '32XY32',
     status: 'active',
+    AddOnCard: true,
+    Physical: true,
     last_four_digit: '4444',
     product_category: 'Example',
     add_on_card: 'true',
@@ -73,6 +114,7 @@ const data = [
     id: 2,
     card_ref_id: '32XY33',
     status: 'inactive',
+    Physical: true,
     last_four_digit: '4445',
     product_category: 'Example',
     add_on_card: 'true',
@@ -83,6 +125,7 @@ const data = [
     id: 3,
     card_ref_id: '32XY34',
     status: 'active',
+    Physical: true,
     last_four_digit: '4446',
     product_category: 'Example',
     add_on_card: 'true',
@@ -93,6 +136,7 @@ const data = [
     id: 4,
     card_ref_id: '32XY35',
     status: 'inactive',
+    AddOnCard: true,
     last_four_digit: '4447',
     product_category: 'Example',
     add_on_card: 'true',
@@ -103,6 +147,7 @@ const data = [
     id: 5,
     card_ref_id: '32XY36',
     status: 'active',
+    AddOnCard: true,
     last_four_digit: '4448',
     product_category: 'Example',
     add_on_card: 'true',
@@ -113,6 +158,8 @@ const data = [
     id: 6,
     card_ref_id: '32XY37',
     status: 'inactive',
+    AddOnCard: true,
+    Physical: true,
     last_four_digit: '4449',
     product_category: 'Example',
     add_on_card: 'true',
@@ -123,6 +170,7 @@ const data = [
     id: 7,
     card_ref_id: '32XY38',
     status: 'active',
+    Physical: true,
     last_four_digit: '4450',
     product_category: 'Example',
     add_on_card: 'true',
@@ -133,6 +181,7 @@ const data = [
     id: 8,
     card_ref_id: '32XY39',
     status: 'inactive',
+    AddOnCard: true,
     last_four_digit: '4451',
     product_category: 'Example',
     add_on_card: 'true',
@@ -143,6 +192,8 @@ const data = [
     id: 9,
     card_ref_id: '32XY40',
     status: 'active',
+    AddOnCard: true,
+    Physical: true,
     last_four_digit: '4452',
     product_category: 'Example',
     add_on_card: 'true',
@@ -191,16 +242,12 @@ export function IssuedCardsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'id',
-      header: 'ID',
-      cell: ({ row }) => <div className="capitalize">{row.getValue('id')}</div>,
-    },
+
     {
       accessorKey: 'card_ref_id',
       header: 'Card Ref ID',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('card_ref_id')}</div>
+        <div className="capitalize cursor-pointer">{row.getValue('card_ref_id')}</div>
       ),
     },
     {
@@ -209,10 +256,8 @@ export function IssuedCardsTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Status
-            <ArrowUpDown />
           </Button>
         )
       },
@@ -228,7 +273,7 @@ export function IssuedCardsTable() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Last Four Digits
+            Card Last Four Digits
             <ArrowUpDown />
           </Button>
         )
@@ -242,20 +287,6 @@ export function IssuedCardsTable() {
       header: 'Product Category',
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('product_category')}</div>
-      ),
-    },
-    {
-      accessorKey: 'add_on_card',
-      header: 'Add on Card',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('add_on_card')}</div>
-      ),
-    },
-    {
-      accessorKey: 'is_physical',
-      header: 'Is Physical',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('is_physical')}</div>
       ),
     },
     {
@@ -276,6 +307,27 @@ export function IssuedCardsTable() {
       ),
     },
     {
+      header: ` `,
+      cell: ({ row }) => (
+        <div className="flex items-center justify-start gap-2">
+          {Object.keys(fieldIconMap).map((field) => {
+            if (row.original[field]) {
+              return (
+                <span
+                  key={field}
+                  className={`flex items-center gap-1`}
+                  title={fieldIconMap[field].label}
+                >
+                  {fieldIconMap[field].icon}
+                </span>
+              )
+            }
+            return null
+          })}
+        </div>
+      ),
+    },
+    {
       accessorKey: 'actions',
       header: '',
       cell: ({ row }) => {
@@ -289,14 +341,12 @@ export function IssuedCardsTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Delete
@@ -379,10 +429,10 @@ export function IssuedCardsTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by Card ref id..."
+              value={table.getColumn('card_ref_id')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('card_ref_id')?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -390,7 +440,7 @@ export function IssuedCardsTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

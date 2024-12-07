@@ -64,8 +64,8 @@ const data = [
     user_id: 'U001',
     name: 'Alice Johnson',
     role: 'Administrator',
-    created_at: '2024-01-01T10:00:00Z',
-    updated_at: '2024-06-01T15:00:00Z',
+    created_at: '2024-01-01 9:25Pm',
+    updated_at: '2024-06-01 9:25Pm',
     is_active: true,
   },
   {
@@ -73,8 +73,8 @@ const data = [
     user_id: 'U002',
     name: 'Bob Smith',
     role: 'Moderator',
-    created_at: '2024-02-15T12:30:00Z',
-    updated_at: '2024-07-20T18:45:00Z',
+    created_at: '2024-02-15 9:25Pm',
+    updated_at: '2024-07-20 9:25Pm',
     is_active: false,
   },
   {
@@ -82,8 +82,8 @@ const data = [
     user_id: 'U003',
     name: 'Charlie Brown',
     role: 'User',
-    created_at: '2024-03-10T08:15:00Z',
-    updated_at: '2024-08-05T09:20:00Z',
+    created_at: '2024-03-10 9:25Pm',
+    updated_at: '2024-08-05 9:25Pm',
     is_active: true,
   },
   {
@@ -91,8 +91,8 @@ const data = [
     user_id: 'U004',
     name: 'Diana Prince',
     role: 'Editor',
-    created_at: '2024-04-25T11:45:00Z',
-    updated_at: '2024-09-10T16:30:00Z',
+    created_at: '2024-04-25 9:25Pm',
+    updated_at: '2024-09-10 9:25Pm',
     is_active: true,
   },
   {
@@ -100,8 +100,8 @@ const data = [
     user_id: 'U005',
     name: 'Evan Williams',
     role: 'Viewer',
-    created_at: '2024-05-05T09:00:00Z',
-    updated_at: '2024-10-01T14:10:00Z',
+    created_at: '2024-05-05 9:25Pm',
+    updated_at: '2024-10-01 9:25Pm',
     is_active: false,
   },
 ]
@@ -136,22 +136,13 @@ export function SystemUsersTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'product_id',
-      header: 'ID',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('product_id')}
-        </div>
-      ),
-    },
-    {
-      accessorKey: 'user_id',
-      header: 'User ID',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('user_id')}</div>
-      ),
-    },
+    // {
+    //   accessorKey: 'user_id',
+    //   header: 'User ID',
+    //   cell: ({ row }) => (
+    //     <div className="capitalize">{row.getValue('user_id')}</div>
+    //   ),
+    // },
     {
       accessorKey: 'name',
       header: 'Name',
@@ -165,10 +156,9 @@ export function SystemUsersTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+
           >
             Role
-            <ArrowUpDown />
           </Button>
         )
       },
@@ -195,7 +185,7 @@ export function SystemUsersTable() {
     },
     {
       accessorKey: 'updated_at',
-      header: 'Updated At',
+      header: 'Last Login',
       cell: ({ row }) => (
         <div className="lowercase">{row.getValue('updated_at')}</div>
       ),
@@ -224,17 +214,21 @@ export function SystemUsersTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Edit
+                Activate
               </DropdownMenuItem>
-              <DropdownMenuItem
+              <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Delete
+                Suspend
+              </DropdownMenuItem>
+
+              <DropdownMenuItem className='cursor-pointer'
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Block
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -314,18 +308,18 @@ export function SystemUsersTable() {
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search Product..."
-              value={table.getColumn('product')?.getFilterValue() ?? ''}
+              placeholder="Search by user id..."
+              value={table.getColumn('user_id')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('product')?.setFilterValue(event.target.value)
+                table.getColumn('user_id')?.setFilterValue(event.target.value)
               }
-              className="max-w-sm"
+              className="max-w-xs"
             />
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Filter <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
