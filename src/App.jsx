@@ -71,12 +71,17 @@ function App() {
             <Route path="/account/security" element={<Security />} />
             <Route path="/account/appearance" element={<Appearance />} />
             <Route path="/account/notifications" element={<Notifications />} />
+            <Route
+              path="/developer"
+              element={<Navigate to="/developer/api-keys" />}
+            />
             <Route path="/developer/api-keys" element={<ApiKeys />} />
             <Route path="/developer/webhooks" element={<Webhooks />} />
             <Route
               path="/developer/ip-whitelisting"
               element={<IpWhitelisting />}
             />
+            <Route path="/team" element={<Navigate to="/team/users" />} />
             <Route path="/team/users" element={<Users />} />
             <Route path="/team/invite" element={<Invite />} />
             <Route path="/team/logs" element={<Logs />} />
