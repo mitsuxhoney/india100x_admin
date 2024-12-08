@@ -4,6 +4,8 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 
+import { Button } from '@/components/ui/button'
+
 import { Separator } from '@/components/ui/separator'
 import {
   Breadcrumb,
@@ -12,6 +14,8 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from '@/components/ui/breadcrumb'
+
+import { ArrowUp } from 'lucide-react'
 
 import { Outlet, useLocation } from 'react-router-dom'
 import { ModeToggle } from '@/components/mode-toggle'
@@ -27,7 +31,7 @@ const Layout = () => {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex sticky top-0 bg-background z-[1] h-16 shrink-0 items-center gap-2 justify-between">
+        <header className="flex sticky top-0 bg-background z-[999] h-16 shrink-0 items-center gap-2 justify-between">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -50,6 +54,17 @@ const Layout = () => {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <Outlet />
         </div>
+        <footer className="relative">
+          <Button
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            variant="outline"
+            className="rounded-[50%] fixed bottom-6 right-6"
+          >
+            <ArrowUp />
+          </Button>
+        </footer>
       </SidebarInset>
     </SidebarProvider>
   )

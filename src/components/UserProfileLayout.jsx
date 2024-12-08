@@ -78,8 +78,8 @@ const UserProfileLayout = () => {
         </div>
         <Separator className="my-6" /> */}
         {/* className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0" */}
-        <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="w-1/5">
+        <div className="flex flex-col justify-start space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
+          <aside className="w-[100%] lg:w-1/5">
             <UserProfileSidebar items={userProfileSidebarItems} />
           </aside>
           <div className="flex-1 lg:max-w-2xl">
