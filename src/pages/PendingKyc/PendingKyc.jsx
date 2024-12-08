@@ -1,4 +1,4 @@
-import { PendingKycTable } from "../../components/PendingKyc-table";
+import { PendingKycTable } from '../../components/PendingKyc-table'
 
 const PendingKyc = () => {
   return (
@@ -8,9 +8,11 @@ const PendingKyc = () => {
         <div className="aspect-video rounded-xl bg-muted/50" />
         <div className="aspect-video rounded-xl bg-muted/50" />
       </div> */}
-      <PendingKycTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      <div className="grid grid-cols-1 gap-4">
+        <PendingKycTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default PendingKyc;
+export default PendingKyc

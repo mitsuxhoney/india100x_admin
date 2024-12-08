@@ -1,4 +1,4 @@
-import { ProgramTable } from "../../components/program-manager-table";
+import { ProgramTable } from '../../components/program-manager-table'
 
 const ProgramManagers = () => {
   return (
@@ -8,9 +8,12 @@ const ProgramManagers = () => {
         <div className="aspect-video rounded-xl bg-muted/50" />
         <div className="aspect-video rounded-xl bg-muted/50" />
       </div> */}
-      <ProgramTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-    </div>
-  );
-};
 
-export default ProgramManagers;
+      <div className="grid grid-cols-1">
+        <ProgramTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      </div>
+    </div>
+  )
+}
+
+export default ProgramManagers
