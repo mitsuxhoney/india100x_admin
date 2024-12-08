@@ -69,7 +69,7 @@ const UserProfileLayout = () => {
         />
       </div> */}
       {/* "space-y-6 p-10 pb-16 block" */}
-      <div className="space-y-6 p-10 pb-16 block">
+      <div className="space-y-6 p-10 pb-16 block w-[100%]">
         {/* <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
           <p className="text-muted-foreground">
@@ -82,7 +82,7 @@ const UserProfileLayout = () => {
           <aside className="w-[100%] lg:w-1/5">
             <UserProfileSidebar items={userProfileSidebarItems} />
           </aside>
-          <div className="flex-1 lg:max-w-2xl">
+          <div className="flex-1 lg:max-w-7xl">
             <Outlet />
           </div>
         </div>
