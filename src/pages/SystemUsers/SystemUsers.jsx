@@ -1,4 +1,4 @@
-import { SystemUsersTable } from "../../components/systemusers-table";
+import { SystemUsersTable } from '../../components/systemusers-table'
 
 const SystemUsers = () => {
   return (
@@ -8,9 +8,11 @@ const SystemUsers = () => {
         <div className="aspect-video rounded-xl bg-muted/50" />
         <div className="aspect-video rounded-xl bg-muted/50" />
       </div> */}
-      <SystemUsersTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      <div className="grid grid-cols-1">
+        <SystemUsersTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default SystemUsers;
+export default SystemUsers
