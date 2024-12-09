@@ -237,7 +237,7 @@ export function AuditLogsTable() {
     // },
     {
       accessorKey: 'id',
-      header: ({ column }) => {
+      header: () => {
         return <div>ID</div>
       },
       cell: ({ row }) => (
@@ -246,7 +246,7 @@ export function AuditLogsTable() {
     },
     {
       accessorKey: 'status',
-      header: ({ column }) => {
+      header: () => {
         return <div>Status</div>
       },
       cell: ({ row }) => (
@@ -270,7 +270,7 @@ export function AuditLogsTable() {
 
     {
       accessorKey: 'IP',
-      header: ({ column }) => {
+      header: () => {
         return <div>IP Address</div>
       },
       cell: ({ row }) => (
