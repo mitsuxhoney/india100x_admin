@@ -67,7 +67,7 @@ const data = [
     totalCards: '4',
     totalTransactions: '120',
     createdBy: 'Admin',
-    lastActive: '2023-12-01',
+    lastActive: '12-01-2023',
   },
   {
     product_id: '2',
@@ -77,7 +77,7 @@ const data = [
     totalCards: '2',
     totalTransactions: '85',
     createdBy: 'Manager1',
-    lastActive: '2023-11-28',
+    lastActive: '11-05-2021',
   },
   {
     product_id: '3',
@@ -87,7 +87,7 @@ const data = [
     totalCards: '3',
     totalTransactions: '140',
     createdBy: 'SupervisorX',
-    lastActive: '2023-11-30',
+    lastActive: '11-05-2021',
   },
   {
     product_id: '4',
@@ -97,7 +97,7 @@ const data = [
     totalCards: '1',
     totalTransactions: '15',
     createdBy: 'Admin',
-    lastActive: '2023-12-03',
+    lastActive: '12-05-2021',
   },
   {
     product_id: '5',
@@ -107,7 +107,7 @@ const data = [
     totalCards: '5',
     totalTransactions: '200',
     createdBy: 'AdminAssistant',
-    lastActive: '2023-11-25',
+    lastActive: '11-05-2021',
   },
   {
     product_id: '6',
@@ -117,7 +117,7 @@ const data = [
     totalCards: '2',
     totalTransactions: '95',
     createdBy: 'Manager3',
-    lastActive: '2023-12-02',
+    lastActive: '12-05-2021',
   },
   {
     product_id: '7',
@@ -127,7 +127,7 @@ const data = [
     totalCards: '1',
     totalTransactions: '45',
     createdBy: 'SupervisorY',
-    lastActive: '2023-11-27',
+    lastActive: '11-05-2021',
   },
   {
     product_id: '8',
@@ -137,7 +137,7 @@ const data = [
     totalCards: '3',
     totalTransactions: '130',
     createdBy: 'Admin',
-    lastActive: '2023-11-29',
+    lastActive: '11-05-2021',
   },
   {
     product_id: '9',
@@ -147,7 +147,7 @@ const data = [
     totalCards: '2',
     totalTransactions: '70',
     createdBy: 'Manager2',
-    lastActive: '2023-11-30',
+    lastActive: '11-05-2021',
   },
   {
     product_id: '10',
@@ -157,7 +157,7 @@ const data = [
     totalCards: '6',
     totalTransactions: '300',
     createdBy: 'SupervisorZ',
-    lastActive: '2023-12-04',
+    lastActive: '12-05-2021',
   },
   {
     product_id: '11',
@@ -167,7 +167,7 @@ const data = [
     totalCards: '4',
     totalTransactions: '190',
     createdBy: 'Admin',
-    lastActive: '2023-12-01',
+    lastActive: '12-05-2021',
   },
 ]
 
