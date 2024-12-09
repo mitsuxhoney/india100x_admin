@@ -58,98 +58,107 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
-    "product_id": "1",
-    "customerId": "123654789",
-    "Name": "Mona",
-    "ProgramManager": "Sales Card",
-    "kycStatus": "Pending",
-    "verificationRemarks": "Resubmission Required",
-    "submissionDate": "05-10-2022"
+    product_id: '1',
+    customerId: '123654789',
+    Name: 'Mona',
+    ProgramManager: 'Sales Card',
+    status: 'pending',
+    verificationRemarks: 'Resubmission Required',
+    submissionDate: '2022-10-05',
   },
   {
-    "product_id": "2",
-    "customerId": "123664789",
-    "Name": "John Doe",
-    "ProgramManager": "Platinum Card",
-    "kycStatus": "Incomplete",
-    "verificationRemarks": "Address proof missing",
-    "submissionDate": "15-09-2023"
+    product_id: '2',
+    customerId: '123664789',
+    Name: 'John Doe',
+    ProgramManager: 'Platinum Card',
+    status: 'pending',
+    verificationRemarks: 'Address proof missing',
+    submissionDate: '2023-09-15',
   },
   {
-    "product_id": "3",
-    "customerId": "123654782",
-    "Name": "Sophia Smith",
-    "ProgramManager": "Business Loan",
-    "kycStatus": "Under Review",
-    "verificationRemarks": "Verification in progress",
-    "submissionDate": "01-11-2023"
+    product_id: '3',
+    customerId: '123654782',
+    Name: 'Sophia Smith',
+    ProgramManager: 'Business Loan',
+    status: 'under review',
+    verificationRemarks: 'Verification in progress',
+    submissionDate: '2023-11-01',
   },
   {
-    "product_id": "4",
-    "customerId": "123684789",
-    "Name": "Ethan Brown",
-    "ProgramManager": "Travel Card",
-    "kycStatus": "Rejected",
-    "verificationRemarks": "ID proof mismatch",
-    "submissionDate": "20-08-2023"
+    product_id: '4',
+    customerId: '123684789',
+    Name: 'Ethan Brown',
+    ProgramManager: 'Travel Card',
+    status: 'rejected',
+    verificationRemarks: 'ID proof mismatch',
+    submissionDate: '2023-08-20',
   },
   {
-    "product_id": "5",
-    "customerId": "123656554",
-    "Name": "Liam Wilson",
-    "ProgramManager": "Premium Savings",
-    "kycStatus": "Pending",
-    "verificationRemarks": "Photo unclear, resubmit",
-    "submissionDate": "10-10-2023"
+    product_id: '5',
+    customerId: '123656554',
+    Name: 'Liam Wilson',
+    ProgramManager: 'Premium Savings',
+    status: 'pending',
+    verificationRemarks: 'Photo unclear, resubmit',
+    submissionDate: '2023-10-10',
   },
   {
-    "product_id": "6",
-    "customerId": "123654779",
-    "Name": "Emma Davis",
-    "ProgramManager": "Retail Finance",
-    "kycStatus": "Under Review",
-    "verificationRemarks": "Cross-verifying documents",
-    "submissionDate": "25-09-2023"
+    product_id: '6',
+    customerId: '123654779',
+    Name: 'Emma Davis',
+    ProgramManager: 'Retail Finance',
+    status: 'under review',
+    verificationRemarks: 'Cross-verifying documents',
+    submissionDate: '2023-09-25',
   },
   {
-    "product_id": "7",
-    "customerId": "123654798",
-    "Name": "Oliver Martinez",
-    "ProgramManager": "Gold Card",
-    "kycStatus": "Incomplete",
-    "verificationRemarks": "Bank statement not submitted",
-    "submissionDate": "02-10-2023"
+    product_id: '7',
+    customerId: '123654798',
+    Name: 'Oliver Martinez',
+    ProgramManager: 'Gold Card',
+    status: 'incomplete',
+    verificationRemarks: 'Bank statement not submitted',
+    submissionDate: '2023-10-02',
   },
   {
-    "product_id": "8",
-    "customerId": "189654789",
-    "Name": "Ava Taylor",
-    "ProgramManager": "Student Plan",
-    "kycStatus": "Pending",
-    "verificationRemarks": "Document not signed",
-    "submissionDate": "15-11-2023"
+    product_id: '8',
+    customerId: '189654789',
+    Name: 'Ava Taylor',
+    ProgramManager: 'Student Plan',
+    status: 'pending',
+    verificationRemarks: 'Document not signed',
+    submissionDate: '2023-11-15',
   },
   {
-    "product_id": "9",
-    "customerId": "123654756",
-    "Name": "Michael Johnson",
-    "ProgramManager": "Cashback Offers",
-    "kycStatus": "Rejected",
-    "verificationRemarks": "Document not legible",
-    "submissionDate": "30-07-2023"
+    product_id: '9',
+    customerId: '123654756',
+    Name: 'Michael Johnson',
+    ProgramManager: 'Cashback Offers',
+    status: 'rejected',
+    verificationRemarks: 'Document not legible',
+    submissionDate: '2023-07-30',
   },
   {
-    "product_id": "10",
-    "customerId": "123654723",
-    "Name": "Emily Clark",
-    "ProgramManager": "Merchant Services",
-    "kycStatus": "Under Review",
-    "verificationRemarks": "Final verification stage",
-    "submissionDate": "10-11-2023"
-  }
+    product_id: '10',
+    customerId: '123654723',
+    Name: 'Emily Clark',
+    ProgramManager: 'Merchant Services',
+    status: 'under review',
+    verificationRemarks: 'Final verification stage',
+    submissionDate: '2023-11-10',
+  },
 ]
+
+data.forEach((item) => {
+  const [year, month, day] = item.submissionDate.split('-')
+  item.submissionDate = `${day}/${month}/${year.slice(-2)}`
+})
+
+console.log(data)
 
 export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -202,12 +211,36 @@ export function PendingKycTable() {
       ),
     },
     {
-      accessorKey: 'kycStatus',
-      header: 'KYC Status',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('kycStatus')}</div>
-      ),
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+
+        switch (status) {
+          case 'active':
+            return <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+          case 'pending':
+            return (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Pending</Badge>
+            )
+          case 'under review':
+            return (
+              <Badge className="bg-[#e3f2fd] text-[#1976d2]">
+                Under Review
+              </Badge>
+            )
+          case 'rejected':
+            return (
+              <Badge className="bg-[#ffe6e6] text-[#d32f2f]">Rejected</Badge>
+            )
+          case 'incomplete':
+            return (
+              <Badge className="bg-[#fce4ec] text-[#c2185b]">Incomplete</Badge>
+            )
+        }
+      },
     },
+
     {
       accessorKey: 'verificationRemarks',
       header: 'Verification Remarks',
@@ -236,12 +269,14 @@ export function PendingKycTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Approve
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Reject
@@ -306,7 +341,7 @@ export function PendingKycTable() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                   Column <ChevronDown />
+                    Column <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

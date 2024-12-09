@@ -58,6 +58,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     "product_id": "1",
@@ -191,13 +193,16 @@ export function SystemUsersTable() {
       ),
     },
     {
-      accessorKey: 'is_active',
-      header: 'Active Status',
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue('is_active') ? 'Active' : 'Inactive'}
-        </div>
-      ),
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+        return status === 'active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        );
+      },
     },
 
     {
