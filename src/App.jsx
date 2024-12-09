@@ -31,15 +31,17 @@ import Invite from '@/pages/TeamInvite/Invite'
 import Logs from '@/pages/TeamLogs/Logs'
 
 import UserProfileLayout from './components/UserProfileLayout'
+import Login from '@/pages/Login/Login'
 
 function App() {
   return (
     <ThemeProvider>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route element={<Layout />}>
           <Route
             path="/"
-            element={<Navigate to="/business-dashboard" replace />}
+            element={<Navigate to="/login" replace />}
           />
           <Route path="/business-dashboard" element={<BusinessDashboard />} />
           <Route path="/system-dashboard" element={<SystemDashboard />} />

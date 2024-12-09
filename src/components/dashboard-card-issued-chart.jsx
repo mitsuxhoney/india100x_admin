@@ -58,7 +58,7 @@ export function CardIssuedChart() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8}>
+            <Bar dataKey="desktop" fill="gray" radius={8}>
               <LabelList
                 position="top"
                 offset={12}
