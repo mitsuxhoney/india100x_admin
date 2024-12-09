@@ -61,16 +61,16 @@ import { number } from 'zod'
 import { Badge } from '@/components/ui/badge'
 
 const fieldIconMap = {
-  Approved: {
+  approved: {
     icon: <Badge className="bg-[#e4f5e9] text-[#16794c]">Approved</Badge>,
     label: 'Approved',
   },
-  Rejected: {
+  rejected: {
     icon: <Badge className="bg-[#fff0f0] text-[#b52a2a]">Rejected</Badge>,
     label: 'Rejected',
   },
 
-  Progress: {
+  progress: {
     icon: <Badge className="bg-[#F5FBFC] text-[#267A94]">Progress</Badge>,
     label: 'Progress',
   },
@@ -83,6 +83,7 @@ const data = [
     card_nature: 'virtual',
     ordered_cards: 10,
     status: 'approved',
+    approved: true,
     created_date: '12-01-2024',
   },
   {
@@ -92,6 +93,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 5,
     status: 'progress',
+    progress: true,
     created_date: '11-05-2023',
   },
   {
@@ -101,6 +103,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
+    rejected: true,
     created_date: '10-03-2012',
   },
   {
@@ -110,6 +113,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 3,
     status: 'progress',
+    progress: true,
     created_date: '09-10-2023',
   },
   {
@@ -119,6 +123,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'approved',
+    approved: true,
     created_date: '08-03-2023',
   },
   {
@@ -128,6 +133,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 4,
     status: 'approved',
+    approved: true,
     created_date: '07-05-2022',
   },
   {
@@ -137,6 +143,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
+    rejected: true,
     created_date: '06-03-2021',
   },
   {
@@ -146,6 +153,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+    progress: true,
     created_date: '05-05-2005',
   },
   {
@@ -155,6 +163,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+    progress: true,
     created_date: '04-03-2024',
   },
   {
@@ -164,6 +173,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+    progress: true,
     created_date: '03-05-2023',
   },
 ]
