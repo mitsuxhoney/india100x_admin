@@ -191,7 +191,7 @@ export function ProgramTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
- 
+
     {
       accessorKey: 'name',
       header: 'Manager Name',
@@ -267,17 +267,20 @@ export function ProgramTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Suspend
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
@@ -359,7 +362,7 @@ export function ProgramTable() {
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
-          <Input
+            <Input
               placeholder="Search by Name..."
               value={table.getColumn('name')?.getFilterValue() ?? ''}
               onChange={(event) =>

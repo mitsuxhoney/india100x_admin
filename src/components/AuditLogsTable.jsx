@@ -67,181 +67,141 @@ const data = [
     id: 1,
     status: 'success',
     method: 'GET',
-    path: '/api/user',
-    userId: 'user1',
-    sessionId: 'session123',
     IP: '192.168.1.1',
+    event: 'Program manager accessed user details',
   },
   {
     id: 2,
     status: 'error',
     method: 'POST',
-    path: '/api/login',
-    userId: 'user2',
-    sessionId: 'session124',
     IP: '192.168.1.2',
+    event: 'Login attempt by program manager failed',
   },
   {
     id: 3,
     status: 'success',
     method: 'GET',
-    path: '/api/orders',
-    userId: 'user3',
-    sessionId: 'session125',
     IP: '192.168.1.3',
+    event: 'Program manager viewed orders',
   },
   {
     id: 4,
     status: 'success',
     method: 'PUT',
-    path: '/api/profile',
-    userId: 'user4',
-    sessionId: 'session126',
     IP: '192.168.1.4',
+    event: 'Program manager updated profile',
   },
   {
     id: 5,
     status: 'error',
     method: 'DELETE',
-    path: '/api/user',
-    userId: 'user5',
-    sessionId: 'session127',
     IP: '192.168.1.5',
+    event: 'Failed to delete program manager account',
   },
   {
     id: 6,
     status: 'success',
     method: 'POST',
-    path: '/api/register',
-    userId: 'user6',
-    sessionId: 'session128',
     IP: '192.168.1.6',
+    event: 'Program manager registered successfully',
   },
   {
     id: 7,
     status: 'success',
     method: 'GET',
-    path: '/api/products',
-    userId: 'user7',
-    sessionId: 'session129',
     IP: '192.168.1.7',
+    event: 'Program manager browsed products',
   },
   {
     id: 8,
     status: 'error',
     method: 'PUT',
-    path: '/api/user/123',
-    userId: 'user8',
-    sessionId: 'session130',
     IP: '192.168.1.8',
+    event: 'Failed to update program manager details',
   },
   {
     id: 9,
     status: 'success',
     method: 'POST',
-    path: '/api/checkout',
-    userId: 'user9',
-    sessionId: 'session131',
     IP: '192.168.1.9',
+    event: 'Program manager completed checkout',
   },
   {
     id: 10,
     status: 'success',
     method: 'GET',
-    path: '/api/dashboard',
-    userId: 'user10',
-    sessionId: 'session132',
     IP: '192.168.1.10',
+    event: 'Program manager accessed dashboard',
   },
   {
     id: 11,
     status: 'error',
     method: 'POST',
-    path: '/api/payment',
-    userId: 'user11',
-    sessionId: 'session133',
     IP: '192.168.1.11',
+    event: 'Payment process by program manager failed',
   },
   {
     id: 12,
     status: 'success',
     method: 'DELETE',
-    path: '/api/cart',
-    userId: 'user12',
-    sessionId: 'session134',
     IP: '192.168.1.12',
+    event: 'Program manager removed item from cart',
   },
   {
     id: 13,
     status: 'success',
     method: 'GET',
-    path: '/api/notifications',
-    userId: 'user13',
-    sessionId: 'session135',
     IP: '192.168.1.13',
+    event: 'Program manager checked notifications',
   },
   {
     id: 14,
     status: 'error',
     method: 'POST',
-    path: '/api/password-reset',
-    userId: 'user14',
-    sessionId: 'session136',
     IP: '192.168.1.14',
+    event: 'Password reset attempt by program manager failed',
   },
   {
     id: 15,
     status: 'success',
     method: 'PUT',
-    path: '/api/settings',
-    userId: 'user15',
-    sessionId: 'session137',
     IP: '192.168.1.15',
+    event: 'Program manager updated settings',
   },
   {
     id: 16,
     status: 'success',
     method: 'GET',
-    path: '/api/reports',
-    userId: 'user16',
-    sessionId: 'session138',
     IP: '192.168.1.16',
+    event: 'Program manager accessed reports',
   },
   {
     id: 17,
     status: 'error',
     method: 'DELETE',
-    path: '/api/user/456',
-    userId: 'user17',
-    sessionId: 'session139',
     IP: '192.168.1.17',
+    event: 'Failed to delete program manager account (ID: 456)',
   },
   {
     id: 18,
     status: 'success',
     method: 'POST',
-    path: '/api/subscribe',
-    userId: 'user18',
-    sessionId: 'session140',
     IP: '192.168.1.18',
+    event: 'Program manager subscribed to service',
   },
   {
     id: 19,
     status: 'error',
     method: 'PUT',
-    path: '/api/product/789',
-    userId: 'user19',
-    sessionId: 'session141',
     IP: '192.168.1.19',
+    event: 'Failed to update product by program manager (ID: 789)',
   },
   {
     id: 20,
     status: 'success',
     method: 'GET',
-    path: '/api/feedback',
-    userId: 'user20',
-    sessionId: 'session142',
     IP: '192.168.1.20',
+    event: 'Program manager submitted feedback',
   },
 ]
 
@@ -301,43 +261,13 @@ export function AuditLogsTable() {
       ),
     },
     {
-      accessorKey: 'path',
-      header: ({ column }) => {
-        return (
-          <>Path</>
-          // <Button
-          //   variant="ghost"
-          //   onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          // >
-          //   API Keys
-          //   <ArrowUpDown />
-          // </Button>
-        )
-      },
+      accessorKey: 'event',
+      header: 'Event',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('path')}</div>
+        <div className="capitalize text-center">{row.getValue('event')}</div>
       ),
     },
-    {
-      accessorKey: 'userId',
-      header: ({ column }) => {
-        return <div>User ID</div>
-      },
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('userId')}</div>
-      ),
-    },
-    {
-      accessorKey: 'sessionId',
-      header: ({ column }) => {
-        return <div>Session ID</div>
-      },
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('sessionId')}
-        </div>
-      ),
-    },
+
     {
       accessorKey: 'IP',
       header: ({ column }) => {

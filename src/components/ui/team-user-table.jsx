@@ -64,8 +64,8 @@ const data = [
     user_id: 'U001',
     name: 'Alice Johnson',
     role: 'Administrator',
-    created_at: '2024-01-01 9:25Pm',
-    updated_at: '2024-06-01 9:25Pm',
+    created_at: '01-01-2024 21:25:00',
+    updated_at: '01-06-2024 21:25:00',
     is_active: true,
   },
   {
@@ -73,8 +73,8 @@ const data = [
     user_id: 'U002',
     name: 'Bob Smith',
     role: 'Moderator',
-    created_at: '2024-02-15 9:25Pm',
-    updated_at: '2024-07-20 9:25Pm',
+    created_at: '15-02-2024 21:25:00',
+    updated_at: '20-07-2024 21:25:00',
     is_active: false,
   },
   {
@@ -82,8 +82,8 @@ const data = [
     user_id: 'U003',
     name: 'Charlie Brown',
     role: 'User',
-    created_at: '2024-03-10 9:25Pm',
-    updated_at: '2024-08-05 9:25Pm',
+    created_at: '10-03-2024 21:25:00',
+    updated_at: '05-08-2024 21:25:00',
     is_active: true,
   },
   {
@@ -91,8 +91,8 @@ const data = [
     user_id: 'U004',
     name: 'Diana Prince',
     role: 'Editor',
-    created_at: '2024-04-25 9:25Pm',
-    updated_at: '2024-09-10 9:25Pm',
+    created_at: '25-04-2024 21:25:00',
+    updated_at: '10-09-2024 21:25:00',
     is_active: true,
   },
   {
@@ -100,8 +100,8 @@ const data = [
     user_id: 'U005',
     name: 'Evan Williams',
     role: 'Viewer',
-    created_at: '2024-05-05 9:25Pm',
-    updated_at: '2024-10-01 9:25Pm',
+    created_at: '05-05-2024 21:25:00',
+    updated_at: '01-10-2024 21:25:00',
     is_active: false,
   },
 ]
@@ -124,26 +124,19 @@ export function TeamUsersTable() {
     {
       accessorKey: 'role',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-
-          >
-            Role
-          </Button>
-        )
+        return <Button variant="ghost">Role</Button>
       },
       cell: ({ row }) => (
         <div className="capitalize pl-4">{row.getValue('role')}</div>
       ),
     },
     {
-        accessorKey: 'name',
-        header: 'IP Address',
-        cell: ({ row }) => (
-          <div className="capitalize">{row.getValue('name')}</div>
-        ),
-      },
+      accessorKey: 'name',
+      header: 'IP Address',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('name')}</div>
+      ),
+    },
     {
       accessorKey: 'created_at',
       header: ({ column }) => {
@@ -157,9 +150,17 @@ export function TeamUsersTable() {
           </Button>
         )
       },
-      cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('created_at')}</div>
-      ),
+      cell: ({ row }) => {
+        const date = row.getValue('created_at').split(' ')[0]
+        const time = row.getValue('created_at').split(' ')[1]
+
+        return (
+          <div className="flex flex-col items-center text-center">
+            <span>{date}</span>
+            <span className="text-slate-400">{time}</span>
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'is_active',
@@ -185,18 +186,21 @@ export function TeamUsersTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Suspend
               </DropdownMenuItem>
 
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
@@ -243,7 +247,6 @@ export function TeamUsersTable() {
 
   return (
     <Card>
-      
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">

@@ -214,7 +214,9 @@ export function ProgramTableDemo() {
       accessorKey: 'name',
       header: 'Name',
       cell: ({ row }) => (
-        <div className="capitalize text-center cursor-pointer">{row.getValue('name')}</div>
+        <div className="capitalize text-center cursor-pointer">
+          {row.getValue('name')}
+        </div>
       ),
     },
     {
@@ -228,7 +230,9 @@ export function ProgramTableDemo() {
       accessorKey: 'programmanager',
       header: 'Manager',
       cell: ({ row }) => (
-        <div className="text-center cursor-pointer">{row.getValue('programmanager')}</div>
+        <div className="text-center cursor-pointer">
+          {row.getValue('programmanager')}
+        </div>
       ),
     },
 
@@ -294,12 +298,14 @@ export function ProgramTableDemo() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block

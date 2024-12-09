@@ -144,9 +144,17 @@ const IpWhitelistingTable = () => {
           </Button>
         )
       },
-      cell: ({ row }) => (
-        <div className="text-center capitalize">{row.getValue('date')}</div>
-      ),
+      cell: ({ row }) => {
+        const date = row.getValue('date').split(' ')[0]
+        const time = row.getValue('date').split(' ')[1]
+
+        return (
+          <div className="flex flex-col items-center text-center">
+            <span>{date}</span>
+            <span className="text-slate-400">{time}</span>
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'generatedBy',

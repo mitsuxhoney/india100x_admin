@@ -226,7 +226,9 @@ export function InventoryTable() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className="capitalize">{row.getValue('ordered_cards')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('ordered_cards')}</div>
+      ),
     },
     {
       accessorKey: 'status',
@@ -268,12 +270,14 @@ export function InventoryTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Approve
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Reject
