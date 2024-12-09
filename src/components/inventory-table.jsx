@@ -67,7 +67,7 @@ const data = [
     card_nature: 'virtual',
     ordered_cards: 10,
     status: 'approved',
-    created_date: '01-12-2024',
+    created_date: '12-01-2024',
   },
   {
     product_id: 2,
@@ -76,7 +76,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 5,
     status: 'progress',
-    created_date: '15-11-2024',
+    created_date: '11-05-2023',
   },
   {
     product_id: 3,
@@ -85,7 +85,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
-    created_date: '20-10-2024',
+    created_date: '10-03-2012',
   },
   {
     product_id: 4,
@@ -94,7 +94,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 3,
     status: 'progress',
-    created_date: '25-09-2024',
+    created_date: '09-10-2023',
   },
   {
     product_id: 5,
@@ -103,7 +103,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'approved',
-    created_date: '20-08-2024',
+    created_date: '08-03-2023',
   },
   {
     product_id: 6,
@@ -112,7 +112,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 4,
     status: 'approved',
-    created_date: '15-07-2024',
+    created_date: '07-05-2022',
   },
   {
     product_id: 7,
@@ -121,7 +121,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
-    created_date: '20-06-2024',
+    created_date: '06-03-2021',
   },
   {
     product_id: 8,
@@ -130,7 +130,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
-    created_date: '15-05-2024',
+    created_date: '05-05-2005',
   },
   {
     product_id: 9,
@@ -139,7 +139,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
-    created_date: '20-04-2024',
+    created_date: '04-03-2024',
   },
   {
     product_id: 10,
@@ -148,7 +148,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
-    created_date: '15-03-2024',
+    created_date: '03-05-2023',
   },
 ]
 
