@@ -55,7 +55,7 @@ import { Badge } from '@/components/ui/badge'
 const fieldIconMap = {
   Success: {
     icon: (
-      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
+      <Badge className="bg-[#e4f5e9] text-[#16794c]">
         Success
       </Badge>
     ),
@@ -63,7 +63,7 @@ const fieldIconMap = {
   },
   Pending: {
     icon: (
-      <Badge  className="bg-[#fff7d3] text-[#ab6e05]">
+      <Badge className="bg-[#fff7d3] text-[#ab6e05]">
         Pending
       </Badge>
     ),
@@ -71,7 +71,7 @@ const fieldIconMap = {
   },
   Failed: {
     icon: (
-      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
+      <Badge className="bg-[#fff0f0] text-[#b52a2a]">
         Failed
       </Badge>
     ),
@@ -178,7 +178,7 @@ export function FundingTransactionTable() {
     //             Sr No
     //             <ArrowUpDown />
     //           </Button>
-              
+
     //         )
     //       },
     //     cell: ({ row }) => (
@@ -215,41 +215,43 @@ export function FundingTransactionTable() {
       accessorKey: 'FromAccount',
       header: 'From Account',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('FromAccount')}</div>
+        <div className="flex justify-center"><p>******</p>{row.getValue('FromAccount')}</div>
       ),
     },
     {
       accessorKey: 'ToAccount',
       header: 'To Account',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('ToAccount')}</div>
+        <div className="flex justify-center"><p>******</p>{row.getValue('ToAccount')}</div>
       ),
     },
     {
-        accessorKey: 'Amount',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            >
-              Amount
-              <ArrowUpDown />
-            </Button>
-            
-          )
-        },
-        cell: ({ row }) => {
-            const amount = row.original.Amount // Access the raw data directly
-            // const type = row.original.Type // Access the Type from raw data
-            // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
-            return (
-              <div className={`text-center flex items-center justify-center`}>
-                ₹{amount.toFixed(2)}
-              </div>
-            )
-          },
+      accessorKey: 'Amount',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Amount
+            <ArrowUpDown />
+          </Button>
+
+        )
       },
+      cell: ({ row }) => {
+        const amount = row.original.Amount // Access the raw data directly
+        // const type = row.original.Type // Access the Type from raw data
+        // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
+        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        return (
+          <div className="text-center flex items-center justify-center">
+            <span>₹{whole}</span>
+            <span className="text-gray-500">.{decimal}</span>
+          </div>
+        );
+      },
+    },
 
     {
       header: `Status`,
@@ -401,9 +403,9 @@ export function FundingTransactionTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

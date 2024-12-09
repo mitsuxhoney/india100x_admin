@@ -10,14 +10,17 @@ import {
 } from '@tanstack/react-table'
 import {
   ArrowUpDown,
+  SquarePen,
+  Trash2Icon,
   ChevronDown,
   ArrowLeft,
   ArrowRight,
-  MoreHorizontal,
   CirclePlus,
+  MoreHorizontal,
   Pencil,
   Trash2,
   CircleX,
+  Trash,
 } from 'lucide-react'
 
 import {
@@ -57,57 +60,132 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { number } from 'zod'
 
 const data = [
   {
-    "product_id": "1",
-    "team_member": "Alice Johnson",
-    "date": "01-12-2024",
-    "event": "Product Launch",
-    "team": "Marketing",
-    "product": "EduPal App",
-    "ip_address": "192.168.1.1"
+    status: 'active',
+    name: 'Service1',
+    key_type: 'Bearer',
+    api_key: '1234abcd5678efgh',
   },
   {
-    "product_id": "2",
-    "team_member": "Bob Smith",
-    "date": "02-12-2024",
-    "event": "Client Meeting",
-    "team": "Sales",
-    "product": "Golzo Platform",
-    "ip_address": "192.168.1.2"
+    status: 'inactive',
+    name: 'Service2',
+    key_type: 'Basic',
+    api_key: 'abcd1234efgh5678',
   },
   {
-    "product_id": "3",
-    "team_member": "Charlie Brown",
-    "date": "03-12-2024",
-    "event": "Bug Fix",
-    "team": "Development",
-    "product": "Call Recorder App",
-    "ip_address": "192.168.1.3"
+    status: 'active',
+    name: 'Service3',
+    key_type: 'OAuth',
+    api_key: 'wxyz1234abcd5678',
   },
   {
-    "product_id": "4",
-    "team_member": "Diana Prince",
-    "date": "04-12-2024",
-    "event": "Team Workshop",
-    "team": "Human Resources",
-    "product": "Employee Handbook",
-    "ip_address": "192.168.1.4"
+    status: 'expired',
+    name: 'Service4',
+    key_type: 'Bearer',
+    api_key: 'ijkl5678mnop1234',
   },
   {
-    "product_id": "5",
-    "team_member": "Evan Williams",
-    "date": "05-12-2024",
-    "event": "Server Maintenance",
-    "team": "IT Support",
-    "product": "Internal Systems",
-    "ip_address": "192.168.1.5"
-  }
+    status: 'active',
+    name: 'Service5',
+    key_type: 'API Key',
+    api_key: 'abcd5678xyz1234',
+  },
+  {
+    status: 'inactive',
+    name: 'Service6',
+    key_type: 'OAuth',
+    api_key: 'mnop1234ijkl5678',
+  },
+  {
+    status: 'active',
+    name: 'Service7',
+    key_type: 'Basic',
+    api_key: 'efgh5678abcd1234',
+  },
+  {
+    status: 'expired',
+    name: 'Service8',
+    key_type: 'Bearer',
+    api_key: 'qrst1234uvwx5678',
+  },
+  {
+    status: 'active',
+    name: 'Service9',
+    key_type: 'OAuth',
+    api_key: 'abcd5678ijkl1234',
+  },
+  {
+    status: 'inactive',
+    name: 'Service10',
+    key_type: 'API Key',
+    api_key: 'xyz1234mnop5678',
+  },
+  {
+    status: 'expired',
+    name: 'Service11',
+    key_type: 'Bearer',
+    api_key: 'ijkl1234qrst5678',
+  },
+  {
+    status: 'active',
+    name: 'Service12',
+    key_type: 'OAuth',
+    api_key: 'mnop5678abcd1234',
+  },
+  {
+    status: 'inactive',
+    name: 'Service13',
+    key_type: 'Basic',
+    api_key: 'efgh1234wxyz5678',
+  },
+  {
+    status: 'active',
+    name: 'Service14',
+    key_type: 'API Key',
+    api_key: 'ijkl5678abcd1234',
+  },
+  {
+    status: 'expired',
+    name: 'Service15',
+    key_type: 'Bearer',
+    api_key: 'mnop1234abcd5678',
+  },
+  {
+    status: 'active',
+    name: 'Service16',
+    key_type: 'OAuth',
+    api_key: 'qrst5678efgh1234',
+  },
+  {
+    status: 'inactive',
+    name: 'Service17',
+    key_type: 'API Key',
+    api_key: 'abcd1234mnop5678',
+  },
+  {
+    status: 'expired',
+    name: 'Service18',
+    key_type: 'Bearer',
+    api_key: 'wxyz5678abcd1234',
+  },
+  {
+    status: 'active',
+    name: 'Service19',
+    key_type: 'OAuth',
+    api_key: 'ijkl5678mnop1234',
+  },
+  {
+    status: 'inactive',
+    name: 'Service20',
+    key_type: 'Basic',
+    api_key: 'efgh5678qrst1234',
+  },
 ]
 
-
-export function ActivityLogsTable() {
+export function ApiKeysTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -137,116 +215,89 @@ export function ActivityLogsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    // {
-    //   accessorKey: 'product_id',
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-    //       >
-    //         Sr No
-    //       </Button>
-          
-    //     )
-    //   },
-    //   cell: ({ row }) => (
-    //     <div className="capitalize text-center">
-    //       {row.getValue('product_id')}
-    //     </div>
-    //   ),
-    // },
     {
-      accessorKey: 'team_member',
-      header: 'Team Member',
+      accessorKey: 'status',
+      header: ({ column }) => {
+        return <div>Status</div>
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team_member')}</div>
+        <div className="lowercase text-center">{row.getValue('status')}</div>
       ),
     },
     {
-      accessorKey: 'date',
+      accessorKey: 'name',
+      header: ({ column }) => {
+        return <div>Name</div>
+      },
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('name')}</div>
+      ),
+    },
+    {
+      accessorKey: 'key_type',
+      header: 'Key Type',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('key_type')}</div>
+      ),
+    },
+    {
+      accessorKey: 'api_key',
       header: ({ column }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Date
-            <ArrowUpDown />
-          </Button>
+          <>API Keys</>
+          // <Button
+          //   variant="ghost"
+          //   onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          // >
+          //   API Keys
+          //   <ArrowUpDown />
+          // </Button>
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
+        <div className="capitalize">{row.getValue('api_key')}</div>
       ),
     },
-    {
-      accessorKey: 'event',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-          >
-            Event
 
-          </Button>
+    {
+      accessorKey: 'actions',
+      header: 'Actions',
+      cell: ({ row }) => {
+        const rowData = row.original // Get the entire row's data for actions
+        return (
+          <div className="flex items-center justify-center gap-2">
+            <Button variant="outline" className="rounded-[50%]">
+              <SquarePen />
+            </Button>
+            <Button variant="outline" className="rounded-[50%]">
+              <Trash2Icon />
+            </Button>
+          </div>
+          // <DropdownMenu>
+          //   <DropdownMenuTrigger asChild>
+          //     <Button variant="ghost" className="h-8 w-8 p-0">
+          //       <span className="sr-only">Open menu</span>
+          //       <MoreHorizontal />
+          //     </Button>
+          //   </DropdownMenuTrigger>
+          //   <DropdownMenuContent align="end">
+          //     <DropdownMenuItem
+          //       className="cursor-pointer"
+          //       onClick={() => navigator.clipboard.writeText(payment.id)}
+          //     >
+          //       Approve
+          //     </DropdownMenuItem>
+          //     <DropdownMenuItem
+          //       className="cursor-pointer"
+          //       onClick={() => navigator.clipboard.writeText(payment.id)}
+          //     >
+          //       Reject
+          //     </DropdownMenuItem>
+          //   </DropdownMenuContent>
+          // </DropdownMenu>
         )
       },
-      cell: ({ row }) => (
-        <div className="capitalize pl-4">{row.getValue('event')}</div>
-      ),
     },
-    {
-      accessorKey: 'team',
-      header: 'Team',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
-      ),
-    },
-    {
-      accessorKey: 'product',
-      header: 'Product',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product')}</div>
-      ),
-    },
-    {
-      accessorKey: 'ip_address',
-      header: 'IP Address',
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('ip_address')}</div>
-      ),
-    },
-    
-    // {
-    //   accessorKey: 'actions',
-    //   header: '',
-    //   cell: ({ row }) => {
-    //     const rowData = row.original // Get the entire row's data for actions
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuItem className='cursor-pointer'
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Edit
-    //           </DropdownMenuItem>
-    //           <DropdownMenuItem className='cursor-pointer'
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Delete
-    //           </DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     )
-    //   },
-    // },
     // {
     //   id: 'actions',
     //   enableHiding: false,
@@ -314,18 +365,20 @@ export function ActivityLogsTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Activity Logs</CardTitle>
+        <CardTitle>API Keys </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search by Team Member..."
-              value={table.getColumn('team_member')?.getFilterValue() ?? ''}
+              placeholder="Search by Name..."
+              value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('team_member')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('product_name')
+                  ?.setFilterValue(event.target.value)
               }
-              className="max-w-xs"
+              className="max-w-sm"
             />
             <div className="flex items-center gap-2">
               <DropdownMenu>
@@ -354,6 +407,12 @@ export function ActivityLogsTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
+              {/* <Link to="/inventory/create-inventory">
+                <Button variant="" className="ml-auto">
+                  {' '}
+                  <CirclePlus /> Add new
+                </Button>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">
@@ -363,7 +422,7 @@ export function ActivityLogsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -384,7 +443,7 @@ export function ActivityLogsTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

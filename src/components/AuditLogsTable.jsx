@@ -10,14 +10,17 @@ import {
 } from '@tanstack/react-table'
 import {
   ArrowUpDown,
+  SquarePen,
+  Trash2Icon,
   ChevronDown,
   ArrowLeft,
   ArrowRight,
-  MoreHorizontal,
   CirclePlus,
+  MoreHorizontal,
   Pencil,
   Trash2,
   CircleX,
+  Trash,
 } from 'lucide-react'
 
 import {
@@ -57,57 +60,152 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { z } from 'zod'
 
 const data = [
   {
-    "product_id": "1",
-    "team_member": "Alice Johnson",
-    "date": "01-12-2024",
-    "event": "Product Launch",
-    "team": "Marketing",
-    "product": "EduPal App",
-    "ip_address": "192.168.1.1"
+    id: 1,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.1',
+    event: 'Program manager accessed user details',
   },
   {
-    "product_id": "2",
-    "team_member": "Bob Smith",
-    "date": "02-12-2024",
-    "event": "Client Meeting",
-    "team": "Sales",
-    "product": "Golzo Platform",
-    "ip_address": "192.168.1.2"
+    id: 2,
+    status: 'error',
+    method: 'POST',
+    IP: '192.168.1.2',
+    event: 'Login attempt by program manager failed',
   },
   {
-    "product_id": "3",
-    "team_member": "Charlie Brown",
-    "date": "03-12-2024",
-    "event": "Bug Fix",
-    "team": "Development",
-    "product": "Call Recorder App",
-    "ip_address": "192.168.1.3"
+    id: 3,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.3',
+    event: 'Program manager viewed orders',
   },
   {
-    "product_id": "4",
-    "team_member": "Diana Prince",
-    "date": "04-12-2024",
-    "event": "Team Workshop",
-    "team": "Human Resources",
-    "product": "Employee Handbook",
-    "ip_address": "192.168.1.4"
+    id: 4,
+    status: 'success',
+    method: 'PUT',
+    IP: '192.168.1.4',
+    event: 'Program manager updated profile',
   },
   {
-    "product_id": "5",
-    "team_member": "Evan Williams",
-    "date": "05-12-2024",
-    "event": "Server Maintenance",
-    "team": "IT Support",
-    "product": "Internal Systems",
-    "ip_address": "192.168.1.5"
-  }
+    id: 5,
+    status: 'error',
+    method: 'DELETE',
+    IP: '192.168.1.5',
+    event: 'Failed to delete program manager account',
+  },
+  {
+    id: 6,
+    status: 'success',
+    method: 'POST',
+    IP: '192.168.1.6',
+    event: 'Program manager registered successfully',
+  },
+  {
+    id: 7,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.7',
+    event: 'Program manager browsed products',
+  },
+  {
+    id: 8,
+    status: 'error',
+    method: 'PUT',
+    IP: '192.168.1.8',
+    event: 'Failed to update program manager details',
+  },
+  {
+    id: 9,
+    status: 'success',
+    method: 'POST',
+    IP: '192.168.1.9',
+    event: 'Program manager completed checkout',
+  },
+  {
+    id: 10,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.10',
+    event: 'Program manager accessed dashboard',
+  },
+  {
+    id: 11,
+    status: 'error',
+    method: 'POST',
+    IP: '192.168.1.11',
+    event: 'Payment process by program manager failed',
+  },
+  {
+    id: 12,
+    status: 'success',
+    method: 'DELETE',
+    IP: '192.168.1.12',
+    event: 'Program manager removed item from cart',
+  },
+  {
+    id: 13,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.13',
+    event: 'Program manager checked notifications',
+  },
+  {
+    id: 14,
+    status: 'error',
+    method: 'POST',
+    IP: '192.168.1.14',
+    event: 'Password reset attempt by program manager failed',
+  },
+  {
+    id: 15,
+    status: 'success',
+    method: 'PUT',
+    IP: '192.168.1.15',
+    event: 'Program manager updated settings',
+  },
+  {
+    id: 16,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.16',
+    event: 'Program manager accessed reports',
+  },
+  {
+    id: 17,
+    status: 'error',
+    method: 'DELETE',
+    IP: '192.168.1.17',
+    event: 'Failed to delete program manager account (ID: 456)',
+  },
+  {
+    id: 18,
+    status: 'success',
+    method: 'POST',
+    IP: '192.168.1.18',
+    event: 'Program manager subscribed to service',
+  },
+  {
+    id: 19,
+    status: 'error',
+    method: 'PUT',
+    IP: '192.168.1.19',
+    event: 'Failed to update product by program manager (ID: 789)',
+  },
+  {
+    id: 20,
+    status: 'success',
+    method: 'GET',
+    IP: '192.168.1.20',
+    event: 'Program manager submitted feedback',
+  },
 ]
 
-
-export function ActivityLogsTable() {
+export function AuditLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -137,113 +235,84 @@ export function ActivityLogsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    // {
-    //   accessorKey: 'product_id',
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-    //       >
-    //         Sr No
-    //       </Button>
-          
-    //     )
-    //   },
-    //   cell: ({ row }) => (
-    //     <div className="capitalize text-center">
-    //       {row.getValue('product_id')}
-    //     </div>
-    //   ),
-    // },
     {
-      accessorKey: 'team_member',
-      header: 'Team Member',
+      accessorKey: 'id',
+      header: ({ column }) => {
+        return <div>ID</div>
+      },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team_member')}</div>
+        <div className="lowercase text-center">{row.getValue('id')}</div>
       ),
     },
     {
-      accessorKey: 'date',
+      accessorKey: 'status',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Date
-            <ArrowUpDown />
-          </Button>
-        )
+        return <div>Status</div>
       },
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
+        <div className="capitalize text-center">{row.getValue('status')}</div>
+      ),
+    },
+    {
+      accessorKey: 'method',
+      header: 'Method',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('method')}</div>
       ),
     },
     {
       accessorKey: 'event',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-          >
-            Event
+      header: 'Event',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('event')}</div>
+      ),
+    },
 
-          </Button>
-        )
+    {
+      accessorKey: 'IP',
+      header: ({ column }) => {
+        return <div>IP Address</div>
       },
       cell: ({ row }) => (
-        <div className="capitalize pl-4">{row.getValue('event')}</div>
+        <div className="capitalize text-center">{row.getValue('IP')}</div>
       ),
     },
-    {
-      accessorKey: 'team',
-      header: 'Team',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
-      ),
-    },
-    {
-      accessorKey: 'product',
-      header: 'Product',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product')}</div>
-      ),
-    },
-    {
-      accessorKey: 'ip_address',
-      header: 'IP Address',
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('ip_address')}</div>
-      ),
-    },
-    
     // {
-    //   accessorKey: 'actions',
-    //   header: '',
+    //   accessorKey: '',
+    //   header: 'Actions',
     //   cell: ({ row }) => {
     //     const rowData = row.original // Get the entire row's data for actions
     //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuItem className='cursor-pointer'
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Edit
-    //           </DropdownMenuItem>
-    //           <DropdownMenuItem className='cursor-pointer'
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Delete
-    //           </DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
+    //       <div className="flex items-center justify-center gap-2">
+    //         <Button variant="outline" className="rounded-[50%]">
+    //           <SquarePen />
+    //         </Button>
+    //         <Button variant="outline" className="rounded-[50%]">
+    //           <Trash2Icon />
+    //         </Button>
+    //       </div>
+    //       // <DropdownMenu>
+    //       //   <DropdownMenuTrigger asChild>
+    //       //     <Button variant="ghost" className="h-8 w-8 p-0">
+    //       //       <span className="sr-only">Open menu</span>
+    //       //       <MoreHorizontal />
+    //       //     </Button>
+    //       //   </DropdownMenuTrigger>
+    //       //   <DropdownMenuContent align="end">
+    //       //     <DropdownMenuItem
+    //       //       className="cursor-pointer"
+    //       //       onClick={() => navigator.clipboard.writeText(payment.id)}
+    //       //     >
+    //       //       Approve
+    //       //     </DropdownMenuItem>
+    //       //     <DropdownMenuItem
+    //       //       className="cursor-pointer"
+    //       //       onClick={() => navigator.clipboard.writeText(payment.id)}
+    //       //     >
+    //       //       Reject
+    //       //     </DropdownMenuItem>
+    //       //   </DropdownMenuContent>
+    //       // </DropdownMenu>
     //     )
     //   },
     // },
@@ -314,18 +383,20 @@ export function ActivityLogsTable() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Activity Logs</CardTitle>
+        <CardTitle>Audit Logs</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
             <Input
-              placeholder="Search by Team Member..."
-              value={table.getColumn('team_member')?.getFilterValue() ?? ''}
+              placeholder="Search by Name..."
+              value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('team_member')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('product_name')
+                  ?.setFilterValue(event.target.value)
               }
-              className="max-w-xs"
+              className="max-w-sm"
             />
             <div className="flex items-center gap-2">
               <DropdownMenu>
@@ -354,6 +425,12 @@ export function ActivityLogsTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
+              {/* <Link to="/inventory/create-inventory">
+                <Button variant="" className="ml-auto">
+                  {' '}
+                  <CirclePlus /> Add new
+                </Button>
+              </Link> */}
             </div>
           </div>
           <div className="rounded-md border">
@@ -363,7 +440,7 @@ export function ActivityLogsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -384,7 +461,7 @@ export function ActivityLogsTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

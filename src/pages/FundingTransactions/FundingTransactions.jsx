@@ -1,4 +1,4 @@
-import { FundingTransactionTable } from "../../components/FundingTransaction-table";
+import { FundingTransactionTable } from '../../components/FundingTransaction-table'
 
 const FundingTransactions = () => {
   return (
@@ -8,9 +8,11 @@ const FundingTransactions = () => {
         <div className="aspect-video rounded-xl bg-muted/50" />
         <div className="aspect-video rounded-xl bg-muted/50" />
       </div> */}
-      <FundingTransactionTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      <div className="grid grid-cols-1">
+        <FundingTransactionTable className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default FundingTransactions;
+export default FundingTransactions

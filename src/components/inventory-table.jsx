@@ -83,8 +83,12 @@ const data = [
     card_nature: 'virtual',
     ordered_cards: 10,
     status: 'approved',
+<<<<<<< HEAD
     Approved: true,
     created_date: '2024-12-01',
+=======
+    created_date: '12-01-2024',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 2,
@@ -93,8 +97,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 5,
     status: 'progress',
+<<<<<<< HEAD
     Progress: true,
     created_date: '2024-11-15',
+=======
+    created_date: '11-05-2023',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 3,
@@ -103,8 +111,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
+<<<<<<< HEAD
     Rejected: true,
     created_date: '2024-10-20',
+=======
+    created_date: '10-03-2012',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 4,
@@ -113,8 +125,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 3,
     status: 'progress',
+<<<<<<< HEAD
     Progress: true,
     created_date: '2024-09-25',
+=======
+    created_date: '09-10-2023',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 5,
@@ -123,8 +139,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'approved',
+<<<<<<< HEAD
     Approved: true,
     created_date: '2024-08-20',
+=======
+    created_date: '08-03-2023',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 6,
@@ -133,9 +153,13 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 4,
     status: 'approved',
+<<<<<<< HEAD
     Approved: true,
 
     created_date: '2024-07-15',
+=======
+    created_date: '07-05-2022',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 7,
@@ -144,8 +168,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
+<<<<<<< HEAD
     Rejected: true,
     created_date: '2024-06-20',
+=======
+    created_date: '06-03-2021',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 8,
@@ -154,8 +182,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+<<<<<<< HEAD
     Progress: true,
     created_date: '2024-05-15',
+=======
+    created_date: '05-05-2005',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 9,
@@ -164,8 +196,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+<<<<<<< HEAD
     Progress: true,
     created_date: '2024-04-20',
+=======
+    created_date: '04-03-2024',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
   {
     product_id: 10,
@@ -174,8 +210,12 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+<<<<<<< HEAD
     Progress: true,
     created_date: '2024-03-15',
+=======
+    created_date: '03-05-2023',
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
   },
 ]
 

@@ -63,19 +63,11 @@ import { Badge } from '@/components/ui/badge'
 
 const fieldIconMap = {
   Active: {
-    icon: (
-      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
-        Active
-      </Badge>
-    ),
+    icon: <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>,
     label: 'Successful transaction',
   },
   Inactive: {
-    icon: (
-      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
-        Inactive
-      </Badge>
-    ),
+    icon: <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>,
     label: 'Failed transaction',
   },
 }
@@ -205,7 +197,9 @@ export function PoolAccountsTable() {
       accessorKey: 'accountNumber',
       header: 'Account Number',
       cell: ({ row }) => (
-        <div className="text-center cursor-pointer">{row.getValue('accountNumber')}</div>
+        <div className="text-center cursor-pointer">
+          {row.getValue('accountNumber')}
+        </div>
       ),
     },
     {
@@ -222,7 +216,6 @@ export function PoolAccountsTable() {
         <div className="text-center">{row.getValue('bin')}</div>
       ),
     },
-
     {
       accessorKey: 'totalAmount',
       header: ({ column }) => {
@@ -231,14 +224,24 @@ export function PoolAccountsTable() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Total Amount
+            Amount
             <ArrowUpDown />
           </Button>
+
         )
       },
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('totalAmount')}</div>
-      ),
+      cell: ({ row }) => {
+        const amount = Number(row.original.totalAmount); // Access the raw data directly
+        // const type = row.original.Type // Access the Type from raw data
+        // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
+        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        return (
+          <div className="text-center flex items-center justify-center">
+            <span>₹{whole}</span>
+            <span className="text-gray-500">.{decimal}</span>
+          </div>
+        );
+      },
     },
     {
       header: `Status`,
@@ -274,16 +277,18 @@ export function PoolAccountsTable() {
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className='cursor-pointer'>
-              <DropdownMenuItem className='cursor-pointer'
+            <DropdownMenuContent align="end" className="cursor-pointer">
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-               Activate
+                Activate
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -390,9 +395,9 @@ export function PoolAccountsTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
@@ -415,11 +420,7 @@ export function PoolAccountsTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between py-4">
-            <div className="text-sm text-muted">
-              Page {table.getState().pagination.pageIndex + 1} of{' '}
-              {table.getPageCount()}
-            </div>
+          <div className="flex items-center justify-end py-4">
             <div className="flex items-center space-x-2">
               <Button
                 variant="outline"

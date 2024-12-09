@@ -67,7 +67,7 @@ const data = [
     programs: 2,
     activePrograms: 1,
     totalCustomers: 50,
-    createdAt: '2022-05-10',
+    createdAt: '05-10-2023',
   },
   {
     product_id: '2',
@@ -77,7 +77,7 @@ const data = [
     programs: 3,
     activePrograms: 2,
     totalCustomers: 120,
-    createdAt: '2023-01-15',
+    createdAt: '01-10-2023',
   },
   {
     product_id: '3',
@@ -87,7 +87,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 20,
-    createdAt: '2022-12-20',
+    createdAt: '12-03-2021',
   },
   {
     product_id: '4',
@@ -97,7 +97,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 75,
-    createdAt: '2023-03-12',
+    createdAt: '03-02-2022',
   },
   {
     product_id: '5',
@@ -107,7 +107,7 @@ const data = [
     programs: 2,
     activePrograms: 2,
     totalCustomers: 65,
-    createdAt: '2023-07-22',
+    createdAt: '07-02-2022',
   },
   {
     product_id: '6',
@@ -117,7 +117,7 @@ const data = [
     programs: 5,
     activePrograms: 4,
     totalCustomers: 100,
-    createdAt: '2023-05-18',
+    createdAt: '05-08-2022',
   },
   {
     product_id: '7',
@@ -127,7 +127,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 10,
-    createdAt: '2023-04-01',
+    createdAt: '04-01-2021',
   },
   {
     product_id: '8',
@@ -137,7 +137,7 @@ const data = [
     programs: 3,
     activePrograms: 2,
     totalCustomers: 85,
-    createdAt: '2022-11-30',
+    createdAt: '11-05-2021',
   },
   {
     product_id: '9',
@@ -147,7 +147,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 90,
-    createdAt: '2023-02-28',
+    createdAt: '02-08-2024',
   },
   {
     product_id: '10',
@@ -157,7 +157,7 @@ const data = [
     programs: 2,
     activePrograms: 1,
     totalCustomers: 45,
-    createdAt: '2022-09-14',
+    createdAt: '09-04-2021',
   },
 ]
 
@@ -191,7 +191,7 @@ export function ProgramTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
- 
+
     {
       accessorKey: 'name',
       header: 'Manager Name',
@@ -214,11 +214,18 @@ export function ProgramTable() {
     {
       accessorKey: 'totalAmount',
       header: 'Total Amount',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">
-          {row.getValue('totalAmount')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const amount = Number(row.original.totalAmount); // Access the raw data directly
+        // const type = row.original.Type // Access the Type from raw data
+        // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
+        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        return (
+          <div className="text-center flex items-center justify-center">
+            <span>₹{whole}</span>
+            <span className="text-gray-500">.{decimal}</span>
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'totalCustomers',
@@ -260,17 +267,20 @@ export function ProgramTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Suspend
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
@@ -352,7 +362,7 @@ export function ProgramTable() {
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
-          <Input
+            <Input
               placeholder="Search by Name..."
               value={table.getColumn('name')?.getFilterValue() ?? ''}
               onChange={(event) =>

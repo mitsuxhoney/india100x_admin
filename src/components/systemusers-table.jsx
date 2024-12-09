@@ -62,6 +62,7 @@ import { Badge } from '@/components/ui/badge'
 
 const data = [
   {
+<<<<<<< HEAD
     product_id: '1',
     user_id: 'U001',
     name: 'Alice Johnson',
@@ -108,6 +109,53 @@ const data = [
   },
 ];
 
+=======
+    "product_id": "1",
+    "user_id": "U001",
+    "name": "Alice Johnson",
+    "role": "Administrator",
+    "created_at": "01-01-2024 21:25:00",
+    "updated_at": "01-06-2024 21:25:00",
+    "is_active": true
+  },
+  {
+    "product_id": "2",
+    "user_id": "U002",
+    "name": "Bob Smith",
+    "role": "Moderator",
+    "created_at": "15-02-2024 21:25:00",
+    "updated_at": "20-07-2024 21:25:00",
+    "is_active": false
+  },
+  {
+    "product_id": "3",
+    "user_id": "U003",
+    "name": "Charlie Brown",
+    "role": "User",
+    "created_at": "10-03-2024 21:25:00",
+    "updated_at": "05-08-2024 21:25:00",
+    "is_active": true
+  },
+  {
+    "product_id": "4",
+    "user_id": "U004",
+    "name": "Diana Prince",
+    "role": "Editor",
+    "created_at": "25-04-2024 21:25:00",
+    "updated_at": "10-09-2024 21:25:00",
+    "is_active": true
+  },
+  {
+    "product_id": "5",
+    "user_id": "U005",
+    "name": "Evan Williams",
+    "role": "Viewer",
+    "created_at": "05-05-2024 21:25:00",
+    "updated_at": "01-10-2024 21:25:00",
+    "is_active": false
+  }
+]
+>>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
 
 export function SystemUsersTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)

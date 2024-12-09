@@ -14,9 +14,7 @@ const UserProfileSidebar = ({ items }) => {
   const sidebarItems = items[basePath] || []
   return (
     <nav
-      className={cn(
-        'flex space-x-2 fixed lg:flex-col lg:space-x-0 lg:space-y-1'
-      )}
+      className={cn('flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 ')}
     >
       {sidebarItems?.map((item) => (
         <NavLink
