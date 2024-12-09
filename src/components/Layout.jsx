@@ -5,6 +5,36 @@ import {
 } from '@/components/ui/sidebar'
 
 import { Button } from '@/components/ui/button'
+import {
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
+  LifeBuoy,
+  Map,
+  PieChart,
+  Send,
+  Settings2,
+  SquareTerminal,
+  ChevronRight,
+  LayoutDashboard,
+  Monitor,
+  ClipboardList,
+  Users,
+  Box,
+  CreditCard,
+  UserCheck,
+  Flag,
+  FileText,
+  Landmark,
+  DollarSign,
+  UserCog,
+  Activity,
+  ShieldAlert,
+  Settings,
+  Key,
+  Layers,
+} from 'lucide-react'
 
 import { Separator } from '@/components/ui/separator'
 import {
@@ -21,13 +51,97 @@ import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ModeToggle } from '@/components/mode-toggle'
 import { AppSidebar } from './app-sidebar'
+
+const sidebarData = [
+  {
+    items: [{ url: '/business-dashboard' }, { url: '/system-dashboard' }],
+  },
+  {
+    items: [{ url: '/programs' }, { url: '/program-managers' }],
+  },
+  {
+    items: [{ url: '/inventory' }, { url: '/issued-cards' }],
+  },
+  {
+    items: [
+      { url: '/all-customers' },
+      { url: '/flagged-customers' },
+      { url: '/pending-for-kyc' },
+    ],
+  },
+  {
+    items: [{ url: '/pool-accounts' }, { url: '/funding-transactions' }],
+  },
+  {
+    items: [{ url: '/system-users' }, { url: '/user-activity-logs' }],
+  },
+  {
+    items: [
+      { url: '/security-settings' },
+      { url: '/api-settings' },
+      { url: '/default-configs' },
+    ],
+  },
+  {
+    items: [
+      { url: '/account/profile' },
+      { url: '/account/appearance' },
+      { url: '/account/notifications' },
+      { url: '/account/security' },
+      { url: '/developer/api-keys' },
+      { url: '/developer/webhooks' },
+      { url: '/developer/ip-whitelisting' },
+      { url: '/team/users' },
+      { url: '/team/logs' },
+    ],
+  },
+]
+const flattenSidebarData = (data) => {
+  const flattened = []
+  data.forEach((group) => {
+    group.items.forEach((item) => {
+      flattened.push(item)
+    })
+  })
+  return flattened
+}
+
+const toPascalCaseWithSpaces = (str) => {
+  return str
+    .replace(/([^\w-])/g, ' ') // Replace non-alphanumeric characters with spaces
+    .split('-') // Split by dash
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+    .join(' ') // Join words with spaces
+}
+const toPascalCase = (str) => {
+  return str
+    .replace(/([^\w-])/g, ' ') // Replace non-alphanumeric characters with spaces
+    .split('-') // Split the string by dash
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
+    .join('') // Join the words back together
+}
+
+// Generate breadcrumbs
+
 const Layout = () => {
   const location = useLocation()
-  const afterSeparator = location.pathname
-    .slice(1)
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+  const flattenedSidebarData = flattenSidebarData(sidebarData)
+
+  // Generate breadcrumbs
+  const breadcrumbs = location.pathname
+    .split('/')
+    .filter(Boolean) // Remove empty strings
+    .map((segment, index, arr) => {
+      const url = '/' + arr.slice(0, index + 1).join('/')
+      const matchedItem = flattenedSidebarData.find((item) => item.url === url)
+      if (matchedItem) {
+        return {
+          title: toPascalCaseWithSpaces(matchedItem.url.split('/').pop()),
+        } // Convert to Pascal case with spaces
+      }
+      return { title: toPascalCaseWithSpaces(segment) } // Convert to Pascal case with spaces
+    })
+
   const [isVisible, setIsVisible] = useState(false)
 
   // Function to handle scroll behavior
@@ -58,13 +172,12 @@ const Layout = () => {
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  {afterSeparator}
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage></BreadcrumbPage>
-                </BreadcrumbItem>
+                {breadcrumbs.map((crumb, index) => (
+                  <BreadcrumbItem key={index}>
+                    {crumb.title}
+                    {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+                  </BreadcrumbItem>
+                ))}
               </BreadcrumbList>
             </Breadcrumb>
           </div>
