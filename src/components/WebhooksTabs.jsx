@@ -10,103 +10,89 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+} from '@/components/ui/form'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import WebhooksTable from './WebhooksTable'
+
+const formSchema = z.object({
+  webhook_url: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+  accessor_key: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+})
+
+function onSubmit(values) {
+  // Do something with the form values.
+  // ✅ This will be type-safe and validated.
+  console.log(values)
+}
 
 export default function WebhooksTabs() {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: '',
+    },
+  })
   return (
-    <Tabs defaultValue="account" className="w-[100%]">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Request</TabsTrigger>
-        <TabsTrigger value="password">Response</TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <Card>
-          <CardHeader>
-            <CardTitle>Request</CardTitle>
-            <CardDescription>
-              A webhook request is an automated HTTP POST message sent from one
-              system to another when a specific event occurs, carrying data in
-              real-time to notify or trigger actions in the recipient system.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <div className="space-y-1">
-              <Label htmlFor="header">Header</Label>
-              <Textarea
-                id="header"
-                placeholder={`{
-  "Content-Type": "application/json",
-  "Authorization": "Bearer {{auth_token}}",
-  "X-Request-ID": "{{request_id}}",
-  "X-Timestamp": "{{timestamp}}"
-}`}
-                className="resize-none h-[150px] focus:outline-none select-none"
-                disabled
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="body">Body</Label>
-              <Textarea
-                id="body"
-                placeholder={`{
-  "user_id": "{{user_id}}",
-  "event": "{{event_name}}",
-  "amount": "{{transaction_amount}}",
-  "date": "{{date}}",
-  "ip_address": "{{ip_address}}"
-}`}
-                className="resize-none h-[250px] focus:outline-none select-none "
-                disabled
-              />
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-end">
-            <Button>Send</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-      <TabsContent value="password">
-        <Card>
-          <CardHeader>
-            <CardTitle>Response</CardTitle>
-            <CardDescription>
-              A webhook response is the data or acknowledgment sent back from
-              the recipient system to confirm the successful receipt or
-              processing of the webhook request.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <div className="space-y-1">
-              <Label htmlFor="header">Header</Label>
-              <Textarea
-                id="header"
-                placeholder={`{
-  "X-Response-Time": "{{response_time}}",
-  "X-Status-Code": "{{status_code}}",
-  "X-Request-ID": "{{request_id}}"
-}`}
-                className="resize-none h-[150px] focus:outline-none select-none"
-                disabled
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="body">Body</Label>
-              <Textarea
-                id="body"
-                placeholder={`{
-  "status": "{{response_status}}",
-  "transaction_id": "{{transaction_id}}",
-  "user_id": "{{user_id}}",
-  "amount": "{{amount}}",
-  "message":"{{message}}"
-}`}
-                className="resize-none h-[200px] focus:outline-none select-none "
-                disabled
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
+    <div className="flex flex-col gap-4">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="webhook_url"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Enter the url" {...field} />
+                </FormControl>
+                <FormDescription>
+                  A webhook URL is an endpoint that allows external systems to
+                  send real-time data or notifications to your application over
+                  HTTP when certain events occur.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="accessor_key"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Enter the accessor key" {...field} />
+                </FormControl>
+                <FormDescription>
+                  A webhook URL accessor key is a unique identifier used to
+                  authenticate and authorize access to the webhook URL for
+                  secure data transmission.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit">Send</Button>
+        </form>
+      </Form>
+      <div className="grid grid-cols-1 gap-4">
+        <WebhooksTable />
+      </div>
+    </div>
   )
 }

@@ -1,4 +1,9 @@
 import * as React from 'react'
+
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Layers } from 'lucide-react'
+
+import { NavUser } from '@/components/nav-user'
 import {
   BookOpen,
   Bot,
@@ -27,12 +32,8 @@ import {
   ShieldAlert,
   Settings,
   Key,
-  Layers,
 } from 'lucide-react'
 
-import { Link, NavLink, useLocation } from 'react-router-dom'
-
-import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
   SidebarContent,
@@ -66,7 +67,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
 
-const data = {
+const sidebarData = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
@@ -121,7 +122,7 @@ const data = {
     },
     {
       title: 'Pending for KYC',
-      url: '/pending-kyc',
+      url: '/pending-for-kyc',
       icon: FileText, // Document icon for pending KYC
     },
   ],
@@ -201,7 +202,7 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
           <SidebarGroupLabel>Overview</SidebarGroupLabel>
           <SidebarMenu>
-            {data?.overview.map((item) => (
+            {sidebarData?.overview.map((item) => (
               <Collapsible key={item.title} asChild>
                 <SidebarMenuItem>
                   <SidebarMenuButton
@@ -246,7 +247,7 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
           <SidebarGroupLabel>Program Management</SidebarGroupLabel>
           <SidebarMenu>
-            {data?.program_management.map((item) => (
+            {sidebarData?.program_management.map((item) => (
               <Collapsible key={item.title} asChild>
                 <SidebarMenuItem>
                   <SidebarMenuButton
@@ -291,7 +292,7 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
           <SidebarGroupLabel>Card Management</SidebarGroupLabel>
           <SidebarMenu>
-            {data?.card_management.map((item) => (
+            {sidebarData?.card_management.map((item) => (
               <Collapsible key={item.title} asChild>
                 <SidebarMenuItem>
                   <SidebarMenuButton
@@ -336,7 +337,7 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
           <SidebarGroupLabel>Customers</SidebarGroupLabel>
           <SidebarMenu>
-            {data?.customers.map((item) => (
+            {sidebarData?.customers.map((item) => (
               <Collapsible key={item.title} asChild>
                 <SidebarMenuItem>
                   <SidebarMenuButton
@@ -381,7 +382,7 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
           <SidebarGroupLabel>Fund Management</SidebarGroupLabel>
           <SidebarMenu>
-            {data?.fund_management.map((item) => (
+            {sidebarData?.fund_management.map((item) => (
               <Collapsible key={item.title} asChild>
                 <SidebarMenuItem>
                   <SidebarMenuButton
@@ -426,7 +427,7 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
           <SidebarGroupLabel>User Management</SidebarGroupLabel>
           <SidebarMenu>
-            {data?.user_management.map((item) => (
+            {sidebarData?.user_management.map((item) => (
               <Collapsible key={item.title} asChild>
                 <SidebarMenuItem>
                   <SidebarMenuButton
@@ -470,7 +471,7 @@ export function AppSidebar({ ...props }) {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={sidebarData.user} />
       </SidebarFooter>
     </Sidebar>
   )
