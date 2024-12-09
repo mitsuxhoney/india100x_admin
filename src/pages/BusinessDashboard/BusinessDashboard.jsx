@@ -12,6 +12,7 @@ import { CardIssuedChart } from '../../components/dashboard-card-issued-chart'
 import { CustomerOnboardedChart } from '../../components/dashboard-customer-onboarded-chart'
 import { ProgramIssuedChart } from '../../components/dashboard-programs-issued-chart'
 import { ProgramsDistributionChart } from '../../components/dashboard-programs-distribution-chart'
+import { DashboardFullChart } from '../../components/dashboard-full-chart.jsx'
 
 const cardsData = [
   {
@@ -29,17 +30,17 @@ const cardsData = [
     description: 'Customers',
     icon: <Users className="h-5 w-5 text-muted-foreground" />,
   },
-  {
-    title: '2060/3000',
-    description: 'Transactions',
-    icon: <Activity className="h-5 w-5 text-muted-foreground" />,
-  },
+  // {
+  //   title: '3000',
+  //   description: 'Transactions',
+  //   icon: <Activity className="h-5 w-5 text-muted-foreground" />,
+  // },
 ]
 
 const BusinessDashboard = () => {
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-4">
+      <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-3">
         {cardsData.map((card, index) => (
           <div key={index}>
             <Card>
@@ -58,6 +59,9 @@ const BusinessDashboard = () => {
             </Card>
           </div>
         ))}
+      </div>
+      <div className="grid grid-cols-1 xl:grid-cols-1 gap-4">
+      <DashboardFullChart/>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <CardIssuedChart className="aspect-video rounded-xl bg-muted/50" />
