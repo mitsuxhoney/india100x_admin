@@ -32,7 +32,6 @@ import Logs from '@/pages/TeamLogs/Logs'
 import Login from '@/pages/Login/Login'
 
 import UserProfileLayout from './components/UserProfileLayout'
-import Login from '@/pages/Login/Login'
 
 function App() {
   return (
