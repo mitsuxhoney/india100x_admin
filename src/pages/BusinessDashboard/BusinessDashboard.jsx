@@ -7,7 +7,7 @@ import {
   CardContent,
 } from '@/components/ui/card'
 
-import { Users } from 'lucide-react'
+import { Users, CreditCard, Layers, Activity } from 'lucide-react'
 import { CardIssuedChart } from '../../components/dashboard-card-issued-chart'
 import { CustomerOnboardedChart } from '../../components/dashboard-customer-onboarded-chart'
 import { ProgramIssuedChart } from '../../components/dashboard-programs-issued-chart'
@@ -16,43 +16,46 @@ import { ProgramsDistributionChart } from '../../components/dashboard-programs-d
 const cardsData = [
   {
     title: '3',
-    description: 'Total Programs Manager',
+    description: 'Programs Manager',
+    icon: <Layers className="h-5 w-5 text-muted-foreground" />,
   },
   {
     title: '213',
-    description: 'Total Cards',
+    description: 'Cards',
+    icon: <CreditCard className="h-5 w-5 text-muted-foreground" />,
   },
   {
     title: '215',
-    description: 'Total Customers',
+    description: 'Customers',
+    icon: <Users className="h-5 w-5 text-muted-foreground" />,
   },
   {
-    title: '2060',
-    description: 'Total successful transactions',
-  },
-  {
-    title: '10',
-    description: 'Total unsuccessful transactions',
+    title: '2060/3000',
+    description: 'Transactions',
+    icon: <Activity className="h-5 w-5 text-muted-foreground" />,
   },
 ]
 
 const BusinessDashboard = () => {
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-5">
+      <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-4">
         {cardsData.map((card, index) => (
           <div key={index}>
-            <Card className="flex flex-col items-center justify-center h-[200px]">
-              <CardHeader className="flex justify-center" title={card.title}>
-                <Users />
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <div className="flex items-center gap-2">
+                  {card.icon}
+                  <CardTitle className="text-sm font-medium">
+                    {card.description}
+                  </CardTitle>
+                </div>
               </CardHeader>
-              <CardContent className="flex flex-col gap-4">
-                <CardTitle className="text-2xl flex justify-center">
-                  {card.title}
-                </CardTitle>
-                <CardDescription className="text-md flex justify-center text-center">
-                  {card.description}
-                </CardDescription>
+              <CardContent>
+                <div className="text-2xl font-bold">{card.title}</div>
+                <p className="text-xs text-muted-foreground">
+                  +20.1% from last month
+                </p>
               </CardContent>
             </Card>
           </div>
