@@ -244,13 +244,7 @@ export function ProgramTableDemo() {
       ),
     },
 
-    {
-      accessorKey: 'launchdate',
-      header: 'Launch Date',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('launchdate')}</div>
-      ),
-    },
+    
 
     {
       header: 'Tags',
@@ -273,7 +267,13 @@ export function ProgramTableDemo() {
         </div>
       ),
     },
-
+    {
+      accessorKey: 'launchdate',
+      header: 'Launch Date',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('launchdate')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
       header: '',
