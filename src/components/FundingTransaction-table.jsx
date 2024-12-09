@@ -88,76 +88,97 @@ const transactionColorMap = {
 }
 const data = [
   {
-    product_id: '1',
-    cardRefId: 'CR123456',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 1200.5,
-    Type: 'Credit',
-    Success: true,
-    Date: '01-12-2024 22:44:05',
+    "bankName": "MetroBank",
+    "cardRefId": "CR456789",
+    "FromAccount": "255616106789",
+    "ToAccount": "465465546789",
+    "Amount": 9199.99,
+    "Pending": true,
+    "Date": "2023-11-29 08:25:05"
   },
   {
-    product_id: '2',
-    cardRefId: 'CR987654',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 550.0,
-    Type: 'Debit',
-    Pending: true,
-    Date: '11-09-2024 12:44:08',
+    "bankName": "CityBank",
+    "cardRefId": "CR123456",
+    "FromAccount": "356746109871",
+    "ToAccount": "989654327890",
+    "Amount": 4500.75,
+    "Pending": false,
+    "Date": "2023-11-30 10:15:25"
   },
   {
-    product_id: '3',
-    cardRefId: 'CR567890',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 10000.0,
-    Type: 'Credit',
-    Failed: true,
-    Date: '07-07-2024 02:44:08',
+    "bankName": "AxisBank",
+    "cardRefId": "CR987654",
+    "FromAccount": "876543211234",
+    "ToAccount": "432112345678",
+    "Amount": 25000.0,
+    "Pending": true,
+    "Date": "2023-11-28 14:00:15"
   },
   {
-    product_id: '4',
-    cardRefId: 'CR234567',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 250.75,
-    Type: 'Debit',
-    Failed: true,
-    Date: '09-07-2022 03:15:05',
+    "bankName": "HDFC",
+    "cardRefId": "CR222333",
+    "FromAccount": "109876543210",
+    "ToAccount": "567890123456",
+    "Amount": 150.5,
+    "Pending": false,
+    "Date": "2023-12-01 09:45:00"
   },
   {
-    product_id: '5',
-    cardRefId: 'CR678901',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 890.2,
-    Type: 'Credit',
-    Success: true,
-    Date: '08-11-2024 04:50:05',
+    "bankName": "ICICI",
+    "cardRefId": "CR999888",
+    "FromAccount": "123456789012",
+    "ToAccount": "987654321098",
+    "Amount": 7800.0,
+    "Pending": true,
+    "Date": "2023-11-30 12:20:45"
   },
   {
-    product_id: '6',
-    cardRefId: 'CR345678',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 4300.0,
-    Type: 'Credit',
-    Success: true,
-    Date: '2023-12-02 06:15:05',
+    "bankName": "StandardChartered",
+    "cardRefId": "CR555666",
+    "FromAccount": "654321987654",
+    "ToAccount": "123456780987",
+    "Amount": 1999.99,
+    "Pending": false,
+    "Date": "2023-11-29 17:30:25"
   },
   {
-    product_id: '7',
-    cardRefId: 'CR456789',
-    FromAccount: '6789',
-    ToAccount: '6789',
-    Amount: 9199.99,
-    Type: 'Debit',
-    Pending: true,
-    Date: '2023-11-29 08:25:05',
+    "bankName": "SBI",
+    "cardRefId": "CR444777",
+    "FromAccount": "111223344556",
+    "ToAccount": "554433221100",
+    "Amount": 300.0,
+    "Pending": true,
+    "Date": "2023-12-01 08:00:00"
   },
+  {
+    "bankName": "PNB",
+    "cardRefId": "CR666555",
+    "FromAccount": "333344445555",
+    "ToAccount": "666677778888",
+    "Amount": 5050.5,
+    "Pending": true,
+    "Date": "2023-11-27 20:10:15"
+  },
+  {
+    "bankName": "Kotak",
+    "cardRefId": "CR777666",
+    "FromAccount": "987651234567",
+    "ToAccount": "123459876543",
+    "Amount": 1200.0,
+    "Pending": false,
+    "Date": "2023-11-28 07:25:55"
+  },
+  {
+    "bankName": "YesBank",
+    "cardRefId": "CR888999",
+    "FromAccount": "112233445566",
+    "ToAccount": "665544332211",
+    "Amount": 800.0,
+    "Pending": true,
+    "Date": "2023-12-01 15:00:30"
+  }
 ]
+
 
 export function FundingTransactionTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -188,21 +209,6 @@ export function FundingTransactionTable() {
     //     ),
     //   },
     {
-      accessorKey: 'Date',
-      header: 'Date',
-      cell: ({ row }) => {
-        const date = row.getValue('Date').split(' ')[0]
-        const time = row.getValue('Date').split(' ')[1]
-
-        return (
-          <div className="flex flex-col items-center text-center">
-            <span>{date}</span>
-            <span className="text-slate-400">{time}</span>
-          </div>
-        )
-      },
-    },
-    {
       accessorKey: 'cardRefId',
       header: 'Reference ID',
       cell: ({ row }) => (
@@ -212,33 +218,30 @@ export function FundingTransactionTable() {
       ),
     },
     {
+      accessorKey: 'bankName',
+      header: 'Bank',
+      cell: ({ row }) => (
+        <div>{row.getValue('bankName')}</div>
+      ),
+    },
+    {
       accessorKey: 'FromAccount',
       header: 'From Account',
       cell: ({ row }) => (
-        <div className="flex justify-center"><p>******</p>{row.getValue('FromAccount')}</div>
+        <div>{row.getValue('FromAccount')}</div>
       ),
     },
     {
       accessorKey: 'ToAccount',
       header: 'To Account',
       cell: ({ row }) => (
-        <div className="flex justify-center"><p>******</p>{row.getValue('ToAccount')}</div>
+        <div>{row.getValue('ToAccount')}</div>
       ),
     },
+
     {
       accessorKey: 'Amount',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Amount
-            <ArrowUpDown />
-          </Button>
-
-        )
-      },
+      header:'Amount',
       cell: ({ row }) => {
         const amount = row.original.Amount // Access the raw data directly
         // const type = row.original.Type // Access the Type from raw data
@@ -273,6 +276,21 @@ export function FundingTransactionTable() {
           })}
         </div>
       ),
+    },
+    {
+      accessorKey: 'Date',
+      header: 'Date',
+      cell: ({ row }) => {
+        const date = row.getValue('Date').split(' ')[0]
+        const time = row.getValue('Date').split(' ')[1]
+
+        return (
+          <div className="flex flex-col items-center text-center">
+            <span>{date}</span>
+            <span className="text-slate-400">{time}</span>
+          </div>
+        )
+      },
     },
     // {
     //   accessorKey: 'actions',
@@ -368,23 +386,26 @@ export function FundingTransactionTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   <CirclePlus /> Add new
