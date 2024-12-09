@@ -41,10 +41,6 @@ const UserProfileLayout = () => {
         href: 'team/users',
       },
       {
-        title: 'Invite',
-        href: '/team/invite',
-      },
-      {
         title: `Logs`,
         href: '/team/logs',
       },

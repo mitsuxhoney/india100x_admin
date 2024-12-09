@@ -27,7 +27,7 @@ import Webhooks from '@/pages/DeveloperWebhooks/Webhooks'
 import IpWhitelisting from '@/pages/DeveloperIpWhitelisting/IpWhitelisting'
 
 import Users from '@/pages/TeamUsers/Users'
-import Invite from '@/pages/TeamInvite/Invite'
+
 import Logs from '@/pages/TeamLogs/Logs'
 
 import UserProfileLayout from './components/UserProfileLayout'
@@ -83,7 +83,7 @@ function App() {
             />
             <Route path="/team" element={<Navigate to="/team/users" />} />
             <Route path="/team/users" element={<Users />} />
-            <Route path="/team/invite" element={<Invite />} />
+
             <Route path="/team/logs" element={<Logs />} />
           </Route>
         </Route>

@@ -170,12 +170,20 @@ const data = {
 
 export function AppSidebar({ ...props }) {
   const location = useLocation()
+  const { toggle } = useSidebar()
+
+  const handleItemClick = () => {
+    if (window.innerWidth <= 768) {
+      // Only toggle on mobile screen
+      toggle()
+    }
+  }
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+            <SidebarMenuButton size="lg" asChild onClick={handleItemClick}>
               <Link to="/business-dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Layers className="size-4" />
@@ -200,6 +208,7 @@ export function AppSidebar({ ...props }) {
                     asChild
                     tooltip={item.title}
                     isActive={location.pathname === item.url}
+                    onClick={handleItemClick}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
@@ -244,6 +253,7 @@ export function AppSidebar({ ...props }) {
                     asChild
                     tooltip={item.title}
                     isActive={location.pathname === item.url}
+                    onClick={handleItemClick}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
@@ -288,6 +298,7 @@ export function AppSidebar({ ...props }) {
                     asChild
                     tooltip={item.title}
                     isActive={location.pathname === item.url}
+                    onClick={handleItemClick}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
@@ -332,6 +343,7 @@ export function AppSidebar({ ...props }) {
                     asChild
                     tooltip={item.title}
                     isActive={location.pathname === item.url}
+                    onClick={handleItemClick}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
@@ -376,6 +388,7 @@ export function AppSidebar({ ...props }) {
                     asChild
                     tooltip={item.title}
                     isActive={location.pathname === item.url}
+                    onClick={handleItemClick}
                   >
                     <NavLink to={item.url}>
                       <item.icon />
@@ -420,6 +433,7 @@ export function AppSidebar({ ...props }) {
                     asChild
                     tooltip={item.title}
                     isActive={location.pathname === item.url}
+                    onClick={handleItemClick}
                   >
                     <NavLink to={item.url}>
                       <item.icon />

@@ -67,7 +67,7 @@ const data = [
     card_nature: 'virtual',
     ordered_cards: 10,
     status: 'approved',
-    created_date: '2024-12-01',
+    created_date: '01-12-2024',
   },
   {
     product_id: 2,
@@ -76,7 +76,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 5,
     status: 'progress',
-    created_date: '2024-11-15',
+    created_date: '15-11-2024',
   },
   {
     product_id: 3,
@@ -85,7 +85,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
-    created_date: '2024-10-20',
+    created_date: '20-10-2024',
   },
   {
     product_id: 4,
@@ -94,7 +94,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 3,
     status: 'progress',
-    created_date: '2024-09-25',
+    created_date: '25-09-2024',
   },
   {
     product_id: 5,
@@ -103,7 +103,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'approved',
-    created_date: '2024-08-20',
+    created_date: '20-08-2024',
   },
   {
     product_id: 6,
@@ -112,7 +112,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 4,
     status: 'approved',
-    created_date: '2024-07-15',
+    created_date: '15-07-2024',
   },
   {
     product_id: 7,
@@ -121,7 +121,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
-    created_date: '2024-06-20',
+    created_date: '20-06-2024',
   },
   {
     product_id: 8,
@@ -130,7 +130,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
-    created_date: '2024-05-15',
+    created_date: '15-05-2024',
   },
   {
     product_id: 9,
@@ -139,7 +139,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
-    created_date: '2024-04-20',
+    created_date: '20-04-2024',
   },
   {
     product_id: 10,
@@ -148,7 +148,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
-    created_date: '2024-03-15',
+    created_date: '15-03-2024',
   },
 ]
 
@@ -226,7 +226,9 @@ export function InventoryTable() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className="capitalize">{row.getValue('ordered_cards')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('ordered_cards')}</div>
+      ),
     },
     {
       accessorKey: 'status',
@@ -268,12 +270,14 @@ export function InventoryTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Approve
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Reject
