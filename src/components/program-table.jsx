@@ -103,7 +103,7 @@ const data = [
     physicalallowed: false,
     limit: '30k-1Lakh',
     rewardapplicable: false,
-    launchdate: '2021-01-01',
+    launchdate: '01-01-2021',
   },
   {
     product_id: '2',
@@ -115,7 +115,7 @@ const data = [
     physicalallowed: true,
     limit: '50k-5Lakh',
     rewardapplicable: true,
-    launchdate: '2023-02-06',
+    launchdate: '02-06-2007',
   },
   {
     product_id: '3',
@@ -127,7 +127,7 @@ const data = [
     physicalallowed: true,
     limit: '25k-5Lakh',
     rewardapplicable: false,
-    launchdate: '2023-03-03',
+    launchdate: '03-03-2024',
   },
   {
     product_id: '4',
@@ -139,7 +139,7 @@ const data = [
     physicalallowed: false,
     limit: '10k-10Lakh',
     rewardapplicable: true,
-    launchdate: '2022-04-02',
+    launchdate: '04-02-2021',
   },
   {
     product_id: '5',
@@ -151,7 +151,7 @@ const data = [
     physicalallowed: false,
     limit: '75k-10Lakh',
     rewardapplicable: true,
-    launchdate: '2021-05-02',
+    launchdate: '05-02-2023',
   },
   {
     product_id: '6',
@@ -163,7 +163,7 @@ const data = [
     physicalallowed: false,
     limit: '50k-10Lakh',
     rewardapplicable: true,
-    launchdate: '2021-06-15',
+    launchdate: '06-05-2021',
   },
   {
     product_id: '7',
@@ -175,7 +175,7 @@ const data = [
     physicalallowed: true,
     limit: '15k-25Lakh',
     rewardapplicable: false,
-    launchdate: '2021-07-05',
+    launchdate: '07-05-2021',
   },
 ]
 

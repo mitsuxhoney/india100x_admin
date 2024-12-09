@@ -216,7 +216,6 @@ export function PoolAccountsTable() {
         <div className="text-center">{row.getValue('bin')}</div>
       ),
     },
-
     {
       accessorKey: 'totalAmount',
       header: ({ column }) => {
@@ -225,14 +224,24 @@ export function PoolAccountsTable() {
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            Total Amount
+            Amount
             <ArrowUpDown />
           </Button>
+
         )
       },
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('totalAmount')}</div>
-      ),
+      cell: ({ row }) => {
+        const amount = Number(row.original.totalAmount); // Access the raw data directly
+        // const type = row.original.Type // Access the Type from raw data
+        // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
+        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        return (
+          <div className="text-center flex items-center justify-center">
+            <span>₹{whole}</span>
+            <span className="text-gray-500">.{decimal}</span>
+          </div>
+        );
+      },
     },
     {
       header: `Status`,
@@ -386,9 +395,9 @@ export function PoolAccountsTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

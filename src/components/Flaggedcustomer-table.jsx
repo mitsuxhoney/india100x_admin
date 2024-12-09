@@ -60,115 +60,105 @@ import {
 
 const data = [
   {
-    product_id: '1',
-    customerId: '123456781',
-    // Name: 'John Doe',
-    ProgramManager: 'Privacy Card',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Multiple failed login attempts',
-    IpAddress: '127.0.32.1',
-    CreatedBy: 'Admin32',
-    LastActive: '2023-12-01',
+    "product_id": "1",
+    "customerId": "123456781",
+    "ProgramManager": "Privacy Card",
+    "FlagType": "Suspicious Transactions",
+    "FlaggedActivityDescription": "Multiple failed login attempts",
+    "IpAddress": "127.0.32.1",
+    "CreatedBy": "Admin32",
+    "LastActive": "01-12-2023"
   },
   {
-    product_id: '2',
-    customerId: '123452789',
-    // Name: 'Jane Smith',
-    ProgramManager: 'Rewards Program',
-    FlagType: 'Chargeback',
-    FlaggedActivityDescription: 'Unauthorized chargeback claim',
-    IpAddress: '192.168.0.12',
-    CreatedBy: 'System',
-    LastActive: '2023-11-25',
+    "product_id": "2",
+    "customerId": "123452789",
+    "ProgramManager": "Rewards Program",
+    "FlagType": "Chargeback",
+    "FlaggedActivityDescription": "Unauthorized chargeback claim",
+    "IpAddress": "192.168.0.12",
+    "CreatedBy": "System",
+    "LastActive": "25-11-2023"
   },
   {
-    product_id: '3',
-    customerId: '123426789',
-    // Name: 'Alan Turing',
-    ProgramManager: 'Merchant Payments',
-    FlagType: 'Violation of Terms',
-    FlaggedActivityDescription: 'Abuse of promotional credits',
-    IpAddress: '10.10.15.6',
-    CreatedBy: 'Admin42',
-    LastActive: '2023-11-30',
+    "product_id": "3",
+    "customerId": "123426789",
+    "ProgramManager": "Merchant Payments",
+    "FlagType": "Violation of Terms",
+    "FlaggedActivityDescription": "Abuse of promotional credits",
+    "IpAddress": "10.10.15.6",
+    "CreatedBy": "Admin42",
+    "LastActive": "30-11-2023"
   },
   {
-    product_id: '4',
-    customerId: '123456789',
-    // Name: 'Grace Hopper',
-    ProgramManager: 'Account Management',
-    FlagType: 'High-Risk Account',
-    FlaggedActivityDescription: 'Unusual account behavior detected',
-    IpAddress: '172.20.10.5',
-    CreatedBy: 'RiskBot',
-    LastActive: '2023-12-03',
+    "product_id": "4",
+    "customerId": "123456789",
+    "ProgramManager": "Account Management",
+    "FlagType": "High-Risk Account",
+    "FlaggedActivityDescription": "Unusual account behavior detected",
+    "IpAddress": "172.20.10.5",
+    "CreatedBy": "RiskBot",
+    "LastActive": "03-12-2023"
   },
   {
-    product_id: '5',
-    customerId: '123456789',
-    // Name: 'Elena Johnson',
-    ProgramManager: 'Premium Savings',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Large withdrawal flagged for review',
-    IpAddress: '203.0.113.45',
-    CreatedBy: 'Admin53',
-    LastActive: '2023-12-02',
+    "product_id": "5",
+    "customerId": "123456789",
+    "ProgramManager": "Premium Savings",
+    "FlagType": "Suspicious Transactions",
+    "FlaggedActivityDescription": "Large withdrawal flagged for review",
+    "IpAddress": "203.0.113.45",
+    "CreatedBy": "Admin53",
+    "LastActive": "02-12-2023"
   },
   {
-    product_id: '6',
-    customerId: '123456789',
-    // Name: 'Michael Brown',
-    ProgramManager: 'Corporate Cards',
-    FlagType: 'Fraudulent Activity',
-    FlaggedActivityDescription: 'Multiple transactions flagged in a short time',
-    IpAddress: '198.51.100.77',
-    CreatedBy: 'FraudBot',
-    LastActive: '2023-11-28',
+    "product_id": "6",
+    "customerId": "123456789",
+    "ProgramManager": "Corporate Cards",
+    "FlagType": "Fraudulent Activity",
+    "FlaggedActivityDescription": "Multiple transactions flagged in a short time",
+    "IpAddress": "198.51.100.77",
+    "CreatedBy": "FraudBot",
+    "LastActive": "28-11-2023"
   },
   {
-    product_id: '7',
-    customerId: '123456789',
-    // Name: 'Sophia Davis',
-    ProgramManager: 'Online Wallet',
-    FlagType: 'Account Takeover',
-    FlaggedActivityDescription: 'Password reset attempted from unknown device',
-    IpAddress: '192.0.2.33',
-    CreatedBy: 'System',
-    LastActive: '2023-12-04',
+    "product_id": "7",
+    "customerId": "123456789",
+    "ProgramManager": "Online Wallet",
+    "FlagType": "Account Takeover",
+    "FlaggedActivityDescription": "Password reset attempted from unknown device",
+    "IpAddress": "192.0.2.33",
+    "CreatedBy": "System",
+    "LastActive": "04-12-2023"
   },
   {
-    product_id: '8',
-    customerId: '123456789',
-    // Name: 'Ethan Harris',
-    ProgramManager: 'Investment Plans',
-    FlagType: 'Data Breach Risk',
-    FlaggedActivityDescription: 'Account flagged after potential data exposure',
-    IpAddress: '203.123.45.67',
-    CreatedBy: 'Admin76',
-    LastActive: '2023-11-27',
+    "product_id": "8",
+    "customerId": "123456789",
+    "ProgramManager": "Investment Plans",
+    "FlagType": "Data Breach Risk",
+    "FlaggedActivityDescription": "Account flagged after potential data exposure",
+    "IpAddress": "203.123.45.67",
+    "CreatedBy": "Admin76",
+    "LastActive": "27-11-2023"
   },
   {
-    product_id: '9',
-    customerId: '123456789',
-    // Name: 'Emma Wilson',
-    ProgramManager: 'Cashback Offers',
-    FlagType: 'Fraudulent Activity',
-    FlaggedActivityDescription: 'Discrepancy in cashback claims',
-    IpAddress: '192.168.1.25',
-    CreatedBy: 'System',
-    LastActive: '2023-11-29',
+    "product_id": "9",
+    "customerId": "123456789",
+    "ProgramManager": "Cashback Offers",
+    "FlagType": "Fraudulent Activity",
+    "FlaggedActivityDescription": "Discrepancy in cashback claims",
+    "IpAddress": "192.168.1.25",
+    "CreatedBy": "System",
+    "LastActive": "29-11-2023"
   },
   {
-    product_id: '10',
-    customerId: '123456789',
-    // Name: 'Oliver Martinez',
-    ProgramManager: 'Loan Services',
-    FlagType: 'Suspicious Login',
-    FlaggedActivityDescription: 'Login from multiple countries in 24 hours',
-    IpAddress: '10.0.0.8',
-    CreatedBy: 'Admin88',
-    LastActive: '2023-12-05',
-  },
+    "product_id": "10",
+    "customerId": "123456789",
+    "ProgramManager": "Loan Services",
+    "FlagType": "Suspicious Login",
+    "FlaggedActivityDescription": "Login from multiple countries in 24 hours fnrekjhfoew e fei foiief weoifj weoif oiwe foeiw f",
+    "IpAddress": "10.0.0.8",
+    "CreatedBy": "Admin88",
+    "LastActive": "05-12-2023"
+  }
 ]
 
 export function FlaggedCustomerTable() {
@@ -231,11 +221,19 @@ export function FlaggedCustomerTable() {
     {
       accessorKey: 'FlaggedActivityDescription',
       header: 'Flagged Activity Description',
-      cell: ({ row }) => (
-        <div className="text-center">
-          {row.getValue('FlaggedActivityDescription')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const description = row.getValue('FlaggedActivityDescription');
+        const descriptionLength = description.length;
+    
+        // Calculate font size based on description length
+        const fontSize = descriptionLength > 100 ? 'text-xs' : descriptionLength > 50 ? 'text-sm' : 'text-base';
+    
+        return (
+          <div className={`text-center ${fontSize}`}>
+            {description}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'CreatedBy',
@@ -248,7 +246,7 @@ export function FlaggedCustomerTable() {
       accessorKey: 'LastActive',
       header: 'Last Active',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('LastActive')}</div>
+        <div className="text-center min-w-[80px]">{row.getValue('LastActive')}</div>
       ),
     },
     {

@@ -60,54 +60,54 @@ import {
 
 const data = [
   {
-    "product_id": "1",
-    "team_member": "Alice Johnson",
-    "date": "01-12-2024",
-    "event": "Product Launch",
-    "team": "Marketing",
-    "product": "EduPal App",
-    "ip_address": "192.168.1.1"
+    product_id: '1',
+    team_member: 'Alice Johnson',
+    date: '2024-12-01',
+    event: 'Product Launch',
+    team: 'Marketing',
+    product: 'EduPal App',
+    ip_address: '192.168.1.1',
   },
   {
-    "product_id": "2",
-    "team_member": "Bob Smith",
-    "date": "02-12-2024",
-    "event": "Client Meeting",
-    "team": "Sales",
-    "product": "Golzo Platform",
-    "ip_address": "192.168.1.2"
+    product_id: '2',
+    team_member: 'Bob Smith',
+    date: '2024-12-02',
+    event: 'Client Meeting',
+    team: 'Sales',
+    product: 'Golzo Platform',
+    ip_address: '192.168.1.2',
   },
   {
-    "product_id": "3",
-    "team_member": "Charlie Brown",
-    "date": "03-12-2024",
-    "event": "Bug Fix",
-    "team": "Development",
-    "product": "Call Recorder App",
-    "ip_address": "192.168.1.3"
+    product_id: '3',
+    team_member: 'Charlie Brown',
+    date: '2024-12-03',
+    event: 'Bug Fix',
+    team: 'Development',
+    product: 'Call Recorder App',
+    ip_address: '192.168.1.3',
   },
   {
-    "product_id": "4",
-    "team_member": "Diana Prince",
-    "date": "04-12-2024",
-    "event": "Team Workshop",
-    "team": "Human Resources",
-    "product": "Employee Handbook",
-    "ip_address": "192.168.1.4"
+    product_id: '4',
+    team_member: 'Diana Prince',
+    date: '2024-12-04',
+    event: 'Team Workshop',
+    team: 'Human Resources',
+    product: 'Employee Handbook',
+    ip_address: '192.168.1.4',
   },
   {
-    "product_id": "5",
-    "team_member": "Evan Williams",
-    "date": "05-12-2024",
-    "event": "Server Maintenance",
-    "team": "IT Support",
-    "product": "Internal Systems",
-    "ip_address": "192.168.1.5"
-  }
-]
+    product_id: '5',
+    team_member: 'Evan Williams',
+    date: '2024-12-05',
+    event: 'Server Maintenance',
+    team: 'IT Support',
+    product: 'Internal Systems',
+    ip_address: '192.168.1.5',
+  },
+];
 
 
-export function ActivityLogsTable() {
+export function TeamLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -115,71 +115,21 @@ export function ActivityLogsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
-    // {
-    //   accessorKey: 'product_id',
-    //   header: ({ column }) => {
-    //     return (
-    //       <Button
-    //         variant="ghost"
-    //         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-    //       >
-    //         Sr No
-    //       </Button>
-          
-    //     )
-    //   },
-    //   cell: ({ row }) => (
-    //     <div className="capitalize text-center">
-    //       {row.getValue('product_id')}
-    //     </div>
-    //   ),
-    // },
     {
       accessorKey: 'team_member',
-      header: 'Team Member',
+      header: 'Name',
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('team_member')}</div>
       ),
     },
+    
     {
-      accessorKey: 'date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Date
-            <ArrowUpDown />
-          </Button>
-        )
+        accessorKey: 'team',
+        header: 'Team',
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue('team')}</div>
+        ),
       },
-      cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
-      ),
-    },
     {
       accessorKey: 'event',
       header: ({ column }) => {
@@ -196,20 +146,24 @@ export function ActivityLogsTable() {
         <div className="capitalize pl-4">{row.getValue('event')}</div>
       ),
     },
+    
     {
-      accessorKey: 'team',
-      header: 'Team',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
-      ),
-    },
-    {
-      accessorKey: 'product',
-      header: 'Product',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('product')}</div>
-      ),
-    },
+        accessorKey: 'date',
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+            >
+              Date
+              <ArrowUpDown />
+            </Button>
+          )
+        },
+        cell: ({ row }) => (
+          <div className="lowercase pl-4">{row.getValue('date')}</div>
+        ),
+      },
     {
       accessorKey: 'ip_address',
       header: 'IP Address',
@@ -217,65 +171,6 @@ export function ActivityLogsTable() {
         <div className="lowercase">{row.getValue('ip_address')}</div>
       ),
     },
-    
-    // {
-    //   accessorKey: 'actions',
-    //   header: '',
-    //   cell: ({ row }) => {
-    //     const rowData = row.original // Get the entire row's data for actions
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuItem className='cursor-pointer'
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Edit
-    //           </DropdownMenuItem>
-    //           <DropdownMenuItem className='cursor-pointer'
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Delete
-    //           </DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     )
-    //   },
-    // },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -313,9 +208,6 @@ export function ActivityLogsTable() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Activity Logs</CardTitle>
-      </CardHeader>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
