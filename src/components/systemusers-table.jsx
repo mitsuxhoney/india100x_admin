@@ -60,50 +60,50 @@ import {
 
 const data = [
   {
-    product_id: '1',
-    user_id: 'U001',
-    name: 'Alice Johnson',
-    role: 'Administrator',
-    created_at: '2024-01-01 9:25Pm',
-    updated_at: '2024-06-01 9:25Pm',
-    is_active: true,
+    "product_id": "1",
+    "user_id": "U001",
+    "name": "Alice Johnson",
+    "role": "Administrator",
+    "created_at": "01-01-2024 21:25:00",
+    "updated_at": "01-06-2024 21:25:00",
+    "is_active": true
   },
   {
-    product_id: '2',
-    user_id: 'U002',
-    name: 'Bob Smith',
-    role: 'Moderator',
-    created_at: '2024-02-15 9:25Pm',
-    updated_at: '2024-07-20 9:25Pm',
-    is_active: false,
+    "product_id": "2",
+    "user_id": "U002",
+    "name": "Bob Smith",
+    "role": "Moderator",
+    "created_at": "15-02-2024 21:25:00",
+    "updated_at": "20-07-2024 21:25:00",
+    "is_active": false
   },
   {
-    product_id: '3',
-    user_id: 'U003',
-    name: 'Charlie Brown',
-    role: 'User',
-    created_at: '2024-03-10 9:25Pm',
-    updated_at: '2024-08-05 9:25Pm',
-    is_active: true,
+    "product_id": "3",
+    "user_id": "U003",
+    "name": "Charlie Brown",
+    "role": "User",
+    "created_at": "10-03-2024 21:25:00",
+    "updated_at": "05-08-2024 21:25:00",
+    "is_active": true
   },
   {
-    product_id: '4',
-    user_id: 'U004',
-    name: 'Diana Prince',
-    role: 'Editor',
-    created_at: '2024-04-25 9:25Pm',
-    updated_at: '2024-09-10 9:25Pm',
-    is_active: true,
+    "product_id": "4",
+    "user_id": "U004",
+    "name": "Diana Prince",
+    "role": "Editor",
+    "created_at": "25-04-2024 21:25:00",
+    "updated_at": "10-09-2024 21:25:00",
+    "is_active": true
   },
   {
-    product_id: '5',
-    user_id: 'U005',
-    name: 'Evan Williams',
-    role: 'Viewer',
-    created_at: '2024-05-05 9:25Pm',
-    updated_at: '2024-10-01 9:25Pm',
-    is_active: false,
-  },
+    "product_id": "5",
+    "user_id": "U005",
+    "name": "Evan Williams",
+    "role": "Viewer",
+    "created_at": "05-05-2024 21:25:00",
+    "updated_at": "01-10-2024 21:25:00",
+    "is_active": false
+  }
 ]
 
 export function SystemUsersTable() {

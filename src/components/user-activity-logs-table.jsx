@@ -60,51 +60,51 @@ import {
 
 const data = [
   {
-    product_id: '1',
-    team_member: 'Alice Johnson',
-    date: '2024-12-01',
-    event: 'Product Launch',
-    team: 'Marketing',
-    product: 'EduPal App',
-    ip_address: '192.168.1.1',
+    "product_id": "1",
+    "team_member": "Alice Johnson",
+    "date": "01-12-2024",
+    "event": "Product Launch",
+    "team": "Marketing",
+    "product": "EduPal App",
+    "ip_address": "192.168.1.1"
   },
   {
-    product_id: '2',
-    team_member: 'Bob Smith',
-    date: '2024-12-02',
-    event: 'Client Meeting',
-    team: 'Sales',
-    product: 'Golzo Platform',
-    ip_address: '192.168.1.2',
+    "product_id": "2",
+    "team_member": "Bob Smith",
+    "date": "02-12-2024",
+    "event": "Client Meeting",
+    "team": "Sales",
+    "product": "Golzo Platform",
+    "ip_address": "192.168.1.2"
   },
   {
-    product_id: '3',
-    team_member: 'Charlie Brown',
-    date: '2024-12-03',
-    event: 'Bug Fix',
-    team: 'Development',
-    product: 'Call Recorder App',
-    ip_address: '192.168.1.3',
+    "product_id": "3",
+    "team_member": "Charlie Brown",
+    "date": "03-12-2024",
+    "event": "Bug Fix",
+    "team": "Development",
+    "product": "Call Recorder App",
+    "ip_address": "192.168.1.3"
   },
   {
-    product_id: '4',
-    team_member: 'Diana Prince',
-    date: '2024-12-04',
-    event: 'Team Workshop',
-    team: 'Human Resources',
-    product: 'Employee Handbook',
-    ip_address: '192.168.1.4',
+    "product_id": "4",
+    "team_member": "Diana Prince",
+    "date": "04-12-2024",
+    "event": "Team Workshop",
+    "team": "Human Resources",
+    "product": "Employee Handbook",
+    "ip_address": "192.168.1.4"
   },
   {
-    product_id: '5',
-    team_member: 'Evan Williams',
-    date: '2024-12-05',
-    event: 'Server Maintenance',
-    team: 'IT Support',
-    product: 'Internal Systems',
-    ip_address: '192.168.1.5',
-  },
-];
+    "product_id": "5",
+    "team_member": "Evan Williams",
+    "date": "05-12-2024",
+    "event": "Server Maintenance",
+    "team": "IT Support",
+    "product": "Internal Systems",
+    "ip_address": "192.168.1.5"
+  }
+]
 
 
 export function ActivityLogsTable() {
