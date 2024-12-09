@@ -62,24 +62,26 @@ import {
 } from '@/components/ui/table'
 import { z } from 'zod'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     id: 1,
-    status: 'success',
     method: 'GET',
+    status: 'success', // updated to lowercase
     IP: '192.168.1.1',
     event: 'Program manager accessed user details',
   },
   {
     id: 2,
-    status: 'error',
+    status: 'error', 
     method: 'POST',
     IP: '192.168.1.2',
     event: 'Login attempt by program manager failed',
   },
   {
     id: 3,
-    status: 'success',
+    status: 'success', // corrected casing
     method: 'GET',
     IP: '192.168.1.3',
     event: 'Program manager viewed orders',
@@ -203,7 +205,8 @@ const data = [
     IP: '192.168.1.20',
     event: 'Program manager submitted feedback',
   },
-]
+];
+
 
 export function AuditLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -246,12 +249,15 @@ export function AuditLogsTable() {
     },
     {
       accessorKey: 'status',
-      header: () => {
-        return <div>Status</div>
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+        return status === 'success' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Success</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Error</Badge>
+        );
       },
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('status')}</div>
-      ),
     },
     {
       accessorKey: 'method',

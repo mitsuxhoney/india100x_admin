@@ -153,6 +153,14 @@ const data = [
   },
 ];
 
+data.forEach((item) => {
+  const [year, month, day] = item.submissionDate.split('-');
+  item.submissionDate = `${day}/${month}/${year.slice(-2)}`;
+});
+
+console.log(data);
+
+
 
 export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)

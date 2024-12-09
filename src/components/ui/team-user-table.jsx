@@ -58,6 +58,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     product_id: '1',
@@ -66,7 +68,7 @@ const data = [
     role: 'Administrator',
     created_at: '01-01-2024 21:25:00',
     updated_at: '01-06-2024 21:25:00',
-    is_active: true,
+    status: 'Active',
   },
   {
     product_id: '2',
@@ -75,7 +77,7 @@ const data = [
     role: 'Moderator',
     created_at: '15-02-2024 21:25:00',
     updated_at: '20-07-2024 21:25:00',
-    is_active: false,
+    istatus: 'Blocked',
   },
   {
     product_id: '3',
@@ -84,7 +86,7 @@ const data = [
     role: 'User',
     created_at: '10-03-2024 21:25:00',
     updated_at: '05-08-2024 21:25:00',
-    is_active: true,
+    status: 'Active',
   },
   {
     product_id: '4',
@@ -93,7 +95,7 @@ const data = [
     role: 'Editor',
     created_at: '25-04-2024 21:25:00',
     updated_at: '10-09-2024 21:25:00',
-    is_active: true,
+    istatus: 'Blocked',
   },
   {
     product_id: '5',
@@ -102,7 +104,7 @@ const data = [
     role: 'Viewer',
     created_at: '05-05-2024 21:25:00',
     updated_at: '01-10-2024 21:25:00',
-    is_active: false,
+    status: 'Active',
   },
 ]
 
@@ -163,13 +165,16 @@ export function TeamUsersTable() {
       },
     },
     {
-      accessorKey: 'is_active',
+      accessorKey: 'status',
       header: 'Status',
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue('is_active') ? 'Active' : 'Inactive'}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+        return status === 'Active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>
+        );
+      },
     },
 
     {

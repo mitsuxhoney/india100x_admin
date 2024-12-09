@@ -62,6 +62,8 @@ import {
 } from '@/components/ui/table'
 import { number } from 'zod'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     status: 'active',
@@ -217,13 +219,25 @@ export function ApiKeysTable() {
     // },
     {
       accessorKey: 'status',
-      header: ({ column }) => {
-        return <div>Status</div>
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+        if (status === 'active') {
+          return (
+            <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+          );
+        } else if (status === 'inactive') {
+          return (
+            <Badge className="bg-[#f0f0f0] text-[#6c757d]">Inactive</Badge>
+          );
+        } else if (status === 'expired') {
+          return (
+            <Badge className="bg-[#fff0f0] text-[#b52a2a]">Expired</Badge>
+          );
+        }
       },
-      cell: ({ row }) => (
-        <div className="lowercase text-center">{row.getValue('status')}</div>
-      ),
     },
+    
     {
       accessorKey: 'name',
       header: ({ column }) => {

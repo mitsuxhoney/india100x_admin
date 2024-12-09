@@ -59,18 +59,6 @@ import {
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 
-// const statusBadgesMap = {
-//   active: {
-//     icon: <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>,
-//     label: 'Successful transaction',
-//   },
-
-//   inactive: {
-//     icon: <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>,
-//     label: 'Failed transaction',
-//   },
-// }
-
 const fieldIconMap = {
   AddOnCard: {
     icon: <Badge className="bg-[#f5e7e4] text-[#792c16]">Add on card</Badge>,
@@ -205,28 +193,6 @@ export function IssuedCardsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
 
     {
       accessorKey: 'card_ref_id',
