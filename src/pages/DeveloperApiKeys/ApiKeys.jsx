@@ -13,10 +13,7 @@ const ApiKeys = () => {
           access to APIs.
         </p>
       </div>
-      <Separator />
-      <div className="grid grid-cols-1 gap-4">
-        <ApiKeysTable />
-      </div>
+
       <Separator />
       <div className="space-y-6 select-none">
         <h3 className="text-lg font-medium">Your Personal Key</h3>

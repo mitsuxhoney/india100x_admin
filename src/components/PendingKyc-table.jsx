@@ -151,16 +151,14 @@ const data = [
     verificationRemarks: 'Final verification stage',
     submissionDate: '2023-11-10',
   },
-];
+]
 
 data.forEach((item) => {
-  const [year, month, day] = item.submissionDate.split('-');
-  item.submissionDate = `${day}/${month}/${year.slice(-2)}`;
-});
+  const [year, month, day] = item.submissionDate.split('-')
+  item.submissionDate = `${day}-${month}-${year.slice(-2)}`
+})
 
-console.log(data);
-
-
+console.log(data)
 
 export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -249,6 +247,36 @@ export function PendingKycTable() {
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('verificationRemarks')}</div>
       ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+
+        switch (status) {
+          case 'active':
+            return <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+          case 'pending':
+            return (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Pending</Badge>
+            )
+          case 'under review':
+            return (
+              <Badge className="bg-[#e3f2fd] text-[#1976d2]">
+                Under Review
+              </Badge>
+            )
+          case 'rejected':
+            return (
+              <Badge className="bg-[#ffe6e6] text-[#d32f2f]">Rejected</Badge>
+            )
+          case 'incomplete':
+            return (
+              <Badge className="bg-[#fce4ec] text-[#c2185b]">Incomplete</Badge>
+            )
+        }
+      },
     },
     {
       accessorKey: 'submissionDate',
@@ -349,23 +377,26 @@ export function PendingKycTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
             </div>
           </div>
           <div className="rounded-md border">
@@ -379,9 +410,9 @@ export function PendingKycTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

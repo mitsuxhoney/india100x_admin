@@ -72,117 +72,117 @@ const fieldIconMap = {
 
 const data = [
   {
-    "id": 1,
-    "card_ref_id": "32XY32",
-    "status": "active",
-    "AddOnCard": true,
-    "Physical": true,
-    "last_four_digit": "4444",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 1,
+    card_ref_id: '32XY32',
+    status: 'active',
+    AddOnCard: true,
+    Physical: true,
+    last_four_digit: '4444',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 2,
-    "card_ref_id": "32XY33",
-    "status": "inactive",
-    "Physical": true,
-    "last_four_digit": "4445",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 2,
+    card_ref_id: '32XY33',
+    status: 'inactive',
+    Physical: true,
+    last_four_digit: '4445',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 3,
-    "card_ref_id": "32XY34",
-    "status": "active",
-    "Physical": true,
-    "last_four_digit": "4446",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 3,
+    card_ref_id: '32XY34',
+    status: 'active',
+    Physical: true,
+    last_four_digit: '4446',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 4,
-    "card_ref_id": "32XY35",
-    "status": "inactive",
-    "AddOnCard": true,
-    "last_four_digit": "4447",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 4,
+    card_ref_id: '32XY35',
+    status: 'inactive',
+    AddOnCard: true,
+    last_four_digit: '4447',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 5,
-    "card_ref_id": "32XY36",
-    "status": "active",
-    "AddOnCard": true,
-    "last_four_digit": "4448",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 5,
+    card_ref_id: '32XY36',
+    status: 'active',
+    AddOnCard: true,
+    last_four_digit: '4448',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 6,
-    "card_ref_id": "32XY37",
-    "status": "inactive",
-    "AddOnCard": true,
-    "Physical": true,
-    "last_four_digit": "4449",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 6,
+    card_ref_id: '32XY37',
+    status: 'inactive',
+    AddOnCard: true,
+    Physical: true,
+    last_four_digit: '4449',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 7,
-    "card_ref_id": "32XY38",
-    "status": "active",
-    "Physical": true,
-    "last_four_digit": "4450",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 7,
+    card_ref_id: '32XY38',
+    status: 'active',
+    Physical: true,
+    last_four_digit: '4450',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 8,
-    "card_ref_id": "32XY39",
-    "status": "inactive",
-    "AddOnCard": true,
-    "last_four_digit": "4451",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 8,
+    card_ref_id: '32XY39',
+    status: 'inactive',
+    AddOnCard: true,
+    last_four_digit: '4451',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 9,
-    "card_ref_id": "32XY40",
-    "status": "active",
-    "AddOnCard": true,
-    "Physical": true,
-    "last_four_digit": "4452",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
+    id: 9,
+    card_ref_id: '32XY40',
+    status: 'active',
+    AddOnCard: true,
+    Physical: true,
+    last_four_digit: '4452',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
   },
   {
-    "id": 10,
-    "card_ref_id": "32XY41",
-    "status": "inactive",
-    "last_four_digit": "4453",
-    "product_category": "Example",
-    "add_on_card": "true",
-    "is_physical": "true",
-    "issued_date": "02-12-2024"
-  }
+    id: 10,
+    card_ref_id: '32XY41',
+    status: 'inactive',
+    last_four_digit: '4453',
+    product_category: 'Example',
+    add_on_card: 'true',
+    is_physical: 'true',
+    issued_date: '02-12-2024',
+  },
 ]
 
 export function IssuedCardsTable() {
@@ -193,7 +193,6 @@ export function IssuedCardsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-
     {
       accessorKey: 'card_ref_id',
       header: 'Card Ref ID',
@@ -218,17 +217,7 @@ export function IssuedCardsTable() {
   
     {
       accessorKey: 'last_four_digit',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Card Last Four Digits
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      header: 'Card Last Four Digits',
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('last_four_digit')}</div>
       ),
@@ -240,25 +229,9 @@ export function IssuedCardsTable() {
         <div className="capitalize">{row.getValue('product_category')}</div>
       ),
     },
+    
     {
-      accessorKey: 'issued_date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Issued Date
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <div className="lowercase ">{row.getValue('issued_date')}</div>
-      ),
-    },
-    {
-      header: ` `,
+      header: 'Tags',
       cell: ({ row }) => (
         <div className="flex items-center justify-start gap-2">
           {Object.keys(fieldIconMap).map((field) => {
@@ -266,7 +239,7 @@ export function IssuedCardsTable() {
               return (
                 <span
                   key={field}
-                  className={`flex items-center gap-1`}
+                  className="flex items-center gap-1"
                   title={fieldIconMap[field].label}
                 >
                   {fieldIconMap[field].icon}
@@ -276,6 +249,25 @@ export function IssuedCardsTable() {
             return null
           })}
         </div>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+        return status === 'active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        )
+      },
+    },
+    {
+      accessorKey: 'issued_date',
+      header: 'Issued Date',
+      cell: ({ row }) => (
+        <div className="lowercase ">{row.getValue('issued_date')}</div>
       ),
     },
     {
@@ -372,23 +364,26 @@ export function IssuedCardsTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
@@ -408,9 +403,9 @@ export function IssuedCardsTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

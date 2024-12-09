@@ -29,6 +29,7 @@ import IpWhitelisting from '@/pages/DeveloperIpWhitelisting/IpWhitelisting'
 import Users from '@/pages/TeamUsers/Users'
 
 import Logs from '@/pages/TeamLogs/Logs'
+import Login from '@/pages/Login/Login'
 
 import UserProfileLayout from './components/UserProfileLayout'
 import Login from '@/pages/Login/Login'
@@ -56,7 +57,7 @@ function App() {
           <Route path="/issued-cards" element={<IssuedCards />} />
           <Route path="/all-customers" element={<AllCustomers />} />
           <Route path="/flagged-customers" element={<FlaggedCustomers />} />
-          <Route path="/pending-kyc" element={<PendingKyc />} />
+          <Route path="/pending-for-kyc" element={<PendingKyc />} />
           <Route path="/pool-accounts" element={<PoolAccounts />} />
           <Route
             path="/funding-transactions"

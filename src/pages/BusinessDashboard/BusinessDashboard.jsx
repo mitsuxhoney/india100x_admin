@@ -30,6 +30,11 @@ const cardsData = [
     description: 'Customers',
     icon: <Users className="h-5 w-5 text-muted-foreground" />,
   },
+  {
+    title: '2060/3000',
+    description: 'Transactions',
+    icon: <Activity className="h-5 w-5 text-muted-foreground" />,
+  },
   // {
   //   title: '3000',
   //   description: 'Transactions',
@@ -40,14 +45,16 @@ const cardsData = [
 const BusinessDashboard = () => {
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-3">
+      <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-4">
         {cardsData.map((card, index) => (
           <div key={index}>
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <div className="flex items-center gap-2">
                   {card.icon}
-                  <CardTitle className="text-sm font-medium">{card.description}</CardTitle>
+                  <CardTitle className="text-sm font-medium">
+                    {card.description}
+                  </CardTitle>
                 </div>
               </CardHeader>
               <CardContent>

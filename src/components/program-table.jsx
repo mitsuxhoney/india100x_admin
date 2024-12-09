@@ -244,26 +244,10 @@ export function ProgramTableDemo() {
       ),
     },
 
-    {
-      accessorKey: 'launchdate',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Launch Date
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('launchdate')}</div>
-      ),
-    },
+    
 
     {
-      header: `${' '}`,
+      header: 'Tags',
       cell: ({ row }) => (
         <div className="flex items-center justify-start gap-2">
           {Object.keys(fieldIconMap).map((field) => {
@@ -283,7 +267,13 @@ export function ProgramTableDemo() {
         </div>
       ),
     },
-
+    {
+      accessorKey: 'launchdate',
+      header: 'Launch Date',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('launchdate')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
       header: '',
@@ -405,27 +395,30 @@ export function ProgramTableDemo() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
               <Link to="/programs/create-program">
                 <Button variant="" className="ml-auto ">
                   {' '}
-                  <CirclePlus /> Add new
+                  <CirclePlus /> Add Program
                 </Button>
               </Link>
             </div>
@@ -441,9 +434,9 @@ export function ProgramTableDemo() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
