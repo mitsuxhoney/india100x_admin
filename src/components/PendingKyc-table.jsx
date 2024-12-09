@@ -58,13 +58,15 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     product_id: '1',
     customerId: '123654789',
     Name: 'Mona',
     ProgramManager: 'Sales Card',
-    kycStatus: 'Pending',
+    status: 'pending',
     verificationRemarks: 'Resubmission Required',
     submissionDate: '2022-10-05',
   },
@@ -73,7 +75,7 @@ const data = [
     customerId: '123664789',
     Name: 'John Doe',
     ProgramManager: 'Platinum Card',
-    kycStatus: 'Incomplete',
+    status: 'pending',
     verificationRemarks: 'Address proof missing',
     submissionDate: '2023-09-15',
   },
@@ -82,7 +84,7 @@ const data = [
     customerId: '123654782',
     Name: 'Sophia Smith',
     ProgramManager: 'Business Loan',
-    kycStatus: 'Under Review',
+    status: 'under review',
     verificationRemarks: 'Verification in progress',
     submissionDate: '2023-11-01',
   },
@@ -91,7 +93,7 @@ const data = [
     customerId: '123684789',
     Name: 'Ethan Brown',
     ProgramManager: 'Travel Card',
-    kycStatus: 'Rejected',
+    status: 'rejected',
     verificationRemarks: 'ID proof mismatch',
     submissionDate: '2023-08-20',
   },
@@ -100,7 +102,7 @@ const data = [
     customerId: '123656554',
     Name: 'Liam Wilson',
     ProgramManager: 'Premium Savings',
-    kycStatus: 'Pending',
+    status: 'pending',
     verificationRemarks: 'Photo unclear, resubmit',
     submissionDate: '2023-10-10',
   },
@@ -109,7 +111,7 @@ const data = [
     customerId: '123654779',
     Name: 'Emma Davis',
     ProgramManager: 'Retail Finance',
-    kycStatus: 'Under Review',
+    status: 'under review',
     verificationRemarks: 'Cross-verifying documents',
     submissionDate: '2023-09-25',
   },
@@ -118,7 +120,7 @@ const data = [
     customerId: '123654798',
     Name: 'Oliver Martinez',
     ProgramManager: 'Gold Card',
-    kycStatus: 'Incomplete',
+    status: 'incomplete',
     verificationRemarks: 'Bank statement not submitted',
     submissionDate: '2023-10-02',
   },
@@ -127,7 +129,7 @@ const data = [
     customerId: '189654789',
     Name: 'Ava Taylor',
     ProgramManager: 'Student Plan',
-    kycStatus: 'Pending',
+    status: 'pending',
     verificationRemarks: 'Document not signed',
     submissionDate: '2023-11-15',
   },
@@ -136,7 +138,7 @@ const data = [
     customerId: '123654756',
     Name: 'Michael Johnson',
     ProgramManager: 'Cashback Offers',
-    kycStatus: 'Rejected',
+    status: 'rejected',
     verificationRemarks: 'Document not legible',
     submissionDate: '2023-07-30',
   },
@@ -145,11 +147,12 @@ const data = [
     customerId: '123654723',
     Name: 'Emily Clark',
     ProgramManager: 'Merchant Services',
-    kycStatus: 'Under Review',
+    status: 'under review',
     verificationRemarks: 'Final verification stage',
     submissionDate: '2023-11-10',
   },
-]
+];
+
 
 export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -202,12 +205,26 @@ export function PendingKycTable() {
       ),
     },
     {
-      accessorKey: 'kycStatus',
-      header: 'KYC Status',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('kycStatus')}</div>
-      ),
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+    
+        switch (status) {
+          case 'active':
+            return <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>;
+          case 'pending':
+            return <Badge className="bg-[#fff8e1] text-[#ff9800]">Pending</Badge>;
+          case 'under review':
+            return <Badge className="bg-[#e3f2fd] text-[#1976d2]">Under Review</Badge>;
+          case 'rejected':
+            return <Badge className="bg-[#ffe6e6] text-[#d32f2f]">Rejected</Badge>;
+          case 'incomplete':
+            return <Badge className="bg-[#fce4ec] text-[#c2185b]">Incomplete</Badge>;
+        }
+      },
     },
+    
     {
       accessorKey: 'verificationRemarks',
       header: 'Verification Remarks',

@@ -58,7 +58,23 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { number } from 'zod'
+import { Badge } from '@/components/ui/badge'
 
+const fieldIconMap = {
+  Approved: {
+    icon: <Badge className="bg-[#e4f5e9] text-[#16794c]">Approved</Badge>,
+    label: 'Approved',
+  },
+  Rejected: {
+    icon: <Badge className="bg-[#fff0f0] text-[#b52a2a]">Rejected</Badge>,
+    label: 'Rejected',
+  },
+
+  Progress: {
+    icon: <Badge className="bg-[#F5FBFC] text-[#267A94]">Progress</Badge>,
+    label: 'Progress',
+  },
+}
 const data = [
   {
     product_id: 1,
@@ -67,6 +83,7 @@ const data = [
     card_nature: 'virtual',
     ordered_cards: 10,
     status: 'approved',
+    Approved: true,
     created_date: '2024-12-01',
   },
   {
@@ -76,6 +93,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 5,
     status: 'progress',
+    Progress: true,
     created_date: '2024-11-15',
   },
   {
@@ -85,6 +103,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
+    Rejected: true,
     created_date: '2024-10-20',
   },
   {
@@ -94,6 +113,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 3,
     status: 'progress',
+    Progress: true,
     created_date: '2024-09-25',
   },
   {
@@ -103,6 +123,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'approved',
+    Approved: true,
     created_date: '2024-08-20',
   },
   {
@@ -112,6 +133,8 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 4,
     status: 'approved',
+    Approved: true,
+
     created_date: '2024-07-15',
   },
   {
@@ -121,6 +144,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 2,
     status: 'rejected',
+    Rejected: true,
     created_date: '2024-06-20',
   },
   {
@@ -130,6 +154,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+    Progress: true,
     created_date: '2024-05-15',
   },
   {
@@ -139,6 +164,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+    Progress: true,
     created_date: '2024-04-20',
   },
   {
@@ -148,6 +174,7 @@ const data = [
     card_nature: 'physical',
     ordered_cards: 1,
     status: 'progress',
+    Progress: true,
     created_date: '2024-03-15',
   },
 ]
@@ -226,13 +253,29 @@ export function InventoryTable() {
           </Button>
         )
       },
-      cell: ({ row }) => <div className="capitalize">{row.getValue('ordered_cards')}</div>,
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('ordered_cards')}</div>
+      ),
     },
     {
-      accessorKey: 'status',
-      header: 'Status',
+      header: `Status`,
       cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('status')}</div>
+        <div className="flex items-center justify-center gap-2">
+          {Object.keys(fieldIconMap).map((field) => {
+            if (row.original[field]) {
+              return (
+                <span
+                  key={field}
+                  className={`flex items-center gap-1`}
+                  title={fieldIconMap[field].label}
+                >
+                  {fieldIconMap[field].icon}
+                </span>
+              )
+            }
+            return null
+          })}
+        </div>
       ),
     },
     {
@@ -268,12 +311,14 @@ export function InventoryTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Approve
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Reject

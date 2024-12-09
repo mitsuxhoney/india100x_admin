@@ -58,6 +58,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     product_id: '1',
@@ -66,7 +68,7 @@ const data = [
     role: 'Administrator',
     created_at: '2024-01-01 9:25Pm',
     updated_at: '2024-06-01 9:25Pm',
-    is_active: true,
+    status: 'active',
   },
   {
     product_id: '2',
@@ -75,7 +77,7 @@ const data = [
     role: 'Moderator',
     created_at: '2024-02-15 9:25Pm',
     updated_at: '2024-07-20 9:25Pm',
-    is_active: false,
+    status: 'inactive',
   },
   {
     product_id: '3',
@@ -84,7 +86,7 @@ const data = [
     role: 'User',
     created_at: '2024-03-10 9:25Pm',
     updated_at: '2024-08-05 9:25Pm',
-    is_active: true,
+    status: 'active',
   },
   {
     product_id: '4',
@@ -93,7 +95,7 @@ const data = [
     role: 'Editor',
     created_at: '2024-04-25 9:25Pm',
     updated_at: '2024-09-10 9:25Pm',
-    is_active: true,
+    status: 'active',
   },
   {
     product_id: '5',
@@ -102,9 +104,10 @@ const data = [
     role: 'Viewer',
     created_at: '2024-05-05 9:25Pm',
     updated_at: '2024-10-01 9:25Pm',
-    is_active: false,
+    status: 'inactive',
   },
-]
+];
+
 
 export function SystemUsersTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -191,13 +194,16 @@ export function SystemUsersTable() {
       ),
     },
     {
-      accessorKey: 'is_active',
-      header: 'Active Status',
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue('is_active') ? 'Active' : 'Inactive'}
-        </div>
-      ),
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+        return status === 'active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        );
+      },
     },
 
     {

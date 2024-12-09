@@ -59,41 +59,26 @@ import {
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
 
+// const statusBadgesMap = {
+//   active: {
+//     icon: <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>,
+//     label: 'Successful transaction',
+//   },
 
+//   inactive: {
+//     icon: <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>,
+//     label: 'Failed transaction',
+//   },
+// }
 
 const fieldIconMap = {
   AddOnCard: {
-    icon: (
-      <Badge  className="bg-[#f5e7e4] text-[#792c16]">
-        Add on card
-      </Badge>
-    ),
+    icon: <Badge className="bg-[#f5e7e4] text-[#792c16]">Add on card</Badge>,
     label: '',
   },
   Physical: {
-    icon: (
-      <Badge  className="bg-[#d3e5ff] text-[#051eab]">
-        Physical
-      </Badge>
-    ),
+    icon: <Badge className="bg-[#d3e5ff] text-[#051eab]">Physical</Badge>,
     label: 'Pending transaction',
-  },
-
-  Active: {
-    icon: (
-      <Badge  className="bg-[#e4f5e9] text-[#16794c]">
-        Active
-      </Badge>
-    ),
-    label: 'Successful transaction',
-  },
-  Inactive: {
-    icon: (
-      <Badge  className="bg-[#fff0f0] text-[#b52a2a]">
-        Inactive
-      </Badge>
-    ),
-    label: 'Failed transaction',
   },
 }
 
@@ -247,24 +232,24 @@ export function IssuedCardsTable() {
       accessorKey: 'card_ref_id',
       header: 'Card Ref ID',
       cell: ({ row }) => (
-        <div className="capitalize cursor-pointer">{row.getValue('card_ref_id')}</div>
+        <div className="capitalize cursor-pointer">
+          {row.getValue('card_ref_id')}
+        </div>
       ),
     },
     {
       accessorKey: 'status',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-          >
-            Status
-          </Button>
-        )
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status');
+        return status === 'active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        );
       },
-      cell: ({ row }) => (
-        <div className="lowercase ">{row.getValue('status')}</div>
-      ),
     },
+  
     {
       accessorKey: 'last_four_digit',
       header: ({ column }) => {
@@ -341,12 +326,14 @@ export function IssuedCardsTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Edit
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Delete
@@ -356,35 +343,6 @@ export function IssuedCardsTable() {
         )
       },
     },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -432,7 +390,9 @@ export function IssuedCardsTable() {
               placeholder="Search by Card ref id..."
               value={table.getColumn('card_ref_id')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('card_ref_id')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('card_ref_id')
+                  ?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
             />
@@ -478,7 +438,7 @@ export function IssuedCardsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -499,7 +459,7 @@ export function IssuedCardsTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
