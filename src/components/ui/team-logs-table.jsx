@@ -62,7 +62,7 @@ const data = [
   {
     product_id: '1',
     team_member: 'Alice Johnson',
-    date: '2024-12-01',
+    date: '01-12-2024',
     event: 'Product Launch',
     team: 'Marketing',
     product: 'EduPal App',
@@ -71,7 +71,7 @@ const data = [
   {
     product_id: '2',
     team_member: 'Bob Smith',
-    date: '2024-12-02',
+    date: '02-12-2024',
     event: 'Client Meeting',
     team: 'Sales',
     product: 'Golzo Platform',
@@ -80,7 +80,7 @@ const data = [
   {
     product_id: '3',
     team_member: 'Charlie Brown',
-    date: '2024-12-03',
+    date: '03-12-2024',
     event: 'Bug Fix',
     team: 'Development',
     product: 'Call Recorder App',
@@ -89,7 +89,7 @@ const data = [
   {
     product_id: '4',
     team_member: 'Diana Prince',
-    date: '2024-12-04',
+    date: '04-12-2024',
     event: 'Team Workshop',
     team: 'Human Resources',
     product: 'Employee Handbook',
@@ -98,14 +98,13 @@ const data = [
   {
     product_id: '5',
     team_member: 'Evan Williams',
-    date: '2024-12-05',
+    date: '05-12-2024',
     event: 'Server Maintenance',
     team: 'IT Support',
     product: 'Internal Systems',
     ip_address: '192.168.1.5',
   },
-];
-
+]
 
 export function TeamLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -122,48 +121,41 @@ export function TeamLogsTable() {
         <div className="capitalize">{row.getValue('team_member')}</div>
       ),
     },
-    
+
     {
-        accessorKey: 'team',
-        header: 'Team',
-        cell: ({ row }) => (
-          <div className="capitalize">{row.getValue('team')}</div>
-        ),
-      },
+      accessorKey: 'team',
+      header: 'Team',
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue('team')}</div>
+      ),
+    },
     {
       accessorKey: 'event',
       header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-          >
-            Event
-
-          </Button>
-        )
+        return <Button variant="ghost">Event</Button>
       },
       cell: ({ row }) => (
         <div className="capitalize pl-4">{row.getValue('event')}</div>
       ),
     },
-    
+
     {
-        accessorKey: 'date',
-        header: ({ column }) => {
-          return (
-            <Button
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-            >
-              Date
-              <ArrowUpDown />
-            </Button>
-          )
-        },
-        cell: ({ row }) => (
-          <div className="lowercase pl-4">{row.getValue('date')}</div>
-        ),
+      accessorKey: 'date',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Date
+            <ArrowUpDown />
+          </Button>
+        )
       },
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('date')}</div>
+      ),
+    },
     {
       accessorKey: 'ip_address',
       header: 'IP Address',
@@ -215,7 +207,9 @@ export function TeamLogsTable() {
               placeholder="Search by Team Member..."
               value={table.getColumn('team_member')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('team_member')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('team_member')
+                  ?.setFilterValue(event.target.value)
               }
               className="max-w-xs"
             />
@@ -255,7 +249,7 @@ export function TeamLogsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
@@ -276,7 +270,7 @@ export function TeamLogsTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
