@@ -29,6 +29,7 @@ import IpWhitelisting from '@/pages/DeveloperIpWhitelisting/IpWhitelisting'
 import Users from '@/pages/TeamUsers/Users'
 
 import Logs from '@/pages/TeamLogs/Logs'
+import Login from '@/pages/Login/Login'
 
 import UserProfileLayout from './components/UserProfileLayout'
 
@@ -36,11 +37,9 @@ function App() {
   return (
     <ThemeProvider>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route element={<Layout />}>
-          <Route
-            path="/"
-            element={<Navigate to="/business-dashboard" replace />}
-          />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/business-dashboard" element={<BusinessDashboard />} />
           <Route path="/system-dashboard" element={<SystemDashboard />} />
           <Route path="/programs" element={<Programs />} />
