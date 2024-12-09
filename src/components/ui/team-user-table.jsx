@@ -60,12 +60,10 @@ import {
 
 const data = [
   {
-    product_id: '1',
     user_id: 'U001',
+    email:'tinkal@gmail.com',
     name: 'Alice Johnson',
     role: 'Administrator',
-    created_at: '01-01-2024 21:25:00',
-    updated_at: '01-06-2024 21:25:00',
     is_active: true,
   },
   {
@@ -118,7 +116,13 @@ export function TeamUsersTable() {
       accessorKey: 'name',
       header: 'Name',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('name')}</div>
+        <div>
+            <div>{row.getValue('name')}
+            </div>
+            <p className='text-gray-500'>
+                {row.original.email}
+            </p>
+        </div>
       ),
     },
     {

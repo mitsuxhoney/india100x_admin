@@ -263,7 +263,7 @@ export function ProgramTableDemo() {
     },
 
     {
-      header: `${' '}`,
+      header: 'Tags',
       cell: ({ row }) => (
         <div className="flex items-center justify-start gap-2">
           {Object.keys(fieldIconMap).map((field) => {
