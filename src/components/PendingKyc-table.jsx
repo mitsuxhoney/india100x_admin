@@ -62,99 +62,6 @@ import { Badge } from '@/components/ui/badge'
 
 const data = [
   {
-<<<<<<< HEAD
-    product_id: '1',
-    customerId: '123654789',
-    Name: 'Mona',
-    ProgramManager: 'Sales Card',
-    status: 'pending',
-    verificationRemarks: 'Resubmission Required',
-    submissionDate: '2022-10-05',
-  },
-  {
-    product_id: '2',
-    customerId: '123664789',
-    Name: 'John Doe',
-    ProgramManager: 'Platinum Card',
-    status: 'pending',
-    verificationRemarks: 'Address proof missing',
-    submissionDate: '2023-09-15',
-  },
-  {
-    product_id: '3',
-    customerId: '123654782',
-    Name: 'Sophia Smith',
-    ProgramManager: 'Business Loan',
-    status: 'under review',
-    verificationRemarks: 'Verification in progress',
-    submissionDate: '2023-11-01',
-  },
-  {
-    product_id: '4',
-    customerId: '123684789',
-    Name: 'Ethan Brown',
-    ProgramManager: 'Travel Card',
-    status: 'rejected',
-    verificationRemarks: 'ID proof mismatch',
-    submissionDate: '2023-08-20',
-  },
-  {
-    product_id: '5',
-    customerId: '123656554',
-    Name: 'Liam Wilson',
-    ProgramManager: 'Premium Savings',
-    status: 'pending',
-    verificationRemarks: 'Photo unclear, resubmit',
-    submissionDate: '2023-10-10',
-  },
-  {
-    product_id: '6',
-    customerId: '123654779',
-    Name: 'Emma Davis',
-    ProgramManager: 'Retail Finance',
-    status: 'under review',
-    verificationRemarks: 'Cross-verifying documents',
-    submissionDate: '2023-09-25',
-  },
-  {
-    product_id: '7',
-    customerId: '123654798',
-    Name: 'Oliver Martinez',
-    ProgramManager: 'Gold Card',
-    status: 'incomplete',
-    verificationRemarks: 'Bank statement not submitted',
-    submissionDate: '2023-10-02',
-  },
-  {
-    product_id: '8',
-    customerId: '189654789',
-    Name: 'Ava Taylor',
-    ProgramManager: 'Student Plan',
-    status: 'pending',
-    verificationRemarks: 'Document not signed',
-    submissionDate: '2023-11-15',
-  },
-  {
-    product_id: '9',
-    customerId: '123654756',
-    Name: 'Michael Johnson',
-    ProgramManager: 'Cashback Offers',
-    status: 'rejected',
-    verificationRemarks: 'Document not legible',
-    submissionDate: '2023-07-30',
-  },
-  {
-    product_id: '10',
-    customerId: '123654723',
-    Name: 'Emily Clark',
-    ProgramManager: 'Merchant Services',
-    status: 'under review',
-    verificationRemarks: 'Final verification stage',
-    submissionDate: '2023-11-10',
-  },
-];
-
-=======
     "product_id": "1",
     "customerId": "123654789",
     "Name": "Mona",
@@ -245,7 +152,6 @@ const data = [
     "submissionDate": "10-11-2023"
   }
 ]
->>>>>>> 269b8cfb3686b712d64a8127bee83fc14cf755f0
 
 export function PendingKycTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
