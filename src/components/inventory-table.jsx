@@ -212,7 +212,7 @@ export function InventoryTable() {
       accessorKey: 'product_name',
       header: 'Product Name',
       cell: ({ row }) => (
-        <div className="lowercase text-center">
+        <div className="capitalize text-center cursor-pointer hover:underline">
           {row.getValue('product_name')}
         </div>
       ),

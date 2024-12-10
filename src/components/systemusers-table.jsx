@@ -150,7 +150,7 @@ export function SystemUsersTable() {
       accessorKey: 'name',
       header: 'Name',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('name')}</div>
+        <div className="capitalize cursor-pointer hover:underline">{row.getValue('name')}</div>
       ),
     },
     {

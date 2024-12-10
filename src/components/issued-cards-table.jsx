@@ -90,7 +90,7 @@ const data = [
     status: 'inactive',
     Physical: true,
     last_four_digit: '4445',
-    product_category: 'Example',
+    product_category: 'Entertainment',
     add_on_card: 'true',
     is_physical: 'true',
     issued_date: '02-12-2024',
@@ -101,7 +101,7 @@ const data = [
     status: 'active',
     Physical: true,
     last_four_digit: '4446',
-    product_category: 'Example',
+    product_category: 'Gaming',
     add_on_card: 'true',
     is_physical: 'true',
     issued_date: '02-12-2024',
@@ -200,7 +200,7 @@ export function IssuedCardsTable() {
       accessorKey: 'card_ref_id',
       header: 'Card Ref ID',
       cell: ({ row }) => (
-        <div className="capitalize cursor-pointer">
+        <div className="capitalize cursor-pointer hover:underline">
           {row.getValue('card_ref_id')}
         </div>
       ),

@@ -207,7 +207,7 @@ export function FundingTransactionTable() {
       header: 'Reference ID',
       cell: ({ row }) => (
         <Link>
-          <div className="text-center">{row.getValue('cardRefId')}</div>
+          <div className="text-center hover:underline">{row.getValue('cardRefId')}</div>
         </Link>
       ),
     },

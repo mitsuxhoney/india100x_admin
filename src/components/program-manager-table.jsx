@@ -186,7 +186,7 @@ export function ProgramTable() {
       accessorKey: 'name',
       header: 'Manager Name',
       cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('name')}</div>
+        <div className="capitalize text-center hover:underline">{row.getValue('name')}</div>
       ),
     },
     {

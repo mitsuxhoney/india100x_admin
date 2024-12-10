@@ -192,7 +192,7 @@ export function PendingKycTable() {
       accessorKey: 'customerId',
       header: 'Customer Id',
       cell: ({ row }) => (
-        <div className="capitalize text-center">
+        <div className="capitalize text-center hover:underline">
           {row.getValue('customerId')}
         </div>
       ),
@@ -208,7 +208,7 @@ export function PendingKycTable() {
       accessorKey: 'ProgramManager',
       header: 'Program Manager',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('ProgramManager')}</div>
+        <div className="text-center hover:underline">{row.getValue('ProgramManager')}</div>
       ),
     },
 

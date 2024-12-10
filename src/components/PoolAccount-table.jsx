@@ -198,7 +198,7 @@ export function PoolAccountsTable() {
       accessorKey: 'accountNumber',
       header: 'Account Number',
       cell: ({ row }) => (
-        <div className="text-center cursor-pointer">
+        <div className="text-center cursor-pointer hover:underline">
           {row.getValue('accountNumber')}
         </div>
       ),
@@ -207,7 +207,7 @@ export function PoolAccountsTable() {
       accessorKey: 'bankName',
       header: 'Bank Name',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('bankName')}</div>
+        <div className="text-center cursor-pointer hover:underline">{row.getValue('bankName')}</div>
       ),
     },
     {

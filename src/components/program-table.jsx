@@ -198,34 +198,12 @@ export function ProgramTableDemo() {
   const [selectedFilter, setSelectedFilter] = React.useState('Today')
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
 
     {
       accessorKey: 'name',
       header: 'Name',
-      cell: ({ row }) => (
-        <div className="capitalize text-center cursor-pointer">
+      cell: ({ row }) =>( 
+        <div className="capitalize text-center cursor-pointer hover:underline">
           {row.getValue('name')}
         </div>
       ),
@@ -241,7 +219,7 @@ export function ProgramTableDemo() {
       accessorKey: 'programmanager',
       header: 'Manager',
       cell: ({ row }) => (
-        <div className="text-center cursor-pointer">
+        <div className="text-center cursor-pointer hover:underline">
           {row.getValue('programmanager')}
         </div>
       ),
@@ -551,7 +529,7 @@ export function ProgramTableDemo() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell key={cell.id} >
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
