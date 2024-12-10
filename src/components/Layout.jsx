@@ -3,6 +3,7 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
+import { Toaster } from '@/components/ui/toaster'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -164,6 +165,7 @@ const Layout = () => {
   }, [])
   return (
     <SidebarProvider>
+      <Toaster />
       <AppSidebar />
       <SidebarInset>
         <header className="flex sticky top-0 left-0 z-[20] bg-background rounded-t-lg right-0 h-16 shrink-0 items-center gap-2 justify-between">
