@@ -177,8 +177,10 @@ const data = [
   {
     id: 10,
     card_ref_id: '32XY41',
-    status: 'inactive',
-    last_four_digit: '4453',
+    status: 'active',
+    AddOnCard: true,
+    Physical: true,
+    last_four_digit: '4452',
     product_category: 'Example',
     add_on_card: 'true',
     is_physical: 'true',
@@ -217,7 +219,7 @@ export function IssuedCardsTable() {
         <div className="capitalize">{row.getValue('product_category')}</div>
       ),
     },
-    
+
     {
       header: 'Tags',
       cell: ({ row }) => (
@@ -343,8 +345,8 @@ export function IssuedCardsTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            <div>
-              <DropdownMenu className="max-sm:w-full">
+              <div>
+                <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
                       Sort By <ChevronDown />
@@ -402,34 +404,37 @@ export function IssuedCardsTable() {
                 </DropdownMenu>
               </div>
               <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Column <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {typeof column.columnDef.header === 'string'
+                            ? column.columnDef.header
+                            : ''}{' '}
+                          {/* Render the header if it's a string */}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
@@ -450,9 +455,9 @@ export function IssuedCardsTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
