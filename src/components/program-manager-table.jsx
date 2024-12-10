@@ -68,7 +68,7 @@ const data = [
     totalAmount: '2342.23',
     programs: 2,
     activePrograms: 1,
-    status:'Active',
+    status: 'Active',
     totalCustomers: 50,
     createdAt: '05-10-2023',
   },
@@ -79,7 +79,7 @@ const data = [
     totalAmount: '5678.45',
     programs: 3,
     activePrograms: 2,
-    status:'Active',
+    status: 'Suspended',
     totalCustomers: 120,
     createdAt: '01-10-2023',
   },
@@ -91,7 +91,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 20,
-    status:'Active',
+    status: 'Active',
     createdAt: '12-03-2021',
   },
   {
@@ -102,7 +102,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 75,
-    status:'Active',
+    status: 'Blocked',
     createdAt: '03-02-2022',
   },
   {
@@ -124,7 +124,7 @@ const data = [
     programs: 5,
     activePrograms: 4,
     totalCustomers: 100,
-    status:'Active',
+    status: 'Suspended',
     createdAt: '05-08-2022',
   },
   {
@@ -135,7 +135,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 10,
-    status:'Active',
+    status: 'Active',
     createdAt: '04-01-2021',
   },
   {
@@ -146,7 +146,7 @@ const data = [
     programs: 3,
     activePrograms: 2,
     totalCustomers: 85,
-    status:'Active',
+    status: 'Active',
     createdAt: '11-05-2021',
   },
   {
@@ -157,7 +157,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 90,
-    status:'Suspended',
+    status: 'Active',
     createdAt: '02-08-2024',
   },
   {
@@ -168,7 +168,7 @@ const data = [
     programs: 2,
     activePrograms: 1,
     totalCustomers: 45,
-    status:'Active',
+    status: 'Active',
     createdAt: '09-04-2021',
   },
 ]
@@ -181,7 +181,6 @@ export function ProgramTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-
     {
       accessorKey: 'name',
       header: 'Manager Name',
@@ -205,16 +204,16 @@ export function ProgramTable() {
       accessorKey: 'totalAmount',
       header: 'Total Amount',
       cell: ({ row }) => {
-        const amount = Number(row.original.totalAmount); // Access the raw data directly
+        const amount = Number(row.original.totalAmount) // Access the raw data directly
         // const type = row.original.Type // Access the Type from raw data
         // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
-        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        const [whole, decimal] = amount.toFixed(2).split('.') // Split the amount into whole and decimal parts
         return (
           <div className="text-center flex items-center justify-center">
             <span>₹{whole}</span>
             <span className="text-gray-500">.{decimal}</span>
           </div>
-        );
+        )
       },
     },
     {
@@ -230,12 +229,19 @@ export function ProgramTable() {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => {
-        const status = row.original.status;
-        return(
-        <div className="text-center">{
-          status === 'Active' ? (<Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>) : ( status === 'Suspended' ? (<Badge className="bg-[#F5FBFC] text-[#267A94]">Suspended</Badge>) : (<Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>))
-        }</div>
-      )},
+        const status = row.original.status
+        return (
+          <div className="text-center">
+            {status === 'Active' ? (
+              <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+            ) : status === 'Suspended' ? (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Suspended</Badge>
+            ) : (
+              <Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>
+            )}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'createdAt',
@@ -334,7 +340,7 @@ export function ProgramTable() {
             />
             <div className="flex items-center gap-2">
               <div>
-              <DropdownMenu className="max-sm:w-full">
+                <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
                       Sort By <ChevronDown />
@@ -391,37 +397,39 @@ export function ProgramTable() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-            
+
               <div>
-                
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Column <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {typeof column.columnDef.header === 'string'
+                            ? column.columnDef.header
+                            : ''}{' '}
+                          {/* Render the header if it's a string */}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
               <Link to="/program/create-program">
@@ -443,9 +451,9 @@ export function ProgramTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}

@@ -366,8 +366,8 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                   <SheetHeader>
                     <SheetTitle>Create API Key</SheetTitle>
                     <SheetDescription>
-                      Make changes to your profile here. Click save when
-                      you&apos;re done.
+                      API keys are unique identifiers used to authenticate and
+                      authorize access to APIs.
                     </SheetDescription>
                   </SheetHeader>
                   <Form {...form}>
