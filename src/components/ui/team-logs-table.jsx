@@ -142,17 +142,7 @@ export function TeamLogsTable() {
 
     {
       accessorKey: 'date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Date
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      header: 'Date',
       cell: ({ row }) => (
         <div className="lowercase pl-4">{row.getValue('date')}</div>
       ),

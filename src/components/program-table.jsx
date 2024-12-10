@@ -15,6 +15,7 @@ import {
   ArrowRight,
   CirclePlus,
   MoreHorizontal,
+  Check,
   Pencil,
   Trash2,
   CircleX,
@@ -386,7 +387,7 @@ export function ProgramTableDemo() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
-            <DropdownMenu>
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
                     Sort By <ChevronDown />
@@ -406,31 +407,39 @@ export function ProgramTableDemo() {
                         (valueType === 'number' || !isNaN(parseFloat(sampleValue)))
                       );
                     })
-                    .map((column) => (
-                      <DropdownMenuItem
-                        key={column.id}
-                        className="capitalize"
-                        onSelect={() => {
-                          const currentSorting = table.getState().sorting;
-                          const isCurrentlySorted =
-                            currentSorting.length > 0 && currentSorting[0].id === column.id;
+                    .map((column) => {
+                      const currentSorting = table.getState().sorting;
+                      const isCurrentlySorted =
+                        currentSorting.length > 0 && currentSorting[0].id === column.id;
 
-                          if (isCurrentlySorted) {
-                            // If already sorted by this column, reset sorting
-                            table.setSorting([]);
-                          } else {
-                            // Otherwise, sort by this column in ascending order
-                            table.setSorting([{ id: column.id, desc: true }]);
-                          }
-                        }}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuItem>
-                    ))}
+                      return (
+                        <DropdownMenuItem
+                          key={column.id}
+                          className="capitalize"
+                          onSelect={() => {
+                            if (isCurrentlySorted) {
+                              // If already sorted by this column, reset sorting
+                              table.setSorting([]);
+                            } else {
+                              // Otherwise, sort by this column in ascending order
+                              table.setSorting([{ id: column.id, desc: true }]);
+                            }
+                          }}
+                        >
+                          <span className="flex items-center gap-2">
+                            {isCurrentlySorted && (
+                              <Check/>
+                            )}
+                            {typeof column.columnDef.header === 'string'
+                              ? column.columnDef.header
+                              : ''}
+                          </span>
+                        </DropdownMenuItem>
+                      );
+                    })}
                 </DropdownMenuContent>
               </DropdownMenu>
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
