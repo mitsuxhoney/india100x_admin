@@ -225,7 +225,7 @@ export function AllCustomerTable() {
     },
     {
       accessorKey: 'lastActive',
-      header:'Last Active',
+      header: 'Last Active',
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('lastActive')}</div>
       ),
@@ -311,37 +311,82 @@ export function AllCustomerTable() {
               }
               className="max-w-sm"
             />
-            <div className="flex items-center gap-2">
+            
+              <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
+                    Sort By <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
+                    .filter((column) => {
+                      const rows = table.getCoreRowModel().rows; // Access rows of the table
+                      const sampleValue = rows[0]?.getValue(column.id); // Get a sample value for this column
+                      const valueType = typeof sampleValue;
+
+                      // Check if the column contains integer or float data
+                      return (
+                        column.columnDef.header &&
+                        (valueType === 'number' || !isNaN(parseFloat(sampleValue)))
+                      );
+                    })
                     .map((column) => (
-                      <DropdownMenuCheckboxItem
+                      <DropdownMenuItem
                         key={column.id}
                         className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        onSelect={() => {
+                          const currentSorting = table.getState().sorting;
+                          const isCurrentlySorted =
+                            currentSorting.length > 0 && currentSorting[0].id === column.id;
+
+                          if (isCurrentlySorted) {
+                            // If already sorted by this column, reset sorting
+                            table.setSorting([]);
+                          } else {
+                            // Otherwise, sort by this column in ascending order
+                            table.setSorting([{ id: column.id, desc: true }]);
+                          }
+                        }}
                       >
                         {typeof column.columnDef.header === 'string'
                           ? column.columnDef.header
                           : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
+                      </DropdownMenuItem>
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
-            </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Column <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        >
+                          {typeof column.columnDef.header === 'string'
+                            ? column.columnDef.header
+                            : ''} {/* Render the header if it's a string */}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
           </div>
           <div className="rounded-md border">
             <Table>

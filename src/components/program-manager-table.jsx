@@ -83,7 +83,7 @@ const data = [
     product_id: '3',
     id: '7y4uhki8',
     name: 'Emily Davis',
-    totalAmount: '789.00',
+    totalAmount: '7890.00',
     programs: 1,
     activePrograms: 0,
     totalCustomers: 20,
@@ -169,28 +169,6 @@ export function ProgramTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
 
     {
       accessorKey: 'name',
@@ -280,35 +258,6 @@ export function ProgramTable() {
         )
       },
     },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -361,6 +310,51 @@ export function ProgramTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="ml-auto">
+                    Sort By <ChevronDown />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {table
+                    .getAllColumns()
+                    .filter((column) => {
+                      const rows = table.getCoreRowModel().rows; // Access rows of the table
+                      const sampleValue = rows[0]?.getValue(column.id); // Get a sample value for this column
+                      const valueType = typeof sampleValue;
+
+                      // Check if the column contains integer or float data
+                      return (
+                        column.columnDef.header &&
+                        (valueType === 'number' || !isNaN(parseFloat(sampleValue)))
+                      );
+                    })
+                    .map((column) => (
+                      <DropdownMenuItem
+                        key={column.id}
+                        className="capitalize"
+                        onSelect={() => {
+                          const currentSorting = table.getState().sorting;
+                          const isCurrentlySorted =
+                            currentSorting.length > 0 && currentSorting[0].id === column.id;
+
+                          if (isCurrentlySorted) {
+                            // If already sorted by this column, reset sorting
+                            table.setSorting([]);
+                          } else {
+                            // Otherwise, sort by this column in ascending order
+                            table.setSorting([{ id: column.id, desc: true }]);
+                          }
+                        }}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuItem>
+                    ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
