@@ -113,7 +113,7 @@ const data = [
     programs: 2,
     activePrograms: 2,
     totalCustomers: 65,
-    status:'Active',
+    status:'Blocked',
     createdAt: '07-02-2022',
   },
   {
@@ -157,7 +157,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 90,
-    status:'Active',
+    status:'Suspended',
     createdAt: '02-08-2024',
   },
   {
@@ -233,7 +233,7 @@ export function ProgramTable() {
         const status = row.original.status;
         return(
         <div className="text-center">{
-          status === "Active" ? (<Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>) : ( status === 'Suspended' ? (<Badge className="bg-[#F5FBFC] text-[#267A94]">Suspended</Badge>) : (<Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>))
+          status === 'Active' ? (<Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>) : ( status === 'Suspended' ? (<Badge className="bg-[#F5FBFC] text-[#267A94]">Suspended</Badge>) : (<Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>))
         }</div>
       )},
     },
