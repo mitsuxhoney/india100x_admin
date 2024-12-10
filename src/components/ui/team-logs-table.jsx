@@ -139,19 +139,19 @@ export function TeamLogsTable() {
     },
 
     {
-      accessorKey: 'date',
-      header: 'Date',
-      cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('date')}</div>
-      ),
-    },
-    {
       accessorKey: 'ip_address',
       header: 'IP Address',
       cell: ({ row }) => (
         <div className="lowercase">{row.getValue('ip_address')}</div>
       ),
     },
+    {
+        accessorKey: 'date',
+        header: 'Date',
+        cell: ({ row }) => (
+          <div className="lowercase pl-4">{row.getValue('date')}</div>
+        ),
+      },
   ]
 
   const table = useReactTable({
