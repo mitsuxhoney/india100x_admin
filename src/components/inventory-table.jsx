@@ -209,9 +209,7 @@ export function InventoryTable() {
     // },
     {
       accessorKey: 'product_name',
-      header: ({ column }) => {
-        return <div>Product Name</div>
-      },
+      header: 'Product Name',
       cell: ({ row }) => (
         <div className="lowercase text-center">
           {row.getValue('product_name')}
@@ -220,9 +218,7 @@ export function InventoryTable() {
     },
     {
       accessorKey: 'product_category',
-      header: ({ column }) => {
-        return <div>Product Category</div>
-      },
+      header: 'Product Category',
       cell: ({ row }) => (
         <div className="capitalize text-center">
           {row.getValue('product_category')}
@@ -240,21 +236,12 @@ export function InventoryTable() {
     },
     {
       accessorKey: 'ordered_cards',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Ordered Cards
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      header: 'Ordered Cards',
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('ordered_cards')}</div>
       ),
     },
+    
     {
       header: 'Status',
       cell: ({ row }) => (
@@ -278,17 +265,7 @@ export function InventoryTable() {
     },
     {
       accessorKey: 'created_date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Created Date
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      header: 'Created Date',
       cell: ({ row }) => (
         <div className="lowercase text-center">
           {row.getValue('created_date')}
@@ -418,29 +395,32 @@ export function InventoryTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-              {/* <Link to="/inventory/create-inventory">
+
+              <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
                   {' '}
-                  <CirclePlus /> Add new
+                  <CirclePlus /> Create Order
                 </Button>
-              </Link> */}
+              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -454,9 +434,9 @@ export function InventoryTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

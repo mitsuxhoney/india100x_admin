@@ -66,8 +66,8 @@ const data = [
     "user_id": "U001",
     "name": "Alice Johnson",
     "role": "Administrator",
-    "created_at": "01-01-2024 21:25:00",
-    "updated_at": "01-06-2024 21:25:00",
+    "created_at": "01-01-2024",
+    'team':'ONO',
     "is_active": true
   },
   {
@@ -75,8 +75,8 @@ const data = [
     "user_id": "U002",
     "name": "Bob Smith",
     "role": "Moderator",
-    "created_at": "15-02-2024 21:25:00",
-    "updated_at": "20-07-2024 21:25:00",
+    "created_at": "15-02-2024",
+    'team':'ONO',
     "is_active": false
   },
   {
@@ -84,8 +84,8 @@ const data = [
     "user_id": "U003",
     "name": "Charlie Brown",
     "role": "User",
-    "created_at": "10-03-2024 21:25:00",
-    "updated_at": "05-08-2024 21:25:00",
+    "created_at": "10-03-2024",
+    'team':'ONO',
     "is_active": true
   },
   {
@@ -93,8 +93,8 @@ const data = [
     "user_id": "U004",
     "name": "Diana Prince",
     "role": "Editor",
-    "created_at": "25-04-2024 21:25:00",
-    "updated_at": "10-09-2024 21:25:00",
+    "created_at": "25-04-2024",
+    'team':'ONO',
     "is_active": true
   },
   {
@@ -102,8 +102,8 @@ const data = [
     "user_id": "U005",
     "name": "Evan Williams",
     "role": "Viewer",
-    "created_at": "05-05-2024 21:25:00",
-    "updated_at": "01-10-2024 21:25:00",
+    "created_at": "05-05-2024",
+    'team':'ONO',
     "is_active": false
   }
 ]
@@ -154,42 +154,16 @@ export function SystemUsersTable() {
     },
     {
       accessorKey: 'role',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-
-          >
-            Role
-          </Button>
-        )
-      },
+      header:'Role',
       cell: ({ row }) => (
         <div className="capitalize pl-4">{row.getValue('role')}</div>
       ),
     },
     {
-      accessorKey: 'created_at',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Created At
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      accessorKey: 'team',
+      header:'Team',
       cell: ({ row }) => (
-        <div className="lowercase pl-4">{row.getValue('created_at')}</div>
-      ),
-    },
-    {
-      accessorKey: 'updated_at',
-      header: 'Last Login',
-      cell: ({ row }) => (
-        <div className="lowercase">{row.getValue('updated_at')}</div>
+        <div className="capitalize pl-4">{row.getValue('team')}</div>
       ),
     },
     {
@@ -204,7 +178,13 @@ export function SystemUsersTable() {
         );
       },
     },
-
+    {
+      accessorKey: 'created_at',
+      header: 'Created On',
+      cell: ({ row }) => (
+        <div className="lowercase pl-4">{row.getValue('created_at')}</div>
+      ),
+    },
     {
       accessorKey: 'actions',
       header: '',
@@ -330,23 +310,26 @@ export function SystemUsersTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
             </div>
           </div>
           <div className="rounded-md border">
@@ -360,9 +343,9 @@ export function SystemUsersTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

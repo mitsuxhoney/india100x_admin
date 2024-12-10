@@ -203,31 +203,8 @@ export function IssuedCardsTable() {
       ),
     },
     {
-      accessorKey: 'status',
-      header: 'Status',
-      cell: ({ row }) => {
-        const status = row.getValue('status')
-        return status === 'active' ? (
-          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
-        ) : (
-          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
-        )
-      },
-    },
-
-    {
       accessorKey: 'last_four_digit',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Card Last Four Digits
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      header: 'Card Last Four Digits',
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('last_four_digit')}</div>
       ),
@@ -239,25 +216,9 @@ export function IssuedCardsTable() {
         <div className="capitalize">{row.getValue('product_category')}</div>
       ),
     },
+    
     {
-      accessorKey: 'issued_date',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Issued Date
-            <ArrowUpDown />
-          </Button>
-        )
-      },
-      cell: ({ row }) => (
-        <div className="lowercase ">{row.getValue('issued_date')}</div>
-      ),
-    },
-    {
-      header: ` `,
+      header: 'Tags',
       cell: ({ row }) => (
         <div className="flex items-center justify-start gap-2">
           {Object.keys(fieldIconMap).map((field) => {
@@ -275,6 +236,25 @@ export function IssuedCardsTable() {
             return null
           })}
         </div>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+        return status === 'active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        )
+      },
+    },
+    {
+      accessorKey: 'issued_date',
+      header: 'Issued Date',
+      cell: ({ row }) => (
+        <div className="lowercase ">{row.getValue('issued_date')}</div>
       ),
     },
     {
@@ -371,23 +351,26 @@ export function IssuedCardsTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''} {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
@@ -407,9 +390,9 @@ export function IssuedCardsTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
