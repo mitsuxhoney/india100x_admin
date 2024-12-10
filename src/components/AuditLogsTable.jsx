@@ -74,7 +74,7 @@ const data = [
   },
   {
     id: 2,
-    status: 'error', 
+    status: 'error',
     method: 'POST',
     IP: '192.168.1.2',
     event: 'Login attempt by program manager failed',
@@ -205,8 +205,7 @@ const data = [
     IP: '192.168.1.20',
     event: 'Program manager submitted feedback',
   },
-];
-
+]
 
 export function AuditLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -238,16 +237,7 @@ export function AuditLogsTable() {
     //   enableSorting: false,
     //   enableHiding: false,
     // },
-    {
-      accessorKey: 'id',
-      header: () => {
-        return <div>ID</div>
-      },
-      cell: ({ row }) => (
-        <div className="lowercase text-center">{row.getValue('id')}</div>
-      ),
-    },
-    
+
     {
       accessorKey: 'method',
       header: 'Method',
@@ -276,12 +266,12 @@ export function AuditLogsTable() {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => {
-        const status = row.getValue('status');
+        const status = row.getValue('status')
         return status === 'success' ? (
           <Badge className="bg-[#e4f5e9] text-[#16794c]">Success</Badge>
         ) : (
           <Badge className="bg-[#fff0f0] text-[#b52a2a]">Error</Badge>
-        );
+        )
       },
     },
     // {
