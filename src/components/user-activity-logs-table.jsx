@@ -160,7 +160,7 @@ export function ActivityLogsTable() {
       accessorKey: 'team_member',
       header: 'Team Member',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team_member')}</div>
+        <div className="capitalize cursor-pointer hover:underline">{row.getValue('team_member')}</div>
       ),
     },
 

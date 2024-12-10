@@ -187,13 +187,13 @@ const UserSecurityForm = () => {
           </AlertDialog>
         </div>
       </div>
-      <Separator />
+      {/* <Separator />
       <div className="flex flex-col gap-4">
         <h3 className="font-bold">IP Whitelisting</h3>
         <div className="grid grid-cols-1">
           <IpWhitelistingTable />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

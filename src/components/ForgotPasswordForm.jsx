@@ -34,7 +34,7 @@ function onSubmit(values) {
   console.log(values)
 }
 
-export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
+export function ForgotPasswordForm({ className, ...props }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,7 +57,7 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
   }
 
   return (
-    <div className={cn('grid gap-6', className)} >
+    <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex flex-col gap-4 relative">
@@ -69,40 +69,16 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input
+                        placeholder="Enter your registered email id"
+                        {...field}
+                      />
                     </FormControl>
 
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your password" {...field} />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex justify-end items-start text-sm gap-0 hover:underline">
-                <Link
-                  to=""
-                  onClick={() => {
-                    setIsForgotPasswordClicked(true)
-                  }}
-                >
-                  {isLoading && (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Forgot Password?
-                </Link>
-              </div>
             </div>
             <div className="flex justify-center items-center w-full">
               <Button disabled={isLoading} className="w-full">
@@ -110,7 +86,7 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                   {isLoading && (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  Log in
+                  Send OTP
                 </Link>
               </Button>
             </div>

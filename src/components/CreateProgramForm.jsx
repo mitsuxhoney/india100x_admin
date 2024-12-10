@@ -487,6 +487,7 @@ function CreateProgramForm() {
                               Select the options
                             </FormDescription>
                           </div>
+                          <div className='flex justify-between'>
                           {velocityCodeItems.map((item) => (
                             <FormField
                               key={item.id}
@@ -496,7 +497,7 @@ function CreateProgramForm() {
                                 return (
                                   <FormItem
                                     key={item.id}
-                                    className="flex flex-row items-start space-x-3 space-y-0"
+                                    className="flex flex-row items-start space-x-2 items-center space-y-0"
                                   >
                                     <FormControl>
                                       <Checkbox
@@ -523,6 +524,7 @@ function CreateProgramForm() {
                               }}
                             />
                           ))}
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -679,13 +681,15 @@ function CreateProgramForm() {
                     </div>
                   )}
                 </CardContent>
+                
               </Card>
             </div>
             <div>
               <Card>
                 <CardHeader className="select-none">
-                  <CardTitle>Load Amount</CardTitle>
+                  <CardTitle>Transaction Limitations</CardTitle>
                 </CardHeader>
+                
                 <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-2 gap-6">
                     <FormField
@@ -693,7 +697,7 @@ function CreateProgramForm() {
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Load Min</FormLabel>
+                          <FormLabel>Minimum Load Amount</FormLabel>
                           <FormControl>
                             <Input placeholder="Enter load min" {...field} />
                           </FormControl>
@@ -708,7 +712,7 @@ function CreateProgramForm() {
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Load Max</FormLabel>
+                          <FormLabel>Maximum Load Amount</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
@@ -722,13 +726,6 @@ function CreateProgramForm() {
                     />
                   </div>
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>ATM</CardTitle>
-                </CardHeader>
                 <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                     <FormField
@@ -765,7 +762,7 @@ function CreateProgramForm() {
                       disabled={atmApplicable === 'No'}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Max Per Transaction Limit</FormLabel>
+                          <FormLabel>Maximum ATM Transaction Limit</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
@@ -779,13 +776,6 @@ function CreateProgramForm() {
                     />
                   </div>
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>POS</CardTitle>
-                </CardHeader>
                 <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                     <FormField
@@ -822,7 +812,7 @@ function CreateProgramForm() {
                       disabled={posApplicable === 'No'}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Max Per Transaction Limit</FormLabel>
+                          <FormLabel>Maximum POS Transaction Limit</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
@@ -836,13 +826,6 @@ function CreateProgramForm() {
                     />
                   </div>
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>IMPS</CardTitle>
-                </CardHeader>
                 <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                     <FormField
@@ -879,7 +862,7 @@ function CreateProgramForm() {
                       disabled={impsApplicable === 'No'}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Max Transaction Limit</FormLabel>
+                          <FormLabel>Maximum IMPS Transaction Limit</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
@@ -893,13 +876,6 @@ function CreateProgramForm() {
                     />
                   </div>
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>E-Commerce</CardTitle>
-                </CardHeader>
                 <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                     <FormField
@@ -936,7 +912,7 @@ function CreateProgramForm() {
                       disabled={ecomApplicable === 'No'}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Max Transaction Limit</FormLabel>
+                          <FormLabel>Maximum E-commerce Transaction Limit</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
@@ -950,18 +926,14 @@ function CreateProgramForm() {
                     />
                   </div>
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardContent className="flex flex-col gap-4 select-none mt-4">
+                <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                     <FormField
-                      name="is_self_inventory"
+                      name="contactless_applicable"
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Self Inventory</FormLabel>
+                          <FormLabel>Contactless Applicable</FormLabel>
                           <FormControl>
                             <Select
                               onValueChange={(value) => field.onChange(value)}
@@ -985,16 +957,16 @@ function CreateProgramForm() {
                     />
                     {/* Description Field */}
                     <FormField
-                      name="self_inventory_username"
+                      name="contactless_max"
                       control={form.control}
-                      disabled={isSelfInventory === 'No'}
+                      disabled={contactlessApplicable === 'No'}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Inventory assigned username</FormLabel>
+                          <FormLabel>Maximum Contactless Transaction Limit</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
-                              placeholder="Enter the username"
+                              placeholder="Enter max limit"
                               {...field}
                             />
                           </FormControl>
@@ -1004,22 +976,47 @@ function CreateProgramForm() {
                     />
                   </div>
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardContent className="flex flex-col gap-4 select-none mt-4">
+                <CardContent className="flex flex-col gap-4 select-none">
                   <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
                     <FormField
-                      name="requested_username"
+                      name="offline_applicable"
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Requested username</FormLabel>
+                          <FormLabel>Offline Applicable</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={(value) => field.onChange(value)}
+                              value={field.value}
+                            >
+                              <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Select an option" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Options</SelectLabel>
+                                  <SelectItem value="Yes">Yes</SelectItem>
+                                  <SelectItem value="No">No</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {/* Description Field */}
+                    <FormField
+                      name="offline_max"
+                      control={form.control}
+                      disabled={offlineApplicable === 'No'}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Maximum Offline Transaction Limit</FormLabel>
                           <FormControl>
                             <Input
                               as="textarea"
-                              placeholder="Enter the username"
+                              placeholder="Enter max limit"
                               {...field}
                             />
                           </FormControl>
@@ -1031,33 +1028,9 @@ function CreateProgramForm() {
                 </CardContent>
               </Card>
             </div>
+            
           </div>
           <div className="flex flex-col gap-4">
-            {/* <div>
-              <Card>
-                <CardContent className="flex flex-col gap-4 select-none mt-4">
-                  <div className="grid grid-cols-1">
-                    <FormField
-                      name="channel"
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Channel</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Channel"
-                              {...field}
-                              disabled // Disabled for autofetched data
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </div> */}
             <div>
               <Card>
                 <CardHeader className="select-none">
@@ -1097,13 +1070,6 @@ function CreateProgramForm() {
                     )}
                   />
                 </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>Merchant Details</CardTitle>
-                </CardHeader>
                 <CardContent className="flex flex-col gap-4 select-none">
                   <FormField
                     name="mcc_applicable"
@@ -1193,11 +1159,21 @@ function CreateProgramForm() {
                       <FormItem>
                         <FormLabel>Fee Type</FormLabel>
                         <FormControl>
-                          <Input
-                            as="textarea"
-                            placeholder="Enter fee type"
-                            {...field}
-                          />
+                          <Select
+                            onValueChange={(value) => field.onChange(value)}
+                            value={field.value}
+                          >
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Select an option" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Options</SelectLabel>
+                                <SelectItem value="Shipping Fee">Shipping Fee</SelectItem>
+                                <SelectItem value="Issuing Fee">Issuing Fee</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -1215,42 +1191,6 @@ function CreateProgramForm() {
                             placeholder="Enter fee amount"
                             {...field}
                           />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>JIT</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4 select-none">
-                  <FormField
-                    name="jit"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Allowed or not</FormLabel>
-                        <FormControl>
-                          <Select
-                            onValueChange={(value) => field.onChange(value)}
-                            value={field.value}
-                          >
-                            <SelectTrigger className="w-[180px]">
-                              <SelectValue placeholder="Select an option" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                <SelectLabel>Options</SelectLabel>
-                                <SelectItem value="Yes">Yes</SelectItem>
-                                <SelectItem value="No">No</SelectItem>
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -1325,11 +1265,71 @@ function CreateProgramForm() {
                 </CardContent>
               </Card>
             </div>
+            
             <div>
               <Card>
                 <CardHeader className="select-none">
-                  <CardTitle>Kit To Kit Transfer</CardTitle>
+                  <CardTitle>Include More Details </CardTitle>
                 </CardHeader>
+                <CardContent className="grid md:grid-cols-2 gap-4 select-none">
+                  <div className="flex grid grid-cols-2 xl:grid-cols-2">
+                    <FormField
+                      name="reload_applicable"
+                      control={form.control}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Reload Applicable</FormLabel>
+                          <FormControl>
+                            <Select
+                              onValueChange={(value) => field.onChange(value)}
+                              value={field.value}
+                            >
+                              <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Select an option" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectLabel>Options</SelectLabel>
+                                  <SelectItem value="Yes">Yes</SelectItem>
+                                  <SelectItem value="No">No</SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {/* Description Field */}
+                  </div>
+                  <FormField
+                    name="jit"
+                    control={form.control}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>JIT Applicable</FormLabel>
+                        <FormControl>
+                          <Select
+                            onValueChange={(value) => field.onChange(value)}
+                            value={field.value}
+                          >
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Select an option" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectLabel>Options</SelectLabel>
+                                <SelectItem value="Yes">Yes</SelectItem>
+                                <SelectItem value="No">No</SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
                 <CardContent className="grid md:grid-cols-2 gap-4 select-none">
                   <FormField
                     name="tid_include"
@@ -1416,159 +1416,6 @@ function CreateProgramForm() {
                       </FormItem>
                     )}
                   />
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>Contactless Applicable</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4 select-none">
-                  <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-                    <FormField
-                      name="contactless_applicable"
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Contactless Applicable</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={(value) => field.onChange(value)}
-                              value={field.value}
-                            >
-                              <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Select an option" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectGroup>
-                                  <SelectLabel>Options</SelectLabel>
-                                  <SelectItem value="Yes">Yes</SelectItem>
-                                  <SelectItem value="No">No</SelectItem>
-                                </SelectGroup>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    {/* Description Field */}
-                    <FormField
-                      name="contactless_max"
-                      control={form.control}
-                      disabled={contactlessApplicable === 'No'}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Max Transaction Limit</FormLabel>
-                          <FormControl>
-                            <Input
-                              as="textarea"
-                              placeholder="Enter max limit"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>Offline Applicable</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4 select-none">
-                  <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-                    <FormField
-                      name="offline_applicable"
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Offline Applicable</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={(value) => field.onChange(value)}
-                              value={field.value}
-                            >
-                              <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Select an option" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectGroup>
-                                  <SelectLabel>Options</SelectLabel>
-                                  <SelectItem value="Yes">Yes</SelectItem>
-                                  <SelectItem value="No">No</SelectItem>
-                                </SelectGroup>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    {/* Description Field */}
-                    <FormField
-                      name="offline_max"
-                      control={form.control}
-                      disabled={offlineApplicable === 'No'}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Max Transaction Limit</FormLabel>
-                          <FormControl>
-                            <Input
-                              as="textarea"
-                              placeholder="Enter max limit"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card>
-                <CardHeader className="select-none">
-                  <CardTitle>Reload</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-4 select-none">
-                  <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-                    <FormField
-                      name="reload_applicable"
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Reload Applicable</FormLabel>
-                          <FormControl>
-                            <Select
-                              onValueChange={(value) => field.onChange(value)}
-                              value={field.value}
-                            >
-                              <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Select an option" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectGroup>
-                                  <SelectLabel>Options</SelectLabel>
-                                  <SelectItem value="Yes">Yes</SelectItem>
-                                  <SelectItem value="No">No</SelectItem>
-                                </SelectGroup>
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    {/* Description Field */}
-                  </div>
                 </CardContent>
               </Card>
             </div>

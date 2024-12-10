@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { CalendarDateRangePicker } from './CalendarDateRangePicker'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -15,6 +16,7 @@ import {
   ArrowRight,
   CirclePlus,
   MoreHorizontal,
+  Check,
   Pencil,
   Trash2,
   CircleX,
@@ -179,42 +181,29 @@ const data = [
   },
 ]
 
+const filters = [
+  'Today',
+  'Last 7 days',
+  'Last 30 days',
+  'Last 3 months',
+  'Last 6 months',
+]
+
 export function ProgramTableDemo() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const [selectedFilter, setSelectedFilter] = React.useState('Today')
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
 
     {
       accessorKey: 'name',
       header: 'Name',
-      cell: ({ row }) => (
-        <div className="capitalize text-center cursor-pointer">
+      cell: ({ row }) =>( 
+        <div className="capitalize text-center cursor-pointer hover:underline">
           {row.getValue('name')}
         </div>
       ),
@@ -230,7 +219,7 @@ export function ProgramTableDemo() {
       accessorKey: 'programmanager',
       header: 'Manager',
       cell: ({ row }) => (
-        <div className="text-center cursor-pointer">
+        <div className="text-center cursor-pointer hover:underline">
           {row.getValue('programmanager')}
         </div>
       ),
@@ -244,12 +233,10 @@ export function ProgramTableDemo() {
       ),
     },
 
-    
-
     {
       header: 'Tags',
       cell: ({ row }) => (
-        <div className="flex items-center justify-start gap-2">
+        <div className="flex items-center justify-center gap-2">
           {Object.keys(fieldIconMap).map((field) => {
             if (row.original[field]) {
               return (
@@ -368,6 +355,11 @@ export function ProgramTableDemo() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter)
+    // Apply your filtering logic here based on `filter`
+    console.log(`Filter applied: ${filter}`)
+  }
 
   return (
     <Card>
@@ -376,45 +368,131 @@ export function ProgramTableDemo() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search by Name..."
-              value={table.getColumn('name')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table.getColumn('name')?.setFilterValue(event.target.value)
-              }
-              className="max-w-xs"
-            />
-            <div className="flex items-center gap-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+          <div className="flex items-center py-4 justify-between max-lg:flex max-lg:flex-col max-lg:gap-4 max-lg:items-end max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:items-start">
+            <div className="max-lg:w-full">
+              <Input
+                placeholder="Search by Name..."
+                value={table.getColumn('name')?.getFilterValue() ?? ''}
+                onChange={(event) =>
+                  table.getColumn('name')?.setFilterValue(event.target.value)
+                }
+                className="max-w-xs"
+              />
+            </div>
+            <div className="flex items-center gap-2 max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:items-start">
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      {selectedFilter} <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {filters
+                      .filter((filter) => filter !== selectedFilter)
+                      .map((filter) => (
+                        <DropdownMenuCheckboxItem
+                          key={filter}
+                          onClick={() => handleFilterChange(filter)}
+                        >
+                          {filter}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div>
+                <DropdownMenu className="max-sm:w-full">
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Sort By <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter((column) => {
+                        const rows = table.getCoreRowModel().rows // Access rows of the table
+                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
+                        const valueType = typeof sampleValue
 
+                        // Check if the column contains integer or float data
+                        return (
+                          column.columnDef.header &&
+                          (valueType === 'number' ||
+                            !isNaN(parseFloat(sampleValue)))
+                        )
+                      })
+                      .map((column) => {
+                        const currentSorting = table.getState().sorting
+                        const isCurrentlySorted =
+                          currentSorting.length > 0 &&
+                          currentSorting[0].id === column.id
+
+                        return (
+                          <DropdownMenuItem
+                            key={column.id}
+                            className="capitalize"
+                            onSelect={() => {
+                              if (isCurrentlySorted) {
+                                // If already sorted by this column, reset sorting
+                                table.setSorting([])
+                              } else {
+                                // Otherwise, sort by this column in ascending order
+                                table.setSorting([
+                                  { id: column.id, desc: true },
+                                ])
+                              }
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {isCurrentlySorted && <Check className="" />}
+                              {typeof column.columnDef.header === 'string'
+                                ? column.columnDef.header
+                                : ''}
+                            </span>
+
+                            {/* Display a checkmark if this column is currently sorted */}
+                          </DropdownMenuItem>
+                        )
+                      })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Column <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {typeof column.columnDef.header === 'string'
+                            ? column.columnDef.header
+                            : ''}{' '}
+                          {/* Render the header if it's a string */}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
               <Link to="/programs/create-program">
                 <Button variant="" className="ml-auto">
                   {' '}
@@ -434,9 +512,9 @@ export function ProgramTableDemo() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
@@ -451,7 +529,7 @@ export function ProgramTableDemo() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
+                        <TableCell key={cell.id} >
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()

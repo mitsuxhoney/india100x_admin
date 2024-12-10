@@ -44,6 +44,7 @@ import { Button } from '@/components/ui/button'
 export function NavUser({ user }) {
   const { isMobile } = useSidebar()
   const { toggle } = useSidebar()
+  const { toggleSidebar } = useSidebar()
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -53,8 +54,11 @@ export function NavUser({ user }) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
+              <Avatar className="h-8 w-8 rounded-full">
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -72,8 +76,11 @@ export function NavUser({ user }) {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                <Avatar className="h-8 w-8 rounded-full">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -87,14 +94,10 @@ export function NavUser({ user }) {
             <Link
               to="/account"
               onClick={() => {
-                toggle()
+                toggleSidebar()
               }}
             >
-              <DropdownMenuItem
-                onClick={() => {
-                  toggle()
-                }}
-              >
+              <DropdownMenuItem onClick={() => {}}>
                 <CircleUser />
                 Account
               </DropdownMenuItem>
@@ -103,14 +106,10 @@ export function NavUser({ user }) {
             <Link
               to="/developer"
               onClick={() => {
-                toggle()
+                toggleSidebar()
               }}
             >
-              <DropdownMenuItem
-                onClick={() => {
-                  toggle()
-                }}
-              >
+              <DropdownMenuItem onClick={() => {}}>
                 <CodeXml />
                 Developer
               </DropdownMenuItem>
@@ -119,14 +118,10 @@ export function NavUser({ user }) {
             <Link
               to="/team"
               onClick={() => {
-                toggle()
+                toggleSidebar()
               }}
             >
-              <DropdownMenuItem
-                onClick={() => {
-                  toggle()
-                }}
-              >
+              <DropdownMenuItem onClick={() => {}}>
                 <Users />
                 Team
               </DropdownMenuItem>
@@ -135,7 +130,7 @@ export function NavUser({ user }) {
             {/*  */}
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem className='text-[#b52a2a]'>
+            <DropdownMenuItem className="text-[#b52a2a]">
               <LogOut />
               Log out
             </DropdownMenuItem>

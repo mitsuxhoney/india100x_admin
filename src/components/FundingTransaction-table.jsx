@@ -14,6 +14,7 @@ import {
   ChevronDown,
   ArrowLeft,
   ArrowRight,
+  Check,
   CirclePlus,
   MoreHorizontal,
   Pencil,
@@ -78,14 +79,7 @@ const fieldIconMap = {
     label: 'Failed transaction',
   },
 }
-const transactionColorMap = {
-  credit: {
-    color: 'text-green-500',
-  },
-  debit: {
-    color: 'text-red-500',
-  },
-}
+
 const data = [
   {
     "bankName": "MetroBank",
@@ -93,7 +87,7 @@ const data = [
     "FromAccount": "255616106789",
     "ToAccount": "465465546789",
     "Amount": 9199.99,
-    "Pending": true,
+    "Failed": true,
     "Date": "2023-11-29 08:25:05"
   },
   {
@@ -102,7 +96,7 @@ const data = [
     "FromAccount": "356746109871",
     "ToAccount": "989654327890",
     "Amount": 4500.75,
-    "Pending": false,
+    "Success": true,
     "Date": "2023-11-30 10:15:25"
   },
   {
@@ -120,7 +114,7 @@ const data = [
     "FromAccount": "109876543210",
     "ToAccount": "567890123456",
     "Amount": 150.5,
-    "Pending": false,
+    "Success": true,
     "Date": "2023-12-01 09:45:00"
   },
   {
@@ -138,7 +132,7 @@ const data = [
     "FromAccount": "654321987654",
     "ToAccount": "123456780987",
     "Amount": 1999.99,
-    "Pending": false,
+    "Failed": true,
     "Date": "2023-11-29 17:30:25"
   },
   {
@@ -147,7 +141,7 @@ const data = [
     "FromAccount": "111223344556",
     "ToAccount": "554433221100",
     "Amount": 300.0,
-    "Pending": true,
+    "Failed": true,
     "Date": "2023-12-01 08:00:00"
   },
   {
@@ -165,7 +159,7 @@ const data = [
     "FromAccount": "987651234567",
     "ToAccount": "123459876543",
     "Amount": 1200.0,
-    "Pending": false,
+    "Success": true,
     "Date": "2023-11-28 07:25:55"
   },
   {
@@ -213,7 +207,7 @@ export function FundingTransactionTable() {
       header: 'Reference ID',
       cell: ({ row }) => (
         <Link>
-          <div className="text-center">{row.getValue('cardRefId')}</div>
+          <div className="text-center hover:underline">{row.getValue('cardRefId')}</div>
         </Link>
       ),
     },
@@ -377,6 +371,65 @@ export function FundingTransactionTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
+            <div>
+              <DropdownMenu className="max-sm:w-full">
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Sort By <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter((column) => {
+                        const rows = table.getCoreRowModel().rows // Access rows of the table
+                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
+                        const valueType = typeof sampleValue
+
+                        // Check if the column contains integer or float data
+                        return (
+                          column.columnDef.header &&
+                          (valueType === 'number' ||
+                            !isNaN(parseFloat(sampleValue)))
+                        )
+                      })
+                      .map((column) => {
+                        const currentSorting = table.getState().sorting
+                        const isCurrentlySorted =
+                          currentSorting.length > 0 &&
+                          currentSorting[0].id === column.id
+
+                        return (
+                          <DropdownMenuItem
+                            key={column.id}
+                            className="capitalize"
+                            onSelect={() => {
+                              if (isCurrentlySorted) {
+                                // If already sorted by this column, reset sorting
+                                table.setSorting([])
+                              } else {
+                                // Otherwise, sort by this column in ascending order
+                                table.setSorting([
+                                  { id: column.id, desc: true },
+                                ])
+                              }
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {isCurrentlySorted && <Check className="" />}
+                              {typeof column.columnDef.header === 'string'
+                                ? column.columnDef.header
+                                : ''}
+                            </span>
+
+                            {/* Display a checkmark if this column is currently sorted */}
+                          </DropdownMenuItem>
+                        )
+                      })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
@@ -405,7 +458,7 @@ export function FundingTransactionTable() {
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
+              </div>
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
                   <CirclePlus /> Add new

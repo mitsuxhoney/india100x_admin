@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { Badge } from '@/components/ui/badge'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -15,6 +16,7 @@ import {
   ArrowRight,
   CirclePlus,
   MoreHorizontal,
+  Check,
   Pencil,
   Trash2,
   CircleX,
@@ -66,6 +68,7 @@ const data = [
     totalAmount: '2342.23',
     programs: 2,
     activePrograms: 1,
+    status: 'Active',
     totalCustomers: 50,
     createdAt: '05-10-2023',
   },
@@ -76,6 +79,7 @@ const data = [
     totalAmount: '5678.45',
     programs: 3,
     activePrograms: 2,
+    status: 'Suspended',
     totalCustomers: 120,
     createdAt: '01-10-2023',
   },
@@ -83,10 +87,11 @@ const data = [
     product_id: '3',
     id: '7y4uhki8',
     name: 'Emily Davis',
-    totalAmount: '789.00',
+    totalAmount: '7890.00',
     programs: 1,
     activePrograms: 0,
     totalCustomers: 20,
+    status: 'Active',
     createdAt: '12-03-2021',
   },
   {
@@ -97,6 +102,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 75,
+    status: 'Blocked',
     createdAt: '03-02-2022',
   },
   {
@@ -107,6 +113,7 @@ const data = [
     programs: 2,
     activePrograms: 2,
     totalCustomers: 65,
+    status:'Blocked',
     createdAt: '07-02-2022',
   },
   {
@@ -117,6 +124,7 @@ const data = [
     programs: 5,
     activePrograms: 4,
     totalCustomers: 100,
+    status: 'Suspended',
     createdAt: '05-08-2022',
   },
   {
@@ -127,6 +135,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 10,
+    status: 'Active',
     createdAt: '04-01-2021',
   },
   {
@@ -137,6 +146,7 @@ const data = [
     programs: 3,
     activePrograms: 2,
     totalCustomers: 85,
+    status: 'Active',
     createdAt: '11-05-2021',
   },
   {
@@ -147,6 +157,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 90,
+    status: 'Active',
     createdAt: '02-08-2024',
   },
   {
@@ -157,6 +168,7 @@ const data = [
     programs: 2,
     activePrograms: 1,
     totalCustomers: 45,
+    status: 'Active',
     createdAt: '09-04-2021',
   },
 ]
@@ -169,34 +181,11 @@ export function ProgramTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
-    // {
-    //   id: 'select',
-    //   header: ({ table }) => (
-    //     <Checkbox
-    //       checked={
-    //         table.getIsAllPageRowsSelected() ||
-    //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-    //       }
-    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-    //       aria-label="Select all"
-    //     />
-    //   ),
-    //   cell: ({ row }) => (
-    //     <Checkbox
-    //       checked={row.getIsSelected()}
-    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-    //       aria-label="Select row"
-    //     />
-    //   ),
-    //   enableSorting: false,
-    //   enableHiding: false,
-    // },
-
     {
       accessorKey: 'name',
       header: 'Manager Name',
       cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('name')}</div>
+        <div className="capitalize text-center hover:underline">{row.getValue('name')}</div>
       ),
     },
     {
@@ -215,16 +204,16 @@ export function ProgramTable() {
       accessorKey: 'totalAmount',
       header: 'Total Amount',
       cell: ({ row }) => {
-        const amount = Number(row.original.totalAmount); // Access the raw data directly
+        const amount = Number(row.original.totalAmount) // Access the raw data directly
         // const type = row.original.Type // Access the Type from raw data
         // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
-        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        const [whole, decimal] = amount.toFixed(2).split('.') // Split the amount into whole and decimal parts
         return (
           <div className="text-center flex items-center justify-center">
             <span>₹{whole}</span>
             <span className="text-gray-500">.{decimal}</span>
           </div>
-        );
+        )
       },
     },
     {
@@ -235,6 +224,24 @@ export function ProgramTable() {
           {row.getValue('totalCustomers')}
         </div>
       ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.original.status
+        return (
+          <div className="text-center">
+            {status === 'Active' ? (
+              <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+            ) : status === 'Suspended' ? (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Suspended</Badge>
+            ) : (
+              <Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>
+            )}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'createdAt',
@@ -280,35 +287,6 @@ export function ProgramTable() {
         )
       },
     },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -361,34 +339,98 @@ export function ProgramTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div>
+                <DropdownMenu className="max-sm:w-full">
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Sort By <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter((column) => {
+                        const rows = table.getCoreRowModel().rows // Access rows of the table
+                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
+                        const valueType = typeof sampleValue
+
+                        // Check if the column contains integer or float data
+                        return (
+                          column.columnDef.header &&
+                          (valueType === 'number' ||
+                            !isNaN(parseFloat(sampleValue)))
+                        )
+                      })
+                      .map((column) => {
+                        const currentSorting = table.getState().sorting
+                        const isCurrentlySorted =
+                          currentSorting.length > 0 &&
+                          currentSorting[0].id === column.id
+
+                        return (
+                          <DropdownMenuItem
+                            key={column.id}
+                            className="capitalize"
+                            onSelect={() => {
+                              if (isCurrentlySorted) {
+                                // If already sorted by this column, reset sorting
+                                table.setSorting([])
+                              } else {
+                                // Otherwise, sort by this column in ascending order
+                                table.setSorting([
+                                  { id: column.id, desc: true },
+                                ])
+                              }
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {isCurrentlySorted && <Check className="" />}
+                              {typeof column.columnDef.header === 'string'
+                                ? column.columnDef.header
+                                : ''}
+                            </span>
+
+                            {/* Display a checkmark if this column is currently sorted */}
+                          </DropdownMenuItem>
+                        )
+                      })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Column <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {typeof column.columnDef.header === 'string'
+                            ? column.columnDef.header
+                            : ''}{' '}
+                          {/* Render the header if it's a string */}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
               <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
@@ -409,9 +451,9 @@ export function ProgramTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}

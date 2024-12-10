@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   ArrowRight,
   MoreHorizontal,
+  Check,
   CirclePlus,
   Pencil,
   Trash2,
@@ -149,7 +150,7 @@ export function SystemUsersTable() {
       accessorKey: 'name',
       header: 'Name',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('name')}</div>
+        <div className="capitalize cursor-pointer hover:underline">{row.getValue('name')}</div>
       ),
     },
     {
@@ -301,6 +302,65 @@ export function SystemUsersTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
+            <div>
+              <DropdownMenu className="max-sm:w-full">
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Sort By <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter((column) => {
+                        const rows = table.getCoreRowModel().rows // Access rows of the table
+                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
+                        const valueType = typeof sampleValue
+
+                        // Check if the column contains integer or float data
+                        return (
+                          column.columnDef.header &&
+                          (valueType === 'number' ||
+                            !isNaN(parseFloat(sampleValue)))
+                        )
+                      })
+                      .map((column) => {
+                        const currentSorting = table.getState().sorting
+                        const isCurrentlySorted =
+                          currentSorting.length > 0 &&
+                          currentSorting[0].id === column.id
+
+                        return (
+                          <DropdownMenuItem
+                            key={column.id}
+                            className="capitalize"
+                            onSelect={() => {
+                              if (isCurrentlySorted) {
+                                // If already sorted by this column, reset sorting
+                                table.setSorting([])
+                              } else {
+                                // Otherwise, sort by this column in ascending order
+                                table.setSorting([
+                                  { id: column.id, desc: true },
+                                ])
+                              }
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {isCurrentlySorted && <Check className="" />}
+                              {typeof column.columnDef.header === 'string'
+                                ? column.columnDef.header
+                                : ''}
+                            </span>
+
+                            {/* Display a checkmark if this column is currently sorted */}
+                          </DropdownMenuItem>
+                        )
+                      })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
@@ -329,7 +389,7 @@ export function SystemUsersTable() {
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
+              </div>
             </div>
           </div>
           <div className="rounded-md border">

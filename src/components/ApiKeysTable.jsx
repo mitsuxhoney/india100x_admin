@@ -9,6 +9,27 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from '@/components/ui/dialog'
+import { Copy, Plus } from 'lucide-react'
+import {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+} from '@/components/ui/form'
+import {
   ArrowUpDown,
   SquarePen,
   Trash2Icon,
@@ -22,6 +43,18 @@ import {
   CircleX,
   Trash,
 } from 'lucide-react'
+
+import { Label } from '@/components/ui/label'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 
 import { Badge } from '@/components/ui/badge'
 
@@ -62,6 +95,25 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { useState } from 'react'
+
+const formSchema = z.object({
+  webhook_url: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+  accessor_key: z.string().min(2, {
+    message: 'Username must be at least 2 characters.',
+  }),
+})
+
+function onSubmit(values) {
+  // Do something with the form values.
+  // ✅ This will be type-safe and validated.
+  console.log(values)
+}
 
 const data = [
   {
@@ -77,13 +129,22 @@ const data = [
     api_key: 'abcd1234efgh5678',
   },
 ]
+import { useToast } from '@/hooks/use-toast'
 
-export function ApiKeysTable() {
+export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const { toast } = useToast()
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+    },
+  })
 
   const columns = [
     // {
@@ -163,38 +224,6 @@ export function ApiKeysTable() {
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
-          <div className="flex items-center justify-center gap-2">
-            <Button variant="outline" className="rounded-[50%]">
-              <Trash2Icon />
-            </Button>
-          </div>
-          // <DropdownMenu>
-          //   <DropdownMenuTrigger asChild>
-          //     <Button variant="ghost" className="h-8 w-8 p-0">
-          //       <span className="sr-only">Open menu</span>
-          //       <MoreHorizontal />
-          //     </Button>
-          //   </DropdownMenuTrigger>
-          //   <DropdownMenuContent align="end">
-          //     <DropdownMenuItem
-          //       className="cursor-pointer"
-          //       onClick={() => navigator.clipboard.writeText(payment.id)}
-          //     >
-          //       Approve
-          //     </DropdownMenuItem>
-          //     <DropdownMenuItem
-          //       className="cursor-pointer"
-          //       onClick={() => navigator.clipboard.writeText(payment.id)}
-          //     >
-          //       Reject
-          //     </DropdownMenuItem>
-          //   </DropdownMenuContent>
-          // </DropdownMenu>
-        )
-      },
-      cell: ({ row }) => {
-        const rowData = row.original // Get the entire row's data for actions
-        return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
@@ -218,7 +247,7 @@ export function ApiKeysTable() {
             </DropdownMenuContent>
           </DropdownMenu>
         )
-      }, 
+      },
     },
     // {
     //   id: 'actions',
@@ -329,11 +358,89 @@ export function ApiKeysTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Link to="/inventory/create-inventory">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Create API Key
-                </Button>
-              </Link>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button>Create API key</Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Create API Key</SheetTitle>
+                    <SheetDescription>
+                      API keys are unique identifiers used to authenticate and
+                      authorize access to APIs.
+                    </SheetDescription>
+                  </SheetHeader>
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-4 mt-2"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>API</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter the name" {...field} />
+                            </FormControl>
+                            {/* <FormDescription>
+                  A webhook URL is an endpoint that allows external systems to
+                  send real-time data or notifications to your application over
+                  HTTP when certain events occur.
+                </FormDescription> */}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <div className="flex gap-4 items-end">
+                        <div className="w-[97%]">
+                          <FormField
+                            control={form.control}
+                            name="secret_key"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Secret Key</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="sdfssdfdswasdgnsd76sadas"
+                                    disabled
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <Button variant="outline">
+                          <Copy />
+                        </Button>
+                        {/* <Button variant="outline" className="">
+                Generate secret
+              </Button> */}
+                      </div>
+                    </form>
+                  </Form>
+                  <SheetFooter>
+                    <SheetClose asChild>
+                      <div className="mt-4">
+                        <Button
+                          type="submit"
+                          onClick={() => {
+                            toast({
+                              title: 'New API key generated',
+                            })
+                          }}
+                        >
+                          Create API key
+                        </Button>
+                      </div>
+                    </SheetClose>
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
           <div className="rounded-md border">
