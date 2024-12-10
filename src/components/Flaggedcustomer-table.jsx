@@ -21,6 +21,8 @@ import {
   CircleX,
 } from 'lucide-react'
 
+import { Badge } from '@/components/ui/badge'
+
 import {
   AlertDialog,
   AlertDialogTitle,
@@ -61,105 +63,71 @@ import {
 
 const data = [
   {
-    "product_id": "1",
-    "customerId": "123456781",
-    "ProgramManager": "Privacy Card",
-    "FlagType": "Suspicious Transactions",
-    "FlaggedActivityDescription": "Multiple failed login attempts",
-    "IpAddress": "127.0.32.1",
-    "CreatedBy": "Admin32",
-    "LastActive": "01-12-2023"
+    product_id: '1',
+    customerId: '123456781',
+    ProgramManager: 'Privacy Card',
+    FlagType: 'Suspicious Transactions',
+    FlaggedActivityDescription: 'Multiple failed login attempts',
+    IpAddress: '127.0.32.1',
+    priority: 'high',
+    CreatedBy: 'Admin32',
+    LastActive: '01-12-2023',
   },
   {
-    "product_id": "2",
-    "customerId": "123452789",
-    "ProgramManager": "Rewards Program",
-    "FlagType": "Chargeback",
-    "FlaggedActivityDescription": "Unauthorized chargeback claim",
-    "IpAddress": "192.168.0.12",
-    "CreatedBy": "System",
-    "LastActive": "25-11-2023"
+    product_id: '2',
+    customerId: '123452789',
+    ProgramManager: 'Business Card',
+    FlagType: 'Suspicious Transactions',
+    FlaggedActivityDescription: 'Multiple failed login attempts',
+    IpAddress: '127.0.32.1',
+    priority: 'medium',
+    CreatedBy: 'Manager1',
+    LastActive: '01-12-2023',
   },
   {
-    "product_id": "3",
-    "customerId": "123426789",
-    "ProgramManager": "Merchant Payments",
-    "FlagType": "Violation of Terms",
-    "FlaggedActivityDescription": "Abuse of promotional credits",
-    "IpAddress": "10.10.15.6",
-    "CreatedBy": "Admin42",
-    "LastActive": "30-11-2023"
+    product_id: '3',
+    customerId: '123456789',
+    ProgramManager: 'Travel Card',
+    FlagType: 'Suspicious Transactions',
+    FlaggedActivityDescription: 'Multiple failed login attempts',
+    IpAddress: '127.0.32.1',
+    priority: 'low',
+    CreatedBy: 'SupervisorX',
+    LastActive: '01-12-2023',
   },
   {
-    "product_id": "4",
-    "customerId": "123456789",
-    "ProgramManager": "Account Management",
-    "FlagType": "High-Risk Account",
-    "FlaggedActivityDescription": "Unusual account behavior detected",
-    "IpAddress": "172.20.10.5",
-    "CreatedBy": "RiskBot",
-    "LastActive": "03-12-2023"
+    product_id: '4',
+    customerId: '123456789',
+    ProgramManager: 'Travel Card',
+    FlagType: 'Suspicious Transactions',
+    FlaggedActivityDescription: 'Multiple failed login attempts',
+    IpAddress: '127.0.32.1',
+    priority: 'low',
+    CreatedBy: 'SupervisorX',
+    LastActive: '01-12-2023',
   },
   {
-    "product_id": "5",
-    "customerId": "123456789",
-    "ProgramManager": "Premium Savings",
-    "FlagType": "Suspicious Transactions",
-    "FlaggedActivityDescription": "Large withdrawal flagged for review",
-    "IpAddress": "203.0.113.45",
-    "CreatedBy": "Admin53",
-    "LastActive": "02-12-2023"
+    product_id: '5',
+    customerId: '123456789',
+    ProgramManager: 'Travel Card',
+    FlagType: 'Suspicious Transactions',
+    FlaggedActivityDescription: 'Multiple failed login attempts',
+    IpAddress: '127.0.32.1',
+    priority: 'low',
+    CreatedBy: 'SupervisorX',
+    LastActive: '01-12-2023',
   },
   {
-    "product_id": "6",
-    "customerId": "123456789",
-    "ProgramManager": "Corporate Cards",
-    "FlagType": "Fraudulent Activity",
-    "FlaggedActivityDescription": "Multiple transactions flagged in a short time",
-    "IpAddress": "198.51.100.77",
-    "CreatedBy": "FraudBot",
-    "LastActive": "28-11-2023"
+    product_id: '6',
+    customerId: '123456789',
+    ProgramManager: 'Travel Card',
+    FlagType: 'Suspicious Transactions',
+    FlaggedActivityDescription: 'Multiple failed login attempts',
+    IpAddress: '127.0.32.1',
+    priority: 'low',
+    CreatedBy: 'SupervisorX',
+    LastActive: '01-12-2023',
   },
-  {
-    "product_id": "7",
-    "customerId": "123456789",
-    "ProgramManager": "Online Wallet",
-    "FlagType": "Account Takeover",
-    "FlaggedActivityDescription": "Password reset attempted from unknown device",
-    "IpAddress": "192.0.2.33",
-    "CreatedBy": "System",
-    "LastActive": "04-12-2023"
-  },
-  {
-    "product_id": "8",
-    "customerId": "123456789",
-    "ProgramManager": "Investment Plans",
-    "FlagType": "Data Breach Risk",
-    "FlaggedActivityDescription": "Account flagged after potential data exposure",
-    "IpAddress": "203.123.45.67",
-    "CreatedBy": "Admin76",
-    "LastActive": "27-11-2023"
-  },
-  {
-    "product_id": "9",
-    "customerId": "123456789",
-    "ProgramManager": "Cashback Offers",
-    "FlagType": "Fraudulent Activity",
-    "FlaggedActivityDescription": "Discrepancy in cashback claims",
-    "IpAddress": "192.168.1.25",
-    "CreatedBy": "System",
-    "LastActive": "29-11-2023"
-  },
-  {
-    "product_id": "10",
-    "customerId": "123456789",
-    "ProgramManager": "Loan Services",
-    "FlagType": "Suspicious Login",
-    "FlaggedActivityDescription": "Login from multiple countries in 24 hours fnrekjhfoew e fei foiief weoifj weoif oiwe foeiw f",
-    "IpAddress": "10.0.0.8",
-    "CreatedBy": "Admin88",
-    "LastActive": "05-12-2023"
-  }
 ]
 
 export function FlaggedCustomerTable() {
@@ -215,35 +183,58 @@ export function FlaggedCustomerTable() {
     {
       accessorKey: 'FlagType',
       header: 'Flag Type',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('FlagType')}</div>
-      ),
+      cell: ({ row }) => {
+        return <div className="text-center">{row.getValue('FlagType')}</div>
+      },
     },
+
     {
       accessorKey: 'FlaggedActivityDescription',
       header: 'Flagged Activity Description',
       cell: ({ row }) => {
-        const description = row.getValue('FlaggedActivityDescription');
-        const descriptionLength = description.length;
+        const description = row.getValue('FlaggedActivityDescription')
+        const descriptionLength = description.length
 
         // Calculate font size based on description length
-        const fontSize = descriptionLength > 100 ? 'text-xs' : descriptionLength > 50 ? 'text-sm' : 'text-base';
+        const fontSize =
+          descriptionLength > 100
+            ? 'text-xs'
+            : descriptionLength > 50
+            ? 'text-sm'
+            : 'text-base'
 
-        return (
-          <div className={`text-center ${fontSize}`}>
-            {description}
-          </div>
-        );
+        return <div className={`text-center ${fontSize}`}>{description}</div>
       },
     },
-    
+    {
+      accessorKey: 'priority',
+      header: 'Priority',
+      cell: ({ row }) => {
+        const priority = row.original.priority
+        return (
+          <div className="text-center">
+            {priority === 'high' ? (
+              <Badge className="bg-[#fff0f0] text-[#b52a2a]">High</Badge>
+            ) : priority === 'low' ? (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Low</Badge>
+            ) : (
+              <Badge className="bg-[#e3f2fd] text-[#1976d2]">Medium</Badge>
+            )}
+          </div>
+        )
+      },
+    },
+
     {
       accessorKey: 'LastActive',
       header: 'Last Active',
       cell: ({ row }) => (
-        <div className="text-center min-w-[80px]">{row.getValue('LastActive')}</div>
+        <div className="text-center min-w-[80px]">
+          {row.getValue('LastActive')}
+        </div>
       ),
     },
+
     {
       accessorKey: 'actions',
       header: '',
@@ -258,12 +249,14 @@ export function FlaggedCustomerTable() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Activate
               </DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'
+              <DropdownMenuItem
+                className="cursor-pointer"
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
                 Block
@@ -325,65 +318,54 @@ export function FlaggedCustomerTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            <div>
-              <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="ml-auto">
+                    Sort By <ChevronDown />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {table
+                    .getAllColumns()
+                    .filter((column) => {
+                      const rows = table.getCoreRowModel().rows // Access rows of the table
+                      const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
+                      const valueType = typeof sampleValue
 
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
+                      // Check if the column contains integer or float data
+                      return (
+                        column.columnDef.header &&
+                        (valueType === 'number' ||
+                          !isNaN(parseFloat(sampleValue)))
+                      )
+                    })
+                    .map((column) => (
+                      <DropdownMenuItem
+                        key={column.id}
+                        className="capitalize"
+                        onSelect={() => {
+                          const currentSorting = table.getState().sorting
+                          const isCurrentlySorted =
+                            currentSorting.length > 0 &&
+                            currentSorting[0].id === column.id
 
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            {/* Display a checkmark if this column is currently sorted */}
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              <div>
+                          if (isCurrentlySorted) {
+                            // If already sorted by this column, reset sorting
+                            table.setSorting([])
+                          } else {
+                            // Otherwise, sort by this column in ascending order
+                            table.setSorting([{ id: column.id, desc: true }])
+                          }
+                        }}
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''}{' '}
+                        {/* Render the header if it's a string */}
+                      </DropdownMenuItem>
+                    ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
@@ -403,16 +385,18 @@ export function FlaggedCustomerTable() {
                         key={column.id}
                         className="capitalize"
                         checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
                       >
                         {typeof column.columnDef.header === 'string'
                           ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
+                          : ''}{' '}
+                        {/* Render the header if it's a string */}
                       </DropdownMenuCheckboxItem>
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-              </div>
             </div>
           </div>
           <div className="rounded-md border">
@@ -426,9 +410,9 @@ export function FlaggedCustomerTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}

@@ -132,9 +132,7 @@ export function TeamLogsTable() {
     },
     {
       accessorKey: 'event',
-      header: ({ column }) => {
-        return <Button variant="ghost">Event</Button>
-      },
+      header: 'Event',
       cell: ({ row }) => (
         <div className="capitalize pl-4">{row.getValue('event')}</div>
       ),
@@ -214,21 +212,26 @@ export function TeamLogsTable() {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      )
-                    })}
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && // Check if the column can be hidden
+                        column.columnDef.header // Ensure the column has a defined header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {typeof column.columnDef.header === 'string'
+                          ? column.columnDef.header
+                          : ''}{' '}
+                        {/* Render the header if it's a string */}
+                      </DropdownMenuCheckboxItem>
+                    ))}
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

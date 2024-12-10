@@ -79,14 +79,7 @@ const fieldIconMap = {
     label: 'Failed transaction',
   },
 }
-const transactionColorMap = {
-  credit: {
-    color: 'text-green-500',
-  },
-  debit: {
-    color: 'text-red-500',
-  },
-}
+
 const data = [
   {
     "bankName": "MetroBank",
@@ -94,7 +87,7 @@ const data = [
     "FromAccount": "255616106789",
     "ToAccount": "465465546789",
     "Amount": 9199.99,
-    "Pending": true,
+    "Failed": true,
     "Date": "2023-11-29 08:25:05"
   },
   {
@@ -103,7 +96,7 @@ const data = [
     "FromAccount": "356746109871",
     "ToAccount": "989654327890",
     "Amount": 4500.75,
-    "Pending": false,
+    "Success": true,
     "Date": "2023-11-30 10:15:25"
   },
   {
@@ -121,7 +114,7 @@ const data = [
     "FromAccount": "109876543210",
     "ToAccount": "567890123456",
     "Amount": 150.5,
-    "Pending": false,
+    "Success": true,
     "Date": "2023-12-01 09:45:00"
   },
   {
@@ -139,7 +132,7 @@ const data = [
     "FromAccount": "654321987654",
     "ToAccount": "123456780987",
     "Amount": 1999.99,
-    "Pending": false,
+    "Failed": true,
     "Date": "2023-11-29 17:30:25"
   },
   {
@@ -148,7 +141,7 @@ const data = [
     "FromAccount": "111223344556",
     "ToAccount": "554433221100",
     "Amount": 300.0,
-    "Pending": true,
+    "Failed": true,
     "Date": "2023-12-01 08:00:00"
   },
   {
@@ -166,7 +159,7 @@ const data = [
     "FromAccount": "987651234567",
     "ToAccount": "123459876543",
     "Amount": 1200.0,
-    "Pending": false,
+    "Success": true,
     "Date": "2023-11-28 07:25:55"
   },
   {
