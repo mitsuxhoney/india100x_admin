@@ -37,12 +37,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
+  SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar()
-
+  const { toggle } = useSidebar()
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -83,22 +84,49 @@ export function NavUser({ user }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            <Link to="/account">
-              <DropdownMenuItem>
+            <Link
+              to="/account"
+              onClick={() => {
+                toggle()
+              }}
+            >
+              <DropdownMenuItem
+                onClick={() => {
+                  toggle()
+                }}
+              >
                 <CircleUser />
                 Account
               </DropdownMenuItem>
             </Link>
 
-            <Link to="/developer">
-              <DropdownMenuItem>
+            <Link
+              to="/developer"
+              onClick={() => {
+                toggle()
+              }}
+            >
+              <DropdownMenuItem
+                onClick={() => {
+                  toggle()
+                }}
+              >
                 <CodeXml />
                 Developer
               </DropdownMenuItem>
             </Link>
 
-            <Link to="/team">
-              <DropdownMenuItem>
+            <Link
+              to="/team"
+              onClick={() => {
+                toggle()
+              }}
+            >
+              <DropdownMenuItem
+                onClick={() => {
+                  toggle()
+                }}
+              >
                 <Users />
                 Team
               </DropdownMenuItem>
@@ -107,7 +135,7 @@ export function NavUser({ user }) {
             {/*  */}
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className='text-[#b52a2a]'>
               <LogOut />
               Log out
             </DropdownMenuItem>
