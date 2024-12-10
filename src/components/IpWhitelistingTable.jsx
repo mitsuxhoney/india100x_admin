@@ -58,6 +58,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { Badge } from '@/components/ui/badge'
+
 const data = [
   {
     date: '24-12-2024 22:44:00',
@@ -176,10 +178,15 @@ const IpWhitelistingTable = () => {
     },
     {
       accessorKey: 'status',
-      header: 'status',
-      cell: ({ row }) => (
-        <div className="capitalize text-center">{row.getValue('status')}</div>
-      ),
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+        return status === 'Active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>
+        )
+      },
     },
     {
       accessorKey: 'actions',

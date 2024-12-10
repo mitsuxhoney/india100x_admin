@@ -8,8 +8,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
+import { Copy, Plus } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 import {
   useFormField,
   Form,
@@ -54,42 +56,74 @@ export default function WebhooksTabs() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="webhook_url"
+            name="name"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>Webhook Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter the url" {...field} />
+                  <Input placeholder="Enter the name" {...field} />
                 </FormControl>
-                <FormDescription>
+                {/* <FormDescription>
                   A webhook URL is an endpoint that allows external systems to
                   send real-time data or notifications to your application over
                   HTTP when certain events occur.
-                </FormDescription>
+                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="accessor_key"
+            name="webhook_url"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>URL</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter the accessor key" {...field} />
+                  <Input placeholder="Enter the url" {...field} />
                 </FormControl>
-                <FormDescription>
-                  A webhook URL accessor key is a unique identifier used to
-                  authenticate and authorize access to the webhook URL for
-                  secure data transmission.
-                </FormDescription>
+                {/* <FormDescription>
+                  A webhook URL is an endpoint that allows external systems to
+                  send real-time data or notifications to your application over
+                  HTTP when certain events occur.
+                </FormDescription> */}
                 <FormMessage />
               </FormItem>
             )}
           />
+          <div className="flex gap-4 items-end">
+            <div className="w-[40%]">
+              <FormField
+                control={form.control}
+                name="secret_key"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Secret Key</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter the secret key" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button variant="outline">
+              <Copy />
+            </Button>
+            <Button variant="outline" className="">
+              Generate secret
+            </Button>
+          </div>
 
-          <Button type="submit">Send</Button>
+          <Button
+            className="flex items-center gap-1 justify-center"
+            type="submit"
+          >
+            {/* <Plus /> */}
+            Create
+          </Button>
         </form>
       </Form>
+      <Separator />
       <div className="grid grid-cols-1 gap-4">
         <WebhooksTable />
       </div>

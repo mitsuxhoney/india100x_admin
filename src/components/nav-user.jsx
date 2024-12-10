@@ -135,7 +135,7 @@ export function NavUser({ user }) {
             {/*  */}
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className='text-[#b52a2a]'>
               <LogOut />
               Log out
             </DropdownMenuItem>

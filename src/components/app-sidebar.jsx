@@ -69,8 +69,8 @@ import {
 
 const sidebarData = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
+    name: 'Harshit',
+    email: 'harshit@gmail.com',
     avatar: '/avatars/shadcn.jpg',
   },
   overview: [

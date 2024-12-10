@@ -15,17 +15,6 @@ const ApiKeys = () => {
       </div>
 
       <Separator />
-      <div className="space-y-6 select-none">
-        <h3 className="text-lg font-medium">Your Personal Key</h3>
-        <div className="grid grid-cols-1 gap-4 items-center w-[23rem] max-sm:w-full">
-          <Input value="XFER Default name" disabled={true}></Input>
-          <Input value="XFER Default API Key" disabled={true}></Input>
-        </div>
-        <div>
-          <Button variant="outline">Reset Key</Button>
-        </div>
-      </div>
-      <Separator />
       <div className="grid grid-cols-1 gap-4">
         <ApiKeysTable />
       </div>
