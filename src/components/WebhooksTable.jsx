@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetClose,
@@ -10,8 +10,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Label } from "@/components/ui/label"
+} from '@/components/ui/sheet'
+import { Label } from '@/components/ui/label'
 import {
   useFormField,
   Form,
@@ -42,7 +42,6 @@ import {
   Trash2,
   CircleX,
 } from 'lucide-react'
-
 
 import { Badge } from '@/components/ui/badge'
 
@@ -317,13 +316,13 @@ const WebhooksTable = () => {
     // ✅ This will be type-safe and validated.
     console.log(values)
   }
-  
+
   return (
     <Card>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">
-          <Input
+            <Input
               placeholder="Search by URL..."
               value={table.getColumn('team_member')?.getFilterValue() ?? ''}
               onChange={(event) =>
@@ -335,18 +334,23 @@ const WebhooksTable = () => {
             />
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline">Create a Webhook</Button>
+                <Button>Create a Webhook</Button>
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
                   <SheetTitle>Create a Webhook</SheetTitle>
                   <SheetDescription>
-                    Make changes to your profile here. Click save when you're done.
+                    A webhook interface is a system that allows receiving,
+                    processing, and responding to HTTP POST requests triggered
+                    by specific events from external sources.
                   </SheetDescription>
                 </SheetHeader>
 
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-4 mt-4"
+                  >
                     <FormField
                       control={form.control}
                       name="name"
@@ -392,7 +396,10 @@ const WebhooksTable = () => {
                             <FormItem>
                               <FormLabel>Secret Key</FormLabel>
                               <FormControl>
-                                <Input placeholder="Enter the secret key" {...field} />
+                                <Input
+                                  placeholder="Enter the secret key"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -409,7 +416,7 @@ const WebhooksTable = () => {
                   </form>
                 </Form>
 
-                <SheetFooter className='mt-4 flex justify-between'>
+                <SheetFooter className="mt-4 flex justify-between">
                   <SheetClose asChild>
                     <Button type="submit">Create Webhook</Button>
                   </SheetClose>
@@ -428,9 +435,9 @@ const WebhooksTable = () => {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
