@@ -20,7 +20,6 @@ import {
   Pencil,
   Trash2,
   CircleX,
-  Check,
 } from 'lucide-react'
 
 import {

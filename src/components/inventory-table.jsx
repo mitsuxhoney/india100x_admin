@@ -15,6 +15,7 @@ import {
   ArrowRight,
   CirclePlus,
   MoreHorizontal,
+  Check,
   Pencil,
   Trash2,
   CircleX,
@@ -386,52 +387,65 @@ export function InventoryTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Sort By <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter((column) => {
-                      const rows = table.getCoreRowModel().rows; // Access rows of the table
-                      const sampleValue = rows[0]?.getValue(column.id); // Get a sample value for this column
-                      const valueType = typeof sampleValue;
+            <div>
+              <DropdownMenu className="max-sm:w-full">
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      Sort By <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter((column) => {
+                        const rows = table.getCoreRowModel().rows // Access rows of the table
+                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
+                        const valueType = typeof sampleValue
 
-                      // Check if the column contains integer or float data
-                      return (
-                        column.columnDef.header &&
-                        (valueType === 'number' || !isNaN(parseFloat(sampleValue)))
-                      );
-                    })
-                    .map((column) => (
-                      <DropdownMenuItem
-                        key={column.id}
-                        className="capitalize"
-                        onSelect={() => {
-                          const currentSorting = table.getState().sorting;
-                          const isCurrentlySorted =
-                            currentSorting.length > 0 && currentSorting[0].id === column.id;
+                        // Check if the column contains integer or float data
+                        return (
+                          column.columnDef.header &&
+                          (valueType === 'number' ||
+                            !isNaN(parseFloat(sampleValue)))
+                        )
+                      })
+                      .map((column) => {
+                        const currentSorting = table.getState().sorting
+                        const isCurrentlySorted =
+                          currentSorting.length > 0 &&
+                          currentSorting[0].id === column.id
 
-                          if (isCurrentlySorted) {
-                            // If already sorted by this column, reset sorting
-                            table.setSorting([]);
-                          } else {
-                            // Otherwise, sort by this column in ascending order
-                            table.setSorting([{ id: column.id, desc: true }]);
-                          }
-                        }}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                        return (
+                          <DropdownMenuItem
+                            key={column.id}
+                            className="capitalize"
+                            onSelect={() => {
+                              if (isCurrentlySorted) {
+                                // If already sorted by this column, reset sorting
+                                table.setSorting([])
+                              } else {
+                                // Otherwise, sort by this column in ascending order
+                                table.setSorting([
+                                  { id: column.id, desc: true },
+                                ])
+                              }
+                            }}
+                          >
+                            <span className="flex items-center gap-2">
+                              {isCurrentlySorted && <Check className="" />}
+                              {typeof column.columnDef.header === 'string'
+                                ? column.columnDef.header
+                                : ''}
+                            </span>
 
+                            {/* Display a checkmark if this column is currently sorted */}
+                          </DropdownMenuItem>
+                        )
+                      })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
@@ -460,7 +474,7 @@ export function InventoryTable() {
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
+              </div>
               <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
                   {' '}
