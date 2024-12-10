@@ -26,6 +26,9 @@ const ApiKeys = () => {
         </div>
       </div>
       <Separator />
+      <div className="grid grid-cols-1 gap-4">
+        <ApiKeysTable />
+      </div>
       <div className="grid grid-cols-1">
         <AuditLogsTable />
       </div>

@@ -8,6 +8,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { Badge } from '@/components/ui/badge'
+
 import {
   ArrowUpDown,
   ChevronDown,
@@ -60,51 +62,87 @@ import {
 
 const data = [
   {
-    product_id: '1',
-    user_id: 'U001',
-    name: 'Alice Johnson',
-    role: 'Administrator',
-    created_at: '01-01-2024 21:25:00',
-    updated_at: '01-06-2024 21:25:00',
-    is_active: true,
+    "name": "Evan Williams",
+    "ipaddress": "192.168.23.1",
+    "role": "Viewer",
+    "created_at": "05-05-2024 21:25:00",
+    "updated_at": "01-10-2024 21:25:00",
+    "is_active": false
   },
   {
-    product_id: '2',
-    user_id: 'U002',
-    name: 'Bob Smith',
-    role: 'Moderator',
-    created_at: '15-02-2024 21:25:00',
-    updated_at: '20-07-2024 21:25:00',
-    is_active: false,
+    "name": "Sophia Green",
+    "ipaddress": "192.168.23.2",
+    "role": "Editor",
+    "created_at": "07-05-2024 15:40:00",
+    "updated_at": "02-10-2024 17:30:00",
+    "is_active": true
   },
   {
-    product_id: '3',
-    user_id: 'U003',
-    name: 'Charlie Brown',
-    role: 'User',
-    created_at: '10-03-2024 21:25:00',
-    updated_at: '05-08-2024 21:25:00',
-    is_active: true,
+    "name": "Liam Brown",
+    "ipaddress": "192.168.23.3",
+    "role": "Admin",
+    "created_at": "10-06-2024 12:15:00",
+    "updated_at": "05-10-2024 16:00:00",
+    "is_active": true
   },
   {
-    product_id: '4',
-    user_id: 'U004',
-    name: 'Diana Prince',
-    role: 'Editor',
-    created_at: '25-04-2024 21:25:00',
-    updated_at: '10-09-2024 21:25:00',
-    is_active: true,
+    "name": "Olivia Smith",
+    "ipaddress": "192.168.23.4",
+    "role": "Viewer",
+    "created_at": "12-07-2024 18:25:00",
+    "updated_at": "08-10-2024 20:10:00",
+    "is_active": false
   },
   {
-    product_id: '5',
-    user_id: 'U005',
-    name: 'Evan Williams',
-    role: 'Viewer',
-    created_at: '05-05-2024 21:25:00',
-    updated_at: '01-10-2024 21:25:00',
-    is_active: false,
+    "name": "James Johnson",
+    "ipaddress": "192.168.23.5",
+    "role": "Editor",
+    "created_at": "15-08-2024 14:50:00",
+    "updated_at": "09-10-2024 19:15:00",
+    "is_active": true
   },
+  {
+    "name": "Ava Wilson",
+    "ipaddress": "192.168.23.6",
+    "role": "Viewer",
+    "created_at": "16-08-2024 09:35:00",
+    "updated_at": "11-10-2024 13:25:00",
+    "is_active": false
+  },
+  {
+    "name": "Mason Davis",
+    "ipaddress": "192.168.23.7",
+    "role": "Admin",
+    "created_at": "18-09-2024 08:10:00",
+    "updated_at": "13-10-2024 11:40:00",
+    "is_active": true
+  },
+  {
+    "name": "Charlotte Martinez",
+    "ipaddress": "192.168.23.8",
+    "role": "Editor",
+    "created_at": "20-09-2024 16:20:00",
+    "updated_at": "15-10-2024 14:50:00",
+    "is_active": true
+  },
+  {
+    "name": "Amelia Taylor",
+    "ipaddress": "192.168.23.9",
+    "role": "Viewer",
+    "created_at": "23-09-2024 13:05:00",
+    "updated_at": "17-10-2024 15:10:00",
+    "is_active": false
+  },
+  {
+    "name": "Ethan Lee",
+    "ipaddress": "192.168.23.10",
+    "role": "Admin",
+    "created_at": "25-09-2024 19:30:00",
+    "updated_at": "19-10-2024 10:55:00",
+    "is_active": true
+  }
 ]
+
 
 export function TeamUsersTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -131,25 +169,46 @@ export function TeamUsersTable() {
       ),
     },
     {
-      accessorKey: 'name',
+      accessorKey: 'ipaddress',
       header: 'IP Address',
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('name')}</div>
+        <div className="capitalize">{row.getValue('ipaddress')}</div>
       ),
+    },
+    
+    {
+      accessorKey: 'is_active',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+
+        switch (status) {
+          case 'is_active':
+            return <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+          case 'pending':
+            return (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Pending</Badge>
+            )
+          case 'under review':
+            return (
+              <Badge className="bg-[#e3f2fd] text-[#1976d2]">
+                Under Review
+              </Badge>
+            )
+          case 'rejected':
+            return (
+              <Badge className="bg-[#ffe6e6] text-[#d32f2f]">Rejected</Badge>
+            )
+          case 'incomplete':
+            return (
+              <Badge className="bg-[#fce4ec] text-[#c2185b]">Incomplete</Badge>
+            )
+        }
+      },
     },
     {
       accessorKey: 'created_at',
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Created At
-            <ArrowUpDown />
-          </Button>
-        )
-      },
+      header: 'Created On',
       cell: ({ row }) => {
         const date = row.getValue('created_at').split(' ')[0]
         const time = row.getValue('created_at').split(' ')[1]
@@ -162,16 +221,6 @@ export function TeamUsersTable() {
         )
       },
     },
-    {
-      accessorKey: 'is_active',
-      header: 'Status',
-      cell: ({ row }) => (
-        <div className="capitalize">
-          {row.getValue('is_active') ? 'Active' : 'Inactive'}
-        </div>
-      ),
-    },
-
     {
       accessorKey: 'actions',
       header: '',
