@@ -23,6 +23,8 @@ import {
   Trash,
 } from 'lucide-react'
 
+import { Badge } from '@/components/ui/badge'
+
 import {
   AlertDialog,
   AlertDialogTitle,
@@ -60,128 +62,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { number } from 'zod'
 
 const data = [
   {
-    status: 'active',
+    status: 'enabled',
     name: 'Service1',
     key_type: 'Bearer',
     api_key: '1234abcd5678efgh',
   },
   {
-    status: 'inactive',
+    status: 'disabled',
     name: 'Service2',
     key_type: 'Basic',
     api_key: 'abcd1234efgh5678',
-  },
-  {
-    status: 'active',
-    name: 'Service3',
-    key_type: 'OAuth',
-    api_key: 'wxyz1234abcd5678',
-  },
-  {
-    status: 'expired',
-    name: 'Service4',
-    key_type: 'Bearer',
-    api_key: 'ijkl5678mnop1234',
-  },
-  {
-    status: 'active',
-    name: 'Service5',
-    key_type: 'API Key',
-    api_key: 'abcd5678xyz1234',
-  },
-  {
-    status: 'inactive',
-    name: 'Service6',
-    key_type: 'OAuth',
-    api_key: 'mnop1234ijkl5678',
-  },
-  {
-    status: 'active',
-    name: 'Service7',
-    key_type: 'Basic',
-    api_key: 'efgh5678abcd1234',
-  },
-  {
-    status: 'expired',
-    name: 'Service8',
-    key_type: 'Bearer',
-    api_key: 'qrst1234uvwx5678',
-  },
-  {
-    status: 'active',
-    name: 'Service9',
-    key_type: 'OAuth',
-    api_key: 'abcd5678ijkl1234',
-  },
-  {
-    status: 'inactive',
-    name: 'Service10',
-    key_type: 'API Key',
-    api_key: 'xyz1234mnop5678',
-  },
-  {
-    status: 'expired',
-    name: 'Service11',
-    key_type: 'Bearer',
-    api_key: 'ijkl1234qrst5678',
-  },
-  {
-    status: 'active',
-    name: 'Service12',
-    key_type: 'OAuth',
-    api_key: 'mnop5678abcd1234',
-  },
-  {
-    status: 'inactive',
-    name: 'Service13',
-    key_type: 'Basic',
-    api_key: 'efgh1234wxyz5678',
-  },
-  {
-    status: 'active',
-    name: 'Service14',
-    key_type: 'API Key',
-    api_key: 'ijkl5678abcd1234',
-  },
-  {
-    status: 'expired',
-    name: 'Service15',
-    key_type: 'Bearer',
-    api_key: 'mnop1234abcd5678',
-  },
-  {
-    status: 'active',
-    name: 'Service16',
-    key_type: 'OAuth',
-    api_key: 'qrst5678efgh1234',
-  },
-  {
-    status: 'inactive',
-    name: 'Service17',
-    key_type: 'API Key',
-    api_key: 'abcd1234mnop5678',
-  },
-  {
-    status: 'expired',
-    name: 'Service18',
-    key_type: 'Bearer',
-    api_key: 'wxyz5678abcd1234',
-  },
-  {
-    status: 'active',
-    name: 'Service19',
-    key_type: 'OAuth',
-    api_key: 'ijkl5678mnop1234',
-  },
-  {
-    status: 'inactive',
-    name: 'Service20',
-    key_type: 'Basic',
-    api_key: 'efgh5678qrst1234',
   },
 ]
 
@@ -216,15 +109,6 @@ export function ApiKeysTable() {
     //   enableHiding: false,
     // },
     {
-      accessorKey: 'status',
-      header: ({ column }) => {
-        return <div>Status</div>
-      },
-      cell: ({ row }) => (
-        <div className="lowercase text-center">{row.getValue('status')}</div>
-      ),
-    },
-    {
       accessorKey: 'name',
       header: ({ column }) => {
         return <div>Name</div>
@@ -258,7 +142,21 @@ export function ApiKeysTable() {
         <div className="capitalize">{row.getValue('api_key')}</div>
       ),
     },
+    {
+      accessorKey: 'status',
+      header: ({ column }) => {
+        return <div>Status</div>
+      },
+      cell: ({ row }) => {
+        const status = row.original.status
 
+        return status === 'enabled' ? (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Disabled</Badge>
+        ) : (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
+        )
+      },
+    },
     {
       accessorKey: 'actions',
       header: 'Actions',
@@ -266,9 +164,6 @@ export function ApiKeysTable() {
         const rowData = row.original // Get the entire row's data for actions
         return (
           <div className="flex items-center justify-center gap-2">
-            <Button variant="outline" className="rounded-[50%]">
-              <SquarePen />
-            </Button>
             <Button variant="outline" className="rounded-[50%]">
               <Trash2Icon />
             </Button>
@@ -297,6 +192,33 @@ export function ApiKeysTable() {
           // </DropdownMenu>
         )
       },
+      cell: ({ row }) => {
+        const rowData = row.original // Get the entire row's data for actions
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <MoreHorizontal />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Enable
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigator.clipboard.writeText(payment.id)}
+              >
+                Regenerate
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )
+      }, 
     },
     // {
     //   id: 'actions',
@@ -407,12 +329,11 @@ export function ApiKeysTable() {
                     })}
                 </DropdownMenuContent>
               </DropdownMenu>
-              {/* <Link to="/inventory/create-inventory">
+              <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
-                  {' '}
-                  <CirclePlus /> Add new
+                  <CirclePlus /> Create API Key
                 </Button>
-              </Link> */}
+              </Link>
             </div>
           </div>
           <div className="rounded-md border">
@@ -465,11 +386,11 @@ export function ApiKeysTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
+          {/* <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
             <div className="space-x-2">
               <Button
                 variant="outline"
@@ -492,7 +413,7 @@ export function ApiKeysTable() {
                 <ArrowRight />
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
       </CardContent>
     </Card>
