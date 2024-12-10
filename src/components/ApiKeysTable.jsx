@@ -160,38 +160,28 @@ export function ApiKeysTable() {
     {
       accessorKey: 'actions',
       header: 'Actions',
-      cell: ({ row }) => {
-        const rowData = row.original // Get the entire row's data for actions
-        return (
-          <div className="flex items-center justify-center gap-2">
-            <Button variant="outline" className="rounded-[50%]">
-              <Trash2Icon />
-            </Button>
-          </div>
-          // <DropdownMenu>
-          //   <DropdownMenuTrigger asChild>
-          //     <Button variant="ghost" className="h-8 w-8 p-0">
-          //       <span className="sr-only">Open menu</span>
-          //       <MoreHorizontal />
-          //     </Button>
-          //   </DropdownMenuTrigger>
-          //   <DropdownMenuContent align="end">
-          //     <DropdownMenuItem
-          //       className="cursor-pointer"
-          //       onClick={() => navigator.clipboard.writeText(payment.id)}
-          //     >
-          //       Approve
-          //     </DropdownMenuItem>
-          //     <DropdownMenuItem
-          //       className="cursor-pointer"
-          //       onClick={() => navigator.clipboard.writeText(payment.id)}
-          //     >
-          //       Reject
-          //     </DropdownMenuItem>
-          //   </DropdownMenuContent>
-          // </DropdownMenu>
-        )
-      },
+      // <DropdownMenu>
+      //   <DropdownMenuTrigger asChild>
+      //     <Button variant="ghost" className="h-8 w-8 p-0">
+      //       <span className="sr-only">Open menu</span>
+      //       <MoreHorizontal />
+      //     </Button>
+      //   </DropdownMenuTrigger>
+      //   <DropdownMenuContent align="end">
+      //     <DropdownMenuItem
+      //       className="cursor-pointer"
+      //       onClick={() => navigator.clipboard.writeText(payment.id)}
+      //     >
+      //       Approve
+      //     </DropdownMenuItem>
+      //     <DropdownMenuItem
+      //       className="cursor-pointer"
+      //       onClick={() => navigator.clipboard.writeText(payment.id)}
+      //     >
+      //       Reject
+      //     </DropdownMenuItem>
+      //   </DropdownMenuContent>
+      // </DropdownMenu>
       cell: ({ row }) => {
         const rowData = row.original // Get the entire row's data for actions
         return (
@@ -218,7 +208,7 @@ export function ApiKeysTable() {
             </DropdownMenuContent>
           </DropdownMenu>
         )
-      }, 
+      },
     },
     // {
     //   id: 'actions',
