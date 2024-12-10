@@ -186,7 +186,7 @@ export function ApiKeysTable() {
             </DropdownMenuContent>
           </DropdownMenu>
         )
-      }, 
+      },
     },
     // {
     //   id: 'actions',
