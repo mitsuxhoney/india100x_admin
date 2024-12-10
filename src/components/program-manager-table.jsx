@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { Badge } from '@/components/ui/badge'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -67,6 +68,7 @@ const data = [
     totalAmount: '2342.23',
     programs: 2,
     activePrograms: 1,
+    status:'Active',
     totalCustomers: 50,
     createdAt: '05-10-2023',
   },
@@ -77,6 +79,7 @@ const data = [
     totalAmount: '5678.45',
     programs: 3,
     activePrograms: 2,
+    status:'Active',
     totalCustomers: 120,
     createdAt: '01-10-2023',
   },
@@ -88,6 +91,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 20,
+    status:'Active',
     createdAt: '12-03-2021',
   },
   {
@@ -98,6 +102,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 75,
+    status:'Active',
     createdAt: '03-02-2022',
   },
   {
@@ -108,6 +113,7 @@ const data = [
     programs: 2,
     activePrograms: 2,
     totalCustomers: 65,
+    status:'Active',
     createdAt: '07-02-2022',
   },
   {
@@ -118,6 +124,7 @@ const data = [
     programs: 5,
     activePrograms: 4,
     totalCustomers: 100,
+    status:'Active',
     createdAt: '05-08-2022',
   },
   {
@@ -128,6 +135,7 @@ const data = [
     programs: 1,
     activePrograms: 0,
     totalCustomers: 10,
+    status:'Active',
     createdAt: '04-01-2021',
   },
   {
@@ -138,6 +146,7 @@ const data = [
     programs: 3,
     activePrograms: 2,
     totalCustomers: 85,
+    status:'Active',
     createdAt: '11-05-2021',
   },
   {
@@ -148,6 +157,7 @@ const data = [
     programs: 4,
     activePrograms: 3,
     totalCustomers: 90,
+    status:'Active',
     createdAt: '02-08-2024',
   },
   {
@@ -158,6 +168,7 @@ const data = [
     programs: 2,
     activePrograms: 1,
     totalCustomers: 45,
+    status:'Active',
     createdAt: '09-04-2021',
   },
 ]
@@ -214,6 +225,17 @@ export function ProgramTable() {
           {row.getValue('totalCustomers')}
         </div>
       ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.original.status;
+        return(
+        <div className="text-center">{
+          status === "Active" ? (<Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>) : ( status === 'Suspended' ? (<Badge className="bg-[#F5FBFC] text-[#267A94]">Suspended</Badge>) : (<Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>))
+        }</div>
+      )},
     },
     {
       accessorKey: 'createdAt',

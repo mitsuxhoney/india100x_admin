@@ -249,7 +249,7 @@ export function AllCustomerTable() {
               <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
               >
-                Flagged
+                Flag
               </DropdownMenuItem>
               <DropdownMenuItem className='cursor-pointer'
                 onClick={() => navigator.clipboard.writeText(payment.id)}
