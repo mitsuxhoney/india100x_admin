@@ -62,12 +62,12 @@ import { Badge } from '@/components/ui/badge'
 
 const fieldIconMap = {
   AddOnCard: {
-    icon: <Badge className="bg-[#f5e7e4] text-[#792c16]">Add on card</Badge>,
-    label: '',
+    icon: <Badge className="bg-[#eee4f5] text-[#7105ab]">Add on card</Badge>,
+    label: 'Add_On_Card',
   },
   Physical: {
     icon: <Badge className="bg-[#d3e5ff] text-[#051eab]">Physical</Badge>,
-    label: 'Pending transaction',
+    label: 'Physical',
   },
 }
 

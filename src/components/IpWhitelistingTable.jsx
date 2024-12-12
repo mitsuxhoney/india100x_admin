@@ -44,6 +44,13 @@ import {
   CircleX,
   Copy,
 } from 'lucide-react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 import {
   AlertDialog,
@@ -383,27 +390,34 @@ const IpWhitelistingTable = () => {
                             )}
                           />
                         </div>
-
-                        {/* <Button variant="outline" className="">
-                Generate secret
-              </Button> */}
+                      </div>
+                      <div className="w-full">
+                        <Select>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select Type of IP" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="sandbox">Sandbox</SelectItem>
+                            <SelectItem value="production">Production</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </form>
                   </Form>
                   <SheetFooter>
                     {/* <SheetClose asChild> */}
-                      <div className="mt-4">
-                        <Button
-                          type="submit"
-                          onClick={() => {
-                            toast({
-                              title: 'New IP Whitelisted',
-                            })
-                          }}
-                        >
-                          Create
-                        </Button>
-                      </div>
+                    <div className="mt-4">
+                      <Button
+                        type="submit"
+                        onClick={() => {
+                          toast({
+                            title: 'New IP Whitelisted',
+                          })
+                        }}
+                      >
+                        Create
+                      </Button>
+                    </div>
                     {/* </SheetClose> */}
                   </SheetFooter>
                 </SheetContent>

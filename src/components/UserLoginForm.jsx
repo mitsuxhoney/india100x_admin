@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/Icons';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import { z } from 'zod';
-import ApiConfig from '@/config/ApiConfig';
+import * as React from 'react'
+import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook from react-router-dom
+import { cn } from '@/lib/utils'
+import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
+import { z } from 'zod'
+import ApiConfig from '@/config/ApiConfig'
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Form,
@@ -20,12 +20,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from '@/components/ui/form'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
-});
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters.' }),
+})
 
 export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
   const form = useForm({
@@ -34,33 +36,36 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
       email: '',
       password: '',
     },
-  });
-  const [isLoading, setIsLoading] = React.useState(false);
-  const navigate = useNavigate(); // Initialize the navigate function
+  })
+  const [isLoading, setIsLoading] = React.useState(false)
+  const navigate = useNavigate() // Initialize the navigate function
 
   async function onSubmit(values) {
-    setIsLoading(true);
-    console.log(values);
+    setIsLoading(true)
+    console.log(values)
     try {
-      const response = await axios.post(ApiConfig.login, {
-        email: values.email,
-        password: values.password,
-      },
-      {
-        withCredentials: true, // Include cookies with the request
-      });
+      const response = await axios.post(
+        ApiConfig.login,
+        {
+          email: values.email,
+          password: values.password,
+        },
+        {
+          withCredentials: true, // Include cookies with the request
+        }
+      )
 
       if (response.status === 200) {
         // Handle successful login (e.g., save token, redirect)
-        console.log('Login successful:', response.data);
-        navigate('/business-dashboard'); // Replace with your actual dashboard path
+        console.log('Login successful:', response.data)
+        navigate('/business-dashboard') // Replace with your actual dashboard path
       } else {
-        console.error('Unexpected response:', response);
+        console.error('Unexpected response:', response)
       }
     } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
+      console.error('Login failed:', error.response?.data || error.message)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -77,7 +82,14 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        disabled={isLoading}
+                        placeholder="Enter your email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -90,7 +102,11 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -100,7 +116,7 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                 <Link
                   to=""
                   onClick={() => {
-                    setIsForgotPasswordClicked(true);
+                    setIsForgotPasswordClicked(true)
                   }}
                 >
                   Forgot Password?
@@ -116,5 +132,5 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
         </form>
       </Form>
     </div>
-  );
+  )
 }
