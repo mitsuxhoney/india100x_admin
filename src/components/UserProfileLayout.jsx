@@ -24,7 +24,11 @@ const UserProfileLayout = () => {
     developer: [
       {
         title: 'API Keys',
-        href: 'developer/api-keys',
+        href: 'developer/API-keys',
+      },
+      {
+        title: 'API Logs',
+        href: '/developer/API-Logs',
       },
       {
         title: 'Webhooks',

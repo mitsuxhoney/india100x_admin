@@ -61,12 +61,18 @@ export default function Login() {
               </svg>
               XFER
             </div>
-            <div className="relative z-20 mt-4">
-              <blockquote className="space-y-2">
-                <p className="text-lg">
-                  &ldquo;Your Partner in Issuance Switch.&rdquo;
-                </p>
-              </blockquote>
+            <div
+              class="relative mt-24 -mr-0.5 max-md:max-w-full max-md:text-4xl"
+              role="heading"
+              aria-level="1"
+            >
+              <h1>
+              Redefining Banking
+              <br />
+              and Payments
+              <br />
+              Issuance
+              </h1>
             </div>
           </div>
           <div className="lg:p-8">
@@ -133,12 +139,16 @@ export default function Login() {
               </svg>
               XFER
             </div>
-            <div className="relative z-20 mt-4">
-              <blockquote className="space-y-2">
-                <p className="text-lg">
-                  &ldquo;Your Partner in Issuance Switch.&rdquo;
-                </p>
-              </blockquote>
+            <div
+              class="relative mt-24 text-[50px] leading-[60px] font-normal -mr-0.5 max-md:max-w-full max-md:text-4xl"
+              role="heading"
+              aria-level="1"
+            >
+              Redefining Banking
+              <br />
+              and Payments
+              <br />
+              Issuance
             </div>
           </div>
           <div className="lg:p-8">
