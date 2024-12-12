@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/Icons';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import { z } from 'zod';
-import ApiConfig from '@/config/ApiConfig';
+import * as React from 'react'
+import { useNavigate } from 'react-router-dom' // Import useNavigate hook from react-router-dom
+import { cn } from '@/lib/utils'
+import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
+import { z } from 'zod'
+import ApiConfig from '@/config/ApiConfig'
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Form,
@@ -20,52 +20,63 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from '@/components/ui/form'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
-});
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters.' }),
+})
 
-export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
+export default function UserLoginForm({ setStep }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
       password: '',
     },
-  });
-  const [isLoading, setIsLoading] = React.useState(false);
-  const navigate = useNavigate(); // Initialize the navigate function
+  })
+  const [isLoading, setIsLoading] = React.useState(false)
+  const navigate = useNavigate() // Initialize the navigate function
 
   async function onSubmit(values) {
-    setIsLoading(true);
-    console.log(values);
+    setIsLoading(true)
+    console.log(values)
     try {
-      const response = await axios.post(ApiConfig.login, {
-        email: values.email,
-        password: values.password,
-      },
-      {
-        withCredentials: true, // Include cookies with the request
-      });
+      const response = await axios.post(
+        ApiConfig.login,
+        {
+          email: values.email,
+          password: values.password,
+        },
+        {
+          withCredentials: true, // Include cookies with the request
+        }
+      )
 
       if (response.status === 200) {
         // Handle successful login (e.g., save token, redirect)
-        console.log('Login successful:', response.data);
-        navigate('/business-dashboard'); // Replace with your actual dashboard path
+        console.log('Login successful:', response.data)
+        navigate('/business-dashboard') // Replace with your actual dashboard path
       } else {
-        console.error('Unexpected response:', response);
+        console.error('Unexpected response:', response)
       }
     } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
+      console.error('Login failed:', error.response?.data || error.message)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
   return (
-    <div className={cn('grid gap-6', className)}>
+    <div className={cn('grid gap-6')}>
+      <div className="flex flex-col space-y-2 text-center">
+        <h1 className="text-2xl font-semibold tracking-tight">Welcome Back!</h1>
+        <p className="text-sm text-muted-foreground">
+          Enter your email below to login
+        </p>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex flex-col gap-4 relative">
@@ -90,21 +101,20 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="flex justify-end items-start text-sm gap-0 hover:underline">
-                <Link
-                  to=""
-                  onClick={() => {
-                    setIsForgotPasswordClicked(true);
-                  }}
-                >
+                <Button onClick={setStep('forgot-password')}>
                   Forgot Password?
-                </Link>
+                </Button>
               </div>
             </div>
             <div className="flex justify-center items-center w-full">
@@ -116,5 +126,5 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
         </form>
       </Form>
     </div>
-  );
+  )
 }

@@ -19,6 +19,10 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
 
 import {
@@ -30,6 +34,15 @@ import {
   AlertDialogFooter,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog'
+import { status, card_nature } from '../data/inventory-data'
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -59,6 +72,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import DataTableToolbar from './DataTableToolbar'
 
 const fieldIconMap = {
   approved: {
@@ -241,7 +255,7 @@ export function InventoryTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Ordered Cards
             <ArrowUpDown />
@@ -253,7 +267,6 @@ export function InventoryTable() {
       ),
     },
 
-    
     {
       accessorKey: 'created_date',
       header: 'Created Date',
@@ -264,6 +277,7 @@ export function InventoryTable() {
       ),
     },
     {
+      accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => (
         <div className="flex items-center justify-center gap-2">
@@ -386,8 +400,7 @@ export function InventoryTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
+          {/* <Input
               placeholder="Search by Name..."
               value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
@@ -399,34 +412,37 @@ export function InventoryTable() {
             />
             <div className="flex items-center gap-2">
               <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    View <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      View <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {typeof column.columnDef.header === 'function'
+                            ? column.columnDef.header({ column }).props
+                                .children[0] // Render the header if it's a function
                             : column.columnDef.header}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               <Link to="/inventory/create-inventory">
                 <Button variant="" className="ml-auto">
@@ -434,9 +450,12 @@ export function InventoryTable() {
                   <CirclePlus /> Create Order
                 </Button>
               </Link>
-            </div>
+            </div> */}
+
+          <div>
+            <DataTableToolbar table={table} filters={(status, card_nature)} />
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -447,9 +466,9 @@ export function InventoryTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
@@ -486,32 +505,76 @@ export function InventoryTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
-            <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <ArrowLeft />
-              </Button>
-              <span>
+          <div className="flex items-center justify-between px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-medium">Rows per page</p>
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value))
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[70px]">
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {table.getState().pagination.pageIndex + 1} of{' '}
                 {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <ArrowRight />
-              </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to first page</span>
+                  <ChevronsLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to previous page</span>
+                  <ChevronLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to next page</span>
+                  <ChevronRight />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to last page</span>
+                  <ChevronsRight />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

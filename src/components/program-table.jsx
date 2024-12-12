@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 import {
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { CalendarDateRangePicker } from './CalendarDateRangePicker'
+import DataTableToolbar from '@/components/DataTableToolbar'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -20,8 +23,18 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import {
   AlertDialog,
   AlertDialogTitle,
@@ -99,10 +112,11 @@ const data = [
     product_id: '1',
     category: 'technology',
     name: 'OTT',
-    programmanager: 'Alice Smith',
+    program_manager: 'Alice Smith',
     kycrequired: true,
     contactlessallowed: true,
     physicalallowed: false,
+    tags: 'kyc',
     limit: '30k-1Lakh',
     rewardapplicable: false,
     launchdate: '01-01-2021',
@@ -111,7 +125,7 @@ const data = [
     product_id: '2',
     category: 'finance',
     name: 'Shopping',
-    programmanager: 'Bob Johnson',
+    program_manager: 'Bob Johnson',
     kycrequired: false,
     contactlessallowed: true,
     physicalallowed: true,
@@ -123,7 +137,7 @@ const data = [
     product_id: '3',
     category: 'healthcare',
     name: 'Beauty',
-    programmanager: 'ONO',
+    program_manager: 'ONO',
     kycrequired: true,
     contactlessallowed: false,
     physicalallowed: true,
@@ -135,7 +149,7 @@ const data = [
     product_id: '4',
     category: 'education',
     name: 'School',
-    programmanager: 'David Wilson',
+    program_manager: 'David Wilson',
     kycrequired: false,
     contactlessallowed: false,
     physicalallowed: false,
@@ -147,7 +161,7 @@ const data = [
     product_id: '5',
     category: 'government',
     name: 'TAX',
-    programmanager: 'Emily Davis',
+    program_manager: 'Emily Davis',
     kycrequired: true,
     contactlessallowed: true,
     physicalallowed: false,
@@ -159,7 +173,7 @@ const data = [
     product_id: '6',
     category: 'politics',
     name: 'Campaign',
-    programmanager: 'Michael Johnson',
+    program_manager: 'Michael Johnson',
     kycrequired: false,
     contactlessallowed: true,
     physicalallowed: false,
@@ -171,7 +185,7 @@ const data = [
     product_id: '7',
     category: 'entertainment',
     name: 'Michael Johnson',
-    programmanager: 'Sarah Doe',
+    program_manager: 'Sarah Doe',
     kycrequired: true,
     contactlessallowed: false,
     physicalallowed: true,
@@ -198,7 +212,6 @@ export function ProgramTableDemo() {
   const [selectedFilter, setSelectedFilter] = React.useState('Today')
 
   const columns = [
-
     {
       accessorKey: 'name',
       header: 'Name',
@@ -216,11 +229,11 @@ export function ProgramTableDemo() {
       ),
     },
     {
-      accessorKey: 'programmanager',
+      accessorKey: 'program_manager',
       header: 'Manager',
       cell: ({ row }) => (
         <div className="text-center cursor-pointer hover:underline">
-          {row.getValue('programmanager')}
+          {row.getValue('program_manager')}
         </div>
       ),
     },
@@ -231,7 +244,7 @@ export function ProgramTableDemo() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Limit
             <ArrowUpDown />
@@ -249,7 +262,7 @@ export function ProgramTableDemo() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Launch Date
             <ArrowUpDown />
@@ -261,6 +274,7 @@ export function ProgramTableDemo() {
       ),
     },
     {
+      accessorKey: 'tags',
       header: 'Tags',
       cell: ({ row }) => (
         <div className="flex items-center justify-left gap-2">
@@ -342,30 +356,55 @@ export function ProgramTableDemo() {
     //   },
     // },
   ]
-
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
-      columnFilters,
       columnVisibility,
       rowSelection,
+      columnFilters,
     },
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     initialState: {
       pagination: {
         pageSize: 5, // Set page size to 5
       },
     },
   })
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   onSortingChange: setSorting,
+  //   onColumnFiltersChange: setColumnFilters,
+  //   getCoreRowModel: getCoreRowModel(),
+  //   getPaginationRowModel: getPaginationRowModel(),
+  //   getSortedRowModel: getSortedRowModel(),
+  //   getFilteredRowModel: getFilteredRowModel(),
+  //   onColumnVisibilityChange: setColumnVisibility,
+  //   onRowSelectionChange: setRowSelection,
+  //   state: {
+  //     sorting,
+  //     columnFilters,
+  //     columnVisibility,
+  //     rowSelection,
+  //   },
+  //   initialState: {
+  //     pagination: {
+  //       pageSize: 5, // Set page size to 5
+  //     },
+  //   },
+  // })
 
   const openDialog = (rowData) => {
     setIsDialogOpen(true)
@@ -387,8 +426,8 @@ export function ProgramTableDemo() {
         <CardTitle>Programs List</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="w-full">
-          <div className="flex items-center py-4 justify-between max-lg:flex max-lg:flex-col max-lg:gap-4 max-lg:items-end max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:items-start">
+        <div className="w-full flex flex-col gap-4">
+          {/* <div className="flex items-center py-4 justify-between max-lg:flex max-lg:flex-col max-lg:gap-4 max-lg:items-end max-sm:flex max-sm:flex-col max-sm:gap-4 max-sm:items-start">
             <div className="max-lg:w-full">
               <Input
                 placeholder="Search by Name..."
@@ -421,67 +460,6 @@ export function ProgramTableDemo() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              {/* 
-              <div>
-                <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
-
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
-
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div> 
-              */}
-
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -507,7 +485,8 @@ export function ProgramTableDemo() {
                           }
                         >
                           {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                            ? column.columnDef.header({ column }).props
+                                .children[0] // Render the header if it's a function
                             : column.columnDef.header}
                         </DropdownMenuCheckboxItem>
                       ))}
@@ -521,6 +500,9 @@ export function ProgramTableDemo() {
                 </Button>
               </Link>
             </div>
+          </div> */}
+          <div>
+            <DataTableToolbar table={table} />
           </div>
           <div className="rounded-md border">
             <Table>
@@ -533,9 +515,9 @@ export function ProgramTableDemo() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
@@ -550,7 +532,7 @@ export function ProgramTableDemo() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} >
+                        <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -572,32 +554,76 @@ export function ProgramTableDemo() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
-            <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <ArrowLeft />
-              </Button>
-              <span>
+          <div className="flex items-center justify-between px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-medium">Rows per page</p>
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value))
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[70px]">
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {table.getState().pagination.pageIndex + 1} of{' '}
                 {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <ArrowRight />
-              </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to first page</span>
+                  <ChevronsLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to previous page</span>
+                  <ChevronLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to next page</span>
+                  <ChevronRight />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to last page</span>
+                  <ChevronsRight />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

@@ -1,98 +1,50 @@
-import * as React from 'react'
-import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook from react-router-dom
-import { cn } from '@/lib/utils'
-import { Icons } from '@/components/Icons'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useForm } from 'react-hook-form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
-import { z } from 'zod'
-
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-})
-
-// 2. Define a submit handler.
-function onSubmit(values) {
-  // Do something with the form values.
-  // ✅ This will be type-safe and validated.
-  console.log(values)
-}
-
-export function ForgotPasswordForm({ className, ...props }) {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: '',
-    },
-  })
-  const [isLoading, setIsLoading] = React.useState(false)
-  const navigate = useNavigate() // Initialize the navigate function
-
-  async function onSubmit(event) {
-    event.preventDefault()
-    setIsLoading(true)
-
-    // Simulate a delay for the loading state (remove or replace with actual login logic)
-    setTimeout(() => {
-      setIsLoading(false)
-      // After login, redirect to the business dashboard page
-      navigate('/business-dashboard') // Replace '/business-dashboard' with your actual dashboard path
-    }, 1000)
-  }
-
+export default function ForgotPasswordForm({ setStep }) {
   return (
-    <div className={cn('grid gap-6', className)} {...props}>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex flex-col gap-4 relative">
-            <div className="grid grid-cols-1 gap-4 ">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your registered email id"
-                        {...field}
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex justify-center items-center w-full">
-              <Button disabled={isLoading} className="w-full">
-                <Link to="/business-dashboard" className="w-full">
-                  {isLoading && (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Send OTP
-                </Link>
-              </Button>
-            </div>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 py-12 px-4 dark:bg-gray-950">
+      <div className="mx-auto w-full max-w-md space-y-6">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
+            Forgot your password?
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+            Enter the email address associated with your account and we&apos;ll
+            send you a link to reset your password.
+          </p>
+        </div>
+        <form className="space-y-6" action="#" method="POST">
+          <div>
+            <Label htmlFor="email" className="sr-only">
+              Email address
+            </Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              placeholder="Email address"
+            />
           </div>
+          <Button type="submit" className="w-full">
+            Reset password
+          </Button>
         </form>
-      </Form>
+        <div className="flex justify-center">
+          <Button
+            onClick={() => {
+              setStep('login')
+            }}
+            variant="outline"
+          >
+            Back to login
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

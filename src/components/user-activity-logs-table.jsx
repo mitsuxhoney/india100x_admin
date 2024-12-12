@@ -18,7 +18,19 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 import {
   AlertDialog,
@@ -60,52 +72,51 @@ import {
 
 const data = [
   {
-    "product_id": "1",
-    "team_member": "Alice Johnson",
-    "date": "01-12-2024",
-    "event": "Product Launch",
-    "team": "Marketing",
-    "product": "EduPal App",
-    "ip_address": "192.168.1.1"
+    product_id: '1',
+    team_member: 'Alice Johnson',
+    date: '01-12-2024',
+    event: 'Product Launch',
+    team: 'Marketing',
+    product: 'EduPal App',
+    ip_address: '192.168.1.1',
   },
   {
-    "product_id": "2",
-    "team_member": "Bob Smith",
-    "date": "02-12-2024",
-    "event": "Client Meeting",
-    "team": "Sales",
-    "product": "Golzo Platform",
-    "ip_address": "192.168.1.2"
+    product_id: '2',
+    team_member: 'Bob Smith',
+    date: '02-12-2024',
+    event: 'Client Meeting',
+    team: 'Sales',
+    product: 'Golzo Platform',
+    ip_address: '192.168.1.2',
   },
   {
-    "product_id": "3",
-    "team_member": "Charlie Brown",
-    "date": "03-12-2024",
-    "event": "Bug Fix",
-    "team": "Development",
-    "product": "Call Recorder App",
-    "ip_address": "192.168.1.3"
+    product_id: '3',
+    team_member: 'Charlie Brown',
+    date: '03-12-2024',
+    event: 'Bug Fix',
+    team: 'Development',
+    product: 'Call Recorder App',
+    ip_address: '192.168.1.3',
   },
   {
-    "product_id": "4",
-    "team_member": "Diana Prince",
-    "date": "04-12-2024",
-    "event": "Team Workshop",
-    "team": "Human Resources",
-    "product": "Employee Handbook",
-    "ip_address": "192.168.1.4"
+    product_id: '4',
+    team_member: 'Diana Prince',
+    date: '04-12-2024',
+    event: 'Team Workshop',
+    team: 'Human Resources',
+    product: 'Employee Handbook',
+    ip_address: '192.168.1.4',
   },
   {
-    "product_id": "5",
-    "team_member": "Evan Williams",
-    "date": "05-12-2024",
-    "event": "Server Maintenance",
-    "team": "IT Support",
-    "product": "Internal Systems",
-    "ip_address": "192.168.1.5"
-  }
+    product_id: '5',
+    team_member: 'Evan Williams',
+    date: '05-12-2024',
+    event: 'Server Maintenance',
+    team: 'IT Support',
+    product: 'Internal Systems',
+    ip_address: '192.168.1.5',
+  },
 ]
-
 
 export function ActivityLogsTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -160,7 +171,9 @@ export function ActivityLogsTable() {
       accessorKey: 'team_member',
       header: 'Team Member',
       cell: ({ row }) => (
-        <div className="capitalize cursor-pointer hover:underline">{row.getValue('team_member')}</div>
+        <div className="capitalize cursor-pointer hover:underline">
+          {row.getValue('team_member')}
+        </div>
       ),
     },
 
@@ -297,7 +310,9 @@ export function ActivityLogsTable() {
               placeholder="Search by Team Member..."
               value={table.getColumn('team_member')?.getFilterValue() ?? ''}
               onChange={(event) =>
-                table.getColumn('team_member')?.setFilterValue(event.target.value)
+                table
+                  .getColumn('team_member')
+                  ?.setFilterValue(event.target.value)
               }
               className="max-w-xs"
             />
@@ -321,16 +336,18 @@ export function ActivityLogsTable() {
                         key={column.id}
                         className="capitalize"
                         checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
                       >
                         {typeof column.columnDef.header === 'string'
                           ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
+                          : ''}{' '}
+                        {/* Render the header if it's a string */}
                       </DropdownMenuCheckboxItem>
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
             </div>
           </div>
           <div className="rounded-md border">
@@ -340,13 +357,13 @@ export function ActivityLogsTable() {
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead className='text-center' key={header.id}>
+                        <TableHead className="text-center" key={header.id}>
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
@@ -361,7 +378,7 @@ export function ActivityLogsTable() {
                       data-state={row.getIsSelected() && 'selected'}
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell className='text-center' key={cell.id}>
+                        <TableCell className="text-center" key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -383,32 +400,76 @@ export function ActivityLogsTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
-            <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <ArrowLeft />
-              </Button>
-              <span>
+          <div className="flex items-center justify-between px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-medium">Rows per page</p>
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value))
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[70px]">
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {table.getState().pagination.pageIndex + 1} of{' '}
                 {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <ArrowRight />
-              </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to first page</span>
+                  <ChevronsLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to previous page</span>
+                  <ChevronLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to next page</span>
+                  <ChevronRight />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to last page</span>
+                  <ChevronsRight />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
