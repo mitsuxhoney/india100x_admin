@@ -80,6 +80,13 @@ import {
   CardDescription,
 } from '@/components/ui/card'
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -219,7 +226,7 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
         //   <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
         // )
         const status = row.original.status
-        return  <Switch/> 
+        return <Switch />
       },
     },
     {
@@ -383,8 +390,37 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                         control={form.control}
                         name="name"
                         render={({ field }) => (
+
                           <FormItem>
-                            <FormLabel>API</FormLabel>
+                            <FormLabel>API Key Type</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select Type of API" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="Client API Key">Client API Key</SelectItem>
+                                <SelectItem value="Client HMAC Key">Client HMAC Key</SelectItem>
+                                <SelectItem value="User HMAC Key">User HMAC Key</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {/* <FormDescription>
+                  A webhook URL is an endpoint that allows external systems to
+                  send real-time data or notifications to your application over
+                  HTTP when certain events occur.
+                </FormDescription> */}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+
+                          <FormItem>
+                            <FormLabel>Descriptive Name</FormLabel>
                             <FormControl>
                               <Input placeholder="Enter the name" {...field} />
                             </FormControl>
@@ -397,49 +433,34 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                           </FormItem>
                         )}
                       />
-
-                      <div className="flex gap-4 items-end">
-                        <div className="w-[97%]">
-                          <FormField
-                            control={form.control}
-                            name="secret_key"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Secret Key</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="sdfssdfdswasdgnsd76sadas"
-                                    disabled
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        <Button variant="outline">
-                          <Copy />
-                        </Button>
-                      </div>
-                      <Button variant="outline" className="">
-                        Generate secret
-                      </Button>
                     </form>
                   </Form>
                   <SheetFooter>
                     {/* <SheetClose asChild> */}
-                    <div className="mt-4">
-                      <Button
-                        type="submit"
-                        onClick={() => {
-                          toast({
-                            title: 'New API key generated',
-                          })
-                        }}
-                      >
-                        Create API key
-                      </Button>
+                    <div className='flex justify-end mt-4 w-full'>
+                      <div className='flex gap-4'>
+                      <div>
+                        <Button
+                          type="submit"
+                          onClick
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+
+                      <div>
+                        <Button
+                          type="submit"
+                          onClick={() => {
+                            toast({
+                              title: 'New API key generated',
+                            })
+                          }}
+                        >
+                          Create API key
+                        </Button>
+                      </div>
+                      </div>
                     </div>
                     {/* </SheetClose> */}
                   </SheetFooter>
@@ -458,9 +479,9 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

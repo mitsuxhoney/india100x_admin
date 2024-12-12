@@ -20,8 +20,10 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  FileDown,
 } from 'lucide-react'
-
+import { saveAs } from 'file-saver'; 
+import * as Papa from 'papaparse'
 import {
   AlertDialog,
   AlertDialogTitle,
@@ -181,6 +183,28 @@ export function ProgramTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
+    {
+      id: 'select',
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     {
       accessorKey: 'name',
       header: 'Manager Name',
@@ -342,7 +366,14 @@ export function ProgramTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
-
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
   return (
     <Card>
       <CardHeader>
@@ -360,7 +391,9 @@ export function ProgramTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
-
+            <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

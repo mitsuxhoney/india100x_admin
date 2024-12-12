@@ -19,6 +19,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  FileDown,
 } from 'lucide-react'
 
 import {
@@ -49,6 +50,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { saveAs } from 'file-saver'; 
+import * as Papa from 'papaparse'; 
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -378,7 +381,14 @@ export function InventoryTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
-
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
   return (
     <Card>
       <CardHeader>
@@ -398,6 +408,9 @@ export function InventoryTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
+            <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

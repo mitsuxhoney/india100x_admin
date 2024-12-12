@@ -1,4 +1,4 @@
-import { PoolAccountsTable } from '../../components/PoolAccount-table'
+import { PoolAccountsTable } from '@/components/PoolAccount-table'
 
 const PoolAccounts = () => {
   return (

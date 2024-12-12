@@ -19,6 +19,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  FileDown,
 } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
@@ -52,6 +53,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { saveAs } from 'file-saver';
+import * as Papa from 'papaparse';
+
 import {
   Table,
   TableBody,
@@ -277,8 +281,8 @@ export function FlaggedCustomerTable() {
           descriptionLength > 100
             ? 'text-xs'
             : descriptionLength > 50
-            ? 'text-sm'
-            : 'text-md'
+              ? 'text-sm'
+              : 'text-md'
 
         return <div className={`text-center ${fontSize}`}>{description}</div>
       },
@@ -376,6 +380,14 @@ export function FlaggedCustomerTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
 
   return (
     <Card>
@@ -394,7 +406,11 @@ export function FlaggedCustomerTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            {/* <div>
+              <Button variant='outline' onClick={downloadCSV}>
+
+                <FileDown />
+              </Button>
+              {/* <div>
               <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
@@ -452,7 +468,6 @@ export function FlaggedCustomerTable() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div> */}
-              <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
@@ -484,8 +499,8 @@ export function FlaggedCustomerTable() {
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-              </div>
             </div>
+
           </div>
           <div className="rounded-md border">
             <Table>
@@ -498,9 +513,9 @@ export function FlaggedCustomerTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
