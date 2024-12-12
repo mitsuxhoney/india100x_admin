@@ -65,6 +65,7 @@ const data = [
   {
     product_id: '1',
     customerId: '123456781',
+    name: 'John',
     ProgramManager: 'Privacy Card',
     FlagType: 'Suspicious Transactions',
     FlaggedActivityDescription: 'Multiple failed login attempts',
@@ -75,60 +76,114 @@ const data = [
   },
   {
     product_id: '2',
-    customerId: '123452789',
-    ProgramManager: 'Business Card',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Multiple failed login attempts',
-    IpAddress: '127.0.32.1',
+    customerId: '987654321',
+    name: 'Alice',
+    ProgramManager: 'Secure Wallet',
+    FlagType: 'Unusual IP Address',
+    FlaggedActivityDescription: 'Access from unrecognized IP',
+    IpAddress: '192.168.1.1',
     priority: 'medium',
-    CreatedBy: 'Manager1',
-    LastActive: '01-12-2023',
+    CreatedBy: 'Admin45',
+    LastActive: '02-11-2023',
   },
   {
     product_id: '3',
-    customerId: '123456789',
-    ProgramManager: 'Travel Card',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Multiple failed login attempts',
-    IpAddress: '127.0.32.1',
-    priority: 'low',
-    CreatedBy: 'SupervisorX',
-    LastActive: '01-12-2023',
+    customerId: '456123789',
+    name: 'Bob',
+    ProgramManager: 'Business Card',
+    FlagType: 'High-Value Transactions',
+    FlaggedActivityDescription: 'Large transaction flagged',
+    IpAddress: '10.0.0.2',
+    priority: 'high',
+    CreatedBy: 'Manager23',
+    LastActive: '11-10-2023',
   },
   {
     product_id: '4',
-    customerId: '123456789',
+    customerId: '789456123',
+    name: 'Sophia',
     ProgramManager: 'Travel Card',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Multiple failed login attempts',
-    IpAddress: '127.0.32.1',
+    FlagType: 'Login Anomalies',
+    FlaggedActivityDescription: 'Frequent password resets',
+    IpAddress: '203.0.113.5',
     priority: 'low',
-    CreatedBy: 'SupervisorX',
-    LastActive: '01-12-2023',
+    CreatedBy: 'User12',
+    LastActive: '12-09-2023',
   },
   {
     product_id: '5',
-    customerId: '123456789',
-    ProgramManager: 'Travel Card',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Multiple failed login attempts',
-    IpAddress: '127.0.32.1',
-    priority: 'low',
-    CreatedBy: 'SupervisorX',
-    LastActive: '01-12-2023',
+    customerId: '321654987',
+    name: 'Michael',
+    ProgramManager: 'Expense Card',
+    FlagType: 'Card Sharing Detected',
+    FlaggedActivityDescription: 'Multiple devices detected',
+    IpAddress: '198.51.100.14',
+    priority: 'medium',
+    CreatedBy: 'Admin99',
+    LastActive: '03-08-2023',
   },
   {
     product_id: '6',
-    customerId: '123456789',
-    ProgramManager: 'Travel Card',
-    FlagType: 'Suspicious Transactions',
-    FlaggedActivityDescription: 'Multiple failed login attempts',
-    IpAddress: '127.0.32.1',
-    priority: 'low',
-    CreatedBy: 'SupervisorX',
-    LastActive: '01-12-2023',
+    customerId: '147258369',
+    name: 'Emma',
+    ProgramManager: 'Platinum Card',
+    FlagType: 'Geo-location Mismatch',
+    FlaggedActivityDescription: 'Transactions in different countries',
+    IpAddress: '203.0.113.77',
+    priority: 'high',
+    CreatedBy: 'Manager56',
+    LastActive: '15-07-2023',
   },
-]
+  {
+    product_id: '7',
+    customerId: '963852741',
+    name: 'Oliver',
+    ProgramManager: 'Digital Wallet',
+    FlagType: 'High Login Frequency',
+    FlaggedActivityDescription: 'Excessive login attempts',
+    IpAddress: '10.0.0.10',
+    priority: 'low',
+    CreatedBy: 'Admin11',
+    LastActive: '20-06-2023',
+  },
+  {
+    product_id: '8',
+    customerId: '852741963',
+    name: 'Liam',
+    ProgramManager: 'Corporate Card',
+    FlagType: 'Excessive Chargebacks',
+    FlaggedActivityDescription: 'Too many chargeback requests',
+    IpAddress: '198.51.100.33',
+    priority: 'high',
+    CreatedBy: 'Supervisor8',
+    LastActive: '10-05-2023',
+  },
+  {
+    product_id: '9',
+    customerId: '741852963',
+    name: 'Isabella',
+    ProgramManager: 'Student Card',
+    FlagType: 'Unusual Spending Pattern',
+    FlaggedActivityDescription: 'Sudden increase in transactions',
+    IpAddress: '192.168.10.20',
+    priority: 'medium',
+    CreatedBy: 'Admin20',
+    LastActive: '30-04-2023',
+  },
+  {
+    product_id: '10',
+    customerId: '159357486',
+    name: 'James',
+    ProgramManager: 'Basic Card',
+    FlagType: 'Unauthorized Access',
+    FlaggedActivityDescription: 'Access outside working hours',
+    IpAddress: '127.0.0.1',
+    priority: 'low',
+    CreatedBy: 'Admin03',
+    LastActive: '25-03-2023',
+  },
+];
+
 
 export function FlaggedCustomerTable() {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -138,6 +193,28 @@ export function FlaggedCustomerTable() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const columns = [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
     // {
     //   accessorKey: 'product_id',
     //   header: ({ column }) => {
@@ -166,13 +243,13 @@ export function FlaggedCustomerTable() {
         </div>
       ),
     },
-    // {
-    //   accessorKey: 'Name',
-    //   header: 'Name',
-    //   cell: ({ row }) => (
-    //     <div className="capitalize text-center">{row.getValue('Name')}</div>
-    //   ),
-    // },
+    {
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => (
+        <div className="capitalize text-center">{row.getValue('name')}</div>
+      ),
+    },
     {
       accessorKey: 'ProgramManager',
       header: 'Program Manager',
@@ -201,10 +278,20 @@ export function FlaggedCustomerTable() {
             ? 'text-xs'
             : descriptionLength > 50
             ? 'text-sm'
-            : 'text-base'
+            : 'text-md'
 
         return <div className={`text-center ${fontSize}`}>{description}</div>
       },
+    },
+
+    {
+      accessorKey: 'LastActive',
+      header: 'Last Active',
+      cell: ({ row }) => (
+        <div className="text-center min-w-[80px]">
+          {row.getValue('LastActive')}
+        </div>
+      ),
     },
     {
       accessorKey: 'priority',
@@ -224,17 +311,6 @@ export function FlaggedCustomerTable() {
         )
       },
     },
-
-    {
-      accessorKey: 'LastActive',
-      header: 'Last Active',
-      cell: ({ row }) => (
-        <div className="text-center min-w-[80px]">
-          {row.getValue('LastActive')}
-        </div>
-      ),
-    },
-
     {
       accessorKey: 'actions',
       header: '',
@@ -318,7 +394,7 @@ export function FlaggedCustomerTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            <div>
+            {/* <div>
               <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
@@ -369,18 +445,18 @@ export function FlaggedCustomerTable() {
                                 : ''}
                             </span>
 
-                            {/* Display a checkmark if this column is currently sorted */}
+                            
                           </DropdownMenuItem>
                         )
                       })}
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
+              </div> */}
               <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
+                    View <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

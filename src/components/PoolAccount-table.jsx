@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
+//import axios from 'axios'
 import {
   flexRender,
   getCoreRowModel,
@@ -61,6 +62,7 @@ import {
 } from '@/components/ui/table'
 
 import { Badge } from '@/components/ui/badge'
+//import ApiConfig from '@/config/ApiConfig'
 
 const fieldIconMap = {
   Active: {
@@ -166,14 +168,15 @@ const data = [
     Inactive: true,
   },
 ]
-
-export function PoolAccountsTable() {
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+//const data=[];
+export async function PoolAccountsTable () {
+  //const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
-
+  //const data= await axios.get(ApiConfig.poolAccount);
+  //console.log(data);
   const columns = [
     // {
     //   accessorKey: 'product_id',
@@ -195,6 +198,28 @@ export function PoolAccountsTable() {
     //   ),
     // },
     {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
       accessorKey: 'accountNumber',
       header: 'Account Number',
       cell: ({ row }) => (
@@ -212,14 +237,34 @@ export function PoolAccountsTable() {
     },
     {
       accessorKey: 'bin',
-      header: 'BIN',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            BIN
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('bin')}</div>
       ),
     },
     {
       accessorKey: 'totalAmount',
-      header: 'Amount',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Amount
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => {
         const amount = Number(row.original.totalAmount); // Access the raw data directly
         // const type = row.original.Type // Access the Type from raw data
@@ -341,69 +386,12 @@ export function PoolAccountsTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            <div>
-              <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
-
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
-
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            {/* Display a checkmark if this column is currently sorted */}
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+            
               <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
+                    View <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">

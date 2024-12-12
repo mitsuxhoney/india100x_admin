@@ -202,7 +202,7 @@ export function ProgramTableDemo() {
     {
       accessorKey: 'name',
       header: 'Name',
-      cell: ({ row }) =>( 
+      cell: ({ row }) => (
         <div className="capitalize text-center cursor-pointer hover:underline">
           {row.getValue('name')}
         </div>
@@ -227,16 +227,43 @@ export function ProgramTableDemo() {
 
     {
       accessorKey: 'limit',
-      header: 'Limit',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Limit
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="text-center">{row.getValue('limit')}</div>
       ),
     },
 
     {
+      accessorKey: 'launchdate',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Launch Date
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('launchdate')}</div>
+      ),
+    },
+    {
       header: 'Tags',
       cell: ({ row }) => (
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-left gap-2">
           {Object.keys(fieldIconMap).map((field) => {
             if (row.original[field]) {
               return (
@@ -252,13 +279,6 @@ export function ProgramTableDemo() {
             return null
           })}
         </div>
-      ),
-    },
-    {
-      accessorKey: 'launchdate',
-      header: 'Launch Date',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('launchdate')}</div>
       ),
     },
     {
@@ -401,6 +421,7 @@ export function ProgramTableDemo() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
+              {/* 
               <div>
                 <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
@@ -452,19 +473,20 @@ export function ProgramTableDemo() {
                                 : ''}
                             </span>
 
-                            {/* Display a checkmark if this column is currently sorted */}
+                            
                           </DropdownMenuItem>
                         )
                       })}
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
+              </div> 
+              */}
 
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
-                      Column <ChevronDown />
+                      View <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
@@ -484,10 +506,9 @@ export function ProgramTableDemo() {
                             column.toggleVisibility(!!value)
                           }
                         >
-                          {typeof column.columnDef.header === 'string'
-                            ? column.columnDef.header
-                            : ''}{' '}
-                          {/* Render the header if it's a string */}
+                          {typeof column.columnDef.header === 'function'
+                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                            : column.columnDef.header}
                         </DropdownMenuCheckboxItem>
                       ))}
                   </DropdownMenuContent>
@@ -512,9 +533,9 @@ export function ProgramTableDemo() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

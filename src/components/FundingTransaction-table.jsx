@@ -203,6 +203,28 @@ export function FundingTransactionTable() {
     //     ),
     //   },
     {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
       accessorKey: 'cardRefId',
       header: 'Reference ID',
       cell: ({ row }) => (
@@ -220,14 +242,34 @@ export function FundingTransactionTable() {
     },
     {
       accessorKey: 'FromAccount',
-      header: 'From Account',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            From Account
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div>{row.getValue('FromAccount')}</div>
       ),
     },
     {
       accessorKey: 'ToAccount',
-      header: 'To Account',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            To Account
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div>{row.getValue('ToAccount')}</div>
       ),
@@ -235,7 +277,17 @@ export function FundingTransactionTable() {
 
     {
       accessorKey: 'Amount',
-      header:'Amount',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Amount
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => {
         const amount = row.original.Amount // Access the raw data directly
         // const type = row.original.Type // Access the Type from raw data
@@ -250,6 +302,22 @@ export function FundingTransactionTable() {
       },
     },
 
+    
+    {
+      accessorKey: 'Date',
+      header: 'Date',
+      cell: ({ row }) => {
+        const date = row.getValue('Date').split(' ')[0]
+        const time = row.getValue('Date').split(' ')[1]
+
+        return (
+          <div className="flex flex-col items-center text-center">
+            <span>{date}</span>
+            <span className="text-slate-400">{time}</span>
+          </div>
+        )
+      },
+    },
     {
       header: `Status`,
       cell: ({ row }) => (
@@ -270,21 +338,6 @@ export function FundingTransactionTable() {
           })}
         </div>
       ),
-    },
-    {
-      accessorKey: 'Date',
-      header: 'Date',
-      cell: ({ row }) => {
-        const date = row.getValue('Date').split(' ')[0]
-        const time = row.getValue('Date').split(' ')[1]
-
-        return (
-          <div className="flex flex-col items-center text-center">
-            <span>{date}</span>
-            <span className="text-slate-400">{time}</span>
-          </div>
-        )
-      },
     },
     // {
     //   accessorKey: 'actions',
@@ -371,69 +424,12 @@ export function FundingTransactionTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            <div>
-              <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
-
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
-
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            {/* Display a checkmark if this column is currently sorted */}
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+            
               <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
-                    Column <ChevronDown />
+                    View <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -451,9 +447,9 @@ export function FundingTransactionTable() {
                         checked={column.getIsVisible()}
                         onCheckedChange={(value) => column.toggleVisibility(!!value)}
                       >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
+                        {typeof column.columnDef.header === 'function'
+                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                            : column.columnDef.header}
                       </DropdownMenuCheckboxItem>
                     ))}
                 </DropdownMenuContent>

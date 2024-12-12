@@ -197,6 +197,28 @@ export function IssuedCardsTable() {
 
   const columns = [
     {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
       accessorKey: 'card_ref_id',
       header: 'Card Ref ID',
       cell: ({ row }) => (
@@ -207,7 +229,17 @@ export function IssuedCardsTable() {
     },
     {
       accessorKey: 'last_four_digit',
-      header: 'Card Last Four Digits',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Card Last Four Digits
+            <ArrowUpDown />
+          </Button>
+        )
+      },
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('last_four_digit')}</div>
       ),
@@ -219,11 +251,30 @@ export function IssuedCardsTable() {
         <div className="capitalize">{row.getValue('product_category')}</div>
       ),
     },
-
+    {
+      accessorKey: 'issued_date',
+      header: 'Issued Date',
+      cell: ({ row }) => (
+        <div className="lowercase ">{row.getValue('issued_date')}</div>
+      ),
+    },
+    
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+        return status === 'active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        )
+      },
+    },
     {
       header: 'Tags',
       cell: ({ row }) => (
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-left gap-2">
           {Object.keys(fieldIconMap).map((field) => {
             if (row.original[field]) {
               return (
@@ -239,25 +290,6 @@ export function IssuedCardsTable() {
             return null
           })}
         </div>
-      ),
-    },
-    {
-      accessorKey: 'status',
-      header: 'Status',
-      cell: ({ row }) => {
-        const status = row.getValue('status')
-        return status === 'active' ? (
-          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
-        ) : (
-          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
-        )
-      },
-    },
-    {
-      accessorKey: 'issued_date',
-      header: 'Issued Date',
-      cell: ({ row }) => (
-        <div className="lowercase ">{row.getValue('issued_date')}</div>
       ),
     },
     {
@@ -345,7 +377,7 @@ export function IssuedCardsTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-              <div>
+              {/* <div>
                 <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
@@ -396,18 +428,18 @@ export function IssuedCardsTable() {
                                 : ''}
                             </span>
 
-                            {/* Display a checkmark if this column is currently sorted */}
+                            
                           </DropdownMenuItem>
                         )
                       })}
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
+              </div> */}
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="ml-auto">
-                      Column <ChevronDown />
+                      View <ChevronDown />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
@@ -427,9 +459,9 @@ export function IssuedCardsTable() {
                             column.toggleVisibility(!!value)
                           }
                         >
-                          {typeof column.columnDef.header === 'string'
-                            ? column.columnDef.header
-                            : ''}{' '}
+                          {typeof column.columnDef.header === 'function'
+                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                            : column.columnDef.header}
                           {/* Render the header if it's a string */}
                         </DropdownMenuCheckboxItem>
                       ))}
