@@ -1,5 +1,9 @@
-const OtpForm = () => {
-  return <div>otpForm</div>
+import React from 'react'
+
+const otpForm = () => {
+  return (
+    <div>otpForm</div>
+  )
 }
 
-export default OtpForm
+export default otpForm

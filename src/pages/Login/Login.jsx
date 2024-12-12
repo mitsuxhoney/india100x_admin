@@ -1,15 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import UserLoginForm from '@/components/UserLoginForm'
-
 import LoginImg from '@/assets/Login-BackgroundImg.webp'
-import { useState } from 'react'
-import OtpForm from '@/components/OtpForm'
-import ResetPasswordForm from '@/components/ResetPasswordForm'
-import ForgotPasswordForm from '@/components/ForgotPasswordForm'
 
 export default function Login() {
-  const [step, setStep] = useState('login')
   return (
     <>
       <div className="container relative h-[100vh] flex flex-col mx-auto items-center justify-center md:grid lg:max-w-none grid-cols-1 lg:grid-cols-2 lg:px-0">
@@ -58,14 +51,6 @@ export default function Login() {
         </div>
         <div className="lg:p-4 p-10 dark:bg-muted bg-[#F9FAFB]">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] ">
-            {step === 'login' && <UserLoginForm setStep={setStep} />}
-            {step === 'forgot-password' && (
-              <ForgotPasswordForm setStep={setStep} />
-            )}
-            {step === 'otp' && <OtpForm setStep={setStep} />}
-            {step === 'reset-password' && (
-              <ResetPasswordForm setStep={setStep} />
-            )}
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{' '}
               <Link
