@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import axios from '@/api/axios';
 import { z } from 'zod';
-import ApiConfig from '@/config/ApiConfig';
+
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -38,29 +38,55 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const navigate = useNavigate(); // Initialize the navigate function
 
-  async function onSubmit(values) {
-    setIsLoading(true);
-    console.log(values);
-    try {
-      const response = await axios.post(ApiConfig.login, {
-        email: values.email,
-        password: values.password,
-      },
-      {
-        withCredentials: true, // Include cookies with the request
-      });
+  // async function onSubmit(values) {
+  //   setIsLoading(true);
+  //   console.log(values);
+  //   try {
+  //     const response = await axios.post(ApiConfig.login, {
+  //       email: values.email,
+  //       password: values.password,
+  //     },
+  //       {
+  //         withCredentials: true, // Include cookies with the request
+  //       });
 
-      if (response.status === 200) {
-        // Handle successful login (e.g., save token, redirect)
-        console.log('Login successful:', response.data);
-        navigate('/business-dashboard'); // Replace with your actual dashboard path
-      } else {
-        console.error('Unexpected response:', response);
-      }
-    } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
-    } finally {
-      setIsLoading(false);
+  //     if (response.status === 200) {
+  //       // Handle successful login (e.g., save token, redirect)
+  //       console.log('Login successful:', response.data);
+  //       navigate('/business-dashboard'); // Replace with your actual dashboard path
+  //     } else {
+  //       console.error('Unexpected response:', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Login failed:', error.response?.data || error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+  async function onSubmit(e) {
+    //e.preventDefault();
+
+    try {
+      const response = await axios.post('/auth/login',
+        {
+          email:e.email,
+          password:e.password,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+        }
+      );
+      console.log(response);
+      //console.log(JSON.stringify(response));
+      const accessToken = response?.data;
+      //const roles = response?.data?.roles;
+      //setAuth({ accessToken });
+      //setUser('');
+      //setPwd('');
+      navigate('/business-dashboard');
+    } catch (err) {
+      console.error('Login failed:', err.response?.data || err.message);
     }
   }
 

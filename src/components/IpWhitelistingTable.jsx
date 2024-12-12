@@ -201,18 +201,6 @@ const IpWhitelistingTable = () => {
       ),
     },
     {
-      accessorKey: 'status',
-      header: 'Status',
-      cell: ({ row }) => {
-        const status = row.getValue('status')
-        return status === 'Active' ? (
-          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
-        ) : (
-          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>
-        )
-      },
-    },
-    {
       accessorKey: 'date',
       header: 'Date',
       cell: ({ row }) => {
@@ -224,6 +212,19 @@ const IpWhitelistingTable = () => {
             <span>{date}</span>
             <span className="text-slate-400">{time}</span>
           </div>
+        )
+      },
+    },
+
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status')
+        return status === 'Active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Blocked</Badge>
         )
       },
     },
@@ -333,7 +334,7 @@ const IpWhitelistingTable = () => {
             <div className="flex items-center gap-2">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button>Create Allow List</Button>
+                  <Button>Add New IP</Button>
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>

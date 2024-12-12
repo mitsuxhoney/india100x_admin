@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-//import axios from 'axios'
+import axios from '@/api/axios'
 import {
   flexRender,
   getCoreRowModel,
@@ -25,10 +25,14 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Binary,
+  Cookie,
+  FileDown,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { saveAs } from 'file-saver'; 
+import * as Papa from 'papaparse'; 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   DropdownMenu,
@@ -56,6 +60,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+//import ApiConfig from '@/config/ApiConfig'
 
 const fieldIconMap = {
   Active: {
@@ -159,6 +164,33 @@ export function PoolAccountsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
   //const data= await axios.get(ApiConfig.poolAccount);
   //console.log(data);
+  //const [data, setData] = React.useState([]); // State for table data
+  const [loading, setLoading] = React.useState(true); // State for loading
+  const [error, setError] = React.useState(null); // State for error handling
+
+  // React.useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       setLoading(true);
+  //       //const token=cookie.get("auth_token");
+  //       const response = await axios.get('/wallet/get_balance',{
+  //         withCredentials: true,
+  //         // headers:{
+  //         //   Authorization:`Bearer ${token}`
+  //         // }
+  //       }); // Replace with your API endpoint
+  //       setData(response.data); // Assuming the response is an array of pool accounts
+  //       console.log(response.data);
+  //     } catch (err) {
+  //       console.error('Error fetching data:', err);
+  //       setError('Failed to fetch data. Please try again later.');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []); // Empty dependency array means it runs once on component mount
   const columns = [
     // {
     //   accessorKey: 'product_id',
@@ -339,6 +371,15 @@ export function PoolAccountsTable() {
     // Clear any row data when canceled
   }
 
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -360,6 +401,9 @@ export function PoolAccountsTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
+            <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

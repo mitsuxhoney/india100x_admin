@@ -19,6 +19,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  FileDown,
 } from 'lucide-react'
 
 import {
@@ -33,6 +34,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { saveAs } from 'file-saver'; 
+import * as Papa from 'papaparse'; 
 import {
   Card,
   CardContent,
@@ -338,6 +341,14 @@ export function AllCustomerTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
 
   return (
     <Card>
@@ -346,7 +357,7 @@ export function AllCustomerTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
+          <div className="flex items-center py-4 justify-between">
             <Input
               placeholder="Search Name..."
               value={table.getColumn('Name')?.getFilterValue() ?? ''}
@@ -355,57 +366,57 @@ export function AllCustomerTable() {
               }
               className="max-w-sm"
             />
-            
-              <div className="flex items-center gap-2">
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                        >
-                          {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
-                            : column.columnDef.header} {/* Render the header if it's a string */}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                </div>
-              </div>
+            <div className="flex items-center gap-2">
+              <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="ml-auto">
+                    View <ChevronDown />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {table
+                    .getAllColumns()
+                    .filter(
+                      (column) =>
+                        column.getCanHide() && column.columnDef.header
+                    )
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        className="capitalize"
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {typeof column.columnDef.header === 'function'
+                          ? column.columnDef.header({ column }).props
+                            .children[0]
+                          : column.columnDef.header}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
           <div className="rounded-md border">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead className="text-center" key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                        </TableHead>
-                      )
-                    })}
+                    {headerGroup.headers.map((header) => (
+                      <TableHead className="text-center" key={header.id}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                      </TableHead>
+                    ))}
                   </TableRow>
                 ))}
               </TableHeader>
@@ -416,39 +427,14 @@ export function AllCustomerTable() {
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                     >
-                      {row.getVisibleCells().map((cell) => {
-                        const clickableColumns = [
-                          'customerId',
-                          'ProgramManager',
-                        ] // List of clickable column keys
-
-                        return (
-                          <TableCell className="text-center" key={cell.id}>
-                            {clickableColumns.includes(cell.column.id) ? (
-                              // If the column is in the clickable list, render a clickable element (e.g., link or button)
-                              <button
-                                onClick={() => handleClick(cell.row.original)}
-                                style={{
-                                  background: 'transparent',
-                                  border: 'none',
-                                  cursor: 'pointer',
-                                }}
-                              >
-                                {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext()
-                                )}
-                              </button>
-                            ) : (
-                              // Otherwise, render the regular cell content
-                              flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )
-                            )}
-                          </TableCell>
-                        )
-                      })}
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell className="text-center" key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
                     </TableRow>
                   ))
                 ) : (
@@ -491,5 +477,5 @@ export function AllCustomerTable() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

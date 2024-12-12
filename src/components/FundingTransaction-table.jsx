@@ -20,6 +20,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  FileDown,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -34,6 +35,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { saveAs } from 'file-saver';
+import * as Papa from 'papaparse';
 import {
   Table,
   TableBody,
@@ -302,7 +305,7 @@ export function FundingTransactionTable() {
       },
     },
 
-    
+
     {
       accessorKey: 'Date',
       header: 'Date',
@@ -404,7 +407,14 @@ export function FundingTransactionTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
-
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
   return (
     <Card>
       <CardHeader>
@@ -424,36 +434,38 @@ export function FundingTransactionTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            
+              <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    View <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'function'
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      View <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                        >
+                          {typeof column.columnDef.header === 'function'
                             ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
                             : column.columnDef.header}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
