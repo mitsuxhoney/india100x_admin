@@ -20,35 +20,21 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Binary,
 } from 'lucide-react'
 
-import {
-  AlertDialog,
-  AlertDialogTitle,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogDescription,
-} from '@/components/ui/alert-dialog'
-
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
@@ -62,7 +48,14 @@ import {
 } from '@/components/ui/table'
 
 import { Badge } from '@/components/ui/badge'
-//import ApiConfig from '@/config/ApiConfig'
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const fieldIconMap = {
   Active: {
@@ -83,7 +76,6 @@ const data = [
     bin: '98287',
     totalAmount: '569234432.23',
     status: 'Active',
-    Active: true,
   },
   {
     product_id: '2',
@@ -92,7 +84,6 @@ const data = [
     bin: '98279',
     totalAmount: '123456789.50',
     status: 'Active',
-    Active: true,
   },
   {
     product_id: '3',
@@ -101,7 +92,6 @@ const data = [
     bin: '98290',
     totalAmount: '87945632.75',
     status: 'Inactive',
-    Inactive: true,
   },
   {
     product_id: '4',
@@ -110,7 +100,6 @@ const data = [
     bin: '98301',
     totalAmount: '23456789.30',
     status: 'Active',
-    Inactive: true,
   },
   {
     product_id: '5',
@@ -119,7 +108,6 @@ const data = [
     bin: '98288',
     totalAmount: '987654321.10',
     status: 'Active',
-    Inactive: true,
   },
   {
     product_id: '6',
@@ -128,7 +116,6 @@ const data = [
     bin: '98299',
     totalAmount: '52347645.55',
     status: 'Inactive',
-    Inactive: true,
   },
   {
     product_id: '7',
@@ -137,7 +124,6 @@ const data = [
     bin: '98285',
     totalAmount: '102345678.90',
     status: 'Active',
-    Inactive: true,
   },
   {
     product_id: '8',
@@ -146,8 +132,6 @@ const data = [
     bin: '98305',
     totalAmount: '39456780.40',
     status: 'Active',
-    Active: true,
-    Inactive: true,
   },
   {
     product_id: '9',
@@ -156,7 +140,6 @@ const data = [
     bin: '98291',
     totalAmount: '76543210.20',
     status: 'Active',
-    Inactive: true,
   },
   {
     product_id: '10',
@@ -165,12 +148,11 @@ const data = [
     bin: '98302',
     totalAmount: '34567890.60',
     status: 'Inactive',
-    Inactive: true,
   },
 ]
 //const data=[];
-export function PoolAccountsTable () {
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+export function PoolAccountsTable() {
+  //const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
@@ -198,12 +180,12 @@ export function PoolAccountsTable () {
     //   ),
     // },
     {
-      id: "select",
+      id: 'select',
       header: ({ table }) => (
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
           }
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
           aria-label="Select all"
@@ -232,7 +214,9 @@ export function PoolAccountsTable () {
       accessorKey: 'bankName',
       header: 'Bank Name',
       cell: ({ row }) => (
-        <div className="text-center cursor-pointer hover:underline">{row.getValue('bankName')}</div>
+        <div className="text-center cursor-pointer hover:underline">
+          {row.getValue('bankName')}
+        </div>
       ),
     },
     {
@@ -241,7 +225,7 @@ export function PoolAccountsTable () {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             BIN
             <ArrowUpDown />
@@ -258,7 +242,7 @@ export function PoolAccountsTable () {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Amount
             <ArrowUpDown />
@@ -266,38 +250,28 @@ export function PoolAccountsTable () {
         )
       },
       cell: ({ row }) => {
-        const amount = Number(row.original.totalAmount); // Access the raw data directly
+        const amount = Number(row.original.totalAmount) // Access the raw data directly
         // const type = row.original.Type // Access the Type from raw data
         // const colorClass = type === 'Credit' ? 'text-green-500' : 'text-red-500'
-        const [whole, decimal] = amount.toFixed(2).split('.'); // Split the amount into whole and decimal parts
+        const [whole, decimal] = amount.toFixed(2).split('.') // Split the amount into whole and decimal parts
         return (
           <div className="text-center flex items-center justify-center">
             <span>₹{whole}</span>
             <span className="text-gray-500">.{decimal}</span>
           </div>
-        );
+        )
       },
     },
     {
       header: `Status`,
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center gap-2">
-          {Object.keys(fieldIconMap).map((field) => {
-            if (row.original[field]) {
-              return (
-                <span
-                  key={field}
-                  className={`flex items-center gap-1`}
-                  title={fieldIconMap[field].label}
-                >
-                  {fieldIconMap[field].icon}
-                </span>
-              )
-            }
-            return null
-          })}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const status = row.original.status
+        return status === 'Active' ? (
+          <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
+        ) : (
+          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
+        )
+      },
     },
     {
       accessorKey: 'actions',
@@ -386,36 +360,37 @@ export function PoolAccountsTable () {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-            
               <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    View <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''} {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="ml-auto">
+                      View <ChevronDown />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {table
+                      .getAllColumns()
+                      .filter(
+                        (column) =>
+                          column.getCanHide() && // Check if the column can be hidden
+                          column.columnDef.header // Ensure the column has a defined header
+                      )
+                      .map((column) => (
+                        <DropdownMenuCheckboxItem
+                          key={column.id}
+                          className="capitalize"
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) =>
+                            column.toggleVisibility(!!value)
+                          }
+                        >
+                          {typeof column.columnDef.header === 'function'
+                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                            : column.columnDef.header}
+                        </DropdownMenuCheckboxItem>
+                      ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               {/* <Link to="/program/create-program">
                 <Button variant="" className="ml-auto">
@@ -435,9 +410,9 @@ export function PoolAccountsTable () {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
@@ -460,28 +435,76 @@ export function PoolAccountsTable () {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end py-4">
-            <div className="flex items-center space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <ArrowLeft />
-              </Button>
-              <span>
+          <div className="flex items-center justify-between px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-medium">Rows per page</p>
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value))
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[70px]">
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {table.getState().pagination.pageIndex + 1} of{' '}
                 {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <ArrowRight />
-              </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to first page</span>
+                  <ChevronsLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to previous page</span>
+                  <ChevronLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to next page</span>
+                  <ChevronRight />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to last page</span>
+                  <ChevronsRight />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
