@@ -8,6 +8,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { saveAs } from 'file-saver'; 
+import * as Papa from 'papaparse'; 
 import {
   ArrowUpDown,
   ChevronDown,
@@ -23,6 +25,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   MoreHorizontal,
+  FileDown,
 } from 'lucide-react'
 import {
   Select,
@@ -358,6 +361,15 @@ export function PendingKycTable() {
     // Clear any row data when canceled
   }
 
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -375,6 +387,9 @@ export function PendingKycTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
+              <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -395,14 +410,11 @@ export function PendingKycTable() {
                           key={column.id}
                           className="capitalize"
                           checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
+                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
                         >
                           {typeof column.columnDef.header === 'string'
                             ? column.columnDef.header
-                            : ''}{' '}
-                          {/* Render the header if it's a string */}
+                            : ''} {/* Render the header if it's a string */}
                         </DropdownMenuCheckboxItem>
                       ))}
                   </DropdownMenuContent>

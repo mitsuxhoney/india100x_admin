@@ -23,6 +23,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   CircleX,
+  FileDown,
 } from 'lucide-react'
 
 import {
@@ -35,6 +36,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { saveAs } from 'file-saver';
+import * as Papa from 'papaparse';
 import {
   Card,
   CardContent,
@@ -65,50 +68,50 @@ import { Badge } from '@/components/ui/badge'
 
 const data = [
   {
-    product_id: '1',
-    user_id: 'U001',
-    name: 'Alice Johnson',
-    role: 'Administrator',
-    created_at: '01-01-2024',
-    team: 'ONO',
-    is_active: true,
+    "product_id": "1",
+    "user_id": "U001",
+    "name": "Alice Johnson",
+    "role": "Administrator",
+    "created_at": "01-01-2024",
+    'team': 'ONO',
+    "is_active": true
   },
   {
-    product_id: '2',
-    user_id: 'U002',
-    name: 'Bob Smith',
-    role: 'Moderator',
-    created_at: '15-02-2024',
-    team: 'ONO',
-    is_active: false,
+    "product_id": "2",
+    "user_id": "U002",
+    "name": "Bob Smith",
+    "role": "Moderator",
+    "created_at": "15-02-2024",
+    'team': 'ONO',
+    "is_active": false
   },
   {
-    product_id: '3',
-    user_id: 'U003',
-    name: 'Charlie Brown',
-    role: 'User',
-    created_at: '10-03-2024',
-    team: 'ONO',
-    is_active: true,
+    "product_id": "3",
+    "user_id": "U003",
+    "name": "Charlie Brown",
+    "role": "User",
+    "created_at": "10-03-2024",
+    'team': 'ONO',
+    "is_active": true
   },
   {
-    product_id: '4',
-    user_id: 'U004',
-    name: 'Diana Prince',
-    role: 'Editor',
-    created_at: '25-04-2024',
-    team: 'ONO',
-    is_active: true,
+    "product_id": "4",
+    "user_id": "U004",
+    "name": "Diana Prince",
+    "role": "Editor",
+    "created_at": "25-04-2024",
+    'team': 'ONO',
+    "is_active": true
   },
   {
-    product_id: '5',
-    user_id: 'U005',
-    name: 'Evan Williams',
-    role: 'Viewer',
-    created_at: '05-05-2024',
-    team: 'ONO',
-    is_active: false,
-  },
+    "product_id": "5",
+    "user_id": "U005",
+    "name": "Evan Williams",
+    "role": "Viewer",
+    "created_at": "05-05-2024",
+    'team': 'ONO',
+    "is_active": false
+  }
 ]
 
 export function SystemUsersTable() {
@@ -315,6 +318,15 @@ export function SystemUsersTable() {
     // Clear any row data when canceled
   }
 
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -332,6 +344,9 @@ export function SystemUsersTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
+              <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -352,14 +367,11 @@ export function SystemUsersTable() {
                           key={column.id}
                           className="capitalize"
                           checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
+                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
                         >
                           {typeof column.columnDef.header === 'string'
                             ? column.columnDef.header
-                            : ''}{' '}
-                          {/* Render the header if it's a string */}
+                            : ''} {/* Render the header if it's a string */}
                         </DropdownMenuCheckboxItem>
                       ))}
                   </DropdownMenuContent>

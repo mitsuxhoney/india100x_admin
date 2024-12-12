@@ -123,13 +123,13 @@ export function TeamLogsTable() {
       ),
     },
 
-    {
-      accessorKey: 'team',
-      header: 'Team',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
-      ),
-    },
+    // {
+    //   accessorKey: 'team',
+    //   header: 'Team',
+    //   cell: ({ row }) => (
+    //     <div className="capitalize">{row.getValue('team')}</div>
+    //   ),
+    // },
     {
       accessorKey: 'event',
       header: 'Event',

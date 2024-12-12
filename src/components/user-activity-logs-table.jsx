@@ -18,10 +18,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
+  FileDown,
 } from 'lucide-react'
 
 import {
@@ -44,6 +41,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import { saveAs } from 'file-saver';
+import * as Papa from 'papaparse';
 import {
   Card,
   CardContent,
@@ -184,13 +183,13 @@ export function ActivityLogsTable() {
         <div className="capitalize pl-4">{row.getValue('event')}</div>
       ),
     },
-    {
-      accessorKey: 'team',
-      header: 'Team',
-      cell: ({ row }) => (
-        <div className="capitalize">{row.getValue('team')}</div>
-      ),
-    },
+    // {
+    //   accessorKey: 'team',
+    //   header: 'Team',
+    //   cell: ({ row }) => (
+    //     <div className="capitalize">{row.getValue('team')}</div>
+    //   ),
+    // },
     {
       accessorKey: 'ip_address',
       header: 'IP Address',
@@ -298,6 +297,15 @@ export function ActivityLogsTable() {
     // Clear any row data when canceled
   }
 
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -317,6 +325,9 @@ export function ActivityLogsTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
+              <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">

@@ -8,6 +8,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { saveAs } from 'file-saver';
+import * as Papa from 'papaparse';
 import {
   ArrowUpDown,
   ChevronDown,
@@ -19,10 +21,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
+  FileDown,
 } from 'lucide-react'
 import {
   Select,
@@ -368,6 +367,14 @@ export function IssuedCardsTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data);
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv');
+  };
 
   return (
     <Card>
@@ -388,6 +395,9 @@ export function IssuedCardsTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
+              <Button variant='outline' onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               {/* <div>
                 <DropdownMenu className="max-sm:w-full">
                   <DropdownMenuTrigger asChild>
@@ -499,9 +509,9 @@ export function IssuedCardsTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
