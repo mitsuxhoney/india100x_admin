@@ -1,5 +1,5 @@
-const otpForm = () => {
+const OtpForm = () => {
   return <div>otpForm</div>
 }
 
-export default otpForm
+export default OtpForm
