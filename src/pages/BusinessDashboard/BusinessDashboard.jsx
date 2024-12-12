@@ -44,6 +44,9 @@ const cardsData = [
 const BusinessDashboard = () => {
   return (
     <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-1 gap-4">
+        <DashboardFullChart />
+      </div>
       <div className="grid auto-rows-min gap-4 grid-cols-2 xl:grid-cols-4">
         {cardsData.map((card, index) => (
           <div key={index}>
@@ -65,9 +68,6 @@ const BusinessDashboard = () => {
             </Card>
           </div>
         ))}
-      </div>
-      <div className="grid grid-cols-1 xl:grid-cols-1 gap-4">
-        <DashboardFullChart />
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <ProgramIssuedChart className="aspect-video rounded-xl bg-muted/50" />

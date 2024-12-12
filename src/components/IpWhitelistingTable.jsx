@@ -391,20 +391,20 @@ const IpWhitelistingTable = () => {
                     </form>
                   </Form>
                   <SheetFooter>
-                    <SheetClose asChild>
+                    {/* <SheetClose asChild> */}
                       <div className="mt-4">
                         <Button
                           type="submit"
                           onClick={() => {
                             toast({
-                              title: 'New API key generated',
+                              title: 'New IP Whitelisted',
                             })
                           }}
                         >
                           Create
                         </Button>
                       </div>
-                    </SheetClose>
+                    {/* </SheetClose> */}
                   </SheetFooter>
                 </SheetContent>
               </Sheet>

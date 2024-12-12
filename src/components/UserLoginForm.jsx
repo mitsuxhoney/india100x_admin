@@ -106,7 +106,7 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
             </div>
             <div className="flex justify-center items-center w-full">
               <Button disabled={isLoading} className="w-full">
-                <Link to="/business-dashboard" className="w-full">
+                <Link to="/business-dashboard"  className="w-full">
                   {isLoading && (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                   )}

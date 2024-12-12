@@ -379,9 +379,6 @@ export function AuditLogsTable() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Audit Logs</CardTitle>
-      </CardHeader>
       <CardContent>
         <div className="w-full">
           <div className="flex items-center py-4 justify-between ">

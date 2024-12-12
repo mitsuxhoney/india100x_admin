@@ -32,6 +32,7 @@ import Logs from '@/pages/TeamLogs/Logs'
 import Login from '@/pages/Login/Login'
 
 import UserProfileLayout from './components/UserProfileLayout'
+import ApiLogs from './pages/DeveloperApiLogs/ApiLogs'
 
 function App() {
   return (
@@ -74,7 +75,8 @@ function App() {
               path="/developer"
               element={<Navigate to="/developer/api-keys" />}
             />
-            <Route path="/developer/api-keys" element={<ApiKeys />} />
+            <Route path="/developer/API-Keys" element={<ApiKeys />} />
+            <Route path="/developer/API-Logs" element={<ApiLogs />} />
             <Route path="/developer/webhooks" element={<Webhooks />} />
             <Route
               path="/developer/ip-whitelisting"

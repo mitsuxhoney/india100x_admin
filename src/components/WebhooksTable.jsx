@@ -42,7 +42,7 @@ import {
   Trash2,
   CircleX,
 } from 'lucide-react'
-
+import { useToast } from '@/hooks/use-toast'
 import { Badge } from '@/components/ui/badge'
 
 import {
@@ -142,6 +142,7 @@ const WebhooksTable = () => {
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const { toast } = useToast()
 
   const columns = [
     // {
@@ -388,7 +389,7 @@ const WebhooksTable = () => {
                       )}
                     />
                     <div className="flex gap-4 items-end">
-                      <div className="w-[80%]">
+                      <div className="w-[100%]">
                         <FormField
                           control={form.control}
                           name="secret_key"
@@ -409,17 +410,35 @@ const WebhooksTable = () => {
                       <Button variant="outline">
                         <Copy />
                       </Button>
-                      <Button variant="outline" className="">
-                        Generate secret
-                      </Button>
                     </div>
                   </form>
+                  <div className="flex justify-end items-start text-xs mt-1 text-gray hover:underline">
+                    <Link
+                      to=""
+                      onClick={() => {
+                        setIsForgotPasswordClicked(true)
+                      }}
+                    >
+                      Generate Secret Key
+                    </Link>
+                  </div>
                 </Form>
 
-                <SheetFooter className="mt-4 flex justify-between">
-                  <SheetClose asChild>
-                    <Button type="submit">Create Webhook</Button>
-                  </SheetClose>
+                <SheetFooter>
+                  {/* <SheetClose asChild> */}
+                  <div className="mt-4">
+                    <Button
+                      type="submit"
+                      onClick={() => {
+                        toast({
+                          title: 'New Webhook generated',
+                        })
+                      }}
+                    >
+                      Create Webhook
+                    </Button>
+                  </div>
+                  {/* </SheetClose> */}
                 </SheetFooter>
               </SheetContent>
             </Sheet>

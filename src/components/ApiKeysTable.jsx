@@ -44,6 +44,8 @@ import {
   Trash,
 } from 'lucide-react'
 
+import { Switch } from '@/components/ui/switch'
+
 import { Label } from '@/components/ui/label'
 import {
   Sheet,
@@ -209,13 +211,15 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
         return <div>Status</div>
       },
       cell: ({ row }) => {
-        const status = row.original.status
+        // const status = row.original.status
 
-        return status === 'enabled' ? (
-          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Disabled</Badge>
-        ) : (
-          <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
-        )
+        // return status === 'enabled' ? (
+        //   <Badge className="bg-[#fff0f0] text-[#b52a2a]">Disabled</Badge>
+        // ) : (
+        //   <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
+        // )
+        const status = row.original.status
+        return  <Switch/> 
       },
     },
     {
@@ -315,13 +319,13 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
 
   return (
     <Card>
-      <CardHeader>
+      {/* <CardHeader>
         <CardTitle>API Keys </CardTitle>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
+          <div className="flex items-center py-4 justify-end ">
+            {/* <Input
               placeholder="Search by Name..."
               value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
@@ -330,14 +334,14 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                   ?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
-            />
+            /> */}
             <div className="flex items-center gap-2">
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                {/* <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
                     Column <ChevronDown />
                   </Button>
-                </DropdownMenuTrigger>
+                </DropdownMenuTrigger> */}
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
@@ -417,27 +421,27 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                         <Button variant="outline">
                           <Copy />
                         </Button>
-                        {/* <Button variant="outline" className="">
-                Generate secret
-              </Button> */}
                       </div>
+                      <Button variant="outline" className="">
+                        Generate secret
+                      </Button>
                     </form>
                   </Form>
                   <SheetFooter>
-                    <SheetClose asChild>
-                      <div className="mt-4">
-                        <Button
-                          type="submit"
-                          onClick={() => {
-                            toast({
-                              title: 'New API key generated',
-                            })
-                          }}
-                        >
-                          Create API key
-                        </Button>
-                      </div>
-                    </SheetClose>
+                    {/* <SheetClose asChild> */}
+                    <div className="mt-4">
+                      <Button
+                        type="submit"
+                        onClick={() => {
+                          toast({
+                            title: 'New API key generated',
+                          })
+                        }}
+                      >
+                        Create API key
+                      </Button>
+                    </div>
+                    {/* </SheetClose> */}
                   </SheetFooter>
                 </SheetContent>
               </Sheet>
