@@ -62,6 +62,8 @@ import {
 } from '@/components/ui/select'
 //import ApiConfig from '@/config/ApiConfig'
 
+//import Cookies from 'js-cookie'
+
 const fieldIconMap = {
   Active: {
     icon: <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>,
@@ -73,88 +75,88 @@ const fieldIconMap = {
   },
 }
 
-const data = [
-  {
-    product_id: '1',
-    accountNumber: '53264738991022',
-    bankName: 'Dummy Bank',
-    bin: '98287',
-    totalAmount: '569234432.23',
-    status: 'Active',
-  },
-  {
-    product_id: '2',
-    accountNumber: '42367853401234',
-    bankName: 'Global Trust Bank',
-    bin: '98279',
-    totalAmount: '123456789.50',
-    status: 'Active',
-  },
-  {
-    product_id: '3',
-    accountNumber: '28763495023871',
-    bankName: 'Techno Bank',
-    bin: '98290',
-    totalAmount: '87945632.75',
-    status: 'Inactive',
-  },
-  {
-    product_id: '4',
-    accountNumber: '94857629385016',
-    bankName: 'Sunrise Financial',
-    bin: '98301',
-    totalAmount: '23456789.30',
-    status: 'Active',
-  },
-  {
-    product_id: '5',
-    accountNumber: '76834599023840',
-    bankName: 'Prime Capital Bank',
-    bin: '98288',
-    totalAmount: '987654321.10',
-    status: 'Active',
-  },
-  {
-    product_id: '6',
-    accountNumber: '65873498126754',
-    bankName: 'Standard Bank',
-    bin: '98299',
-    totalAmount: '52347645.55',
-    status: 'Inactive',
-  },
-  {
-    product_id: '7',
-    accountNumber: '34267192375631',
-    bankName: 'Citywide Bank',
-    bin: '98285',
-    totalAmount: '102345678.90',
-    status: 'Active',
-  },
-  {
-    product_id: '8',
-    accountNumber: '84723659802142',
-    bankName: 'BlueOcean Bank',
-    bin: '98305',
-    totalAmount: '39456780.40',
-    status: 'Active',
-  },
-  {
-    product_id: '9',
-    accountNumber: '92737463501728',
-    bankName: 'Innovative Financial Group',
-    bin: '98291',
-    totalAmount: '76543210.20',
-    status: 'Active',
-  },
-  {
-    product_id: '10',
-    accountNumber: '65839276293715',
-    bankName: 'MetroBank',
-    bin: '98302',
-    totalAmount: '34567890.60',
-    status: 'Inactive',
-  },
-]
+// const data = [
+//   {
+//     product_id: '1',
+//     accountNumber: '53264738991022',
+//     bankName: 'Dummy Bank',
+//     bin: '98287',
+//     totalAmount: '569234432.23',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '2',
+//     accountNumber: '42367853401234',
+//     bankName: 'Global Trust Bank',
+//     bin: '98279',
+//     totalAmount: '123456789.50',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '3',
+//     accountNumber: '28763495023871',
+//     bankName: 'Techno Bank',
+//     bin: '98290',
+//     totalAmount: '87945632.75',
+//     status: 'Inactive',
+//   },
+//   {
+//     product_id: '4',
+//     accountNumber: '94857629385016',
+//     bankName: 'Sunrise Financial',
+//     bin: '98301',
+//     totalAmount: '23456789.30',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '5',
+//     accountNumber: '76834599023840',
+//     bankName: 'Prime Capital Bank',
+//     bin: '98288',
+//     totalAmount: '987654321.10',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '6',
+//     accountNumber: '65873498126754',
+//     bankName: 'Standard Bank',
+//     bin: '98299',
+//     totalAmount: '52347645.55',
+//     status: 'Inactive',
+//   },
+//   {
+//     product_id: '7',
+//     accountNumber: '34267192375631',
+//     bankName: 'Citywide Bank',
+//     bin: '98285',
+//     totalAmount: '102345678.90',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '8',
+//     accountNumber: '84723659802142',
+//     bankName: 'BlueOcean Bank',
+//     bin: '98305',
+//     totalAmount: '39456780.40',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '9',
+//     accountNumber: '92737463501728',
+//     bankName: 'Innovative Financial Group',
+//     bin: '98291',
+//     totalAmount: '76543210.20',
+//     status: 'Active',
+//   },
+//   {
+//     product_id: '10',
+//     accountNumber: '65839276293715',
+//     bankName: 'MetroBank',
+//     bin: '98302',
+//     totalAmount: '34567890.60',
+//     status: 'Inactive',
+//   },
+// ]
 //const data=[];
 export function PoolAccountsTable() {
   //const [isDialogOpen, setIsDialogOpen] = React.useState(false)
@@ -164,33 +166,31 @@ export function PoolAccountsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
   //const data= await axios.get(ApiConfig.poolAccount);
   //console.log(data);
-  //const [data, setData] = React.useState([]); // State for table data
+  const [data, setData] = React.useState([]); // State for table data
   const [loading, setLoading] = React.useState(true); // State for loading
   const [error, setError] = React.useState(null); // State for error handling
 
-  // React.useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       setLoading(true);
-  //       //const token=cookie.get("auth_token");
-  //       const response = await axios.get('/wallet/get_balance',{
-  //         withCredentials: true,
-  //         // headers:{
-  //         //   Authorization:`Bearer ${token}`
-  //         // }
-  //       }); // Replace with your API endpoint
-  //       setData(response.data); // Assuming the response is an array of pool accounts
-  //       console.log(response.data);
-  //     } catch (err) {
-  //       console.error('Error fetching data:', err);
-  //       setError('Failed to fetch data. Please try again later.');
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []); // Empty dependency array means it runs once on component mount
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        //const token=Cookies.get("auth_token");
+        //console.log(token);
+        //axios.default.withCredentials=true;
+        const response = await axios.get('/wallet/get_balance',{
+          withCredentials: true,
+        }); // Replace with your API endpoint
+        setData(response.data.data); // Assuming the response is an array of pool accounts
+        console.log(response.data);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to fetch data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []); // Empty dependency array means it runs once on component mount
   const columns = [
     // {
     //   accessorKey: 'product_id',
@@ -298,7 +298,7 @@ export function PoolAccountsTable() {
       header: `Status`,
       cell: ({ row }) => {
         const status = row.original.status
-        return status === 'Active' ? (
+        return status === true ? (
           <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
         ) : (
           <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>

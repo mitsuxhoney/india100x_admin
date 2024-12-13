@@ -574,7 +574,7 @@ export function DashboardFullChart() {
             Showing total visitors for the last 3 months
           </CardDescription>
         </div>
-        <div className="flex">
+        <div className="flex max-lg:grid max-lg:grid-cols-2">
           {['transactions', 'cards', 'Customers', 'products'].map((key) => {
             const chart = key
             return (

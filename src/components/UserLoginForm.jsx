@@ -1,14 +1,13 @@
-import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/Icons';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
-import axios from '@/api/axios';
-import { z } from 'zod';
-
+import * as React from 'react'
+import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook from react-router-dom
+import { cn } from '@/lib/utils'
+import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useForm } from 'react-hook-form'
+import axios from '@/api/axios'
+import { z } from 'zod'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -20,7 +19,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from '@/components/ui/form';
+//import {useAuth} from '../hooks/useAuth';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -29,16 +29,17 @@ const formSchema = z.object({
     .min(6, { message: 'Password must be at least 6 characters.' }),
 })
 
-export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
+export default function UserLoginForm({ setScreen,setAccessToken}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
       password: '',
     },
-  })
-  const [isLoading, setIsLoading] = React.useState(false)
-  const navigate = useNavigate() // Initialize the navigate function
+  });
+  const [isLoading, setIsLoading] = React.useState(false);
+  const navigate = useNavigate(); 
+  //const {setAuth}=useAuth();
 
   // async function onSubmit(values) {
   //   setIsLoading(true);
@@ -69,31 +70,40 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
     //e.preventDefault();
 
     try {
-      const response = await axios.post('/auth/login',
+      const response = await axios.post(
+        '/auth/login',
         {
-          email:e.email,
-          password:e.password,
+          email: e.email,
+          password: e.password,
         },
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
+          withCredentials: true,
         }
       );
-      console.log(response);
+      setAccessToken(response.data?.data);
+      //console.log(response);
+      //localStorage.setItem('auth_token',response.data.data);
       //console.log(JSON.stringify(response));
-      const accessToken = response?.data;
+      //const accessToken = response?.data;
       //const roles = response?.data?.roles;
       //setAuth({ accessToken });
       //setUser('');
       //setPwd('');
-      navigate('/business-dashboard');
+      navigate('/business-dashboard')
     } catch (err) {
-      console.error('Login failed:', err.response?.data || err.message);
+      console.error('Login failed:', err.response?.data || err.message)
     }
   }
 
   return (
-    <div className={cn('grid gap-6', className)}>
+    <div className={cn('grid gap-3')}>
+      <div className="flex flex-col space-y-2 text-center">
+        <h1 className="text-3xl font-semibold tracking-tight">Welcome Back!</h1>
+        <p className="text-sm text-muted-foreground">
+          Enter your email below to login
+        </p>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex flex-col gap-4 relative">
@@ -136,14 +146,14 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                 )}
               />
               <div className="flex justify-end items-start text-sm gap-0 hover:underline">
-                <Link
-                  to=""
+                <span
+                  className="cursor-pointer"
                   onClick={() => {
-                    setIsForgotPasswordClicked(true)
+                    setScreen('forgot-password')
                   }}
                 >
                   Forgot Password?
-                </Link>
+                </span>
               </div>
             </div>
             <div className="flex justify-center items-center w-full">

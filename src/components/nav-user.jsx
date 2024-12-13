@@ -43,8 +43,7 @@ import { Button } from '@/components/ui/button'
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar()
-  const { toggle } = useSidebar()
-  const { toggleSidebar } = useSidebar()
+  const { closeSidebar } = useSidebar()
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -94,7 +93,7 @@ export function NavUser({ user }) {
             <Link
               to="/account"
               onClick={() => {
-                toggleSidebar()
+                closeSidebar()
               }}
             >
               <DropdownMenuItem onClick={() => {}}>
@@ -106,7 +105,7 @@ export function NavUser({ user }) {
             <Link
               to="/developer"
               onClick={() => {
-                toggleSidebar()
+                closeSidebar()
               }}
             >
               <DropdownMenuItem onClick={() => {}}>
@@ -118,7 +117,7 @@ export function NavUser({ user }) {
             <Link
               to="/team"
               onClick={() => {
-                toggleSidebar()
+                closeSidebar()
               }}
             >
               <DropdownMenuItem onClick={() => {}}>
@@ -130,10 +129,12 @@ export function NavUser({ user }) {
             {/*  */}
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-[#b52a2a]">
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
+            <Link to="/login">
+              <DropdownMenuItem className="text-[#b52a2a]">
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
