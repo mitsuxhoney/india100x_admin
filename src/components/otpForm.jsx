@@ -72,7 +72,7 @@ export default function OTPForm({ setScreen, inputType }) {
                     </div>
                     <div className="flex justify-center">
                       <FormControl>
-                        <InputOTP maxLength={6}>
+                        <InputOTP maxLength={6} {...field}>
                           <InputOTPGroup>
                             <InputOTPSlot index={0} />
                             <InputOTPSlot index={1} />
