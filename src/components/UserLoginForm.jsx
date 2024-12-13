@@ -21,6 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+//import {useAuth} from '../hooks/useAuth';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -36,7 +37,8 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); 
+  //const {setAuth}=useAuth();
 
   // async function onSubmit(values) {
   //   setIsLoading(true);
@@ -77,9 +79,10 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
           withCredentials: true
         }
       );
-      console.log(response);
+      //console.log(response);
+      //localStorage.setItem('auth_token',response.data.data);
       //console.log(JSON.stringify(response));
-      const accessToken = response?.data;
+      //const accessToken = response?.data;
       //const roles = response?.data?.roles;
       //setAuth({ accessToken });
       //setUser('');
