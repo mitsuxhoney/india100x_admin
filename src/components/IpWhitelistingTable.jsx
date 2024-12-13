@@ -386,10 +386,19 @@ const IpWhitelistingTable = () => {
                             )}
                           />
                         </div>
-
-                        {/* <Button variant="outline" className="">
-                Generate secret
-              </Button> */}
+                      </div>
+                      <div className="w-full">
+                        <Select>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select Type of IP" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="sandbox">Sandbox</SelectItem>
+                            <SelectItem value="production">
+                              Production
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                     </form>
                   </Form>
