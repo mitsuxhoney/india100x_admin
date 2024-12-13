@@ -8,51 +8,36 @@ import { tags, priorities } from './programData'
 import DataTableFacetedFilter from '@/components/DataTableFacetedFilter'
 import DataTableViewOptions from '@/components/DataTableViewOptions'
 
-const DataTableToolbar = ({ table }) => {
+const DataTableToolbar = ({ table, inputFilter, ...filtersObject }) => {
   const isFiltered = table.getState().columnFilters.length > 0
 
+  console.log(filtersObject)
+
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder="Search by Name..."
-          value={table.getColumn('name')?.getFilterValue() ?? ''}
-          onChange={(event) =>
-            table.getColumn('name')?.setFilterValue(event.target.value)
-          }
-          className="max-w-xs"
-        />
-        {/* {filtersArray.map((filter) => {
-          return (
+    <div className="flex items-center justify-between w-full">
+      <div className="flex flex-1 items-center gap-2 w-full max-md:flex-col max-md:items-start">
+        <div className="w-[50%] max-md:w-[100%]">
+          <Input
+            placeholder="Search by Name..."
+            value={table.getColumn(inputFilter)?.getFilterValue() ?? ''}
+            onChange={(event) =>
+              table.getColumn(inputFilter)?.setFilterValue(event.target.value)
+            }
+            className="h-8 flex-1"
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          {Object.entries(filtersObject).map(([key, options]) => (
             <DataTableFacetedFilter
-              key={filter.label}
-              column={table.getColumn(filter.value)}
-              title={filter.label}
-              options={filter}
+              key={key} // Unique key for React
+              column={table.getColumn(key)} // Get the column based on the key
+              title={key} // Set the title to the key (e.g., "status", "card_nature")
+              options={options} // Pass the options (array of objects)
             />
-          )
-        })} */}
-        {/* {table.getColumn('tags') && (
-          <DataTableFacetedFilter
-            column={table.getColumn('tags')}
-            title="Tags"
-            options={tags}
-          />
-        )} */}
-        {/* {table.getColumn('status') && (
-          <DataTableFacetedFilter
-            column={table.getColumn('status')}
-            title="Status"
-            options={status}
-          />
-        )} */}
-        {/* {table.getColumn('priority') && (
-          <DataTableFacetedFilter
-            column={table.getColumn('priority')}
-            title="Priority"
-            options={priorities}
-          />
-        )} */}
+          ))}
+        </div>
+
         {isFiltered && (
           <Button
             variant="ghost"
@@ -63,9 +48,6 @@ const DataTableToolbar = ({ table }) => {
             <X />
           </Button>
         )}
-      </div>
-      <div>
-        <DataTableViewOptions table={table} />
       </div>
     </div>
   )
