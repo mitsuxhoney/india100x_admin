@@ -48,13 +48,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 import {
   Select,
@@ -401,7 +394,9 @@ const IpWhitelistingTable = () => {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="sandbox">Sandbox</SelectItem>
-                            <SelectItem value="production">Production</SelectItem>
+                            <SelectItem value="production">
+                              Production
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
