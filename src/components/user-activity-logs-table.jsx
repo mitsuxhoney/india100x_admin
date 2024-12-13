@@ -19,6 +19,10 @@ import {
   Trash2,
   CircleX,
   FileDown,
+  ChevronLeft,
+  ChevronsLeft,
+  ChevronRight,
+  ChevronsRight,
 } from 'lucide-react'
 
 import {
@@ -41,8 +45,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { saveAs } from 'file-saver';
-import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import {
   Card,
   CardContent,
@@ -299,12 +303,12 @@ export function ActivityLogsTable() {
 
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
@@ -325,7 +329,7 @@ export function ActivityLogsTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
-              <Button variant='outline' onClick={downloadCSV}>
+              <Button variant="outline" onClick={downloadCSV}>
                 <FileDown />
               </Button>
               <DropdownMenu>

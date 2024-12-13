@@ -24,8 +24,12 @@ import {
   Trash2,
   CircleX,
   FileDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
-import { saveAs } from 'file-saver'; 
+import { saveAs } from 'file-saver'
 import * as Papa from 'papaparse'
 import {
   AlertDialog,
@@ -55,6 +59,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -435,12 +448,12 @@ export function ProgramTableDemo() {
   }
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
   return (
     <Card>
       <CardHeader>
@@ -481,69 +494,6 @@ export function ProgramTableDemo() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
-              {/* 
-              <div>
-                <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
-
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
-
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div> 
-              */}
-              <Button variant='outline' onClick={downloadCSV}>
-                <FileDown />
-              </Button>
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>

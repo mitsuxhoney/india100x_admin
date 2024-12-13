@@ -20,6 +20,10 @@ import {
   Trash2,
   CircleX,
   FileDown,
+  ChevronLeft,
+  ChevronsLeft,
+  ChevronRight,
+  ChevronsRight,
 } from 'lucide-react'
 
 import {
@@ -61,8 +65,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { saveAs } from 'file-saver';
-import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 
 import {
   Table,
@@ -290,8 +294,8 @@ export function FlaggedCustomerTable() {
           descriptionLength > 100
             ? 'text-xs'
             : descriptionLength > 50
-              ? 'text-sm'
-              : 'text-md'
+            ? 'text-sm'
+            : 'text-md'
 
         return <div className={`text-center ${fontSize}`}>{description}</div>
       },
@@ -391,12 +395,12 @@ export function FlaggedCustomerTable() {
   }
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
@@ -415,8 +419,7 @@ export function FlaggedCustomerTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-              <Button variant='outline' onClick={downloadCSV}>
-
+              <Button variant="outline" onClick={downloadCSV}>
                 <FileDown />
               </Button>
               {/* <div>
@@ -509,7 +512,6 @@ export function FlaggedCustomerTable() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-
           </div>
           <div className="rounded-md border">
             <Table>
@@ -522,9 +524,9 @@ export function FlaggedCustomerTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}

@@ -19,14 +19,11 @@ import {
   Pencil,
   Trash2,
   CircleX,
-<<<<<<< HEAD
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-=======
   FileDown,
->>>>>>> ce7293a0b00d09b05e26d45dbc5702bbe63bc949
 } from 'lucide-react'
 import {
   Select,
@@ -48,8 +45,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { saveAs } from 'file-saver'; 
-import * as Papa from 'papaparse'; 
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import {
   Card,
   CardContent,
@@ -359,12 +356,12 @@ export function AllCustomerTable() {
   }
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
@@ -383,7 +380,7 @@ export function AllCustomerTable() {
               className="max-w-sm"
             />
             <div className="flex items-center gap-2">
-              <Button variant='outline' onClick={downloadCSV}>
+              <Button variant="outline" onClick={downloadCSV}>
                 <FileDown />
               </Button>
               <DropdownMenu>
@@ -396,8 +393,7 @@ export function AllCustomerTable() {
                   {table
                     .getAllColumns()
                     .filter(
-                      (column) =>
-                        column.getCanHide() && column.columnDef.header
+                      (column) => column.getCanHide() && column.columnDef.header
                     )
                     .map((column) => (
                       <DropdownMenuCheckboxItem
@@ -410,7 +406,7 @@ export function AllCustomerTable() {
                       >
                         {typeof column.columnDef.header === 'function'
                           ? column.columnDef.header({ column }).props
-                            .children[0]
+                              .children[0]
                           : column.columnDef.header}
                       </DropdownMenuCheckboxItem>
                     ))}
@@ -428,9 +424,9 @@ export function AllCustomerTable() {
                         {header.isPlaceholder
                           ? null
                           : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -541,5 +537,5 @@ export function AllCustomerTable() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

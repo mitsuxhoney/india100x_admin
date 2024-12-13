@@ -21,8 +21,12 @@ import {
   Trash2,
   CircleX,
   FileDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
-import { saveAs } from 'file-saver'; 
+import { saveAs } from 'file-saver'
 import * as Papa from 'papaparse'
 import {
   AlertDialog,
@@ -33,6 +37,15 @@ import {
   AlertDialogFooter,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -62,7 +75,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import DataTableToolbar from './DataTableToolbar'
-import {status} from '../data/program-manager-data'
+import { status } from '../data/program-manager-data'
 const data = [
   {
     product_id: '1',
@@ -371,12 +384,12 @@ export function ProgramTable() {
   }
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
   return (
     <Card>
       <CardHeader>
@@ -394,7 +407,7 @@ export function ProgramTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
-            <Button variant='outline' onClick={downloadCSV}>
+              <Button variant="outline" onClick={downloadCSV}>
                 <FileDown />
               </Button>
               <div>
@@ -437,7 +450,7 @@ export function ProgramTable() {
                   <CirclePlus /> Add Manager
                 </Button>
               </Link>
-            </div> */}
+            </div>
             <div className="w-full">
               <DataTableToolbar table={table} status={status} />
             </div>

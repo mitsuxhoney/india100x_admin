@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
-
+import { useState } from 'react'
 import LoginImg from '@/assets/Login-BackgroundImg.webp'
+import UserLoginForm from '@/components/UserLoginForm'
+import ForgotPasswordForm from '@/components/ForgotPasswordForm'
+import OTPForm from '@/components/OtpForm'
+import ResetPasswordForm from '@/components/ResetPasswordForm'
 
 export default function Login() {
+  const [screen, setScreen] = useState('login')
+  const [inputType, setInputType] = useState('email')
   return (
     <>
       <div className="container relative h-[100vh] flex flex-col mx-auto items-center justify-center md:grid lg:max-w-none grid-cols-1 lg:grid-cols-2 lg:px-0">
@@ -49,25 +55,22 @@ export default function Login() {
             Issuance
           </div>
         </div>
-        <div className="lg:p-4 p-10 dark:bg-muted bg-[#F9FAFB]">
+        <div className="lg:p-4 p-10">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] ">
-            <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{' '}
-              <Link
-                href="/terms"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link
-                href="/privacy"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Privacy Policy
-              </Link>
-              .
-            </p>
+            {screen === 'login' && <UserLoginForm setScreen={setScreen} />}
+            {screen === 'forgot-password' && (
+              <ForgotPasswordForm
+                inputType={inputType}
+                setInputType={setInputType}
+                setScreen={setScreen}
+              />
+            )}
+            {screen === 'otp' && (
+              <OTPForm inputType={inputType} setScreen={setScreen} />
+            )}
+            {screen === 'reset-password' && (
+              <ResetPasswordForm setScreen={setScreen} />
+            )}
           </div>
         </div>
       </div>

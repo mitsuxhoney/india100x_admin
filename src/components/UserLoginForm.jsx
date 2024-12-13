@@ -1,14 +1,13 @@
-import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/Icons';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
-import axios from '@/api/axios';
-import { z } from 'zod';
-
+import * as React from 'react'
+import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook from react-router-dom
+import { cn } from '@/lib/utils'
+import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useForm } from 'react-hook-form'
+import axios from '@/api/axios'
+import { z } from 'zod'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -29,7 +28,7 @@ const formSchema = z.object({
     .min(6, { message: 'Password must be at least 6 characters.' }),
 })
 
-export default function UserLoginForm({ setStep }) {
+export default function UserLoginForm({ setScreen }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,33 +68,34 @@ export default function UserLoginForm({ setStep }) {
     //e.preventDefault();
 
     try {
-      const response = await axios.post('/auth/login',
+      const response = await axios.post(
+        '/auth/login',
         {
-          email:e.email,
-          password:e.password,
+          email: e.email,
+          password: e.password,
         },
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
+          withCredentials: true,
         }
-      );
-      console.log(response);
+      )
+      console.log(response)
       //console.log(JSON.stringify(response));
-      const accessToken = response?.data;
+      const accessToken = response?.data
       //const roles = response?.data?.roles;
       //setAuth({ accessToken });
       //setUser('');
       //setPwd('');
-      navigate('/business-dashboard');
+      navigate('/business-dashboard')
     } catch (err) {
-      console.error('Login failed:', err.response?.data || err.message);
+      console.error('Login failed:', err.response?.data || err.message)
     }
   }
 
   return (
-    <div className={cn('grid gap-6')}>
+    <div className={cn('grid gap-3')}>
       <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">Welcome Back!</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Welcome Back!</h1>
         <p className="text-sm text-muted-foreground">
           Enter your email below to login
         </p>
@@ -135,9 +135,14 @@ export default function UserLoginForm({ setStep }) {
                 )}
               />
               <div className="flex justify-end items-start text-sm gap-0 hover:underline">
-                <Button onClick={setStep('forgot-password')}>
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setScreen('forgot-password')
+                  }}
+                >
                   Forgot Password?
-                </Button>
+                </span>
               </div>
             </div>
             <div className="flex justify-center items-center w-full">

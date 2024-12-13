@@ -20,6 +20,10 @@ import {
   Trash2,
   CircleX,
   FileDown,
+  ChevronLeft,
+  ChevronsLeft,
+  ChevronRight,
+  ChevronsRight,
 } from 'lucide-react'
 
 import {
@@ -59,8 +63,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { saveAs } from 'file-saver'; 
-import * as Papa from 'papaparse'; 
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -393,12 +397,12 @@ export function InventoryTable() {
   }
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
   return (
     <Card>
       <CardHeader>
