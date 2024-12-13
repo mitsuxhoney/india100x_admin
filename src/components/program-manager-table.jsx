@@ -451,9 +451,9 @@ export function ProgramTable() {
                 </Button>
               </Link>
             </div>
-            <div className="w-full">
+            {/* <div className="w-full">
               <DataTableToolbar table={table} status={status} />
-            </div>
+            </div> */}
           </div>
           <div className="rounded-md border">
             <Table>
