@@ -18,7 +18,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from '@/components/ui/dialog'
-import { Copy, Plus } from 'lucide-react'
+import { ClipboardCopy, Copy, Plus } from 'lucide-react'
 import {
   useFormField,
   Form,
@@ -41,6 +41,7 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  ClipboardCopyIcon,
   Trash,
 } from 'lucide-react'
 
@@ -60,16 +61,6 @@ import {
 
 import { Badge } from '@/components/ui/badge'
 
-import {
-  AlertDialog,
-  AlertDialogTitle,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogDescription,
-} from '@/components/ui/alert-dialog'
-
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
@@ -85,7 +76,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -108,21 +99,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
 
 const formSchema = z.object({
-  webhook_url: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  accessor_key: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-})
+  key_name: z
+    .string()
+    .min(3, 'API Key Name must be at least 3 characters')
+    .max(100, 'API Key Name cannot exceed 100 characters')
+    .nonempty('API Key Name is required'),
 
-function onSubmit(values) {
-  // Do something with the form values.
-  // ✅ This will be type-safe and validated.
-  console.log(values)
-}
+  key_type: z.enum(['Client API Key', 'Client HMAC Key', 'User HMAC Key']),
+})
 
 const data = [
   {
@@ -138,9 +125,10 @@ const data = [
     api_key: 'abcd1234efgh5678',
   },
 ]
-import { useToast } from '@/hooks/use-toast'
 
 export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
+  const [copied, setCopied] = useState(false)
+  const [keyGenerated, setKeyGenerated] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -148,12 +136,32 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
   const [rowSelection, setRowSelection] = React.useState({})
   const { toast } = useToast()
 
+  const handleCopy = async (textToCopy) => {
+    try {
+      await navigator.clipboard.writeText(textToCopy)
+      setCopied(true)
+      toast({
+        title: 'Copied!',
+      })
+      setTimeout(() => setCopied(false), 2000) // Reset after 2 seconds
+    } catch (error) {
+      console.error('Failed to copy text: ', error)
+    } finally {
+      setKeyGenerated(false)
+    }
+  }
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      key_name: '',
+      key_type: '',
     },
   })
+
+  const handleKeyGenerated = () => {
+    setKeyGenerated(true)
+  }
 
   const columns = [
     // {
@@ -180,9 +188,7 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
     // },
     {
       accessorKey: 'name',
-      header: ({ column }) => {
-        return <div>Name</div>
-      },
+      header: 'Name',
       cell: ({ row }) => (
         <div className="capitalize text-center">{row.getValue('name')}</div>
       ),
@@ -196,18 +202,7 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
     },
     {
       accessorKey: 'api_key',
-      header: ({ column }) => {
-        return (
-          <>API Keys</>
-          // <Button
-          //   variant="ghost"
-          //   onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          // >
-          //   API Keys
-          //   <ArrowUpDown />
-          // </Button>
-        )
-      },
+      header: 'API Key',
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue('api_key')}</div>
       ),
@@ -324,6 +319,12 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
     // Clear any row data when canceled
   }
 
+  function onSubmit(values) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values)
+  }
+
   return (
     <Card>
       {/* <CardHeader>
@@ -375,95 +376,111 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>
-                    <SheetTitle>Create API Key</SheetTitle>
+                    <SheetTitle>
+                      {keyGenerated ? 'API Key Generated' : 'Create API Key'}
+                    </SheetTitle>
                     <SheetDescription>
                       API keys are unique identifiers used to authenticate and
                       authorize access to APIs.
                     </SheetDescription>
                   </SheetHeader>
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="space-y-4 mt-2"
-                    >
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-
-                          <FormItem>
-                            <FormLabel>API Key Type</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select Type of API" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="Client API Key">Client API Key</SelectItem>
-                                <SelectItem value="Client HMAC Key">Client HMAC Key</SelectItem>
-                                <SelectItem value="User HMAC Key">User HMAC Key</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            {/* <FormDescription>
-                  A webhook URL is an endpoint that allows external systems to
-                  send real-time data or notifications to your application over
-                  HTTP when certain events occur.
-                </FormDescription> */}
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-
-                          <FormItem>
-                            <FormLabel>Descriptive Name</FormLabel>
-                            <FormControl>
-                              <Input placeholder="Enter the name" {...field} />
-                            </FormControl>
-                            {/* <FormDescription>
-                  A webhook URL is an endpoint that allows external systems to
-                  send real-time data or notifications to your application over
-                  HTTP when certain events occur.
-                </FormDescription> */}
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </form>
-                  </Form>
-                  <SheetFooter>
-                    {/* <SheetClose asChild> */}
-                    <div className='flex justify-end mt-4 w-full'>
-                      <div className='flex gap-4'>
-                      <div>
-                        <Button
-                          type="submit"
-                          onClick
-                        >
-                          Cancel
-                        </Button>
-                      </div>
-
-                      <div>
-                        <Button
-                          type="submit"
-                          onClick={() => {
-                            toast({
-                              title: 'New API key generated',
-                            })
-                          }}
-                        >
-                          Create API key
-                        </Button>
-                      </div>
-                      </div>
+                  {keyGenerated ? (
+                    <div className="w-full">
+                      <SheetClose>
+                        <div className="mt-4 w-full flex flex-col gap-4 select-none">
+                          <div className="flex gap-2 w-full">
+                            <div className="w-[99%]">
+                              <Input type="text" disabled value="API key" />
+                            </div>
+                            <div>
+                              <Button
+                                variant="outline"
+                                onClick={() => {
+                                  handleCopy('API Key')
+                                }}
+                              >
+                                <Copy />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </SheetClose>
                     </div>
-                    {/* </SheetClose> */}
-                  </SheetFooter>
+                  ) : (
+                    <Form {...form}>
+                      <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-4 mt-2"
+                      >
+                        <FormField
+                          control={form.control}
+                          name="key_type"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>API Type</FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                defaultValue={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select API type" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="Client API Key">
+                                    Client API Key
+                                  </SelectItem>
+                                  <SelectItem value="Client HMAC Key">
+                                    Client HMAC Key
+                                  </SelectItem>
+                                  <SelectItem value="User HMAC Key">
+                                    User HMAC Key
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="key_name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Descriptive Name</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Enter the name"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <div className="flex justify-end mt-4 w-full">
+                          <div className="flex gap-4">
+                            <div>
+                              <SheetClose>
+                                <Button type="submit">Cancel</Button>
+                              </SheetClose>
+                            </div>
+
+                            <div>
+                              <Button
+                                type="submit"
+                                onClick={handleKeyGenerated}
+                              >
+                                Generate Key
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </Form>
+                  )}
                 </SheetContent>
               </Sheet>
             </div>
@@ -479,9 +496,9 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}

@@ -298,7 +298,7 @@ export function PoolAccountsTable() {
       header: `Status`,
       cell: ({ row }) => {
         const status = row.original.status
-        return status === 'Active' ? (
+        return status === true ? (
           <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
         ) : (
           <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>

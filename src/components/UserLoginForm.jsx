@@ -29,7 +29,7 @@ const formSchema = z.object({
     .min(6, { message: 'Password must be at least 6 characters.' }),
 })
 
-export default function UserLoginForm({ setScreen }) {
+export default function UserLoginForm({ setScreen,setAccessToken}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -81,6 +81,7 @@ export default function UserLoginForm({ setScreen }) {
           withCredentials: true,
         }
       );
+      setAccessToken(response.data?.data);
       //console.log(response);
       //localStorage.setItem('auth_token',response.data.data);
       //console.log(JSON.stringify(response));

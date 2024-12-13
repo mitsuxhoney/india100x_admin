@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './components/theme-provider'
+import { setAccessToken } from './api/axios'
 import Layout from './components/Layout'
 import BusinessDashboard from './pages/BusinessDashboard/BusinessDashboard'
 import SystemDashboard from './pages/SystemDashboard/SystemDashboard'
@@ -33,12 +34,19 @@ import Login from '@/pages/Login/Login'
 
 import UserProfileLayout from './components/UserProfileLayout'
 import ApiLogs from './pages/DeveloperApiLogs/ApiLogs'
-
+import { useState } from 'react'
 function App() {
+  const [accessToken, setAccessTokenState] = useState(null);
+
+  const handleSetAccessToken = (token) => {
+    setAccessTokenState(token);
+    setAccessToken(token); // Update Axios header
+  };
+
   return (
     <ThemeProvider>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setAccessToken={handleSetAccessToken}/>} />
         <Route element={<Layout />}>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/business-dashboard" element={<BusinessDashboard />} />
