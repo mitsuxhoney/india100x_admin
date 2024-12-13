@@ -44,6 +44,8 @@ import {
   Trash,
 } from 'lucide-react'
 
+import { Switch } from '@/components/ui/switch'
+
 import { Label } from '@/components/ui/label'
 import {
   Sheet,
@@ -77,6 +79,13 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -209,13 +218,15 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
         return <div>Status</div>
       },
       cell: ({ row }) => {
-        const status = row.original.status
+        // const status = row.original.status
 
-        return status === 'enabled' ? (
-          <Badge className="bg-[#fff0f0] text-[#b52a2a]">Disabled</Badge>
-        ) : (
-          <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
-        )
+        // return status === 'enabled' ? (
+        //   <Badge className="bg-[#fff0f0] text-[#b52a2a]">Disabled</Badge>
+        // ) : (
+        //   <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
+        // )
+        const status = row.original.status
+        return <Switch />
       },
     },
     {
@@ -315,13 +326,13 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
 
   return (
     <Card>
-      <CardHeader>
+      {/* <CardHeader>
         <CardTitle>API Keys </CardTitle>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
+          <div className="flex items-center py-4 justify-end ">
+            {/* <Input
               placeholder="Search by Name..."
               value={table.getColumn('product_name')?.getFilterValue() ?? ''}
               onChange={(event) =>
@@ -330,14 +341,14 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                   ?.setFilterValue(event.target.value)
               }
               className="max-w-sm"
-            />
+            /> */}
             <div className="flex items-center gap-2">
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                {/* <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
                     Column <ChevronDown />
                   </Button>
-                </DropdownMenuTrigger>
+                </DropdownMenuTrigger> */}
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
@@ -379,8 +390,37 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                         control={form.control}
                         name="name"
                         render={({ field }) => (
+
                           <FormItem>
-                            <FormLabel>API</FormLabel>
+                            <FormLabel>API Key Type</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select Type of API" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="Client API Key">Client API Key</SelectItem>
+                                <SelectItem value="Client HMAC Key">Client HMAC Key</SelectItem>
+                                <SelectItem value="User HMAC Key">User HMAC Key</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {/* <FormDescription>
+                  A webhook URL is an endpoint that allows external systems to
+                  send real-time data or notifications to your application over
+                  HTTP when certain events occur.
+                </FormDescription> */}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+
+                          <FormItem>
+                            <FormLabel>Descriptive Name</FormLabel>
                             <FormControl>
                               <Input placeholder="Enter the name" {...field} />
                             </FormControl>
@@ -393,39 +433,22 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                           </FormItem>
                         )}
                       />
-
-                      <div className="flex gap-4 items-end">
-                        <div className="w-[97%]">
-                          <FormField
-                            control={form.control}
-                            name="secret_key"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Secret Key</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    placeholder="sdfssdfdswasdgnsd76sadas"
-                                    disabled
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        <Button variant="outline">
-                          <Copy />
-                        </Button>
-                        {/* <Button variant="outline" className="">
-                Generate secret
-              </Button> */}
-                      </div>
                     </form>
                   </Form>
                   <SheetFooter>
-                    <SheetClose asChild>
-                      <div className="mt-4">
+                    {/* <SheetClose asChild> */}
+                    <div className='flex justify-end mt-4 w-full'>
+                      <div className='flex gap-4'>
+                      <div>
+                        <Button
+                          type="submit"
+                          onClick
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+
+                      <div>
                         <Button
                           type="submit"
                           onClick={() => {
@@ -437,7 +460,9 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                           Create API key
                         </Button>
                       </div>
-                    </SheetClose>
+                      </div>
+                    </div>
+                    {/* </SheetClose> */}
                   </SheetFooter>
                 </SheetContent>
               </Sheet>
@@ -454,9 +479,9 @@ export function ApiKeysTable({ isVisibleApiForm, setIsVisibleApiForm }) {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}

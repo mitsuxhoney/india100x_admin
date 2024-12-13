@@ -1,16 +1,15 @@
-import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/Icons';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import { z } from 'zod';
-import ApiConfig from '@/config/ApiConfig';
+import * as React from 'react'
+import { Link, useNavigate } from 'react-router-dom' // Import useNavigate hook from react-router-dom
+import { cn } from '@/lib/utils'
+import { Icons } from '@/components/Icons'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { useForm } from 'react-hook-form'
+import axios from '@/api/axios'
+import { z } from 'zod'
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Form,
@@ -21,13 +20,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+//import {useAuth} from '../hooks/useAuth';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
-});
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters.' }),
+})
 
-export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
+export default function UserLoginForm({ setScreen }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,36 +38,71 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); 
+  //const {setAuth}=useAuth();
 
-  async function onSubmit(values) {
-    setIsLoading(true);
-    console.log(values);
+  // async function onSubmit(values) {
+  //   setIsLoading(true);
+  //   console.log(values);
+  //   try {
+  //     const response = await axios.post(ApiConfig.login, {
+  //       email: values.email,
+  //       password: values.password,
+  //     },
+  //       {
+  //         withCredentials: true, // Include cookies with the request
+  //       });
+
+  //     if (response.status === 200) {
+  //       // Handle successful login (e.g., save token, redirect)
+  //       console.log('Login successful:', response.data);
+  //       navigate('/business-dashboard'); // Replace with your actual dashboard path
+  //     } else {
+  //       console.error('Unexpected response:', response);
+  //     }
+  //   } catch (error) {
+  //     console.error('Login failed:', error.response?.data || error.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+  async function onSubmit(e) {
+    //e.preventDefault();
+
     try {
-      const response = await axios.post(ApiConfig.login, {
-        email: values.email,
-        password: values.password,
-      },
-      {
-        withCredentials: true, // Include cookies with the request
-      });
-
-      if (response.status === 200) {
-        // Handle successful login (e.g., save token, redirect)
-        console.log('Login successful:', response.data);
-        navigate('/business-dashboard'); // Replace with your actual dashboard path
-      } else {
-        console.error('Unexpected response:', response);
-      }
-    } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
-    } finally {
-      setIsLoading(false);
+      const response = await axios.post(
+        '/auth/login',
+        {
+          email: e.email,
+          password: e.password,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        }
+      );
+      //console.log(response);
+      //localStorage.setItem('auth_token',response.data.data);
+      //console.log(JSON.stringify(response));
+      //const accessToken = response?.data;
+      //const roles = response?.data?.roles;
+      //setAuth({ accessToken });
+      //setUser('');
+      //setPwd('');
+      navigate('/business-dashboard')
+    } catch (err) {
+      console.error('Login failed:', err.response?.data || err.message)
     }
   }
 
   return (
-    <div className={cn('grid gap-6', className)}>
+    <div className={cn('grid gap-3')}>
+      <div className="flex flex-col space-y-2 text-center">
+        <h1 className="text-3xl font-semibold tracking-tight">Welcome Back!</h1>
+        <p className="text-sm text-muted-foreground">
+          Enter your email below to login
+        </p>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex flex-col gap-4 relative">
@@ -90,21 +127,25 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="flex justify-end items-start text-sm gap-0 hover:underline">
-                <Link
-                  to=""
+                <span
+                  className="cursor-pointer"
                   onClick={() => {
-                    setIsForgotPasswordClicked(true);
+                    setScreen('forgot-password')
                   }}
                 >
                   Forgot Password?
-                </Link>
+                </span>
               </div>
             </div>
             <div className="flex justify-center items-center w-full">
@@ -116,5 +157,5 @@ export function UserLoginForm({ className, setIsForgotPasswordClicked }) {
         </form>
       </Form>
     </div>
-  );
+  )
 }

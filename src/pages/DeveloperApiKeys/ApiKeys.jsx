@@ -66,9 +66,9 @@ const ApiKeys = () => {
           setIsVisibleApiForm={setIsVisibleApiForm}
         />
       </div>
-      <div className="grid grid-cols-1">
+      {/* <div className="grid grid-cols-1">
         <AuditLogsTable />
-      </div>
+      </div> */}
     </div>
   )
 }

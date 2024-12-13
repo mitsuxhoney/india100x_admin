@@ -20,8 +20,14 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  FileDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
-
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import {
   AlertDialog,
   AlertDialogTitle,
@@ -31,6 +37,15 @@ import {
   AlertDialogFooter,
   AlertDialogDescription,
 } from '@/components/ui/alert-dialog'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -59,7 +74,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-
+import DataTableToolbar from './DataTableToolbar'
+import { status } from '../data/program-manager-data'
 const data = [
   {
     product_id: '1',
@@ -182,14 +198,37 @@ export function ProgramTable() {
 
   const columns = [
     {
+      id: 'select',
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
       accessorKey: 'name',
       header: 'Manager Name',
       cell: ({ row }) => (
-        <div className="capitalize text-center hover:underline">{row.getValue('name')}</div>
+        <div className="capitalize text-center hover:underline">
+          {row.getValue('name')}
+        </div>
       ),
     },
     {
-
       header: 'Total Programs',
       cell: ({ row }) => {
         const active = row.original.activePrograms
@@ -207,7 +246,7 @@ export function ProgramTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Total Amount
             <ArrowUpDown />
@@ -233,7 +272,7 @@ export function ProgramTable() {
         return (
           <Button
             variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
             Total Customers
             <ArrowUpDown />
@@ -244,6 +283,14 @@ export function ProgramTable() {
         <div className="capitalize text-center">
           {row.getValue('totalCustomers')}
         </div>
+      ),
+    },
+
+    {
+      accessorKey: 'createdAt',
+      header: 'Launch Date',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('createdAt')}</div>
       ),
     },
     {
@@ -263,13 +310,6 @@ export function ProgramTable() {
           </div>
         )
       },
-    },
-    {
-      accessorKey: 'createdAt',
-      header: 'Launch Date',
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue('createdAt')}</div>
-      ),
     },
     {
       accessorKey: 'actions',
@@ -342,7 +382,14 @@ export function ProgramTable() {
     setIsDialogOpen(false)
     // Clear any row data when canceled
   }
-
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data)
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv')
+  }
   return (
     <Card>
       <CardHeader>
@@ -360,7 +407,9 @@ export function ProgramTable() {
               className="max-w-xs"
             />
             <div className="flex items-center gap-2">
-
+              <Button variant="outline" onClick={downloadCSV}>
+                <FileDown />
+              </Button>
               <div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -386,7 +435,8 @@ export function ProgramTable() {
                           }
                         >
                           {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
+                            ? column.columnDef.header({ column }).props
+                                .children[0] // Render the header if it's a function
                             : column.columnDef.header}
                         </DropdownMenuCheckboxItem>
                       ))}
@@ -401,6 +451,9 @@ export function ProgramTable() {
                 </Button>
               </Link>
             </div>
+            <div className="w-full">
+              <DataTableToolbar table={table} status={status} />
+            </div>
           </div>
           <div className="rounded-md border">
             <Table>
@@ -413,9 +466,9 @@ export function ProgramTable() {
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
                         </TableHead>
                       )
                     })}
@@ -474,32 +527,76 @@ export function ProgramTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
-            <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <ArrowLeft />
-              </Button>
-              <span>
+          <div className="flex items-center justify-between px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-medium">Rows per page</p>
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value))
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[70px]">
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {table.getState().pagination.pageIndex + 1} of{' '}
                 {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <ArrowRight />
-              </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to first page</span>
+                  <ChevronsLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to previous page</span>
+                  <ChevronLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to next page</span>
+                  <ChevronRight />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to last page</span>
+                  <ChevronsRight />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

@@ -180,7 +180,7 @@ export function AppSidebar({ ...props }) {
     }
   }
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar collapsible="icon" variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

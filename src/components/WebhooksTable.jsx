@@ -41,8 +41,19 @@ import {
   Pencil,
   Trash2,
   CircleX,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useToast } from '@/hooks/use-toast'
 import { Badge } from '@/components/ui/badge'
 
 import {
@@ -142,6 +153,7 @@ const WebhooksTable = () => {
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
+  const { toast } = useToast()
 
   const columns = [
     // {
@@ -388,7 +400,7 @@ const WebhooksTable = () => {
                       )}
                     />
                     <div className="flex gap-4 items-end">
-                      <div className="w-[80%]">
+                      <div className="w-[100%]">
                         <FormField
                           control={form.control}
                           name="secret_key"
@@ -409,17 +421,35 @@ const WebhooksTable = () => {
                       <Button variant="outline">
                         <Copy />
                       </Button>
-                      <Button variant="outline" className="">
-                        Generate secret
-                      </Button>
                     </div>
                   </form>
+                  <div className="flex justify-end items-start text-xs mt-1 text-gray hover:underline">
+                    <Link
+                      to=""
+                      onClick={() => {
+                        setIsForgotPasswordClicked(true)
+                      }}
+                    >
+                      Generate Secret Key
+                    </Link>
+                  </div>
                 </Form>
 
-                <SheetFooter className="mt-4 flex justify-between">
-                  <SheetClose asChild>
-                    <Button type="submit">Create Webhook</Button>
-                  </SheetClose>
+                <SheetFooter>
+                  {/* <SheetClose asChild> */}
+                  <div className="mt-4">
+                    <Button
+                      type="submit"
+                      onClick={() => {
+                        toast({
+                          title: 'New Webhook generated',
+                        })
+                      }}
+                    >
+                      Create Webhook
+                    </Button>
+                  </div>
+                  {/* </SheetClose> */}
                 </SheetFooter>
               </SheetContent>
             </Sheet>
@@ -496,32 +526,76 @@ const WebhooksTable = () => {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-end space-x-2 py-4">
-            {/* <div className="flex-1 text-sm text-muted-foreground">
-                  {table.getFilteredSelectedRowModel().rows.length} of{' '}
-                  {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div> */}
-            <div className="space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <ArrowLeft />
-              </Button>
-              <span>
+          <div className="flex items-center justify-between px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length} of{' '}
+              {table.getFilteredRowModel().rows.length} row(s) selected.
+            </div>
+            <div className="flex items-center space-x-6 lg:space-x-8">
+              <div className="flex items-center space-x-2">
+                <p className="text-sm font-medium">Rows per page</p>
+                <Select
+                  value={`${table.getState().pagination.pageSize}`}
+                  onValueChange={(value) => {
+                    table.setPageSize(Number(value))
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[70px]">
+                    <SelectValue
+                      placeholder={table.getState().pagination.pageSize}
+                    />
+                  </SelectTrigger>
+                  <SelectContent side="top">
+                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+                      <SelectItem key={pageSize} value={`${pageSize}`}>
+                        {pageSize}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
                 Page {table.getState().pagination.pageIndex + 1} of{' '}
                 {table.getPageCount()}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <ArrowRight />
-              </Button>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(0)}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to first page</span>
+                  <ChevronsLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <span className="sr-only">Go to previous page</span>
+                  <ChevronLeft />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-8 w-8 p-0"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to next page</span>
+                  <ChevronRight />
+                </Button>
+                <Button
+                  variant="outline"
+                  className="hidden h-8 w-8 p-0 lg:flex"
+                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <span className="sr-only">Go to last page</span>
+                  <ChevronsRight />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
