@@ -3,7 +3,7 @@ import { useState } from 'react'
 import LoginImg from '@/assets/Login-BackgroundImg.webp'
 import UserLoginForm from '@/components/UserLoginForm'
 import ForgotPasswordForm from '@/components/ForgotPasswordForm'
-import OTPForm from '@/components/OTPForm'
+import InputOTPForm from '@/components/InputOTPForm'
 import ResetPasswordForm from '@/components/ResetPasswordForm'
 
 export default function Login() {
@@ -66,7 +66,7 @@ export default function Login() {
               />
             )}
             {screen === 'otp' && (
-              <OTPForm inputType={inputType} setScreen={setScreen} />
+              <InputOTPForm inputType={inputType} setScreen={setScreen} />
             )}
             {screen === 'reset-password' && (
               <ResetPasswordForm setScreen={setScreen} />

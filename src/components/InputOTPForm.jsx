@@ -27,7 +27,7 @@ const FormSchema = z.object({
   }),
 })
 
-export default function OTPForm({ setScreen, inputType }) {
+export default function InputOTPForm({ setScreen, inputType }) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
