@@ -8,6 +8,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import DataTableFacetedFilter from '@/components/DataTableFacetedFilter'
+import DataTableViewOptions from '@/components/DataTableViewOptions'
+
 import {
   ArrowUpDown,
   ChevronDown,
@@ -24,6 +27,7 @@ import {
   ChevronsLeft,
   ChevronRight,
   ChevronsRight,
+  X,
 } from 'lucide-react'
 
 import {
@@ -403,6 +407,8 @@ export function InventoryTable() {
     // Use FileSaver to trigger a download
     saveAs(blob, 'table-data.csv')
   }
+
+  const isFiltered = table.getState().columnFilters.length > 0
   return (
     <Card>
       <CardHeader>
@@ -465,8 +471,80 @@ export function InventoryTable() {
               </Link>
             </div> */}
 
-          <div>
-            <DataTableToolbar table={table} filters={(status, card_nature)} />
+          <div className="w-full">
+            <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:items-start">
+              <div className="flex flex-1 items-center space-x-2">
+                <Input
+                  placeholder="Search by Name..."
+                  value={
+                    table.getColumn('product_name')?.getFilterValue() ?? ''
+                  }
+                  onChange={(event) =>
+                    table
+                      .getColumn('product_name')
+                      ?.setFilterValue(event.target.value)
+                  }
+                  className="h-8  max-w-xs max-h-sm"
+                />
+                {/* {filtersArray.map((filter) => {
+          return (
+            <DataTableFacetedFilter
+              key={filter.label}
+              column={table.getColumn(filter.value)}
+              title={filter.label}
+              options={filter}
+            />
+          )
+        })} */}
+                {/* {table.getColumn('tags') && (
+          <DataTableFacetedFilter
+            column={table.getColumn('tags')}
+            title="Tags"
+            options={tags}
+          />
+        )} */}
+                {table.getColumn('status') && (
+                  <DataTableFacetedFilter
+                    column={table.getColumn('status')}
+                    title="Status"
+                    options={status}
+                  />
+                )}
+                {table.getColumn('card_nature') && (
+                  <DataTableFacetedFilter
+                    column={table.getColumn('card_nature')}
+                    title="Card Nature"
+                    options={card_nature}
+                  />
+                )}
+                {/* {table.getColumn('priority') && (
+          <DataTableFacetedFilter
+            column={table.getColumn('priority')}
+            title="Priority"
+            options={priorities}
+          />
+        )} */}
+                {isFiltered && (
+                  <Button
+                    variant="ghost"
+                    onClick={() => table.resetColumnFilters()}
+                    className="h-8 px-2 lg:px-3"
+                  >
+                    Reset
+                    <X />
+                  </Button>
+                )}
+              </div>
+              <div className="flex gap-4">
+                <DataTableViewOptions table={table} />
+                <Link to="/program/create-program">
+                  <Button variant="" className="ml-auto h-8">
+                    {' '}
+                    <CirclePlus /> Create Order
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
           <div className="rounded-md border mt-3">
             <Table>
