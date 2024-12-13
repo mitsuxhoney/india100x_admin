@@ -3,7 +3,7 @@ import { useState } from 'react'
 import LoginImg from '@/assets/Login-BackgroundImg.webp'
 import UserLoginForm from '@/components/UserLoginForm'
 import ForgotPasswordForm from '@/components/ForgotPasswordForm'
-import OTPForm from '@/components/OtpForm'
+import OTPForm from '@/components/OTPForm'
 import ResetPasswordForm from '@/components/ResetPasswordForm'
 
 export default function Login() {
