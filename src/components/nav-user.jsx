@@ -130,10 +130,12 @@ export function NavUser({ user }) {
             {/*  */}
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-[#b52a2a]">
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
+            <Link to="/login">
+              <DropdownMenuItem className="text-[#b52a2a]">
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
