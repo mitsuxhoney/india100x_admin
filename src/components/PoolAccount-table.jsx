@@ -9,6 +9,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { DataTablePagination } from '@/components/DataTablePagination'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -31,8 +32,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { saveAs } from 'file-saver'; 
-import * as Papa from 'papaparse'; 
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   DropdownMenu,
@@ -60,6 +61,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
 //import ApiConfig from '@/config/ApiConfig'
 
 //import Cookies from 'js-cookie'
@@ -166,31 +169,31 @@ export function PoolAccountsTable() {
   const [rowSelection, setRowSelection] = React.useState({})
   //const data= await axios.get(ApiConfig.poolAccount);
   //console.log(data);
-  const [data, setData] = React.useState([]); // State for table data
-  const [loading, setLoading] = React.useState(true); // State for loading
-  const [error, setError] = React.useState(null); // State for error handling
+  const [data, setData] = React.useState([]) // State for table data
+  const [loading, setLoading] = React.useState(true) // State for loading
+  const [error, setError] = React.useState(null) // State for error handling
 
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        setLoading(true)
         //const token=Cookies.get("auth_token");
         //console.log(token);
         //axios.default.withCredentials=true;
-        const response = await axios.get('/wallet/get_balance',{
+        const response = await axios.get('/wallet/get_balance', {
           withCredentials: true,
-        }); // Replace with your API endpoint
-        setData(response.data.data); // Assuming the response is an array of pool accounts
-        console.log(response.data);
+        }) // Replace with your API endpoint
+        setData(response.data.data) // Assuming the response is an array of pool accounts
+        console.log(response.data)
       } catch (err) {
-        console.error('Error fetching data:', err);
-        setError('Failed to fetch data. Please try again later.');
+        console.error('Error fetching data:', err)
+        setError('Failed to fetch data. Please try again later.')
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
-    fetchData();
-  }, []); // Empty dependency array means it runs once on component mount
+    }
+    fetchData()
+  }, []) // Empty dependency array means it runs once on component mount
   const columns = [
     // {
     //   accessorKey: 'product_id',
@@ -373,12 +376,12 @@ export function PoolAccountsTable() {
 
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
@@ -387,63 +390,25 @@ export function PoolAccountsTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search by Account Number..."
-              value={
-                columnFilters.find((filter) => filter.id === 'accountNumber')
-                  ?.value ?? ''
-              }
-              onChange={(event) => {
-                const value = event.target.value
-                setColumnFilters([{ id: 'accountNumber', value }])
-              }}
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-            <Button variant='outline' onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar table={table} inputFilter="card_ref_id" />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props.children[0] // Render the header if it's a function
-                            : column.columnDef.header}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              {/* <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
+
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
+                  {' '}
+                  <CirclePlus /> Create Order
                 </Button>
-              </Link> */}
+              </Link>
             </div>
           </div>
-          <div className="overflow-hidden rounded-md border border-muted shadow-md">
+          <div className="overflow-hidden rounded-md border border-muted shadow-md mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -479,78 +444,7 @@ export function PoolAccountsTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>

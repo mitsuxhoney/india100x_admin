@@ -10,32 +10,40 @@ import DataTableViewOptions from '@/components/DataTableViewOptions'
 
 const DataTableToolbar = ({ table, inputFilter, ...filtersObject }) => {
   const isFiltered = table.getState().columnFilters.length > 0
-
-  console.log(filtersObject)
+  console.log({ ...filtersObject })
 
   return (
     <div className="flex items-center justify-between w-full">
       <div className="flex flex-1 items-center gap-2 w-full max-md:flex-col max-md:items-start">
-        <div className="w-[50%] max-md:w-[100%]">
-          <Input
-            placeholder="Search by Name..."
-            value={table.getColumn(inputFilter)?.getFilterValue() ?? ''}
-            onChange={(event) =>
-              table.getColumn(inputFilter)?.setFilterValue(event.target.value)
-            }
-            className="h-8 flex-1"
-          />
-        </div>
+        {inputFilter && (
+          <div className="w-[50%] max-md:w-[100%]">
+            <Input
+              placeholder="Search by Name..."
+              value={table.getColumn(inputFilter)?.getFilterValue() ?? ''}
+              onChange={(event) =>
+                table.getColumn(inputFilter)?.setFilterValue(event.target.value)
+              }
+              className="h-8 flex-1"
+            />
+          </div>
+        )}
 
         <div className="flex items-center gap-2">
-          {Object.entries(filtersObject).map(([key, options]) => (
-            <DataTableFacetedFilter
-              key={key} // Unique key for React
-              column={table.getColumn(key)} // Get the column based on the key
-              title={key} // Set the title to the key (e.g., "status", "card_nature")
-              options={options} // Pass the options (array of objects)
-            />
-          ))}
+          {Object.entries(filtersObject).map(([key, options]) => {
+            const updatedKey = key
+              .split('_') // Split the string by underscore
+              .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each part
+              .join(' ')
+            console.log(key + ' ' + options)
+            return (
+              <DataTableFacetedFilter
+                key={key} // Unique key for React
+                column={table.getColumn(key)} // Get the column based on the key
+                title={updatedKey} // Set the title to the key (e.g., "status", "card_nature")
+                options={options} // Pass the options (array of objects)
+              />
+            )
+          })}
         </div>
 
         {isFiltered && (

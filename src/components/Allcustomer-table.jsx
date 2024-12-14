@@ -72,13 +72,17 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
+import { program_manager } from '../data/all-customer-data'
+import { DataTablePagination } from '@/components/DataTablePagination'
 
 const data = [
   {
     product_id: '1',
     customerId: '123456789',
     Name: 'John Doe',
-    ProgramManager: 'Privacy Card',
+    program_manager: 'XFER',
     totalCards: '4',
     totalTransactions: '120',
     createdBy: 'Admin',
@@ -88,7 +92,7 @@ const data = [
     product_id: '2',
     customerId: '123456789',
     Name: 'Jane Smith',
-    ProgramManager: 'Business Card',
+    program_manager: 'Privacy Card',
     totalCards: '2',
     totalTransactions: '85',
     createdBy: 'Manager1',
@@ -98,91 +102,11 @@ const data = [
     product_id: '3',
     customerId: '123456789',
     Name: 'Robert Brown',
-    ProgramManager: 'Travel Card',
+    program_manager: 'ONO',
     totalCards: '3',
     totalTransactions: '140',
     createdBy: 'SupervisorX',
     lastActive: '11-05-2021',
-  },
-  {
-    product_id: '4',
-    customerId: '123456789',
-    Name: 'Emily Davis',
-    ProgramManager: 'Gift Card',
-    totalCards: '1',
-    totalTransactions: '15',
-    createdBy: 'Admin',
-    lastActive: '12-05-2021',
-  },
-  {
-    product_id: '5',
-    customerId: '123456789',
-    Name: 'Michael Wilson',
-    ProgramManager: 'Virtual Card',
-    totalCards: '5',
-    totalTransactions: '200',
-    createdBy: 'AdminAssistant',
-    lastActive: '11-05-2021',
-  },
-  {
-    product_id: '6',
-    customerId: '123456789',
-    Name: 'Olivia Johnson',
-    ProgramManager: 'Platinum Card',
-    totalCards: '2',
-    totalTransactions: '95',
-    createdBy: 'Manager3',
-    lastActive: '12-05-2021',
-  },
-  {
-    product_id: '7',
-    customerId: '123456789',
-    Name: 'James White',
-    ProgramManager: 'Student Card',
-    totalCards: '1',
-    totalTransactions: '45',
-    createdBy: 'SupervisorY',
-    lastActive: '11-05-2021',
-  },
-  {
-    product_id: '8',
-    customerId: '123456789',
-    Name: 'Sophia Martinez',
-    ProgramManager: 'Savings Card',
-    totalCards: '3',
-    totalTransactions: '130',
-    createdBy: 'Admin',
-    lastActive: '11-05-2021',
-  },
-  {
-    product_id: '9',
-    customerId: '123456789',
-    Name: 'Ethan Taylor',
-    ProgramManager: 'Cashback Card',
-    totalCards: '2',
-    totalTransactions: '70',
-    createdBy: 'Manager2',
-    lastActive: '11-05-2021',
-  },
-  {
-    product_id: '10',
-    customerId: '123456789',
-    Name: 'Isabella Hernandez',
-    ProgramManager: 'Corporate Card',
-    totalCards: '6',
-    totalTransactions: '300',
-    createdBy: 'SupervisorZ',
-    lastActive: '12-05-2021',
-  },
-  {
-    product_id: '11',
-    customerId: '123456789',
-    Name: 'Liam Garcia',
-    ProgramManager: 'Premium Card',
-    totalCards: '4',
-    totalTransactions: '190',
-    createdBy: 'Admin',
-    lastActive: '12-05-2021',
   },
 ]
 
@@ -234,13 +158,16 @@ export function AllCustomerTable() {
       ),
     },
     {
-      accessorKey: 'ProgramManager',
+      accessorKey: 'program_manager',
       header: 'Program Manager',
-      cell: ({ row }) => (
-        <div className="text-center cursor-pointer hover:underline">
-          {row.getValue('ProgramManager')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const program_manager = row.original.program_manager
+        return (
+          <div className="text-center cursor-pointer hover:underline">
+            {program_manager}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'totalCards',
@@ -370,51 +297,29 @@ export function AllCustomerTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between">
-            <Input
-              placeholder="Search Name..."
-              value={table.getColumn('Name')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table.getColumn('Name')?.setFilterValue(event.target.value)
-              }
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-              <Button variant="outline" onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar
+                table={table}
+                inputFilter="product_name"
+                program_manager={program_manager}
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    View <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) => column.getCanHide() && column.columnDef.header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {typeof column.columnDef.header === 'function'
-                          ? column.columnDef.header({ column }).props
-                              .children[0]
-                          : column.columnDef.header}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
+                  {' '}
+                  <CirclePlus /> Create Order
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -462,78 +367,7 @@ export function AllCustomerTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>

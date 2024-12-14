@@ -33,7 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
+import { program_manager, priority } from '@/data/flagged-customers-data'
 import { Badge } from '@/components/ui/badge'
 
 import {
@@ -67,6 +67,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { saveAs } from 'file-saver'
 import * as Papa from 'papaparse'
+import { DataTablePagination } from '@/components/DataTablePagination'
 
 import {
   Table,
@@ -76,13 +77,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
 
 const data = [
   {
     product_id: '1',
     customerId: '123456781',
     name: 'John',
-    ProgramManager: 'Privacy Card',
+    program_manager: 'Privacy Card',
     FlagType: 'Suspicious Transactions',
     FlaggedActivityDescription: 'Multiple failed login attempts',
     IpAddress: '127.0.32.1',
@@ -94,7 +97,7 @@ const data = [
     product_id: '2',
     customerId: '987654321',
     name: 'Alice',
-    ProgramManager: 'Secure Wallet',
+    program_manager: 'XFER',
     FlagType: 'Unusual IP Address',
     FlaggedActivityDescription: 'Access from unrecognized IP',
     IpAddress: '192.168.1.1',
@@ -106,97 +109,13 @@ const data = [
     product_id: '3',
     customerId: '456123789',
     name: 'Bob',
-    ProgramManager: 'Business Card',
+    program_manager: 'ONO',
     FlagType: 'High-Value Transactions',
     FlaggedActivityDescription: 'Large transaction flagged',
     IpAddress: '10.0.0.2',
     priority: 'high',
     CreatedBy: 'Manager23',
     LastActive: '11-10-2023',
-  },
-  {
-    product_id: '4',
-    customerId: '789456123',
-    name: 'Sophia',
-    ProgramManager: 'Travel Card',
-    FlagType: 'Login Anomalies',
-    FlaggedActivityDescription: 'Frequent password resets',
-    IpAddress: '203.0.113.5',
-    priority: 'low',
-    CreatedBy: 'User12',
-    LastActive: '12-09-2023',
-  },
-  {
-    product_id: '5',
-    customerId: '321654987',
-    name: 'Michael',
-    ProgramManager: 'Expense Card',
-    FlagType: 'Card Sharing Detected',
-    FlaggedActivityDescription: 'Multiple devices detected',
-    IpAddress: '198.51.100.14',
-    priority: 'medium',
-    CreatedBy: 'Admin99',
-    LastActive: '03-08-2023',
-  },
-  {
-    product_id: '6',
-    customerId: '147258369',
-    name: 'Emma',
-    ProgramManager: 'Platinum Card',
-    FlagType: 'Geo-location Mismatch',
-    FlaggedActivityDescription: 'Transactions in different countries',
-    IpAddress: '203.0.113.77',
-    priority: 'high',
-    CreatedBy: 'Manager56',
-    LastActive: '15-07-2023',
-  },
-  {
-    product_id: '7',
-    customerId: '963852741',
-    name: 'Oliver',
-    ProgramManager: 'Digital Wallet',
-    FlagType: 'High Login Frequency',
-    FlaggedActivityDescription: 'Excessive login attempts',
-    IpAddress: '10.0.0.10',
-    priority: 'low',
-    CreatedBy: 'Admin11',
-    LastActive: '20-06-2023',
-  },
-  {
-    product_id: '8',
-    customerId: '852741963',
-    name: 'Liam',
-    ProgramManager: 'Corporate Card',
-    FlagType: 'Excessive Chargebacks',
-    FlaggedActivityDescription: 'Too many chargeback requests',
-    IpAddress: '198.51.100.33',
-    priority: 'high',
-    CreatedBy: 'Supervisor8',
-    LastActive: '10-05-2023',
-  },
-  {
-    product_id: '9',
-    customerId: '741852963',
-    name: 'Isabella',
-    ProgramManager: 'Student Card',
-    FlagType: 'Unusual Spending Pattern',
-    FlaggedActivityDescription: 'Sudden increase in transactions',
-    IpAddress: '192.168.10.20',
-    priority: 'medium',
-    CreatedBy: 'Admin20',
-    LastActive: '30-04-2023',
-  },
-  {
-    product_id: '10',
-    customerId: '159357486',
-    name: 'James',
-    ProgramManager: 'Basic Card',
-    FlagType: 'Unauthorized Access',
-    FlaggedActivityDescription: 'Access outside working hours',
-    IpAddress: '127.0.0.1',
-    priority: 'low',
-    CreatedBy: 'Admin03',
-    LastActive: '25-03-2023',
   },
 ]
 
@@ -266,13 +185,16 @@ export function FlaggedCustomerTable() {
       ),
     },
     {
-      accessorKey: 'ProgramManager',
+      accessorKey: 'program_manager',
       header: 'Program Manager',
-      cell: ({ row }) => (
-        <div className="text-center hover:underline">
-          {row.getValue('ProgramManager')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const program_manager = row.original.program_manager
+        return (
+          <div className="text-center cursor-pointer hover:underline">
+            {program_manager}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'FlagType',
@@ -409,111 +331,30 @@ export function FlaggedCustomerTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search Name..."
-              value={table.getColumn('Name')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table.getColumn('Name')?.setFilterValue(event.target.value)
-              }
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-              <Button variant="outline" onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar
+                table={table}
+                inputFilter="product_name"
+                program_manager={program_manager}
+                priority={priority}
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              {/* <div>
-              <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
 
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
-
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div> */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    View <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter(
-                      (column) =>
-                        column.getCanHide() && // Check if the column can be hidden
-                        column.columnDef.header // Ensure the column has a defined header
-                    )
-                    .map((column) => (
-                      <DropdownMenuCheckboxItem
-                        key={column.id}
-                        className="capitalize"
-                        checked={column.getIsVisible()}
-                        onCheckedChange={(value) =>
-                          column.toggleVisibility(!!value)
-                        }
-                      >
-                        {typeof column.columnDef.header === 'string'
-                          ? column.columnDef.header
-                          : ''}{' '}
-                        {/* Render the header if it's a string */}
-                      </DropdownMenuCheckboxItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
+                  {' '}
+                  <CirclePlus /> Create Order
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -589,78 +430,7 @@ export function FlaggedCustomerTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>

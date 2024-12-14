@@ -22,11 +22,10 @@ import {
 import { Separator } from '@/components/ui/separator'
 
 const DataTableFacetedFilter = ({ column, title, options }) => {
-  console.log(column, title, options)
-
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue())
 
+  //console.log(column)
   return (
     <Popover>
       <PopoverTrigger asChild>
