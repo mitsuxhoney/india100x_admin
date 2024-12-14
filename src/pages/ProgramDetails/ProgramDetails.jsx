@@ -50,34 +50,16 @@ const invoices = [
     paymentStatus: 'Available',
   },
   {
-    invoice: 'INV003',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$350.00',
-    paymentMethod: 'Bank Transfer',
+    invoice: 'Tags',
+    paymentStatus: 'KYC',
+    totalAmount: 'Physical',
+    paymentMethod: 'Add On Card',
   },
   {
-    invoice: 'INV004',
-    paymentStatus: 'Paid',
-    totalAmount: '$450.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV005',
-    paymentStatus: 'Paid',
-    totalAmount: '$550.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV006',
-    paymentStatus: 'Pending',
-    totalAmount: '$200.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV007',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$300.00',
-    paymentMethod: 'Credit Card',
+    invoice: 'Tags',
+    paymentStatus: 'KYC',
+    totalAmount: 'Physical',
+    paymentMethod: 'Add On Card',
   },
 ]
 
