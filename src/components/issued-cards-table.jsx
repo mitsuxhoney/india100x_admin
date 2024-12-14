@@ -10,6 +10,7 @@ import {
 } from '@tanstack/react-table'
 import { saveAs } from 'file-saver'
 import * as Papa from 'papaparse'
+import { DataTablePagination } from '@/components/DataTablePagination'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -73,6 +74,9 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import { status } from '@/data/issued-cards-data'
+import DataTableToolbar from './DataTableToolbar'
+import DataTableViewOptions from './DataTableViewOptions'
 
 const fieldIconMap = {
   AddOnCard: {
@@ -89,116 +93,32 @@ const data = [
   {
     id: 1,
     card_ref_id: '32XY32',
-    status: 'active',
+    status: 'false',
     AddOnCard: true,
     Physical: true,
     last_four_digit: '4444',
     product_category: 'Shopping',
-    add_on_card: 'true',
-    is_physical: 'true',
     issued_date: '02-12-2024',
   },
   {
     id: 2,
-    card_ref_id: '32XY33',
-    status: 'inactive',
+    card_ref_id: '45XY45',
+    status: 'true',
+    AddOnCard: false,
     Physical: true,
-    last_four_digit: '4445',
-    product_category: 'Entertainment',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
+    last_four_digit: '5555',
+    product_category: 'Electronics',
+    issued_date: '03-12-2024',
   },
   {
     id: 3,
-    card_ref_id: '32XY34',
-    status: 'active',
-    Physical: true,
-    last_four_digit: '4446',
-    product_category: 'Grocery',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 4,
-    card_ref_id: '32XY35',
-    status: 'inactive',
+    card_ref_id: '56XY56',
+    status: 'true',
     AddOnCard: true,
-    last_four_digit: '4447',
-    product_category: 'Business',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 5,
-    card_ref_id: '32XY36',
-    status: 'active',
-    AddOnCard: true,
-    last_four_digit: '4448',
-    product_category: 'Loans',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 6,
-    card_ref_id: '32XY37',
-    status: 'inactive',
-    AddOnCard: true,
-    Physical: true,
-    last_four_digit: '4449',
-    product_category: 'Travel',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 7,
-    card_ref_id: '32XY38',
-    status: 'active',
-    Physical: true,
-    last_four_digit: '4450',
-    product_category: 'Tickets',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 8,
-    card_ref_id: '32XY39',
-    status: 'inactive',
-    AddOnCard: true,
-    last_four_digit: '4451',
-    product_category: 'Food',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 9,
-    card_ref_id: '32XY40',
-    status: 'active',
-    AddOnCard: true,
-    Physical: true,
-    last_four_digit: '4452',
-    product_category: 'Drinks',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
-  },
-  {
-    id: 10,
-    card_ref_id: '32XY41',
-    status: 'active',
-    AddOnCard: true,
-    Physical: true,
-    last_four_digit: '4452',
+    Physical: false,
+    last_four_digit: '6666',
     product_category: 'Books',
-    add_on_card: 'true',
-    is_physical: 'true',
-    issued_date: '02-12-2024',
+    issued_date: '04-12-2024',
   },
 ]
 
@@ -277,8 +197,8 @@ export function IssuedCardsTable() {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => {
-        const status = row.getValue('status')
-        return status === 'active' ? (
+        const status = row.original.status
+        return status === 'true' ? (
           <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
         ) : (
           <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
@@ -387,122 +307,29 @@ export function IssuedCardsTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search by Card ref id..."
-              value={table.getColumn('card_ref_id')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table
-                  .getColumn('card_ref_id')
-                  ?.setFilterValue(event.target.value)
-              }
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-              <Button variant="outline" onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar
+                table={table}
+                inputFilter="card_ref_id"
+                status={status}
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              {/* <div>
-                <DropdownMenu className="max-sm:w-full">
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      Sort By <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => {
-                        const rows = table.getCoreRowModel().rows // Access rows of the table
-                        const sampleValue = rows[0]?.getValue(column.id) // Get a sample value for this column
-                        const valueType = typeof sampleValue
 
-                        // Check if the column contains integer or float data
-                        return (
-                          column.columnDef.header &&
-                          (valueType === 'number' ||
-                            !isNaN(parseFloat(sampleValue)))
-                        )
-                      })
-                      .map((column) => {
-                        const currentSorting = table.getState().sorting
-                        const isCurrentlySorted =
-                          currentSorting.length > 0 &&
-                          currentSorting[0].id === column.id
-
-                        return (
-                          <DropdownMenuItem
-                            key={column.id}
-                            className="capitalize"
-                            onSelect={() => {
-                              if (isCurrentlySorted) {
-                                // If already sorted by this column, reset sorting
-                                table.setSorting([])
-                              } else {
-                                // Otherwise, sort by this column in ascending order
-                                table.setSorting([
-                                  { id: column.id, desc: true },
-                                ])
-                              }
-                            }}
-                          >
-                            <span className="flex items-center gap-2">
-                              {isCurrentlySorted && <Check className="" />}
-                              {typeof column.columnDef.header === 'string'
-                                ? column.columnDef.header
-                                : ''}
-                            </span>
-
-                            
-                          </DropdownMenuItem>
-                        )
-                      })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div> */}
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props
-                                .children[0] // Render the header if it's a function
-                            : column.columnDef.header}
-                          {/* Render the header if it's a string */}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              {/* <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
                   {' '}
-                  <CirclePlus /> Add new
+                  <CirclePlus /> Create Order
                 </Button>
-              </Link> */}
+              </Link>
             </div>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -552,78 +379,7 @@ export function IssuedCardsTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>

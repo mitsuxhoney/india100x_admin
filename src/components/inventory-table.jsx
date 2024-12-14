@@ -337,35 +337,6 @@ export function InventoryTable() {
         )
       },
     },
-    // {
-    //   id: 'actions',
-    //   enableHiding: false,
-    //   cell: ({ row }) => {
-    //     const payment = row.original;
-
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Copy payment ID
-    //           </DropdownMenuItem>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem>View customer</DropdownMenuItem>
-    //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     );
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -417,61 +388,6 @@ export function InventoryTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          {/* <Input
-              placeholder="Search by Name..."
-              value={table.getColumn('product_name')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table
-                  .getColumn('product_name')
-                  ?.setFilterValue(event.target.value)
-              }
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-            <Button variant='outline' onClick={downloadCSV}>
-                <FileDown />
-              </Button>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props
-                                .children[0] // Render the header if it's a function
-                            : column.columnDef.header}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              <Link to="/inventory/create-inventory">
-                <Button variant="" className="ml-auto">
-                  {' '}
-                  <CirclePlus /> Create Order
-                </Button>
-              </Link>
-            </div> */}
-
           <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
             <div className="w-full">
               <DataTableToolbar
@@ -482,6 +398,10 @@ export function InventoryTable() {
               />
             </div>
             <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
+                <FileDown />
+              </Button>
+
               <DataTableViewOptions table={table} />
               <Link to="/program/create-program">
                 <Button variant="" className="ml-auto h-8">
@@ -490,56 +410,6 @@ export function InventoryTable() {
                 </Button>
               </Link>
             </div>
-            {/* <div className="flex items-center justify-between gap-2 max-md:flex-col max-md:items-start">
-              <div className="flex flex-1 items-center space-x-2">
-                <Input
-                  placeholder="Search by Name..."
-                  value={
-                    table.getColumn('product_name')?.getFilterValue() ?? ''
-                  }
-                  onChange={(event) =>
-                    table
-                      .getColumn('product_name')
-                      ?.setFilterValue(event.target.value)
-                  }
-                  className="h-8  max-w-xs max-h-sm"
-                />
-                {table.getColumn('status') && (
-                  <DataTableFacetedFilter
-                    column={table.getColumn('status')}
-                    title="Status"
-                    options={status}
-                  />
-                )}
-                {table.getColumn('card_nature') && (
-                  <DataTableFacetedFilter
-                    column={table.getColumn('card_nature')}
-                    title="Card Nature"
-                    options={card_nature}
-                  />
-                )}
-
-                {isFiltered && (
-                  <Button
-                    variant="ghost"
-                    onClick={() => table.resetColumnFilters()}
-                    className="h-8 px-2 lg:px-3"
-                  >
-                    Reset
-                    <X />
-                  </Button>
-                )}
-              </div>
-              <div className="flex gap-4">
-                <DataTableViewOptions table={table} />
-                <Link to="/program/create-program">
-                  <Button variant="" className="ml-auto h-8">
-                    {' '}
-                    <CirclePlus /> Create Order
-                  </Button>
-                </Link>
-              </div>
-            </div> */}
           </div>
           <div className="rounded-md border mt-3">
             <Table>

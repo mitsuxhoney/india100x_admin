@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+import { DataTablePagination } from '@/components/DataTablePagination'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -36,8 +37,8 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { saveAs } from 'file-saver';
-import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import {
   Card,
   CardContent,
@@ -63,55 +64,85 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { status, team, role } from '@/data/system-users-data'
 
 import { Badge } from '@/components/ui/badge'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
 
 const data = [
   {
-    "product_id": "1",
-    "user_id": "U001",
-    "name": "Alice Johnson",
-    "role": "Administrator",
-    "created_at": "01-01-2024",
-    'team': 'ONO',
-    "is_active": true
+    product_id: '1',
+    user_id: 'U001',
+    name: 'Alice Johnson',
+    role: 'Admin',
+    created_at: '01-01-2024',
+    team: 'XFER',
+    status: 'true', // used true for active and false for inactive
   },
   {
-    "product_id": "2",
-    "user_id": "U002",
-    "name": "Bob Smith",
-    "role": "Moderator",
-    "created_at": "15-02-2024",
-    'team': 'ONO',
-    "is_active": false
+    product_id: '2',
+    user_id: 'U002',
+    name: 'Bob Smith',
+    role: 'User',
+    created_at: '02-02-2024',
+    team: 'Privacy Card',
+    status: 'true',
   },
   {
-    "product_id": "3",
-    "user_id": "U003",
-    "name": "Charlie Brown",
-    "role": "User",
-    "created_at": "10-03-2024",
-    'team': 'ONO',
-    "is_active": true
+    product_id: '3',
+    user_id: 'U003',
+    name: 'Charlie Brown',
+    role: 'Manager',
+    created_at: '03-03-2024',
+    team: 'ONO',
+    status: 'false',
   },
   {
-    "product_id": "4",
-    "user_id": "U004",
-    "name": "Diana Prince",
-    "role": "Editor",
-    "created_at": "25-04-2024",
-    'team': 'ONO',
-    "is_active": true
+    product_id: '4',
+    user_id: 'U004',
+    name: 'David Wilson',
+    role: 'Manager',
+    created_at: '04-04-2024',
+    team: 'ONO',
+    status: 'false',
   },
   {
-    "product_id": "5",
-    "user_id": "U005",
-    "name": "Evan Williams",
-    "role": "Viewer",
-    "created_at": "05-05-2024",
-    'team': 'ONO',
-    "is_active": false
-  }
+    product_id: '5',
+    user_id: 'U005',
+    name: 'Emily Davis',
+    role: 'User',
+    created_at: '05-05-2024',
+    team: 'XFER',
+    status: 'false',
+  },
+  {
+    product_id: '6',
+    user_id: 'U006',
+    name: 'Frank Miller',
+    role: 'Admin',
+    created_at: '06-06-2024',
+    team: 'ONO',
+    status: 'true',
+  },
+  {
+    product_id: '7',
+    user_id: 'U007',
+    name: 'Grace Thompson',
+    role: 'VIP',
+    created_at: '07-07-2024',
+    team: 'ONO',
+    status: 'true',
+  },
+  {
+    product_id: '8',
+    user_id: 'U008',
+    name: 'Hannah Turner',
+    role: 'User',
+    created_at: '08-08-2024',
+    team: 'ONO',
+    status: 'false',
+  },
 ]
 
 export function SystemUsersTable() {
@@ -208,8 +239,8 @@ export function SystemUsersTable() {
       accessorKey: 'status',
       header: 'Status',
       cell: ({ row }) => {
-        const status = row.getValue('status')
-        return status === 'active' ? (
+        const status = row.original.status
+        return status === 'true' ? (
           <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
         ) : (
           <Badge className="bg-[#fff0f0] text-[#b52a2a]">Inactive</Badge>
@@ -320,12 +351,12 @@ export function SystemUsersTable() {
 
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
@@ -334,52 +365,31 @@ export function SystemUsersTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search by user id..."
-              value={table.getColumn('user_id')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table.getColumn('user_id')?.setFilterValue(event.target.value)
-              }
-              className="max-w-xs"
-            />
-            <div className="flex items-center gap-2">
-              <Button variant='outline' onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar
+                table={table}
+                inputFilter="card_ref_id"
+                status={status}
+                team={team}
+                role={role}
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                        >
-                          {typeof column.columnDef.header === 'string'
-                            ? column.columnDef.header
-                            : ''} {/* Render the header if it's a string */}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
+                  {' '}
+                  <CirclePlus /> Create Order
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -429,78 +439,7 @@ export function SystemUsersTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>

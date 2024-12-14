@@ -8,8 +8,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { saveAs } from 'file-saver'; 
-import * as Papa from 'papaparse'; 
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
+import { DataTablePagination } from '@/components/DataTablePagination'
 import {
   ArrowUpDown,
   ChevronDown,
@@ -74,14 +75,17 @@ import {
 } from '@/components/ui/table'
 
 import { Badge } from '@/components/ui/badge'
+import { status, program_manager } from '@/data/pending-kyc-data'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
 
 const data = [
   {
     product_id: '1',
-    customerId: '123654789',
+    customerId: 'Jane',
     Name: 'Mona',
-    ProgramManager: 'Sales Card',
-    status: 'pending',
+    program_manager: 'ONO',
+    status: 'Pending',
     verificationRemarks: 'Resubmission Required',
     submissionDate: '2022-10-05',
   },
@@ -89,8 +93,8 @@ const data = [
     product_id: '2',
     customerId: '123664789',
     Name: 'John Doe',
-    ProgramManager: 'Platinum Card',
-    status: 'pending',
+    program_manager: 'Privacy Card',
+    status: 'Rejected',
     verificationRemarks: 'Address proof missing',
     submissionDate: '2023-09-15',
   },
@@ -98,73 +102,19 @@ const data = [
     product_id: '3',
     customerId: '123654782',
     Name: 'Sophia Smith',
-    ProgramManager: 'Business Loan',
-    status: 'under review',
+    program_manager: 'Privacy Card',
+    status: 'Under Review',
     verificationRemarks: 'Verification in progress',
     submissionDate: '2023-11-01',
   },
   {
     product_id: '4',
-    customerId: '123684789',
-    Name: 'Ethan Brown',
-    ProgramManager: 'Travel Card',
-    status: 'rejected',
-    verificationRemarks: 'ID proof mismatch',
-    submissionDate: '2023-08-20',
-  },
-  {
-    product_id: '5',
-    customerId: '123656554',
-    Name: 'Liam Wilson',
-    ProgramManager: 'Premium Savings',
-    status: 'pending',
-    verificationRemarks: 'Photo unclear, resubmit',
-    submissionDate: '2023-10-10',
-  },
-  {
-    product_id: '6',
-    customerId: '123654779',
-    Name: 'Emma Davis',
-    ProgramManager: 'Retail Finance',
-    status: 'under review',
-    verificationRemarks: 'Cross-verifying documents',
-    submissionDate: '2023-09-25',
-  },
-  {
-    product_id: '7',
-    customerId: '123654798',
-    Name: 'Oliver Martinez',
-    ProgramManager: 'Gold Card',
-    status: 'incomplete',
-    verificationRemarks: 'Bank statement not submitted',
-    submissionDate: '2023-10-02',
-  },
-  {
-    product_id: '8',
-    customerId: '189654789',
-    Name: 'Ava Taylor',
-    ProgramManager: 'Student Plan',
-    status: 'pending',
-    verificationRemarks: 'Document not signed',
-    submissionDate: '2023-11-15',
-  },
-  {
-    product_id: '9',
-    customerId: '123654756',
-    Name: 'Michael Johnson',
-    ProgramManager: 'Cashback Offers',
-    status: 'rejected',
-    verificationRemarks: 'Document not legible',
-    submissionDate: '2023-07-30',
-  },
-  {
-    product_id: '10',
-    customerId: '123654723',
-    Name: 'Emily Clark',
-    ProgramManager: 'Merchant Services',
-    status: 'under review',
-    verificationRemarks: 'Final verification stage',
-    submissionDate: '2023-11-10',
+    customerId: '123654781',
+    Name: 'Emma',
+    program_manager: 'XFER',
+    status: 'Approved',
+    verificationRemarks: 'No issues found',
+    submissionDate: '2023-07-20',
   },
 ]
 
@@ -241,11 +191,11 @@ export function PendingKycTable() {
       ),
     },
     {
-      accessorKey: 'ProgramManager',
+      accessorKey: 'program_manager',
       header: 'Program Manager',
       cell: ({ row }) => (
         <div className="text-center hover:underline">
-          {row.getValue('ProgramManager')}
+          {row.getValue('program_manager')}
         </div>
       ),
     },
@@ -272,25 +222,23 @@ export function PendingKycTable() {
         const status = row.getValue('status')
 
         switch (status) {
-          case 'active':
-            return <Badge className="bg-[#e4f5e9] text-[#16794c]">Active</Badge>
-          case 'pending':
+          case 'Approved':
+            return (
+              <Badge className="bg-[#e4f5e9] text-[#16794c]">Approved</Badge>
+            )
+          case 'Pending':
             return (
               <Badge className="bg-[#fff7d3] text-[#ab6e05]">Pending</Badge>
             )
-          case 'under review':
+          case 'Under Review':
             return (
               <Badge className="bg-[#e3f2fd] text-[#1976d2]">
                 Under Review
               </Badge>
             )
-          case 'rejected':
+          case 'Rejected':
             return (
               <Badge className="bg-[#ffe6e6] text-[#d32f2f]">Rejected</Badge>
-            )
-          case 'incomplete':
-            return (
-              <Badge className="bg-[#fce4ec] text-[#c2185b]">Incomplete</Badge>
             )
         }
       },
@@ -363,12 +311,12 @@ export function PendingKycTable() {
 
   const downloadCSV = () => {
     // Convert table data to CSV
-    const csv = Papa.unparse(data);
+    const csv = Papa.unparse(data)
     // Create a Blob object for the CSV
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
     // Use FileSaver to trigger a download
-    saveAs(blob, 'table-data.csv');
-  };
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
@@ -377,52 +325,30 @@ export function PendingKycTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search Name..."
-              value={table.getColumn('Name')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table.getColumn('Name')?.setFilterValue(event.target.value)
-              }
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-              <Button variant='outline' onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar
+                table={table}
+                inputFilter="product_name"
+                program_manager={program_manager}
+                status={status}
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                        >
-                          {typeof column.columnDef.header === 'string'
-                            ? column.columnDef.header
-                            : ''} {/* Render the header if it's a string */}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
+                  {' '}
+                  <CirclePlus /> Create Order
+                </Button>
+              </Link>
             </div>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -497,78 +423,7 @@ export function PendingKycTable() {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>

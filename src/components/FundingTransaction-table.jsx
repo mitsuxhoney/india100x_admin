@@ -56,6 +56,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { status } from '@/data/funding-transactions-data'
 
 import {
   Card,
@@ -66,6 +67,8 @@ import {
 } from '@/components/ui/card'
 
 import { Badge } from '@/components/ui/badge'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
 
 const fieldIconMap = {
   Success: {
@@ -89,89 +92,62 @@ const data = [
     FromAccount: '255616106789',
     ToAccount: '465465546789',
     Amount: 9199.99,
-    Failed: true,
+    status: 'Pending',
     Date: '2023-11-29 08:25:05',
   },
   {
     bankName: 'CityBank',
     cardRefId: 'CR123456',
-    FromAccount: '356746109871',
-    ToAccount: '989654327890',
-    Amount: 4500.75,
-    Success: true,
-    Date: '2023-11-30 10:15:25',
+    FromAccount: '255616106789',
+    ToAccount: '465465546789',
+    Amount: 12999.99,
+    status: 'Success',
+    Date: '2023-11-28 12:15:30',
   },
   {
-    bankName: 'AxisBank',
+    bankName: 'HDFC Bank',
+    cardRefId: 'CR789456',
+    FromAccount: '255616106789',
+    ToAccount: '465465546789',
+    Amount: 15999.99,
+    status: 'Failed',
+    Date: '2023-11-27 10:30:15',
+  },
+  {
+    bankName: 'ICICI Bank',
     cardRefId: 'CR987654',
-    FromAccount: '876543211234',
-    ToAccount: '432112345678',
-    Amount: 25000.0,
-    Pending: true,
-    Date: '2023-11-28 14:00:15',
+    FromAccount: '255616106789',
+    ToAccount: '465465546789',
+    Amount: 18999.99,
+    status: 'Pending',
+    Date: '2023-11-26 09:45:20',
   },
   {
-    bankName: 'HDFC',
-    cardRefId: 'CR222333',
-    FromAccount: '109876543210',
-    ToAccount: '567890123456',
-    Amount: 150.5,
-    Success: true,
-    Date: '2023-12-01 09:45:00',
+    bankName: 'SBI Bank',
+    cardRefId: 'CR345678',
+    FromAccount: '255616106789',
+    ToAccount: '465465546789',
+    Amount: 21999.99,
+    status: 'Failed',
+    Date: '2023-11-25 18:00:45',
   },
   {
-    bankName: 'ICICI',
-    cardRefId: 'CR999888',
-    FromAccount: '123456789012',
-    ToAccount: '987654321098',
-    Amount: 7800.0,
-    Pending: true,
-    Date: '2023-11-30 12:20:45',
+    bankName: 'PNB Bank',
+    cardRefId: 'CR567890',
+    FromAccount: '255616106789',
+    ToAccount: '465465546789',
+    Amount: 24999.99,
+    status: 'Success',
+    Date: '2023-11-24 17:15:50',
   },
   {
-    bankName: 'StandardChartered',
-    cardRefId: 'CR555666',
-    FromAccount: '654321987654',
-    ToAccount: '123456780987',
-    Amount: 1999.99,
-    Failed: true,
-    Date: '2023-11-29 17:30:25',
-  },
-  {
-    bankName: 'SBI',
-    cardRefId: 'CR444777',
-    FromAccount: '111223344556',
-    ToAccount: '554433221100',
-    Amount: 300.0,
-    Failed: true,
-    Date: '2023-12-01 08:00:00',
-  },
-  {
-    bankName: 'PNB',
-    cardRefId: 'CR666555',
-    FromAccount: '333344445555',
-    ToAccount: '666677778888',
-    Amount: 5050.5,
-    Pending: true,
-    Date: '2023-11-27 20:10:15',
-  },
-  {
-    bankName: 'Kotak',
-    cardRefId: 'CR777666',
-    FromAccount: '987651234567',
-    ToAccount: '123459876543',
-    Amount: 1200.0,
-    Success: true,
-    Date: '2023-11-28 07:25:55',
-  },
-  {
-    bankName: 'YesBank',
-    cardRefId: 'CR888999',
-    FromAccount: '112233445566',
-    ToAccount: '665544332211',
-    Amount: 800.0,
-    Pending: true,
-    Date: '2023-12-01 15:00:30',
+    bankName: 'BOB Bank',
+    cardRefId: 'CR678901',
+    FromAccount: '255616106789',
+    ToAccount: '465465546789',
+    Amount: 27999.99,
+    status: 'Success',
+    Date: '2023-11-23 16:30:55',
   },
 ]
 
@@ -315,57 +291,26 @@ export function FundingTransactionTable() {
       },
     },
     {
+      accessorKey: 'status',
       header: `Status`,
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center gap-2">
-          {Object.keys(fieldIconMap).map((field) => {
-            if (row.original[field]) {
-              return (
-                <span
-                  key={field}
-                  className={`flex items-center gap-1`}
-                  title={fieldIconMap[field].label}
-                >
-                  {fieldIconMap[field].icon}
-                </span>
-              )
-            }
-            return null
-          })}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const status = row.original.status
+
+        switch (status) {
+          case 'Success':
+            return (
+              <Badge className="bg-[#e4f5e9] text-[#16794c]">Success</Badge>
+            )
+          case 'Pending':
+            return (
+              <Badge className="bg-[#fff7d3] text-[#ab6e05]">Pending</Badge>
+            )
+
+          case 'Failed':
+            return <Badge className="bg-[#ffe6e6] text-[#d32f2f]">Failed</Badge>
+        }
+      },
     },
-    // {
-    //   accessorKey: 'actions',
-    //   header: '',
-    //   cell: ({ row }) => {
-    //     const rowData = row.original // Get the entire row's data for actions
-    //     return (
-    //       <DropdownMenu>
-    //         <DropdownMenuTrigger asChild>
-    //           <Button variant="ghost" className="h-8 w-8 p-0">
-    //             <span className="sr-only">Open menu</span>
-    //             <MoreHorizontal />
-    //           </Button>
-    //         </DropdownMenuTrigger>
-    //         <DropdownMenuContent align="end">
-    //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-    //           <DropdownMenuSeparator />
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Edit
-    //           </DropdownMenuItem>
-    //           <DropdownMenuItem
-    //             onClick={() => navigator.clipboard.writeText(payment.id)}
-    //           >
-    //             Delete
-    //           </DropdownMenuItem>
-    //         </DropdownMenuContent>
-    //       </DropdownMenu>
-    //     )
-    //   },
-    // },
   ]
 
   const table = useReactTable({
@@ -415,60 +360,29 @@ export function FundingTransactionTable() {
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search by Reference ID..."
-              value={table.getColumn('cardRefId')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table.getColumn('cardRefId')?.setFilterValue(event.target.value)
-              }
-              className="max-w-sm"
-            />
-            <div className="flex items-center gap-2">
-              <Button variant="outline" onClick={downloadCSV}>
+          <div className="w-full flex gap-2 justify-between max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar
+                table={table}
+                inputFilter="card_ref_id"
+                status={status}
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
                 <FileDown />
               </Button>
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="ml-auto">
-                      View <ChevronDown />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {table
-                      .getAllColumns()
-                      .filter(
-                        (column) =>
-                          column.getCanHide() && // Check if the column can be hidden
-                          column.columnDef.header // Ensure the column has a defined header
-                      )
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) =>
-                            column.toggleVisibility(!!value)
-                          }
-                        >
-                          {typeof column.columnDef.header === 'function'
-                            ? column.columnDef.header({ column }).props
-                                .children[0] // Render the header if it's a function
-                            : column.columnDef.header}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              {/* <Link to="/program/create-program">
-                <Button variant="" className="ml-auto">
-                  <CirclePlus /> Add new
+
+              <DataTableViewOptions table={table} />
+              <Link to="/program/create-program">
+                <Button variant="" className="ml-auto h-8">
+                  {' '}
+                  <CirclePlus /> Create Order
                 </Button>
-              </Link> */}
+              </Link>
             </div>
           </div>
-          <div className="rounded-md border">
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (

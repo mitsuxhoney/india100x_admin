@@ -45,6 +45,7 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  FileDown,
 } from 'lucide-react'
 import {
   Select,
@@ -55,18 +56,8 @@ import {
 } from '@/components/ui/select'
 import { useToast } from '@/hooks/use-toast'
 import { Badge } from '@/components/ui/badge'
+import { DataTablePagination } from '@/components/DataTablePagination'
 
-import {
-  AlertDialog,
-  AlertDialogTitle,
-  AlertDialogContent,
-  AlertDialogTrigger,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogDescription,
-} from '@/components/ui/alert-dialog'
-
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Card,
   CardContent,
@@ -92,9 +83,16 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+
+import { status } from '@/data/webhooks-data'
+
+import { saveAs } from 'file-saver'
+import * as Papa from 'papaparse'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import DataTableViewOptions from './DataTableViewOptions'
+import DataTableToolbar from './DataTableToolbar'
 
 const formSchema = z.object({
   webhook_url: z.string().min(2, {
@@ -109,43 +107,31 @@ const data = [
     name: 'webhook 1',
     url: 'https://example.com/rest/webhooks/webhook1',
     secret: 'txcdefrolms345',
-    status: 'enabled',
+    status: 'Enabled',
   },
   {
     name: 'webhook 2',
     url: 'https://example.com/rest/webhooks/webhook2',
     secret: 'abcdefghijklmnop',
-    status: 'disabled',
+    status: 'Disabled',
   },
   {
     name: 'webhook 3',
     url: 'https://example.com/rest/webhooks/webhook3',
-    secret: 'qwertyuiop',
-    status: 'enabled',
+    secret: 'abcdefghijklmnopq',
+    status: 'Enabled',
   },
   {
     name: 'webhook 4',
     url: 'https://example.com/rest/webhooks/webhook4',
-    secret: 'asdfghjkl',
-    status: 'disabled',
+    secret: 'abcdefghijklmnopqrs',
+    status: 'Disabled',
   },
   {
     name: 'webhook 5',
     url: 'https://example.com/rest/webhooks/webhook5',
-    secret: 'zxcvbnm',
-    status: 'enabled',
-  },
-  {
-    name: 'webhook 6',
-    url: 'https://example.com/rest/webhooks/webhook6',
-    secret: '1234567890',
-    status: 'enabled',
-  },
-  {
-    name: 'webhook 7',
-    url: 'https://example.com/rest/webhooks/webhook7',
-    secret: 'qwertyuiop1234',
-    status: 'disabled',
+    secret: 'abcdefghijklmnopqrs',
+    status: 'Enabled',
   },
 ]
 const WebhooksTable = () => {
@@ -207,7 +193,7 @@ const WebhooksTable = () => {
         const status = row.original.status
         return (
           <div className="capitalize text-center">
-            {status === 'disabled' ? (
+            {status === 'Disabled' ? (
               <Badge className="bg-[#fff0f0] text-[#b52a2a]">Disabled</Badge>
             ) : (
               <Badge className="bg-[#e4f5e9] text-[#16794c]">Enabled</Badge>
@@ -328,133 +314,141 @@ const WebhooksTable = () => {
     // ✅ This will be type-safe and validated.
     console.log(values)
   }
+  const downloadCSV = () => {
+    // Convert table data to CSV
+    const csv = Papa.unparse(data)
+    // Create a Blob object for the CSV
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    // Use FileSaver to trigger a download
+    saveAs(blob, 'table-data.csv')
+  }
 
   return (
     <Card>
       <CardContent>
-        <div className="w-full">
-          <div className="flex items-center py-4 justify-between ">
-            <Input
-              placeholder="Search by URL..."
-              value={table.getColumn('team_member')?.getFilterValue() ?? ''}
-              onChange={(event) =>
-                table
-                  .getColumn('team_member')
-                  ?.setFilterValue(event.target.value)
-              }
-              className="max-w-xs"
-            />
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button>Create a Webhook</Button>
-              </SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Create a Webhook</SheetTitle>
-                  <SheetDescription>
-                    A webhook interface is a system that allows receiving,
-                    processing, and responding to HTTP POST requests triggered
-                    by specific events from external sources.
-                  </SheetDescription>
-                </SheetHeader>
+        <div className="w-full mt-3">
+          <div className="w-full flex gap-2 justify-between items-center max-md:flex-col max-md:gap-2 max-md:items-start max-md:w-[70%]">
+            <div className="w-full">
+              <DataTableToolbar table={table} status={status} />
+            </div>
+            <div className="flex gap-2 items-center">
+              <Button variant="outline" className="h-8" onClick={downloadCSV}>
+                <FileDown />
+              </Button>
 
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4 mt-4"
-                  >
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Webhook Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter the name" {...field} />
-                          </FormControl>
-                          {/* <FormDescription>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button className="h-8">Create a Webhook</Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Create a Webhook</SheetTitle>
+                    <SheetDescription>
+                      A webhook interface is a system that allows receiving,
+                      processing, and responding to HTTP POST requests triggered
+                      by specific events from external sources.
+                    </SheetDescription>
+                  </SheetHeader>
+
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-4 mt-4"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Webhook Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter the name" {...field} />
+                            </FormControl>
+                            {/* <FormDescription>
                   A webhook URL is an endpoint that allows external systems to
                   send real-time data or notifications to your application over
                   HTTP when certain events occur.
                 </FormDescription> */}
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="webhook_url"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>URL</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter the url" {...field} />
-                          </FormControl>
-                          {/* <FormDescription>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="webhook_url"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>URL</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Enter the url" {...field} />
+                            </FormControl>
+                            {/* <FormDescription>
                   A webhook URL is an endpoint that allows external systems to
                   send real-time data or notifications to your application over
                   HTTP when certain events occur.
                 </FormDescription> */}
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <div className="flex gap-4 items-end">
-                      <div className="w-[100%]">
-                        <FormField
-                          control={form.control}
-                          name="secret_key"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Secret Key</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Enter the secret key"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="flex gap-4 items-end">
+                        <div className="w-[100%]">
+                          <FormField
+                            control={form.control}
+                            name="secret_key"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Secret Key</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter the secret key"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        <Button variant="outline">
+                          <Copy />
+                        </Button>
                       </div>
-                      <Button variant="outline">
-                        <Copy />
+                    </form>
+                    <div className="flex justify-end items-start text-xs mt-1 text-gray hover:underline">
+                      <Link
+                        to=""
+                        onClick={() => {
+                          setIsForgotPasswordClicked(true)
+                        }}
+                      >
+                        Generate Secret Key
+                      </Link>
+                    </div>
+                  </Form>
+
+                  <SheetFooter>
+                    {/* <SheetClose asChild> */}
+                    <div className="mt-4">
+                      <Button
+                        type="submit"
+                        onClick={() => {
+                          toast({
+                            title: 'New Webhook generated',
+                          })
+                        }}
+                      >
+                        Create Webhook
                       </Button>
                     </div>
-                  </form>
-                  <div className="flex justify-end items-start text-xs mt-1 text-gray hover:underline">
-                    <Link
-                      to=""
-                      onClick={() => {
-                        setIsForgotPasswordClicked(true)
-                      }}
-                    >
-                      Generate Secret Key
-                    </Link>
-                  </div>
-                </Form>
-
-                <SheetFooter>
-                  {/* <SheetClose asChild> */}
-                  <div className="mt-4">
-                    <Button
-                      type="submit"
-                      onClick={() => {
-                        toast({
-                          title: 'New Webhook generated',
-                        })
-                      }}
-                    >
-                      Create Webhook
-                    </Button>
-                  </div>
-                  {/* </SheetClose> */}
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
+                    {/* </SheetClose> */}
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
-          <div className="rounded-md border">
+
+          <div className="rounded-md border mt-3">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -526,78 +520,7 @@ const WebhooksTable = () => {
               </TableBody>
             </Table>
           </div>
-          <div className="flex items-center justify-between px-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-              {table.getFilteredSelectedRowModel().rows.length} of{' '}
-              {table.getFilteredRowModel().rows.length} row(s) selected.
-            </div>
-            <div className="flex items-center space-x-6 lg:space-x-8">
-              <div className="flex items-center space-x-2">
-                <p className="text-sm font-medium">Rows per page</p>
-                <Select
-                  value={`${table.getState().pagination.pageSize}`}
-                  onValueChange={(value) => {
-                    table.setPageSize(Number(value))
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[70px]">
-                    <SelectValue
-                      placeholder={table.getState().pagination.pageSize}
-                    />
-                  </SelectTrigger>
-                  <SelectContent side="top">
-                    {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                      <SelectItem key={pageSize} value={`${pageSize}`}>
-                        {pageSize}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                Page {table.getState().pagination.pageIndex + 1} of{' '}
-                {table.getPageCount()}
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(0)}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to first page</span>
-                  <ChevronsLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.previousPage()}
-                  disabled={!table.getCanPreviousPage()}
-                >
-                  <span className="sr-only">Go to previous page</span>
-                  <ChevronLeft />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-8 w-8 p-0"
-                  onClick={() => table.nextPage()}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to next page</span>
-                  <ChevronRight />
-                </Button>
-                <Button
-                  variant="outline"
-                  className="hidden h-8 w-8 p-0 lg:flex"
-                  onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  disabled={!table.getCanNextPage()}
-                >
-                  <span className="sr-only">Go to last page</span>
-                  <ChevronsRight />
-                </Button>
-              </div>
-            </div>
-          </div>
+          <DataTablePagination table={table} />
         </div>
       </CardContent>
     </Card>
