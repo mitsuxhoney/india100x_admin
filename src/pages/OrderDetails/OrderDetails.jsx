@@ -56,6 +56,7 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  Phone,
   Layers,
   CreditCard,
   Users,
@@ -65,6 +66,7 @@ import {
   User,
   IndianRupee,
   Download,
+  Mail,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
@@ -218,7 +220,7 @@ const OrderDetails = () => {
             </div>
           </div>
         </div>
-        <div className="lg:w-[30%] w-full flex flex-col gap-2">
+        <div className="xl:w-[30%] w-full flex flex-col gap-2">
           <div className="flex flex-col w-full rounded-md bg-muted/50 gap-0 pb-8 px-4">
             <div className="h-16 flex items-center justify-between text-md font-medium">
               <div>Logistic Details</div>
@@ -236,12 +238,37 @@ const OrderDetails = () => {
               <div className="text-sm font-semibold">Payment mode : Online</div>
             </div>
           </div>
-          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-0 px-4 pb-8">
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-2 px-4 pb-8">
             <div className="h-16 flex items-center justify-between px-2 text-md font-medium">
               <div>Customer Details</div>
               <p className="hover:underline cursor-pointer text-sm">
                 View Profile
               </p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-2 px-2 items-center">
+                <Avatar>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <p className="text-sm font-medium">Joseph Parker</p>
+                  <p className="text-xs font-medium">Customer</p>
+                </div>
+              </div>
+              <div className="flex flex-col px-2 gap-2">
+                <div className="text-sm font-medium flex items-center gap-1">
+                  <Mail size={18} strokeWidth={1.5} />
+                  Joseph@gmail.com
+                </div>
+                <div className="text-sm font-medium flex items-center gap-1">
+                  <Phone size={18} strokeWidth={1.5} />
+                  +914858659874
+                </div>
+              </div>
             </div>
           </div>
         </div>
