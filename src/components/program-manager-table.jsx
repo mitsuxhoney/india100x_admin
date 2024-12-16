@@ -416,7 +416,7 @@ export function ProgramTable() {
               <Link to="/program/create-program">
                 <Button variant="" className="ml-auto h-8">
                   {' '}
-                  <CirclePlus /> Create Order
+                  <CirclePlus /> Add Manager
                 </Button>
               </Link>
             </div>

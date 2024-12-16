@@ -403,7 +403,7 @@ export function InventoryTable() {
               </Button>
 
               <DataTableViewOptions table={table} />
-              <Link to="/program/create-program">
+              <Link to="/inventory/create-order">
                 <Button variant="" className="ml-auto h-8">
                   {' '}
                   <CirclePlus /> Create Order
