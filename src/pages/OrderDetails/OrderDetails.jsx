@@ -229,7 +229,7 @@ const OrderDetails = () => {
                         Total
                       </TableCell>
                       <TableCell className="text-right text-xl font-semibold">
-                        $2,500.00
+                        &#8377;2,500.00
                       </TableCell>
                     </TableRow>
                   </TableFooter>
