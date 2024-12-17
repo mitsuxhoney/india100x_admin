@@ -30,9 +30,6 @@ import {
   TableCaption,
   TableRow,
 } from '@/components/ui/table'
-import order_img_1 from '@/assets/order_img_1.png'
-import order_img_2 from '@/assets/order_img_2.png'
-import order_img_3 from '@/assets/order_img_3.png'
 
 import { Link, useLocation, useSearchParams, useParams } from 'react-router-dom'
 import { saveAs } from 'file-saver'
@@ -81,6 +78,8 @@ import {
   LocateIcon,
   MapIcon,
   MapPinIcon,
+  Edit,
+  Cross,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
@@ -101,50 +100,37 @@ import { status } from '@/data/program-manager-data'
 const data = [
   {
     product_name: 'Shopping',
-    product_img: order_img_1,
+    product_img: OnoLogo,
     product_category: 'Monthly Expense',
     card_nature: 'Virtual',
     price: 200,
     quantity: 10,
     total_amount: 2000,
   },
-  {
-    product_name: 'OTT',
-    product_img: order_img_2,
-    product_category: 'Entertainment',
-    card_nature: 'Physical',
-    price: 300,
-    quantity: 5,
-    total_amount: 1500,
-  },
-  {
-    product_name: 'Travel',
-    product_img: order_img_3,
-    product_category: 'Business',
-    card_nature: 'Physical',
-    price: 150,
-    quantity: 2,
-    total_amount: 300,
-  },
 ]
 const items = [
-
   {
-    id:2,
+    id: 1,
     title: 'First event',
+    date: '23-02-2024',
+    description: 'Order Placed',
+  },
+  {
+    id: 2,
+    title: 'Second event',
     date: '23-02-2024',
     description: 'Processed',
   },
 
   {
-    id:3,
-    title: 'Second event',
+    id: 3,
+    title: 'Third event',
     date: '26-02-2024',
     description: 'Shipped',
   },
   {
     id: 4,
-    title: 'Third event',
+    title: 'Fourth event',
     date: '01-03-2024',
     description: 'Delivered',
   },
@@ -164,47 +150,52 @@ const OrderDetails = () => {
 
   return (
     <div className="relative w-full flex flex-col md:flex-row gap-2">
-      <div className="w-full xl:flex-row gap-2 flex flex-col">
+      <div className="w-full xl:flex-row gap-2 flex flex-col mt-2">
         <div className="xl:w-[70%] w-full flex flex-col gap-4">
-          <div className="h-16 bg-muted/50 rounded-md flex items-center justify-between px-4 text-md font-medium">
-            <p>Order #{id}</p>
-            <Button variant="outline">
-              <Download />
-              Invoice
-            </Button>
+          <div className="h-16 bg-muted/50 rounded-md border flex items-center justify-between px-4 text-md font-medium">
+            <div className="flex flex-col">
+              <h2>Order ID : 125467</h2>
+              <div className="flex gap-2">
+                <p className="text-muted-foreground text-sm">Manager : ONO</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline">
+                <Download />
+                Invoice
+              </Button>
+              <Button variant="destructive">Cancel Order</Button>
+            </div>
           </div>
           <div className="grid grid-cols-1 gap-2">
             <div className="w-full">
               <div className="rounded-md border mt-[-10px]">
                 <Table>
-                  <TableCaption className="pb-8">
-                    A list of your recent invoices.
-                  </TableCaption>
                   <TableHeader className="bg-muted/50">
                     <TableRow>
                       <TableHead className="w-[200px]">Product</TableHead>
                       <TableHead>Price</TableHead>
                       <TableHead>Quantity</TableHead>
-                      <TableHead className="text-right">Amount</TableHead>
+                      <TableHead className="text-right">Total Amount</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {data.map((product) => (
                       <TableRow key={product.product_name}>
                         <TableCell className="min-w-[350px]">
-                          <div className="flex items-center gap-2 justify-start">
-                            <div className="rounded-md bg-muted/50 min-w-24">
+                          <div className="flex items-center gap-3 justify-start">
+                            <div className="bg-muted/50 rounded-md min-w-20 flex items-center justify-center">
                               <img
-                                src={product.product_img1}
-                                className="h-20 min-w-24"
+                                src={product.product_img}
+                                className="h-20 min-w-20"
                                 alt="Image"
                               />
                             </div>
-                            <div className="">
+                            <div className="space-y-1">
                               <p className="text-sm font-medium">
                                 {product.product_name}
                               </p>
-                              <div className="flex flex-col gap-0">
+                              <div className="space-y-1">
                                 <p className="text-xs font-medium">
                                   Category : {product.product_category}
                                 </p>
@@ -231,7 +222,7 @@ const OrderDetails = () => {
                         Total
                       </TableCell>
                       <TableCell className="text-right text-xl font-semibold">
-                        &#8377;2,500.00
+                        &#8377;2,000.00
                       </TableCell>
                     </TableRow>
                   </TableFooter>
@@ -240,84 +231,77 @@ const OrderDetails = () => {
             </div>
           </div>
 
-          <div className="w-full rounded-md bg-muted/50 flex flex-col">
-            <div className="h-16 w-full flex justify-between gap-2 items-center px-4 text-md font-medium">
+          <div className="w-full flex flex-col">
+            {/* <div className="h-16 w-full flex justify-between gap-2 items-center px-4 text-md font-medium">
               <p>Order Status</p>
               <div className="flex gap-2">
                 <Button variant="outline">Change Address</Button>
-                <Button variant="outline">Cancel Order</Button>
+                <Button variant="destructive">Cancel Order</Button>
               </div>
             </div>
-            <Separator />
-            <div className="pt-12">
-              <Timeline>
-                {items.map((item, index) => {
-                  return (
-                    <>
-                      <TimelineItem>
-                        {index === items.length - 1 ? null : (
-                          <TimelineConnector />
-                        )}
-                        <TimelineHeader>
-                          <TimelineTime>{item.date}</TimelineTime>
-                          <TimelineIcon />
-                          <TimelineTitle>{item.title}</TimelineTitle>
-                        </TimelineHeader>
-                        <TimelineContent>
-                          <TimelineDescription>
-                            {item.description}
-                          </TimelineDescription>
-                        </TimelineContent>
-                      </TimelineItem>
-                    </>
-                  )
-                })}
-              </Timeline>
-              {/* <Timeline>
-                <TimelineItem>
-                  <TimelineConnector />
-                  <TimelineHeader>
-                    <TimelineTime>{items[0].date}</TimelineTime>
-                    <TimelineIcon />
-                    <TimelineTitle>{items[0].title}</TimelineTitle>
-                  </TimelineHeader>
-                  <TimelineContent>
-                    <TimelineDescription>
-                      {items[0].description}
-                    </TimelineDescription>
-                  </TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                  <TimelineConnector />
-                  <TimelineHeader>
-                    <TimelineTime>{items[1].date}</TimelineTime>
-                    <TimelineIcon />
-                    <TimelineTitle>{items[1].title}</TimelineTitle>
-                  </TimelineHeader>
-                  <TimelineContent>
-                    <TimelineDescription>
-                      {items[1].description}
-                    </TimelineDescription>
-                  </TimelineContent>
-                </TimelineItem>
-                <TimelineItem>
-                  <TimelineHeader>
-                    <TimelineTime>{items[2].date}</TimelineTime>
-                    <TimelineIcon />
-                    <TimelineTitle>{items[2].title}</TimelineTitle>
-                  </TimelineHeader>
-                  <TimelineContent>
-                    <TimelineDescription>
-                      {items[2].description}
-                    </TimelineDescription>
-                  </TimelineContent>
-                </TimelineItem>
-              </Timeline> */}
+            <Separator /> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="flex flex-col rounded-md bg-muted/50 gap-0 pb-10 border">
+                <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
+                  <div>Logistic Details</div>
+                  <Button variant="outline">Track Order</Button>
+                </div>
+                <Separator className="mt-[-5px] w-full" />
+                <div className="flex items-center justify-center mt-8">
+                  <Lottie
+                    animationData={OrderTruck}
+                    className="dark:text-white"
+                    style={{ width: '250px', height: '250px' }}
+                    loop={true}
+                  />
+                </div>
+                <div className="flex flex-col justify-center items-center mt-[-20px]">
+                  <p className="text-lg font-semibold">ID : 12635</p>
+                  <div className="text-sm font-semibold">
+                    Payment mode : Online
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col bg-muted/50 rounded-md border">
+                <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
+                  <div>Order Status</div>
+                </div>
+                <Separator className="mt-[-5px] w-full" />
+                <div className="mt-10">
+                  <Timeline>
+                    {items.map((item, index) => {
+                      return (
+                        <>
+                          <TimelineItem>
+                            {index === items.length - 1 ? null : (
+                              <TimelineConnector />
+                            )}
+                            <TimelineHeader>
+                              <TimelineIcon />
+                              <TimelineTitle>
+                                {item.title} -{' '}
+                                <span className="text-sm font-medium">
+                                  {item.date}
+                                </span>
+                              </TimelineTitle>
+                            </TimelineHeader>
+                            <TimelineContent>
+                              <TimelineDescription>
+                                {item.description}
+                              </TimelineDescription>
+                            </TimelineContent>
+                          </TimelineItem>
+                        </>
+                      )
+                    })}
+                  </Timeline>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div className="xl:w-[30%] w-full flex flex-col gap-2">
-          <div className="flex flex-col w-full rounded-md bg-muted/50 gap-0 pb-10">
+          {/* <div className="flex flex-col w-full rounded-md bg-muted/50 gap-0 pb-10">
             <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
               <div>Logistic Details</div>
               <Button variant="outline">Track Order</Button>
@@ -332,16 +316,18 @@ const OrderDetails = () => {
               />
             </div>
             <div className="flex flex-col justify-center items-center mt-[-20px]">
-              <p className="text-lg font-semibold">ID : {id}</p>
+              <p className="text-lg font-semibold">ID : 12635</p>
               <div className="text-sm font-semibold">Payment mode : Online</div>
             </div>
-          </div>
-          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-3 pb-10">
+          </div> */}
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-3 pb-10 border">
             <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
-              <div>Customer Details</div>
-              <p className="hover:underline cursor-pointer text-sm">
-                View Profile
-              </p>
+              <div>Manager Details</div>
+              <div className="flex gap-2">
+                <Button variant="outline">
+                  <Edit />
+                </Button>
+              </div>
             </div>
             <Separator className="mt-[-20px]" />
             <div className="flex flex-col gap-6">
@@ -370,7 +356,7 @@ const OrderDetails = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8">
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8 border">
             <div className="h-16 flex items-center gap-2 px-4 text-md font-medium">
               <MapPinIcon size={18} strokeWidth={1.5} />
               <p className="hover:underline cursor-pointer text-md">
@@ -385,7 +371,7 @@ const OrderDetails = () => {
               <p className="text-sm font-medium">India</p>
             </div>
           </div>
-          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8">
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8 border">
             <div className="h-16 flex items-center gap-2 px-4 text-md font-medium">
               <MapPinIcon size={18} strokeWidth={1.5} />
               <p className="hover:underline cursor-pointer text-md">
@@ -400,19 +386,23 @@ const OrderDetails = () => {
               <p className="text-sm font-medium">India</p>
             </div>
           </div>
-          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8">
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8 border">
             <div className="h-16 flex items-center gap-2 px-4 text-md font-medium">
-              <MapPinIcon size={18} strokeWidth={1.5} />
+              <CreditCard size={18} strokeWidth={1.5} />
               <p className="hover:underline cursor-pointer text-md">
-                Shipping Address
+                Payment Method
               </p>
             </div>
             <Separator className="mt-[-20px]" />
             <div className="px-4 flex flex-col gap-2">
-              <p className="text-md font-medium">Joseph Parker</p>
-              <p className="text-sm font-medium">+919876787898</p>
-              <p className="text-sm font-medium">Laxmi Nagar, New Delhi</p>
-              <p className="text-sm font-medium">India</p>
+              <p className="text-md font-medium">Transaction : #123223</p>
+              <p className="text-sm font-medium">Payment Method : Debit Card</p>
+              <p className="text-sm font-medium">
+                Card Holder Name : Joseph Parker
+              </p>
+              <p className="text-sm font-medium">
+                Card Number : xxxx xxxx xxxx 3245
+              </p>
             </div>
           </div>
         </div>
