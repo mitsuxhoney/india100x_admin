@@ -224,11 +224,16 @@ export function ProgramTable() {
     {
       accessorKey: 'name',
       header: 'Manager Name',
-      cell: ({ row }) => (
-        <div className="capitalize text-center hover:underline">
-          {row.getValue('name')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const id = row.original.product_id
+        return (
+          <Link to={`/program-managers/manager-details/${id}`}>
+            <div className="capitalize text-center hover:underline">
+              {row.getValue('name')}
+            </div>
+          </Link>
+        )
+      },
     },
     {
       header: 'Total Programs',

@@ -244,11 +244,16 @@ export function ProgramTableDemo() {
     {
       accessorKey: 'name',
       header: 'Name',
-      cell: ({ row }) => (
-        <div className="capitalize text-center cursor-pointer hover:underline">
-          {row.getValue('name')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const id = row.original.product_id
+        return (
+          <Link to={`/programs/program/${id}`}>
+            <div className="capitalize text-center cursor-pointer hover:underline">
+              {row.getValue('name')}
+            </div>
+          </Link>
+        )
+      },
     },
     {
       accessorKey: 'category',
