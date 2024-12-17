@@ -234,9 +234,11 @@ export function InventoryTable() {
       accessorKey: 'product_name',
       header: 'Product Name',
       cell: ({ row }) => (
-        <div className="capitalize text-center cursor-pointer hover:underline">
-          {row.getValue('product_name')}
-        </div>
+        <Link to="/inventory/order-details/:id">
+          <div className="capitalize text-center cursor-pointer hover:underline">
+            {row.getValue('product_name')}
+          </div>
+        </Link>
       ),
     },
     {

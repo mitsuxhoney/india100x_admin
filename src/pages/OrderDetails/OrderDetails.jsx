@@ -8,6 +8,17 @@ import {
 } from '@/components/ui/card'
 import * as React from 'react'
 import Lottie from 'lottie-react'
+import {
+  Timeline,
+  TimelineItem,
+  TimelineConnector,
+  TimelineHeader,
+  TimelineTitle,
+  TimelineIcon,
+  TimelineDescription,
+  TimelineContent,
+  TimelineTime,
+} from '@/components/ui/timeline'
 import OrderTruck from '@/assets/lottie-json/order-details.json'
 import {
   Table,
@@ -67,6 +78,9 @@ import {
   IndianRupee,
   Download,
   Mail,
+  LocateIcon,
+  MapIcon,
+  MapPinIcon,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
@@ -112,23 +126,25 @@ const data = [
     quantity: 2,
     total_amount: 300,
   },
+]
+const items = [
   {
-    product_name: 'Mac',
-    product_img: order_img_1,
-    product_category: 'Software',
-    card_nature: 'Virtual',
-    price: 250,
-    quantity: 3,
-    total_amount: 750,
+    id: 1,
+    title: 'First event',
+    date: '2022-01-01',
+    description: 'Processed',
   },
   {
-    product_name: 'Linux',
-    product_img: order_img_2,
-    product_category: 'Software',
-    card_nature: 'Physical',
-    price: 100,
-    quantity: 4,
-    total_amount: 400,
+    id: 2,
+    title: 'Second event',
+    date: '2022-02-01',
+    description: 'Shipped',
+  },
+  {
+    id: 3,
+    title: 'Third event',
+    date: '2022-03-01',
+    description: 'Delivered',
   },
 ]
 
@@ -147,8 +163,8 @@ const OrderDetails = () => {
   return (
     <div className="relative w-full flex flex-col md:flex-row gap-2">
       <div className="w-full xl:flex-row gap-2 flex flex-col">
-        <div className="xl:w-[70%] w-full flex flex-col">
-          <div className="h-16 bg-muted/50 rounded-md flex items-center justify-between px-2 text-md font-medium">
+        <div className="xl:w-[70%] w-full flex flex-col gap-4">
+          <div className="h-16 bg-muted/50 rounded-md flex items-center justify-between px-4 text-md font-medium">
             <p>Order #{id}</p>
             <Button variant="outline">
               <Download />
@@ -157,7 +173,7 @@ const OrderDetails = () => {
           </div>
           <div className="grid grid-cols-1 gap-2">
             <div className="w-full">
-              <div className="rounded-md border mt-3">
+              <div className="rounded-md border mt-[-10px]">
                 <Table>
                   <TableCaption className="pb-8">
                     A list of your recent invoices.
@@ -177,9 +193,9 @@ const OrderDetails = () => {
                           <div className="flex items-center gap-2 justify-start">
                             <div className="rounded-md bg-muted/50 min-w-20">
                               <img
-                                src={product.product_img}
+                                src={product.product_img1}
                                 className="h-20 min-w-20"
-                                alt=""
+                                alt="Image"
                               />
                             </div>
                             <div>
@@ -219,13 +235,90 @@ const OrderDetails = () => {
               </div>
             </div>
           </div>
+
+          <div className="w-full rounded-md bg-muted/50 flex flex-col">
+            <div className="h-16 w-full flex justify-between gap-2 items-center px-2 text-md font-medium">
+              <p>Order Status</p>
+              <div className="flex gap-2">
+                <Button variant="outline">Change Address</Button>
+                <Button variant="outline">Cancel Order</Button>
+              </div>
+            </div>
+            <Separator />
+            <div className="pt-12">
+              <Timeline>
+                {items.map((item, index) => {
+                  return (
+                    <>
+                      <TimelineItem>
+                        {index === items.length - 1 ? null : (
+                          <TimelineConnector />
+                        )}
+                        <TimelineHeader>
+                          <TimelineTime>{item.date}</TimelineTime>
+                          <TimelineIcon />
+                          <TimelineTitle>{item.title}</TimelineTitle>
+                        </TimelineHeader>
+                        <TimelineContent>
+                          <TimelineDescription>
+                            {item.description}
+                          </TimelineDescription>
+                        </TimelineContent>
+                      </TimelineItem>
+                    </>
+                  )
+                })}
+              </Timeline>
+              {/* <Timeline>
+                <TimelineItem>
+                  <TimelineConnector />
+                  <TimelineHeader>
+                    <TimelineTime>{items[0].date}</TimelineTime>
+                    <TimelineIcon />
+                    <TimelineTitle>{items[0].title}</TimelineTitle>
+                  </TimelineHeader>
+                  <TimelineContent>
+                    <TimelineDescription>
+                      {items[0].description}
+                    </TimelineDescription>
+                  </TimelineContent>
+                </TimelineItem>
+                <TimelineItem>
+                  <TimelineConnector />
+                  <TimelineHeader>
+                    <TimelineTime>{items[1].date}</TimelineTime>
+                    <TimelineIcon />
+                    <TimelineTitle>{items[1].title}</TimelineTitle>
+                  </TimelineHeader>
+                  <TimelineContent>
+                    <TimelineDescription>
+                      {items[1].description}
+                    </TimelineDescription>
+                  </TimelineContent>
+                </TimelineItem>
+                <TimelineItem>
+                  <TimelineHeader>
+                    <TimelineTime>{items[2].date}</TimelineTime>
+                    <TimelineIcon />
+                    <TimelineTitle>{items[2].title}</TimelineTitle>
+                  </TimelineHeader>
+                  <TimelineContent>
+                    <TimelineDescription>
+                      {items[2].description}
+                    </TimelineDescription>
+                  </TimelineContent>
+                </TimelineItem>
+              </Timeline> */}
+            </div>
+          </div>
         </div>
         <div className="xl:w-[30%] w-full flex flex-col gap-2">
-          <div className="flex flex-col w-full rounded-md bg-muted/50 gap-0 pb-8 px-4">
-            <div className="h-16 flex items-center justify-between text-md font-medium">
+          <div className="flex flex-col w-full rounded-md bg-muted/50 gap-0 pb-10">
+            <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
               <div>Logistic Details</div>
               <Button variant="outline">Track Order</Button>
             </div>
+            <Separator className="mt-[-5px] w-full" />
             <div className="flex items-center justify-center mt-[-30px]">
               <Lottie
                 animationData={OrderTruck}
@@ -238,14 +331,15 @@ const OrderDetails = () => {
               <div className="text-sm font-semibold">Payment mode : Online</div>
             </div>
           </div>
-          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-2 px-4 pb-8">
-            <div className="h-16 flex items-center justify-between px-2 text-md font-medium">
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-3 pb-10">
+            <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
               <div>Customer Details</div>
               <p className="hover:underline cursor-pointer text-sm">
                 View Profile
               </p>
             </div>
-            <div className="flex flex-col gap-4">
+            <Separator className="mt-[-20px]" />
+            <div className="flex flex-col gap-6">
               <div className="flex gap-2 px-2 items-center">
                 <Avatar>
                   <AvatarImage
@@ -259,7 +353,7 @@ const OrderDetails = () => {
                   <p className="text-xs font-medium">Customer</p>
                 </div>
               </div>
-              <div className="flex flex-col px-2 gap-2">
+              <div className="flex flex-col px-4 gap-4">
                 <div className="text-sm font-medium flex items-center gap-1">
                   <Mail size={18} strokeWidth={1.5} />
                   Joseph@gmail.com
@@ -269,6 +363,21 @@ const OrderDetails = () => {
                   +914858659874
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8">
+            <div className="h-16 flex items-center gap-2 px-4 text-md font-medium">
+              <MapPinIcon size={18} strokeWidth={1.5} />
+              <p className="hover:underline cursor-pointer text-md">
+                Billing Address
+              </p>
+            </div>
+            <Separator className="mt-[-20px]" />
+            <div className="px-4 flex flex-col gap-2">
+              <p className="text-sm font-medium">Joseph Parker</p>
+              <p className="text-sm font-medium">+919876787898</p>
+              <p className="text-sm font-medium">Laxmi Nagar, New Delhi</p>
+              <p className="text-sm font-medium">India</p>
             </div>
           </div>
         </div>
