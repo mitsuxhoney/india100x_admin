@@ -100,27 +100,27 @@ import { status } from '@/data/program-manager-data'
 
 const data = [
   {
-    product_name: 'Android',
+    product_name: 'Shopping',
     product_img: order_img_1,
-    product_category: 'Mobile',
+    product_category: 'Monthly Expense',
     card_nature: 'Virtual',
     price: 200,
     quantity: 10,
     total_amount: 2000,
   },
   {
-    product_name: 'iPhone',
+    product_name: 'OTT',
     product_img: order_img_2,
-    product_category: 'Mobile',
+    product_category: 'Entertainment',
     card_nature: 'Physical',
     price: 300,
     quantity: 5,
     total_amount: 1500,
   },
   {
-    product_name: 'Windows',
+    product_name: 'Travel',
     product_img: order_img_3,
-    product_category: 'Software',
+    product_category: 'Business',
     card_nature: 'Physical',
     price: 150,
     quantity: 2,
@@ -189,25 +189,27 @@ const OrderDetails = () => {
                   <TableBody>
                     {data.map((product) => (
                       <TableRow key={product.product_name}>
-                        <TableCell className="w-[250px]">
+                        <TableCell className="min-w-[350px]">
                           <div className="flex items-center gap-2 justify-start">
-                            <div className="rounded-md bg-muted/50 min-w-20">
+                            <div className="rounded-md bg-muted/50 min-w-24">
                               <img
                                 src={product.product_img1}
-                                className="h-20 min-w-20"
+                                className="h-20 min-w-24"
                                 alt="Image"
                               />
                             </div>
-                            <div>
+                            <div className="">
                               <p className="text-sm font-medium">
                                 {product.product_name}
                               </p>
-                              <p className="text-xs font-medium">
-                                Category : {product.product_category}
-                              </p>
-                              <p className="text-xs font-medium">
-                                Card Nature : {product.card_nature}
-                              </p>
+                              <div className="flex flex-col gap-0">
+                                <p className="text-xs font-medium">
+                                  Category : {product.product_category}
+                                </p>
+                                <p className="text-xs font-medium">
+                                  Card Nature : {product.card_nature}
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </TableCell>
