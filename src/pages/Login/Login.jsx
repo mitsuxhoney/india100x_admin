@@ -6,7 +6,7 @@ import ForgotPasswordForm from '@/components/ForgotPasswordForm'
 import InputOTPForm from '@/components/InputOTPForm'
 import ResetPasswordForm from '@/components/ResetPasswordForm'
 
-export default function Login({setAccessToken}) {
+export default function Login() {
   const [screen, setScreen] = useState('login')
   const [inputType, setInputType] = useState('email')
   return (
@@ -57,7 +57,7 @@ export default function Login({setAccessToken}) {
         </div>
         <div className="lg:p-4 p-10">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] ">
-            {screen === 'login' && <UserLoginForm setScreen={setScreen} setAccessToken={setAccessToken} />}
+            {screen === 'login' && <UserLoginForm setScreen={setScreen} />}
             {screen === 'forgot-password' && (
               <ForgotPasswordForm
                 inputType={inputType}

@@ -19,7 +19,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from '@/components/ui/form'
 //import {useAuth} from '../hooks/useAuth';
 
 const formSchema = z.object({
@@ -29,16 +29,16 @@ const formSchema = z.object({
     .min(6, { message: 'Password must be at least 6 characters.' }),
 })
 
-export default function UserLoginForm({ setScreen,setAccessToken}) {
+export default function UserLoginForm({ setScreen }) {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
       password: '',
     },
-  });
-  const [isLoading, setIsLoading] = React.useState(false);
-  const navigate = useNavigate(); 
+  })
+  const [isLoading, setIsLoading] = React.useState(false)
+  const navigate = useNavigate()
   //const {setAuth}=useAuth();
 
   // async function onSubmit(values) {
@@ -66,34 +66,8 @@ export default function UserLoginForm({ setScreen,setAccessToken}) {
   //     setIsLoading(false);
   //   }
   // }
-  async function onSubmit(e) {
+  async function onSubmit() {
     //e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        '/auth/login',
-        {
-          email: e.email,
-          password: e.password,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
-      setAccessToken(response.data?.data);
-      //console.log(response);
-      //localStorage.setItem('auth_token',response.data.data);
-      //console.log(JSON.stringify(response));
-      //const accessToken = response?.data;
-      //const roles = response?.data?.roles;
-      //setAuth({ accessToken });
-      //setUser('');
-      //setPwd('');
-      navigate('/business-dashboard')
-    } catch (err) {
-      console.error('Login failed:', err.response?.data || err.message)
-    }
   }
 
   return (
@@ -157,7 +131,14 @@ export default function UserLoginForm({ setScreen,setAccessToken}) {
               </div>
             </div>
             <div className="flex justify-center items-center w-full">
-              <Button disabled={isLoading} className="w-full" type="submit">
+              <Button
+                disabled={isLoading}
+                onClick={() => {
+                  navigate('/business-dashboard')
+                }}
+                className="w-full"
+                type="submit"
+              >
                 Log in
               </Button>
             </div>

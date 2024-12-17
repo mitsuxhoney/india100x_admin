@@ -128,22 +128,24 @@ const data = [
   },
 ]
 const items = [
+
   {
-    id: 1,
+    id:2,
     title: 'First event',
-    date: '2022-01-01',
+    date: '23-02-2024',
     description: 'Processed',
   },
+
   {
-    id: 2,
+    id:3,
     title: 'Second event',
-    date: '2022-02-01',
+    date: '26-02-2024',
     description: 'Shipped',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Third event',
-    date: '2022-03-01',
+    date: '01-03-2024',
     description: 'Delivered',
   },
 ]
@@ -239,7 +241,7 @@ const OrderDetails = () => {
           </div>
 
           <div className="w-full rounded-md bg-muted/50 flex flex-col">
-            <div className="h-16 w-full flex justify-between gap-2 items-center px-2 text-md font-medium">
+            <div className="h-16 w-full flex justify-between gap-2 items-center px-4 text-md font-medium">
               <p>Order Status</p>
               <div className="flex gap-2">
                 <Button variant="outline">Change Address</Button>
@@ -324,6 +326,7 @@ const OrderDetails = () => {
             <div className="flex items-center justify-center mt-[-30px]">
               <Lottie
                 animationData={OrderTruck}
+                className="dark:text-white"
                 style={{ width: '200px', height: '200px' }}
                 loop={true}
               />
@@ -376,7 +379,37 @@ const OrderDetails = () => {
             </div>
             <Separator className="mt-[-20px]" />
             <div className="px-4 flex flex-col gap-2">
-              <p className="text-sm font-medium">Joseph Parker</p>
+              <p className="text-md font-medium">Joseph Parker</p>
+              <p className="text-sm font-medium">+919876787898</p>
+              <p className="text-sm font-medium">Laxmi Nagar, New Delhi</p>
+              <p className="text-sm font-medium">India</p>
+            </div>
+          </div>
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8">
+            <div className="h-16 flex items-center gap-2 px-4 text-md font-medium">
+              <MapPinIcon size={18} strokeWidth={1.5} />
+              <p className="hover:underline cursor-pointer text-md">
+                Shipping Address
+              </p>
+            </div>
+            <Separator className="mt-[-20px]" />
+            <div className="px-4 flex flex-col gap-2">
+              <p className="text-md font-medium">Joseph Parker</p>
+              <p className="text-sm font-medium">+919876787898</p>
+              <p className="text-sm font-medium">Laxmi Nagar, New Delhi</p>
+              <p className="text-sm font-medium">India</p>
+            </div>
+          </div>
+          <div className="w-full flex rounded-md flex-col bg-muted/50 gap-4 pb-8">
+            <div className="h-16 flex items-center gap-2 px-4 text-md font-medium">
+              <MapPinIcon size={18} strokeWidth={1.5} />
+              <p className="hover:underline cursor-pointer text-md">
+                Shipping Address
+              </p>
+            </div>
+            <Separator className="mt-[-20px]" />
+            <div className="px-4 flex flex-col gap-2">
+              <p className="text-md font-medium">Joseph Parker</p>
               <p className="text-sm font-medium">+919876787898</p>
               <p className="text-sm font-medium">Laxmi Nagar, New Delhi</p>
               <p className="text-sm font-medium">India</p>
