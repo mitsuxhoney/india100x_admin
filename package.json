@@ -38,8 +38,10 @@
     "embla-carousel-autoplay": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
     "file-saver": "^2.0.5",
+    "framer-motion": "^11.15.0",
     "input-otp": "^1.4.1",
     "js-cookie": "^3.0.5",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.465.0",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",
@@ -49,6 +51,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
     "recharts": "^2.14.1",
+    "solid-js": "^1.9.3",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

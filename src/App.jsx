@@ -17,11 +17,13 @@ import FundingTransactions from './pages/FundingTransactions/FundingTransactions
 import SystemUsers from './pages/SystemUsers/SystemUsers'
 import UserActivityLogs from './pages/UserActivityLogs/UserActivityLogs'
 import CreateProgram from './pages/CreateProgram/CreateProgram'
-import CreateInventory from './pages/CreateInventory/CreateInventory'
+import CreateOrder from './pages/CreateOrder/CreateOrder'
 import Profile from '@/pages/AccountProfile/Profile'
 import Security from '@/pages/AccountSecurity/Security'
 import Appearance from '@/pages/AccountAppearance/Appearance'
+import ProgramManagerDetails from './pages/ProgramManagerDetails/ProgramManagerDetails'
 import Notifications from '@/pages/AccountNotifications/Notifications'
+import OrderDetails from './pages/OrderDetails/OrderDetails'
 
 import ApiKeys from '@/pages/DeveloperApiKeys/ApiKeys'
 import Webhooks from '@/pages/DeveloperWebhooks/Webhooks'
@@ -60,11 +62,18 @@ function App() {
 
           <Route path="/programs/create-program" element={<CreateProgram />} />
           <Route path="/program-managers" element={<ProgramManagers />} />
+          <Route
+            path="/program-managers/manager-details/:id"
+            element={<ProgramManagerDetails />}
+          />
+
           <Route path="/inventory" element={<Inventory />} />
           <Route
-            path="/inventory/create-inventory"
-            element={<CreateInventory />}
+            path="/inventory/order-details/:id"
+            element={<OrderDetails />}
           />
+
+          <Route path="/inventory/create-order" element={<CreateOrder />} />
           <Route path="/issued-cards" element={<IssuedCards />} />
           <Route path="/all-customers" element={<AllCustomers />} />
           <Route path="/flagged-customers" element={<FlaggedCustomers />} />

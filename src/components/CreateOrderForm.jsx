@@ -153,7 +153,7 @@ const formSchema = z.object({
   mcc_type: z.string().optional(),
 })
 
-function CreateInventoryForm() {
+function CreateOrderForm() {
   // Set up React Hook Form with Zod
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -1609,4 +1609,4 @@ function CreateInventoryForm() {
   )
 }
 
-export default CreateInventoryForm
+export default CreateOrderForm

@@ -233,11 +233,16 @@ export function InventoryTable() {
     {
       accessorKey: 'product_name',
       header: 'Product Name',
-      cell: ({ row }) => (
-        <div className="capitalize text-center cursor-pointer hover:underline">
-          {row.getValue('product_name')}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const id = row.original.product_id
+        return (
+          <Link to={`/inventory/order-details/${id}`}>
+            <div className="capitalize text-center cursor-pointer hover:underline">
+              {row.getValue('product_name')}
+            </div>
+          </Link>
+        )
+      },
     },
     {
       accessorKey: 'product_category',
@@ -403,7 +408,7 @@ export function InventoryTable() {
               </Button>
 
               <DataTableViewOptions table={table} />
-              <Link to="/program/create-program">
+              <Link to="/inventory/create-order">
                 <Button variant="" className="ml-auto h-8">
                   {' '}
                   <CirclePlus /> Create Order
