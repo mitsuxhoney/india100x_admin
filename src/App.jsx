@@ -39,20 +39,10 @@ import ApiLogs from './pages/DeveloperApiLogs/ApiLogs'
 import ProgramDetails from '@/pages/ProgramDetails/ProgramDetails'
 import { useState } from 'react'
 function App() {
-  const [accessToken, setAccessTokenState] = useState(null)
-
-  const handleSetAccessToken = (token) => {
-    setAccessTokenState(token)
-    setAccessToken(token) // Update Axios header
-  }
-
   return (
     <ThemeProvider>
       <Routes>
-        <Route
-          path="/login"
-          element={<Login setAccessToken={handleSetAccessToken} />}
-        />
+        <Route path="/login" element={<Login />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/business-dashboard" element={<BusinessDashboard />} />
