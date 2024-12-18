@@ -9,7 +9,8 @@ import {
 
 import FrontImg from '@/assets/front-img.png'
 import BackImg from '@/assets/back-img.png'
-import { Copy } from 'lucide-react'
+import { Copy, SquareArrowOutUpRight } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 import Autoplay from 'embla-carousel-autoplay'
 
@@ -30,48 +31,160 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { Separator } from '@/components/ui/separator'
 
 import { Badge } from '@/components/ui/badge'
 import React from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 const dataImg = [FrontImg, BackImg]
 
-const invoices = [
-  {
-    invoice: 'Tags',
-    paymentStatus: 'KYC',
-    totalAmount: 'Physical',
-    paymentMethod: 'Add On Card',
-  },
-  {
-    invoice: 'Physical Card',
-    paymentStatus: 'Available',
-  },
-  {
-    invoice: 'Tags',
-    paymentStatus: 'KYC',
-    totalAmount: 'Physical',
-    paymentMethod: 'Add On Card',
-  },
-  {
-    invoice: 'Tags',
-    paymentStatus: 'KYC',
-    totalAmount: 'Physical',
-    paymentMethod: 'Add On Card',
-  },
-]
+const program = {
+  created_on: '17-12-2024',
+  created_by: 'ONO',
+  category: 'Entertainment',
+  status: 'true',
+  limit: '10000',
+  is_kyc: true,
+  is_contactless: true,
+  is_reward: true,
+  is_physical: true,
+}
 
 const ProgramDetails = () => {
   const plugin = React.useRef(Autoplay({ delay: 2000 }))
   return (
     <div className="relative w-full flex flex-col md:flex-row md:gap-2 gap-2">
-      <div className="w-full lg:w-[35%] right-0 flex flex-col gap-2">
+      <div className="w-full xl:min-w-[65%] space-y-2">
+        <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full">
+          <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
+            <div className="flex gap-2 items-center">
+              <h2 className="text-lg font-medium">ONO</h2>
+              {program.status === 'true' && (
+                <Badge className="bg-[#E4F5E9] text-[#16794C] cursor-pointer tracking-widest">
+                  Active
+                </Badge>
+              )}
+              {program.status === 'false' && (
+                <Badge className="bg-[#FFF0F0] text-[#B52A2A] cursor-pointer tracking-widest">
+                  Inactive
+                </Badge>
+              )}
+            </div>
+            <Button variant="outline">Edit</Button>
+          </div>
+          <Separator className="mt-[-8px]" />
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 px-4 py-2 w-full">
+            <div className="flex flex-col gap-1 xl:border-r-2 ">
+              <p className="font-medium text-xs text-muted-foreground">
+                Category
+              </p>
+              <p className="font-medium text-sm">Entertainment</p>
+            </div>
+
+            <div className="flex flex-col gap-1 xl:border-r-2">
+              <p className="font-medium text-xs text-muted-foreground">
+                Created By
+              </p>
+              <p className="font-medium text-sm">ONO</p>
+            </div>
+
+            <div className="flex flex-col gap-1 xl:border-r-2 ">
+              <p className="font-medium text-xs text-muted-foreground">
+                Created On
+              </p>
+              <p className="font-medium text-sm">24/12/2024</p>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <p className="font-medium text-xs text-muted-foreground">
+                Card Type
+              </p>
+              <p className="font-medium text-sm">Virtual & Physical</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col rounded-md bg-muted/50 gap-6 px-4 py-2 border w-full">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-md font-medium">Description :</h2>
+            <p className="text-sm font-normal text-muted-foreground">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Voluptatum, sunt? Modi sint labore quod accusamus dolorem expedita
+              fugit, alias optio culpa obcaecati fugiat eum. Corporis atque enim
+              totam veniam porro. Temporibus, a quam quibusdam eligendi porro
+              blanditiis. Iste suscipit necessitatibus libero.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col rounded-md bg-muted/50 gap-6 px-4 py-2 border w-full">
+          <div className="flex gap-2">
+            <h2 className="text-md font-medium">Tags : </h2>
+            {program.is_kyc && (
+              <Badge className="bg-[#E4F5E9] text-[#16794C] cursor-pointer tracking-widest">
+                KYC
+              </Badge>
+            )}
+            {program.is_contactless && (
+              <Badge className="bg-[#F9F0FF] text-[#6E399D] cursor-pointer tracking-widest">
+                Contactless
+              </Badge>
+            )}
+            {program.is_physical && (
+              <Badge className="bg-[#F5FBFC] text-[#267A94] cursor-pointer tracking-widest">
+                Physical
+              </Badge>
+            )}
+            {program.is_reward && (
+              <Badge className="bg-[#FFF1E7] text-[#BD3E0C] cursor-pointer tracking-widest">
+                Reward
+              </Badge>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full">
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 px-4 py-2 w-full">
+            <div className="flex flex-col gap-1 xl:border-r-2 ">
+              <p className="font-medium text-xs text-muted-foreground">
+                Total Customers
+              </p>
+              <p className="font-medium text-sm">10000</p>
+            </div>
+
+            <div className="flex flex-col gap-1 xl:border-r-2">
+              <p className="font-medium text-xs text-muted-foreground">
+                No. of Cards
+              </p>
+              <p className="font-medium text-sm">100</p>
+            </div>
+
+            <div className="flex flex-col gap-1 xl:border-r-2 ">
+              <p className="font-medium text-xs text-muted-foreground">
+                Available Stock
+              </p>
+              <p className="font-medium text-sm">500</p>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <p className="font-medium text-xs text-muted-foreground">
+                Transaction Limit
+              </p>
+              <p className="font-medium text-sm">&#8377; {program.limit}</p>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full h-[400px]"></div>
+          <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full h-[400px]"></div>
+        </div>
+      </div>
+      <div className="w-full xl:min-w-[35%] flex flex-col gap-2">
         <div>
           <Carousel
             plugins={[plugin.current]}
-            className="w-full"
+            className="w-full relative"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.play}
           >
@@ -79,15 +192,26 @@ const ProgramDetails = () => {
               {dataImg.map((img, index) => (
                 <CarouselItem key={index}>
                   <div>
-                    <Card>
+                    <Card className="p-14">
                       <CardContent className="flex aspect-square items-center justify-center p-6">
-                        <span className="text-4xl font-semibold">
+                        <div className="text-4xl font-semibold relative">
                           <img
                             className="w-full h-full object-cover"
                             src={img}
                             alt="Front Image"
                           />
-                        </span>
+                          <div className="flex gap-2 absolute -bottom-8  right-8 z-[100] ">
+                            <Link
+                              to="/card-design"
+                              className="flex gap-0 items-center hover:underline"
+                            >
+                              <p className="font-medium text-sm text-muted-foreground ">
+                                Card Design Link
+                              </p>
+                              <SquareArrowOutUpRight className="h-4" />
+                            </Link>
+                          </div>
+                        </div>
                       </CardContent>
                     </Card>
                   </div>
@@ -98,205 +222,26 @@ const ProgramDetails = () => {
             <CarouselNext className="absolute right-5 " />
           </Carousel>
         </div>
-        <div className="mt-2 flex flex-col gap-2 items-start">
-          <h2 className="font-medium">Card Design Link</h2>
-          <div className="w-full flex gap-2 select-none focus:outline-none">
-            <Input
-              disabled
-              className="h-9 select-none focus:outline-none "
-              placeholder="https://ono.club/figma/web-card-design/"
-            />
-            <Button className="" variant="outline">
-              <Copy />
-            </Button>
-          </div>
-        </div>
-        <div className="mt-2 flex flex-col gap-2 items-start">
-          <h2 className="font-medium">Card Type</h2>
-          <div className="w-full flex gap-2">
-            <Input disabled className="h-9 " placeholder="OTT" />
-          </div>
-        </div>
-      </div>
-      <div className="w-full lg:w-[65%]">
-        <Card>
-          <CardHeader>
-            <CardTitle>OTT</CardTitle>
-            <CardDescription>
-              <div className="mt-2 flex  gap-4">
-                <div>
-                  <h2>
-                    Status :{' '}
-                    <span className="font-semibold">
-                      <Badge variant="primary">Active</Badge>
-                    </span>
-                  </h2>
-                </div>
-                <div className="">
-                  <h2 className="">
-                    Category :{' '}
-                    <span className="font-semibold">Entertainment</span>
-                  </h2>
-                </div>
-                <div>
-                  <h2>
-                    Manager : <span className="font-semibold">ONO</span>
-                  </h2>
-                </div>
-                <div>
-                  <h2>
-                    Launch Date :{' '}
-                    <span className="font-semibold">14/12/2024</span>
-                  </h2>
-                </div>
-              </div>
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Total Customers
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">100</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      No. of Orders
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">50</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Available Stock
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <rect width="20" height="14" x="2" y="5" rx="2" />
-                      <path d="M2 10h20" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">150</div>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Transaction Limit
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">&#8377;50K-1Lakh</div>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="flex flex-col gap-2">
-                <h2 className="text-md font-medium">Description :</h2>
-                <p className="text-sm font-normal text-muted-foreground">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptatum, sunt? Modi sint labore quod accusamus dolorem
-                  expedita fugit, alias optio culpa obcaecati fugiat eum.
-                  Corporis atque enim totam veniam porro. Temporibus, a quam
-                  quibusdam eligendi porro blanditiis. Iste suscipit
-                  necessitatibus libero, quo sapiente provident perspiciatis
-                  pariatur aspernatur sequi nesciunt assumenda architecto
-                  repellat consequuntur laudantium natus quisquam porro nisi
-                  voluptatem blanditiis! Iure quod distinctio eveniet quo.
-                </p>
-              </div>
 
-              <div className="w-full space-y-2">
-                <h2 className="text-md font-medium">Features</h2>
-
-                <Card>
-                  <div className="p-4">
-                    <Table>
-                      {/* <TableHeader>
-                      <TableRow>
-                        <TableHead className="w-[100px]">Invoice</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Method</TableHead>
-                        <TableHead className="text-right">Amount</TableHead>
-                      </TableRow>
-                    </TableHeader> */}
-                      <TableBody>
-                        {invoices.map((invoice) => (
-                          <TableRow key={invoice.invoice}>
-                            <TableCell className="font-medium">
-                              {invoice.invoice}
-                            </TableCell>
-                            <TableCell>{invoice.paymentStatus}</TableCell>
-                            <TableCell>{invoice.paymentMethod}</TableCell>
-                            <TableCell className="text-right">
-                              {invoice.totalAmount}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                </Card>
-              </div>
+        {/* <div className="mt-2 flex flex-col gap-2 items-start">
+            <h2 className="font-medium">Card Design Link</h2>
+            <div className="w-full flex gap-2 select-none focus:outline-none">
+              <Input
+                disabled
+                className="h-9 select-none focus:outline-none "
+                placeholder="https://ono.club/figma/web-card-design/"
+              />
+              <Button className="" variant="outline">
+                <Copy />
+              </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div> */}
+        {/* <div className="mt-2 flex flex-col gap-2 items-start">
+            <h2 className="font-medium">Card Type</h2>
+            <div className="w-full flex gap-2">
+              <Input disabled className="h-9 " placeholder="OTT" />
+            </div>
+          </div> */}
       </div>
     </div>
   )

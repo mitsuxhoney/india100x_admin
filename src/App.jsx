@@ -62,8 +62,6 @@ function App() {
             path="/inventory/order-details/:id"
             element={<OrderDetails />}
           />
-
-          <Route path="/inventory/create-order" element={<CreateOrder />} />
           <Route path="/issued-cards" element={<IssuedCards />} />
           <Route path="/all-customers" element={<AllCustomers />} />
           <Route path="/flagged-customers" element={<FlaggedCustomers />} />

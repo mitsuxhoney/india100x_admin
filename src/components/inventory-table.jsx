@@ -9,6 +9,16 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import DataTableFacetedFilter from '@/components/DataTableFacetedFilter'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import DataTableViewOptions from '@/components/DataTableViewOptions'
 
 import {
@@ -28,6 +38,7 @@ import {
   ChevronRight,
   ChevronsRight,
   X,
+  Plus,
 } from 'lucide-react'
 
 import {
@@ -408,12 +419,20 @@ export function InventoryTable() {
               </Button>
 
               <DataTableViewOptions table={table} />
-              <Link to="/inventory/create-order">
-                <Button variant="" className="ml-auto h-8">
-                  {' '}
-                  <CirclePlus /> Create Order
-                </Button>
-              </Link>
+              <Sheet className="w-[95vw]">
+                <SheetTrigger>
+                  <Button>
+                    <CirclePlus />
+                    Create Order
+                  </Button>
+                </SheetTrigger>
+                <SheetContent className="w-full max-w-full lg:max-w-4xl">
+                  <SheetHeader>
+                    <SheetTitle>Create Order</SheetTitle>
+                    <SheetDescription></SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
           <div className="rounded-md border mt-3">
