@@ -152,7 +152,7 @@ const OrderDetails = () => {
     <div className="relative w-full flex flex-col md:flex-row gap-2">
       <div className="w-full xl:flex-row gap-2 flex flex-col mt-2">
         <div className="xl:w-[70%] w-full flex flex-col gap-4">
-          <div className="h-16 bg-muted/50 rounded-md border flex items-center justify-between px-4 text-md font-medium">
+          <div className="h-16 bg-muted/50 rounded-md border shadow-sm flex items-center justify-between px-4 text-md font-medium">
             <div className="flex flex-col">
               <h2>Order ID : 125467</h2>
               <div className="flex gap-2">
