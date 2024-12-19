@@ -9,6 +9,8 @@ import {
 
 import FrontImg from '@/assets/front-img.png'
 import BackImg from '@/assets/back-img.png'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
 import { Copy, SquareArrowOutUpRight } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
@@ -45,7 +47,7 @@ const program = {
   created_on: '17-12-2024',
   created_by: 'ONO',
   category: 'Entertainment',
-  status: 'true',
+  status: false,
   limit: '10000',
   is_kyc: true,
   is_contactless: true,
@@ -53,27 +55,91 @@ const program = {
   is_physical: true,
 }
 
+const invoices = [
+  {
+    bank_name: 'HDFC Bank',
+    paymentStatus: 'Paid',
+    totalAmount: '$250.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    bank_name: '',
+    paymentStatus: 'Pending',
+    totalAmount: '$150.00',
+    paymentMethod: 'PayPal',
+  },
+  {
+    invoice: 'INV003',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$350.00',
+    paymentMethod: 'Bank Transfer',
+  },
+  {
+    invoice: 'INV004',
+    paymentStatus: 'Paid',
+    totalAmount: '$450.00',
+    paymentMethod: 'Credit Card',
+  },
+  {
+    invoice: 'INV005',
+    paymentStatus: 'Paid',
+    totalAmount: '$550.00',
+    paymentMethod: 'PayPal',
+  },
+  {
+    invoice: 'INV006',
+    paymentStatus: 'Pending',
+    totalAmount: '$200.00',
+    paymentMethod: 'Bank Transfer',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: 'Unpaid',
+    totalAmount: '$300.00',
+    paymentMethod: 'Credit Card',
+  },
+]
+
 const ProgramDetails = () => {
   const plugin = React.useRef(Autoplay({ delay: 2000 }))
   return (
-    <div className="relative w-full flex flex-col md:flex-row md:gap-2 gap-2">
+    <div className="relative w-full flex flex-col xl:flex-row xl:gap-2 gap-2">
       <div className="w-full xl:min-w-[65%] space-y-2">
         <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full">
           <div className="h-16 flex items-center justify-between px-4 text-md font-medium">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-4 items-center">
               <h2 className="text-lg font-medium">ONO</h2>
-              {program.status === 'true' && (
+              {program.is_kyc && (
                 <Badge className="bg-[#E4F5E9] text-[#16794C] cursor-pointer tracking-widest">
-                  Active
+                  KYC
                 </Badge>
               )}
-              {program.status === 'false' && (
-                <Badge className="bg-[#FFF0F0] text-[#B52A2A] cursor-pointer tracking-widest">
-                  Inactive
+              {program.is_contactless && (
+                <Badge className="bg-[#F9F0FF] text-[#6E399D] cursor-pointer tracking-widest">
+                  Contactless
+                </Badge>
+              )}
+              {program.is_physical && (
+                <Badge className="bg-[#F5FBFC] text-[#267A94] cursor-pointer tracking-widest">
+                  Physical
+                </Badge>
+              )}
+              {program.is_reward && (
+                <Badge className="bg-[#FFF1E7] text-[#BD3E0C] cursor-pointer tracking-widest">
+                  Reward
                 </Badge>
               )}
             </div>
-            <Button variant="outline">Edit</Button>
+
+            <div className="flex gap-2 items-center">
+              <div className="flex items-center gap-2">
+                <Switch id="status" checked={program.status} disabled />
+                <Label htmlFor="status">
+                  {program.status ? 'Active' : 'Inactive'}
+                </Label>
+              </div>
+              <Button variant="outline">Edit</Button>
+            </div>
           </div>
           <Separator className="mt-[-8px]" />
           <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 px-4 py-2 w-full">
@@ -119,31 +185,7 @@ const ProgramDetails = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col rounded-md bg-muted/50 gap-6 px-4 py-2 border w-full">
-          <div className="flex gap-2">
-            <h2 className="text-md font-medium">Tags : </h2>
-            {program.is_kyc && (
-              <Badge className="bg-[#E4F5E9] text-[#16794C] cursor-pointer tracking-widest">
-                KYC
-              </Badge>
-            )}
-            {program.is_contactless && (
-              <Badge className="bg-[#F9F0FF] text-[#6E399D] cursor-pointer tracking-widest">
-                Contactless
-              </Badge>
-            )}
-            {program.is_physical && (
-              <Badge className="bg-[#F5FBFC] text-[#267A94] cursor-pointer tracking-widest">
-                Physical
-              </Badge>
-            )}
-            {program.is_reward && (
-              <Badge className="bg-[#FFF1E7] text-[#BD3E0C] cursor-pointer tracking-widest">
-                Reward
-              </Badge>
-            )}
-          </div>
-        </div>
+
         <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full">
           <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 px-4 py-2 w-full">
             <div className="flex flex-col gap-1 xl:border-r-2 ">
@@ -176,12 +218,14 @@ const ProgramDetails = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full h-[400px]"></div>
+          <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full px-4 py-2">
+            {/* <h2 className="text-md font-medium">Banking Details : </h2> */}
+          </div>
           <div className="flex flex-col rounded-md bg-muted/50 gap-0 border w-full h-[400px]"></div>
         </div>
       </div>
       <div className="w-full xl:min-w-[35%] flex flex-col gap-2">
-        <div>
+        <div className="">
           <Carousel
             plugins={[plugin.current]}
             className="w-full relative"
@@ -196,7 +240,7 @@ const ProgramDetails = () => {
                       <CardContent className="flex aspect-square items-center justify-center p-6">
                         <div className="text-4xl font-semibold relative">
                           <img
-                            className="w-full h-full object-cover"
+                            className="w-full object-cover"
                             src={img}
                             alt="Front Image"
                           />
